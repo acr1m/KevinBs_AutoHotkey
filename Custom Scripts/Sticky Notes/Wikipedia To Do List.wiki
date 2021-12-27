@@ -1,0 +1,155 @@
+<!--
+═════════════════════════════════════════════════════════════════════
+Template Stuff
+═════════════════════════════════════════════════════════════════════
+[] 
+
+
+═════════════════════════════════════════════════════════════════════
+Dress Stuff
+═════════════════════════════════════════════════════════════════════
+
+	
+[~]  Make a basic help page for Editing Dress Pages with links and 
+		lists of the useful templates and category resources.
+	Template Links
+		Dress Infobox					- https://magicami.fandom.com/wiki/Template:Dress_Infobox
+		Type							- https://magicami.fandom.com/wiki/Template:Type
+		Skill Icons 					- https://magicami.fandom.com/wiki/Template:Skill/doc
+		Buffs Icons 					- https://magicami.fandom.com/wiki/Template:Buff
+		Debuffs Icons 					- https://magicami.fandom.com/wiki/Template:Debuff
+		Move Gauge Template 			- https://magicami.fandom.com/wiki/Template:Move_Gauge
+		Remove Buffs/Debuffs Template	- 
+	Category Links 
+		Contributor Resources 			- https://magicami.fandom.com/wiki/Category:Contributor_Resources
+		MAGICAMI Templates 				- https://magicami.fandom.com/wiki/Category:MAGICAMI_Templates
+		Abilities						- https://magicami.fandom.com/wiki/Category:Dress:Abilities
+		
+		https://.........Page Name?action=info
+	__HIDDENCAT__'s 						- https://magicami.fandom.com/wiki/Category:Hidden_categories
+		Category:Page:Missing:Description 	- https://magicami.fandom.com/wiki/Category:Missing:Description
+			This page contains Dress pages that are missing a description. 
+		Category:Page:Finished 				- https://magicami.fandom.com/wiki/Category:Page:Finished
+			Dresses that have their skills complete, but may be missing images.
+		Category:Page:Complete 				- https://magicami.fandom.com/wiki/Category:Page:Complete
+			Don't let the category name fool you.
+			This category contains dresses that are missing their skill info.
+		Category:Page:Incomplete 			- https://magicami.fandom.com/wiki/Category:Page:Incomplete
+			Dresses that are missing Stats or missing their top Description
+		Category:Page:						- 
+
+═════════════════════════════════════════════════════════════════════
+Category Stuff
+═════════════════════════════════════════════════════════════════════
+
+-->
+#492b71
+
+E:\Library\OneDrive\Documents\ShareX\Screenshots\2021-06\Eliza_Light_Buff_1.png
+|-
+| {{Skill|eliza_light_buff_1}} || Light || Buff || 1 || <pre>{{Skill|eliza_light_buff_1}}</pre>
+
+
+══════════════════════════════════════════════════════════════════════════════════════════
+{{Dress Infobox
+| description     = Gaaah! How is Japanese comedy in such a dire state these days? It's just these duos<br/>who only care about rhythm screaming out whatever comes to mind!<br/>Well, I'm going to usher in the new wave of [[wikipedia:Manzai|Japanese stand-up comedy]]!
+| rarity          = SR
+| element         = Light
+| type            = Assist
+| character       = Eliza
+| obtain          = Arachne Demon's Style Gacha<br/>(Light/Dark)
+
+| hp_1            = 3675
+| atk_1           = 202
+| def_1           = 211
+| spd_1           = 63
+
+| fcs             = 40
+| rst             = 40
+
+| hp_60           = 9165
+| atk_60          = 505
+| def_60          = 527
+| spd_60          = 99
+
+| hp_65           = 9630
+| atk_65          = 531
+| def_65          = 553
+| spd_65          = 102
+
+| hp_70           = 10095
+| atk_70          = 556
+| def_70          = 580
+| spd_70          = 105
+
+| hp_75           = 10560
+| atk_75          = 582
+| def_75          = 607
+| spd_75          = 108
+
+| hp_80           = 11025
+| atk_80          = 607
+| def_80          = 633
+| spd_80          = 111
+
+| skill1_name     = Bullet Web
+| skill1_image    = eliza_light_ranged_1
+| skill1_desc     = Attack one enemy with a 50% chance to inflict {{Debuff|stun}} Stun for 1T
+
+| skill1_lvl_2    = Skill DMG +5%
+| skill1_lvl_3    = Skill DMG +10%
+| skill1_lvl_4    = Skill DMG +10%
+| skill1_lvl_5    = Skill DMG +10%
+| skill1_lvl_max  = Skill DMG +35%
+
+| skill2_name     = Jumping Spider
+| skill2_image    = eliza_light_buff_1
+| skill2_desc     = Apply {{Buff|spd_up}} SPD↑ for 2T and {{Buff|fcs_up}} FCS↑ for 2T for one ally, then they gain +30% move gauge
+| skill2_cd       = 5T
+| skill2_cd_max   = 3T
+
+| skill2_lvl_2    = Cooldown -1T
+| skill2_lvl_3    = Cooldown -1T
+| skill2_lvl_max  = Cooldown -2T
+
+| skill3_name     = 
+| skill3_image    = 
+| skill3_desc     = 
+| skill3_desc_max = 
+| skill3_cd       = 
+| skill3_cd_max   = 
+
+| skill3_lvl_2    = 
+| skill3_lvl_3    = 
+| skill3_lvl_4    = 
+| skill3_lvl_5    = 
+| skill3_lvl_6    = 
+| skill3_lvl_7    = 
+| skill3_lvl_8    = 
+| skill3_lvl_max  = 
+}}
+[[Category:Dress:Arachne Demon's Style]]
+[[Category:Page:Incomplete]]
+
+<!-- This is the purple-ish color that is used across the magicami wiki for buttons and table headers n such  -->
+- #492b71	rgb(73, 43, 113)	hsl(266, 45%, 31%)
+- #7846b9	rgb(120, 70, 185)	hsl(266, 45%, 50%)
+- MediumSlateBlue	#7B68EE		rgb(123, 104, 238)
+- MediumPurple		#9370DB		rgb(147, 112, 219)
+- SlateBlue			#6A5ACD		rgb(106, 90, 205)
+- SteelBlue			#4682B4		rgb(70, 130, 180)
+- DarkSlateBlue		#483D8B		rgb(72, 61, 139)
+- 
+
+#453876
+(1*16^2)/2=128
+128/16=8
+
+
+══════════════════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════════════════
+══════════════════════════════════════════════════════════════════════════════════════════

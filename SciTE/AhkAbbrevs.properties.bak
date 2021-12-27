@@ -1,0 +1,33 @@
+﻿# USER ABBREVIATIONS FILE FOR SCITE4AUTOHOTKEY .ahk files
+#
+# YOU ARE ENCOURAGED TO EDIT THIS FILE!
+#
+#
+ie2=if (|){\n\t\n}\nelse if (){\n\t\n}\nelse {\n\t\n}
+ie3=if (|){\n\t\n}\nelse if (){\n\t\n}\nelse if (){\n\t\n}\nelse {\n\t\n}
+ie4=if (|){\n\t\n}\nelse if (){\n\t\n}\nelse if (){\n\t\n}\nelse if (){\n\t\n}\nelse {\n\t\n}
+ie5=if (|){\n\t\n}\nelse if (){\n\t\n}\nelse if (){\n\t\n}\nelse if (){\n\t\n}\nelse if (){\n\t\n}\nelse {\n\t\n}
+ie=if (|){\n\t\n}\nelse {\n\t\n}
+ieie=if (|){\n\t\n}\nelse if (){\n\t\n}\nelse {\n\t\n}
+if=if (|){\n\t\n}
+ifelse2=if (|){\n\t\n}\nelse if (){\n\t\n}\nelse {\n\t\n}
+ifelse3=if (|){\n\t\n}\nelse if (){\n\t\n}\nelse if (){\n\t\n}\nelse {\n\t\n}
+ifelse4=if (|){\n\t\n}\nelse if (){\n\t\n}\nelse if (){\n\t\n}\nelse if (){\n\t\n}\nelse {\n\t\n}
+ifelse5=if (|){\n\t\n}\nelse if (){\n\t\n}\nelse if (){\n\t\n}\nelse if (){\n\t\n}\nelse if (){\n\t\n}\nelse {\n\t\n}
+ifelse=if (|){\n\t\n}\nelse {\n\t\n}
+else=else{\n\t|\n}
+newfunc=(|){\n}
+{={\n\t|\n}
+{}={\n\t|\n}
+nhk=\#\^\!\+Enter::\n{\n\tSend, |\n\treturn\n}
+newhotkey=\#\^\!\+Enter::\n{\n\tSend, |\n\treturn\n}
+nhs=::Enter::\n{\n\tSend, |\n\treturn\n}
+newhotstring=::Enter::\n{\n\tSend, |\n\treturn\n}
+ifwine=\#IfWinExist title_of_window ahk_exe application.exe\n;;If window does exist\n\n#^!+Enter::\n{\n\tWinActivate\n\t|return\n}
+ifwinexist=\#IfWinExist title_of_window ahk_exe application.exe\n;;If window does exist\n\n#^!+Enter::\n{\n\tWinActivate\n\t|return\n}
+ifwina=\#IfWinActive title_of_window ahk_exe application.exe\n;;If window is active\n\n#^!+Enter::\n{\n\t\n\t|return\n}\n;;Re-declare any window as an acceptable \n;;case-scenario before exit.\n#IfWinActive
+ifwinactive=\#IfWinActive title_of_window ahk_exe application.exe\n;;If window is active\n\n#^!+Enter::\n{\n\t\n\t|return\n}\n;;Re-declare any window as an acceptable \n;;case-scenario before exit.\n#IfWinActive
+IfWinActive=IfWinActive title_of_window ahk_exe application.exe\n;;If window is active\n\n#^!+Enter::\n{\n\t\n\t|return\n}\n;;Re-declare any window as an acceptable \n;;case-scenario before exit.\n#IfWinActive
+ifwinnoexist=#IfWinActive\n;;If window doesn't exist\n#^!+Enter::\n{\n\tRun, \n\treturn\n}\n\n#IfWinExist title_of_window ahk_exe application.exe\n;;If window does exist\n\n#^!+Enter::\n{\n\tWinActivate\n\treturn\n}\n\n#IfWinActive title_of_window ahk_exe application.exe\n;;If window is active\n\n;;TODO - assign hotkeys\n#^!+Enter::\n{\n\t\n\t|return\n}\n\n;;Re-declare any window as an acceptable \n;;case-scenario before exit.\n#IfWinActive
+ifwin!exist=#IfWinActive\n;;If window doesn't exist\n#^!+Enter::\n{\n\tRun, \n\treturn\n}\n\n#IfWinExist title_of_window ahk_exe application.exe\n;;If window does exist\n\n#^!+Enter::\n{\n\tWinActivate\n\treturn\n}\n\n#IfWinActive title_of_window ahk_exe application.exe\n;;If window is active\n\n;;TODO - assign hotkeys\n#^!+Enter::\n{\n\t\n\t|return\n}\n\n;;Re-declare any window as an acceptable \n;;case-scenario before exit.\n#IfWinActive
+ifwindoesn'texist=#IfWinActive\n;;If window doesn't exist\n#^!+Enter::\n{\n\tRun, \n\treturn\n}\n\n#IfWinExist title_of_window ahk_exe application.exe\n;;If window does exist\n\n#^!+Enter::\n{\n\tWinActivate\n\treturn\n}\n\n#IfWinActive title_of_window ahk_exe application.exe\n;;If window is active\n\n;;TODO - assign hotkeys\n#^!+Enter::\n{\n\t\n\t|return\n}\n\n;;Re-declare any window as an acceptable \n;;case-scenario before exit.\n#IfWinActive

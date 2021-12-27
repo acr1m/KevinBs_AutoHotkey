@@ -1,0 +1,173 @@
+<onlyinclude><div style="display:inline-block; border:2px solid #002ad4">{{#switch: {{{1|}}} 
+| atk_up      = [[File:Buff_Attack_Up.png|25px|link=:Category:Dress:Abilities:ATK↑]]<includeonly>[[Category:Dress:Abilities:ATK↑]]</includeonly>
+| def_up      = [[File:Buff_Defense_Up.png|25px|link=:Category:Dress:Abilities:DEF↑]]<includeonly>[[Category:Dress:Abilities:DEF↑]]</includeonly>
+| spd_up      = [[File:Buff_Speed_Up.png|25px|link=:Category:Dress:Abilities:SPD↑]]<includeonly>[[Category:Dress:Abilities:SPD↑]]</includeonly>
+| fcs_up      = [[File:Buff_Focus_Up.png|25px|link=:Category:Dress:Abilities:FCS↑]]<includeonly>[[Category:Dress:Abilities:FCS↑]]</includeonly>
+| rst_up      = [[File:Buff_Resistance_Up.png|25px|link=:Category:Dress:Abilities:RST↑]]<includeonly>[[Category:Dress:Abilities:RST↑]]</includeonly>
+| crit_atk_up = [[File:Buff_Critical_Attack_Up.png|25px|link=:Category:Dress:Abilities:Critical Attack Rate↑]]<includeonly>[[Category:Dress:Abilities:Critical Attack Rate↑]]</includeonly>
+| crit_def_up = [[File:Buff_Critical_Defense_Up.png|25px|link=:Category:Dress:Abilities:Critical Defense Rate↑]]<includeonly>[[Category:Dress:Abilities:Critical Defense Rate↑]]</includeonly>
+| invincible  = [[File:Buff_Invincible.png|25px|link=:Category:Dress:Abilities:Invincible]]<includeonly>[[Category:Dress:Abilities:Invincible]]</includeonly>
+| endurance   = [[File:Buff_Endurance.png|25px|link=:Category:Dress:Abilities:Endurance]]<includeonly>[[Category:Dress:Abilities:Endurance]]</includeonly>
+| regen       = [[File:Buff_Regen.png|25px|link=:Category:Dress:Abilities:Regen]]<includeonly>[[Category:Dress:Abilities:Regen]]</includeonly>
+| barrier     = [[File:Buff_Barrier.png|25px|link=:Category:Dress:Abilities:Barrier]]<includeonly>[[Category:Dress:Abilities:Barrier]]</includeonly>
+| immunity    = [[File:Buff_Immunity.png|25px|link=:Category:Dress:Abilities:Immunity]]<includeonly>[[Category:Dress:Abilities:Immunity]]</includeonly>
+| counter     = [[File:Buff_Counter.png|25px|link=:Category:Dress:Abilities:Counter]]<includeonly>[[Category:Dress:Abilities:Counter]]</includeonly>
+| [[File:Buff_Unknown.png|25px]]
+}}</div></onlyinclude><noinclude>{{Documentation}}
+[[Category:Templates]]</noinclude>
+
+
+Category Architecture
+MAGICAMI Wiki
+	Contributor Tools 
+	Templates
+	
+	
+	Skill Effects
+		Buffs
+		Debuffs
+		Others
+		Passives
+		Limit Breaks
+		
+<includeonly>[[Category:MAGICAMI Templates]]<!--Any categories for the Template page itself--></includeonly>
+<noinclude>[[Category:Template documentation]]<!--Categories for this template doc page itself--></noinclude>
+
+updating custom template category for MAGICAMI Templates
+
+Member List
+	Blucandy - 5/17/2021
+	Delatknight - 5/28/2021
+	GrungeMunky 6/9/2021-1844
+	Index
+	Nubercakez
+	Owlnuts - 4/26/2021
+	Ro. - 5/1/2021
+	SuperFury
+	Suriyong - 5/2/2021
+	Ziox44 - 6/7/2021
+	juppap - 5/5/2021
+	tubrafa - 6/10/2021-2013
+	正樹 - 6/8/2021
+	眠靈　- 4/18/2021
+	
+	
+	I just remóved inactive Club Members whó have shówn nó sign óf activity fór the past 3 mónths in chat ór elsewhere.
+	
+For non-Japanese keyboards, the following shortcuts can be used for typing Japanese on English keyboard with Windows:
+
+Alt + Shift switch between languages (IMEs)
+Ctrl + Caps Lock switch to Hiragana
+Alt + Caps Lock if in alphanumeric mode change to Hiragana, then switch to Katakana
+Shift + Caps Lock switch between full-width Hiragana ↔ full-width alphanumeric (romaji)
+Alt + ` (Grave Accent) switch between kana ↔ half-width alphanumeric (romaji)
+Alt + ~ (Tilde) toggle kana/direct input
+↵ Enter no conversion, all previous characters are accepted "as is" (all propositions from IME are rejected)
+Space convert current word (last characters) to the first word in the list of proposals
+2 3 4 5 6 convert to the 2nd-6th word in the list
+F6 convert selected word/characters to full-width hiragana (standard hiragana): ホワイト → ほわいと
+F7 convert to full-width katakana (standard katakana): ほわいと → ホワイト
+F8 convert to half-width katakana (katakana for specific purpose): ホワイト → ﾎﾜｲﾄ
+F9 convert to full-width romaji, all-capitals, proper noun capitalization (latin script inside Japanese text): ホワイト → ｈｏｗａｉｔｏ → ＨＯＷＡＩＴＯ → Ｈｏｗａｉｔｏ
+F10 convert to half-width romaji, all-capitals, proper noun capitalization (latin script like standard English): ホワイト → howaito → HOWAITO → Howaito
+
+√=Alt+251
+══════════════════════
+(1-2) stop at p5
+(3-5) stop at p11
+(6-8) stop at p17
+(9-11) stop at p23
+(12-14) stop at p26
+(15-17) stop at p29
+(18-20) stop at p32
+══════════════════════
+攻撃アップ "kogeki appu" = Attack Up 
+防御アップ "bougyo appu" = Defense Up
+速度アップ "sokudo appu" = Speed Up
+攻撃ダウン "kogeki daun" = Attack Down
+防御ダウン "bougyo daun" = Defense Down
+速度ダウン "sokudo daun" = Speed Down
+══════════════════════
+The attractive girl you wish you could have, whòm shamefully and desperately wants to be loved. "It's better this way," she thinks to herself... She'll never admit to it though, afraid that even more will hate her for the ugliness she hides inside.
+══════════════════════
+Dresses that provide Immunity/Invicibility
+Hallowitch Cocoa
+Kellnerin Maiden Kaorin
+══════════════════════
+味方全体に2ターンの間、攻撃アップを与え、
+75％の確率で2ターンの間、
+敵全体に防御ダウンを与える。
+Give an attack up for two turns across the allies,
+Between 2 turns with a probability of 75%,
+Give a defense down to the whole enemy.
+══════════════════════
+1680x945
+Original
+══════════════════════
+<iframe id="magicami-main" src="https://api.magicami.johren.games/Top/Main?magicami-sessid=t86gl7tp2hr3ct1qg4nore0r2dndpt8k" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>
+══════════════════════
+Edited
+══════════════════════
+---Magicami html settings----
+<iframe id="magicami-main" 
+style="
+    margin-bottom: 100px;
+    margin-top: 100px;
+    height: 1000px;
+"></iframe>
+══════════════════════
+Remove Debuffs
+- H Magica 2061 Kaori _________(r_all_d_ally)
+- H Hot Doctor Aka ____________(r_all_d_ally)
+- H Hot Doctor Ao _____________(r_all_d_ally)
+- H Casual Holiday Marianne __(r_1_d_allies)
+- H Fiery Shrine Girl Akisa ______(r_1_d_ally)
+- H Magica 1984 Aka ___________(r_2_d_allies)
+- H Sailor Swimsuit Kaori _______(r_all_d_ally)
+- x Onsen Nymph Eliza_________(r_all_d_ally)
+- x Adorable Bikini Iroha_______(r_all_d_ally)
+══════════════════════
+<includeonly> Shows up only where transcluded
+<noinclude> Shows up only on template page
+<onlyinclude> Shows up 
+════════════════════════════════════════════
+════════════════════════════════════════════
+════════════════════════════════════════════
+    margin-bottom: 100px;
+    margin-top: 100px;
+    height: 1000px;
+
+98(16:9) = (1568:882)
+width="1568"
+height="882"
+
+1648x927
+1760/990
+════════════════════════════════════════════
+════════════════════════════════════════════
+════════════════════════════════════════════
+40 stamina used
+44,000 coins so far plus...
+(145-91)*2,000=108,000
+44,000+108,000╗
+╚152,000 coins / 40 stamina
+93 stamina? 91/145 -> 62/145 => 91-62=29*2000=56,000
+══════════════════════
+<blockquote style="color:Gray;">''This Category serves as a collection of templates and tools that are transcluded/referenced throughout the entire architecture of this wiki. Editing any of these should be done only by experienced/careful users. ''</blockquote>
+[[Category:Template documentation]]
+[[Category:Templates]]
+══════════════════════
+changed cat "Documentation" to conform to wiki standard "Template documentation"
+
+
+<includeonly>[[Category:Templates]]<!--Any categories for the Template page itself--></includeonly>
+<noinclude>[[Category:Template documentation]]<!--Categories for this template doc page itself--></noinclude>
+
+══════════════════════
+Templates
+
+#FF8AA3
+#E1EAEF
+#
+#
+#

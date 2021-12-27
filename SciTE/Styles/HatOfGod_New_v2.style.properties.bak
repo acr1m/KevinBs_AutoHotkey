@@ -1,0 +1,271 @@
+# HatOfGod - A happydark theme
+# 
+# Made by budRich based on tidRich_Zenburn
+# Use it, change it, sell it. I don't care.
+#
+# Update: 
+# 2011-08-19
+#  Added Output pane styling.
+#
+# 2011-08-10 
+#  Stole the top part from nimdAHK's post, thanks mate!
+#  Added global default style. Now other filetypes except AHK looks goodie.
+#  Last lines are styles for ini and properties files.
+#
+# Check out the SciTE Styles forum thread. 
+# http://www.autohotkey.com/forum/viewtopic.php?t=75188
+
+# Global default styles for all languages
+######################################################################
+#~ style.*.32=fore:#CCCCCC,back:#000000,font:Bitstream Vera Sans Mono,size:12
+#~ style.*.32=fore:#CCCCCC,back:#000000,font:Source Code Pro,size:12
+#~ style.*.32=fore:#CCCCCC,back:#000000,font:Bitstream Vera Sans Mono,size:12
+#~ style.*.32=fore:#CCCCCC,back:#1d2226,font:Bitstream Vera Sans Mono,size:12
+#~ style.*.32=fore:#CCCCCC,back:#3a444c,font:Bitstream Vera Sans Mono,size:12
+#~ style.*.32=fore:#CCCCCC,back:#0a1218,font:Bitstream Vera Sans Mono,size:12
+#~ style.*.32=fore:#CCCCCC,back:#020e18,font:Bitstream Vera Sans Mono,size:12
+style.*.32=fore:#CCCCCC,back:#21272a,font:Bitstream Vera Sans Mono,size:10
+
+# Caret Foreground
+######################################################################
+caret.fore=#FFFFFF
+
+# Caret, Current Line Background
+######################################################################
+#~ caret.line.back=#151515
+caret.line.back=#232e3f
+
+# Whitespace Characters
+######################################################################
+#~ whitespace.fore=#3f4a50
+whitespace.fore=#353f44
+
+# Indent Guide Colors
+######################################################################
+#~ Style 37 is used for displaying indentation guides. Only the fore and back are used.
+#~ style.*.37=fore:#353f44
+style.*.37=fore:#52626a
+
+
+# Selection
+######################################################################
+#~ selection.back=#00005e
+#~ selection.back=#151718
+#~ selection.back=#737b7e
+#~ selection.back=#384965
+selection.back=#4d648b
+#=====================================================================
+#~ selection.fore=#FFFFFF
+#~ selection.fore=#737b7e
+#~ selection.fore=#151718
+#~ selection.fore=#232e3f
+#~ selection.fore=#8cb6fd
+#~ selection.fore=#97baf3
+selection.fore=#b0c9f3
+
+
+# Line number
+######################################################################
+#~ style.*.33=fore:#E4E4E4,back:#333333,$(font.base)
+style.*.33=fore:#737b7e,back:#44494b,$(font.base)
+
+# Fold Margin
+######################################################################
+#~ fold.margin.colour=#222222
+fold.margin.colour=#3f4a50
+#=====================================================================
+#~ fold.margin.highlight.colour=#222222
+fold.margin.highlight.colour=#3c4143
+
+# Output pane
+######################################################################
+style.errorlist.32=back:#111111,fore:#ff0000,font:Bitstream Vera Sans Mono,size:11
+style.errorlist.4=fore:#BBBBBB
+
+# Output pane ???
+######################################################################
+style.errorlist.1=fore:#0000AA,bold
+#~ style.errorlist.3=fore:#F00000,bold
+style.errorlist.3=fore:#bfffcf,bold
+style.errorlist.10=fore:#007F00
+style.errorlist.11=fore:#00007F
+style.errorlist.12=fore:#007F7F
+#~ style.errorlist.13=fore:#7F0000
+style.errorlist.13=fore:#bfefff
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# Ahk only
+#=====================================================================
+
+# Base (background, base font)
+#~ style.ahk1.32=back:#000000,font:Bitstream Vera Sans Mono 
+
+# Default (everything not below: spaces, untyped parameters)
+######################################################################
+#~ style.ahk1.0=fore:#CBCBAB,bold
+#~ style.ahk1.0=fore:#cbcbbf,bold
+#~ style.ahk1.0=fore:#cccccc,bold
+style.ahk1.0=fore:#b9c6cb,bold
+
+# Line comment (; syntax)
+######################################################################
+#~ style.ahk1.1=fore:#888888,italics
+style.ahk1.1=fore:#888888
+
+# Block comment (/*...*/ syntax)
+######################################################################
+#~ style.ahk1.2=fore:#BBBBBB
+#~ style.ahk1.2=fore:#cccccc
+style.ahk1.2=fore:#888888
+
+
+# Escape (`x)
+######################################################################
+style.ahk1.3=fore:#789EC6,bold
+
+# Delimiters : % { } ( ) [ ] 
+######################################################################
+#~ style.ahk1.4=fore:#97C0EB,bold
+#~ style.ahk1.4=fore:#2b6fff,bold
+#~ style.ahk1.4=fore:#97d4eb,bold
+style.ahk1.4=fore:#a3caff,bold
+
+# Expression Assignement and Operators
+######################################################################
+#~ style.ahk1.5=fore:#F09EC0,bold
+#~ style.ahk1.5=fore:#2b6fff,bold
+style.ahk1.5=fore:#5188ff,bold
+
+# String
+######################################################################
+#~ style.ahk1.6=fore:#BBBBBB,bold
+#~ style.ahk1.6=fore:#b9c6cb,bold
+#~ style.ahk1.6=fore:#d2ed69,bold
+#~ style.ahk1.6=fore:#a3d985,bold
+#~ style.ahk1.6=fore:#84be65,bold
+#~ style.ahk1.6=fore:#84be65
+#~ style.ahk1.6=fore:#8abe6e
+style.ahk1.6=fore:#a5e383
+
+# Number
+######################################################################
+#~ style.ahk1.7=fore:#FD971F,bold
+style.ahk1.7=fore:#c38d64,bold
+
+# Identifier (variable & function call)
+# Not used by the lexer but by the style below and by hotkeys
+######################################################################
+#~ style.ahk1.8=fore:#93CCB8
+#~ style.ahk1.8=fore:#35eaff,bold
+style.ahk1.8=fore:#b0c9f3,bold
+
+# Variable dereferencing %varName%
+######################################################################
+#~ style.ahk1.9=$(style.ahk1.8),back:#000000,bold
+#~ style.ahk1.9=$(style.ahk1.8),bold
+#~ style.ahk1.9=$(style.ahk1.8),back:#1c2224,bold
+#~ style.ahk1.9=$(style.ahk1.8),back:#161b1d,bold
+#~ style.ahk1.9=$(style.ahk1.8),back:#0f191d,bold
+#~ style.ahk1.9=$(style.ahk1.8),back:#101315,bold
+style.ahk1.9=$(style.ahk1.8),back:#161b1d,bold
+
+# Label & Hotstrings (& Function definition?). Also defines a bit of 
+# style for hotkeys.
+######################################################################
+#~ style.ahk1.10=fore:#C23669
+#~ style.ahk1.10=fore:#C23669,back:#c36187
+#~ style.ahk1.10=fore:#C23669,back:#232e3f
+#~ style.ahk1.10=fore:#b0c9f3,back:#232e3f
+#~ style.ahk1.10=fore:#b0c9f3
+#~ style.ahk1.10=fore:#b0c9f3,bold
+style.ahk1.10=fore:#35eaff,bold
+
+# Keyword - Flow of control
+######################################################################
+#~ style.ahk1.11=fore:#A6E22E,bold,italics
+style.ahk1.11=fore:#c9e299,bold,italics
+
+
+# Keyword - Commands
+######################################################################
+#~ style.ahk1.12=fore:#F79B57,bold
+style.ahk1.12=fore:#f6b27f,bold
+
+# Keyword - Functions
+######################################################################
+style.ahk1.13=fore:#7CC8CF,italics
+
+# Keyword - Directives
+######################################################################
+#~ style.ahk1.14=fore:#7CC8CF,bold,italics
+#~ style.ahk1.14=fore:#a6cf65,bold,italics
+#~ style.ahk1.14=fore:#a0cf56,bold,italics
+style.ahk1.14=fore:#8FCF2B,bold,italics
+
+# Keyword - Keys & buttons
+######################################################################
+#~ style.ahk1.15=fore:#CB8DD9,bold
+#~ style.ahk1.15=fore:#8c71bc,bold
+#~ style.ahk1.15=fore:#a887e2,bold
+#~ style.ahk1.15=fore:#FF2679,bold
+#~ style.ahk1.15=fore:#c36187,bold
+style.ahk1.15=fore:#c13450,bold
+
+# Keyword - Built-in Variables
+######################################################################
+#~ style.ahk1.16=fore:#FF2679,bold,italics
+#~ style.ahk1.16=fore:#FF2679,bold,italics
+#~ style.ahk1.16=fore:#a887e2,bold,italics
+#~ style.ahk1.16=fore:#8772ac,bold,italics
+#~ style.ahk1.16=fore:#9c89bd,bold,italics
+#~ style.ahk1.16=fore:#bba4e3,bold,italics
+#~ style.ahk1.16=fore:#9885b8,bold,italics
+#~ style.ahk1.16=fore:#a397b8,bold,italics
+#~ style.ahk1.16=fore:#a397b8,italics
+#~ style.ahk1.16=fore:#a691cd,italics
+#~ style.ahk1.16=fore:#b79fe2,italics
+style.ahk1.16=fore:#b79fe2,bold
+
+# Keyword - special parameters ("Keywords")
+######################################################################
+style.ahk1.17=fore:#FFE000
+
+# Keyword - User defined
+######################################################################
+style.ahk1.18=fore:#0000FF,bold
+
+# Variable keyword (built-in) dereferencing %A_xxx%
+######################################################################
+#~ style.ahk1.19=$(style.ahk1.16),back:#000000
+#~ style.ahk1.19=$(style.ahk1.16),back:#101315
+style.ahk1.19=$(style.ahk1.16),back:#161b1d
+
+# Error (unclosed string, unknown operator, invalid 
+# dereferencing, etc.)
+######################################################################
+#~ style.ahk1.20=back:#111111,fore:#ff0000
+#~ style.ahk1.20=fore:#ff0000,back:#111111
+style.ahk1.20=fore:#ff0000,back:#161b1d
+
+# .ini and .properties files
+######################################################################
+
+# Default
+######################################################################
+style.props.0=$(style.ahk1.0)
+
+# Comment
+######################################################################
+style.props.1=$(style.ahk1.1)
+
+# Section
+######################################################################
+style.props.2=$(style.ahk1.10),eolfilled
+
+# Assignment operator
+######################################################################
+style.props.3=$(style.ahk1.5)
+
+# Key
+######################################################################
+style.props.5=$(style.ahk1.8)
