@@ -23,6 +23,7 @@ global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 
 ;WINDOW/APP CONTEXT SENSITIVE SCRIPTS
 #Include WIN_Excel.ahk
+#Include WIN_Outlook.ahk
 ;==============================================================================
 
 ;==============================================================================

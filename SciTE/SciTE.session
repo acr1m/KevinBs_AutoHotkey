@@ -18,9 +18,9 @@ mru.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Outlo
 mru.10.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\AhkAbbrevs.properties
 
 buffer.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Main_1_2_7.ahk
-buffer.1.position=129
-buffer.1.scroll=0
-buffer.1.bookmarks=105,106,436,437
+buffer.1.position=3690
+buffer.1.scroll=69
+buffer.1.bookmarks=106,107,437,438
 
 buffer.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_Main_Method_Library.ahk
 buffer.2.position=1001
@@ -52,10 +52,10 @@ buffer.8.position=1
 buffer.8.scroll=0
 
 buffer.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Outlook.ahk
-buffer.9.position=243
-buffer.9.scroll=0
+buffer.9.position=2205
+buffer.9.scroll=104
 buffer.9.current=1
 
 buffer.10.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\AhkAbbrevs.properties
-buffer.10.position=1041
+buffer.10.position=61
 buffer.10.scroll=0

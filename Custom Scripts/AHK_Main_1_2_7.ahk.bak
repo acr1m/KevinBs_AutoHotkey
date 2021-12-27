@@ -23,6 +23,7 @@ global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 
 ;WINDOW/APP CONTEXT SENSITIVE SCRIPTS
 #Include WIN_Excel.ahk
+#Include WIN_Outlook.ahk
 ;==============================================================================
 
 ;==============================================================================
@@ -372,7 +373,7 @@ lbl_w_Windows_Explorer:
 			; DOUBLE_TAP_LIMIT approximately 350 milliseconds atm
 		if (A_ThisHotkey = A_PriorHotkey && A_TimeSincePriorHotkey < DOUBLE_TAP_LIMIT) {
 			; Toggle Left Folder Navigation Panel
-			Send, !vn{Enter}	
+			Send, !vn{Enter}
 		}
 		; Toggle Right Preview Panel
 		Send, !p
