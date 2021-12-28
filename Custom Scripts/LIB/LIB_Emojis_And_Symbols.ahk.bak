@@ -7,38 +7,13 @@
  * 
  * 
  */
+;;##############################################################################
+;;SYMBOLS FOR CHAT, MESSAGES, COMMUNICATION, FRIENDS, 
 #Hotstring SE
-;~ EMOJIS
-#Hotstring O
-	::check;::
-	::chk::
-	::chk;::
-		Send, {U+2714} ;✔ 
-		return
-	::chkx::
-	::xmark::
-	::xmark;::
-	::xmrk::
-	::xmrk;::
-	::x;::
-	::x;::
-	::rx::
-	::rx;::
-		Send, {U+274C} ;❌
-		return
-	::checkbox;::
-	::chkbx::
-	::chkbx;::
-	::chkbox::
-	::chkbox;::
-		Send, {U+2705} ;✅
-		return
-#Hotstring O0
 
-::beer;::{U+1F37A} ;
-::cheers;::cheers {U+1F37A} ;
-::lol;::lol {U+1F602} ;
-::rofl;::rofl {U+1F923} ;藍
+
+
+
 
 ::shruggie;::
 	pasteClipboard("¯\_(ツ)_/¯")
@@ -68,35 +43,58 @@
 ::larry;::
 ::lenny;::
 	pasteClipboard("( ͡° ͜ʖ ͡°)")
-	;~ Send, ( ͡° ͜ʖ ͡°)
-	
-	;~ archiveClipboard()
-	;~ Clipboard := "( ͡° ͜ʖ ͡°)"
-	;~ ClipWait, 2
-	;~ Send, %ErrorLevel%
-	;~ Sleep, 200
-	;~ Send, ^v
-	;~ restoreClipboard()
 	return
 ::disapproval;::
 ::disapprove;::
-::lookofd;:: 
-::lookod;:: 
-::lkofd;:: 
-::lod;:: 
+::lookofd;::
+::lookod;::
+::lkofd;::
+::lod;::
 ::notamused;::
 ::notfunny;::
 	;~ Send, ಠ__ಠ
 	pasteClipboard("ಠ__ಠ")
 	return
+
+;;SYMBOLS FOR BASIC EMOJIS
+::`:);::{U+1F642} ;
 ::`:P;::{U+1F61B} ;
 ::`;);::{U+1F609} ;
-::`:);::{U+1F642} ;
 ::`;P;::{U+1f61c} ;
+::beer;::{U+1F37A} ;
+::cheers;::cheers {U+1F37A} ;
+::lol;::lol {U+1F602} ;
+::rofl;::rofl {U+1F923} ;藍
 ;~ ::`;P:: Send {AltDown}{NumpadAdd}1F61C{AltUp}
 ;~ ::`:P:: Send {AltDown}{NumpadAdd}1F61B{AltUp}
+;~##############################################################################
+;~ SYMBOLS FOR ORGANIZED LISTS
+#Hotstring O
+	::check;::
+	::chk::
+	::chk;::
+		Send, {U+2714} ;✔ 
+		return
+	::chkx::
+	::xmark::
+	::xmark;::
+	::xmrk::
+	::xmrk;::
+	::x;::
+	::x;::
+	::rx::
+	::rx;::
+		Send, {U+274C} ;❌
+		return
+	::checkbox;::
+	::chkbx::
+	::chkbx;::
+	::chkbox::
+	::chkbox;::
+		Send, {U+2705} ;✅
+		return
+#Hotstring O0
 
-;~ SYMBOLS
 ::rightarrow::{U+2794} ; ➔
 ;~ ::rr::{U+2794} ;➔	right arrow 					➔
 ::rr::{U+27a4} ;my default favorite arrow 		➤	black rightwards arrowhead 		➤

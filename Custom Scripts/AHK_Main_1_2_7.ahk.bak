@@ -1,4 +1,5 @@
-﻿#SingleInstance Force
+﻿#KeyHistory 500  ;(Default is 40, Max is 500)
+#SingleInstance Force
 #InstallKeybdHook
 ;~ #InstallMouseHook
 #HotkeyInterval 1000 ;one second interval
