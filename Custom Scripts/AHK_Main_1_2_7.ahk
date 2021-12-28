@@ -1,6 +1,7 @@
-﻿#SingleInstance Force
+﻿#KeyHistory 500  ;(Default is 40, Max is 500)
+#SingleInstance Force
 #InstallKeybdHook
-#InstallMouseHook
+;~ #InstallMouseHook
 #HotkeyInterval 1000 ;one second interval
 #MaxHotkeysPerInterval 1000 ;1 thousand keys per above interval
 #Hotstring EndChars -()[]{}: "/\.?!`n
