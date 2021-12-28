@@ -39,7 +39,7 @@ label_OpenExcel:
 	return
 #IfWinActive ahk_class XLMAIN ahk_exe EXCEL.EXE
 {
-	;Holding Shift key and using Mouse Wheel scrolls sideways
+	;;Scroll Left
 	+WheelUp::
 	{
 		SetScrollLockState, On
@@ -48,6 +48,7 @@ label_OpenExcel:
 		return	
 	}
 	
+	;;Scroll Right
 	+WheelDown::
 	{
 		SetScrollLockState, On
@@ -62,8 +63,7 @@ label_OpenExcel:
 	;Activate Draw Border Tool
 	^w::excel_ActivateDrawBorderTool()
 	
-	;Adds a top border to the first few columns in a single row in excel
-	;using the current regular thickness border style 
+	;Adds a top border to the first 9 columns in a single row
 	^e::excel_AddTopBorder()
 	
 	;TIME-STAMP FUNCTION
