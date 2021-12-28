@@ -47,10 +47,11 @@ MsgBox, , Title, %str%
 ;;_____________________________________________________
 				 /*
 				 */
-s1 := "1`n"
-s2 := "2`n"
-s3 := "3`n"
-s4 := "4`n"
+s1 := "1`n" 
+s2 := "2`n" /*
+s3 := "3`n" */
+s4 := "4`n" /* */
+
 MsgBox,% 0x40 , % "Title", % s1 . s2 . s3 . s4
 */
 
@@ -76,4 +77,20 @@ MsgBox, , Title, %str%
 str := "There is a ""/*"" right here -->" ; /* . "<-- ." */
 Clipboard := str
 MsgBox, , Title, %str%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
