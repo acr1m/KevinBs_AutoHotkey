@@ -32,9 +32,11 @@ global if else loop return If Ifequal Ifexist Ifgreater Ifgreaterorequal Ifinstr
 
 ;Keyword - Commands
 Autotrim Blockinput Clipwait Control Controlclick Controlfocus Controlget 
+ 
 
 ;Keyword - Functions
-_Addref _Clone _Getaddress _Getcapacity _Haskey _Insert _Maxindex _Minindex _Newenum
+_Addref _Clone _Getaddress _Getcapacity _Haskey _Insert _Maxindex _Minindex _Newenum 
+ 
 
 ;Variable keyword (built-in) dereferencing %A_xxx%
 list%A_Index%

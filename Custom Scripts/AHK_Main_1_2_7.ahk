@@ -20,6 +20,8 @@ global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 #Include %A_ScriptDir%\LIB
 #Include LIB_Main_Method_Library.ahk
 #Include LIB_Emojis_And_Symbols.ahk
+#Include LIB_repeatKey().ahk
+
 #Include %A_ScriptDir%
 #Include AHK_GUI_Mouse_Control.ahk
 
@@ -29,6 +31,8 @@ global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 ;WINDOW/APP CONTEXT SENSITIVE SCRIPTS
 #Include WIN_Excel.ahk
 #Include WIN_Outlook.ahk
+#Include WIN_SciTE4AutoHotkey.ahk
+#Include WIN_FancyZones.ahk
 ;==============================================================================
 
 ;==============================================================================
