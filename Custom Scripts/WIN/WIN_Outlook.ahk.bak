@@ -1,4 +1,4 @@
-#IfWinActive PowerLauncher ahk_exe PowerLauncher.exe
+#IfWinActive ahk_exe PowerLauncher.exe
 ::calmonth::
 ::month view::
 ::monthview::
@@ -12,7 +12,7 @@
 ::viewmonth::
 {
 	if (WinExist("ahk_exe outlook.exe")){
-		Send, ;nothing 
+		Send, {Escape}
 		WinActivate
 	}
 	else {

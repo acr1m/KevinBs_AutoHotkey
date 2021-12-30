@@ -7,7 +7,8 @@
 	;;reduce window to minimin size possible 64x 72y
 	;~ fancyZones_setSize(430, 400)
 	;~ fancyZones_setSize(1050/3, 1640/3)
-	fancyZones_setSize(1640/3, 1050/3)
+	;~ fancyZones_setSize(1640/3, 1050/3)
+	fancyZones_setSize(700, 300)
 
 	Send, {Tab}
     return

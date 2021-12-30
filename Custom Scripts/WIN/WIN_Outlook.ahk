@@ -1,4 +1,4 @@
-#IfWinActive PowerLauncher ahk_exe PowerLauncher.exe
+#IfWinActive ahk_exe PowerLauncher.exe
 ::calmonth::
 ::month view::
 ::monthview::

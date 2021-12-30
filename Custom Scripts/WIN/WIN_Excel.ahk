@@ -21,7 +21,7 @@
 	return
 
 label_OpenExcel:
-	#Include WIN_Excel_filepaths.ahk
+#Include WIN_Excel_filepaths.ahk
 	;~ Run, % "open" filePathFor_Excel
 	;~ MsgBox,,, % "Msg from `n#IfWinActive NONE `n#x::", % 3
 	Run, %filePathFor_Excel% %filePathFor_Excel_doc%
@@ -82,6 +82,7 @@ label_OpenExcel:
 	^+i::excel_EncapIfErrorIf()
 	
 	#Insert::
+	^+Insert::
 		;~ MsgBox,,, % "Msg from `n#IfWinActive EXCEL `n#Insert::", % 3
 		excel_Hotkey_#Insert()
 		return

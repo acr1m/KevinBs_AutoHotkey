@@ -82,6 +82,7 @@ label_OpenExcel:
 	^+i::excel_EncapIfErrorIf()
 	
 	#Insert::
+	^+Insert::
 		;~ MsgBox,,, % "Msg from `n#IfWinActive EXCEL `n#Insert::", % 3
 		excel_Hotkey_#Insert()
 		return
