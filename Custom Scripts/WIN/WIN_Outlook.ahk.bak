@@ -16,29 +16,53 @@
 		WinActivate
 	}
 	else {
-		SendRaw, outlook isn't currently open
-		Sleep, 5000 ;;5 seconds
+		SetKeyDelay, 2
+		;~ Send, !{Space}
+		SendRaw, looks like outlook isn't currently open...
+		Sleep, 1500 ;;1.5 seconds
 		Send, +{Home}{Delete}
-		Send, .outlook
-		Sleep, 2000 ;;2 seconds
+		SendRaw, let's try opening it
+		Sleep, 1500 ;;1.5 seconds
+		Send, +{Home}{Delete}
+		SendRaw, .outlook
+		Sleep, 800 ;;0.8 seconds
 		Send, {Enter}
+		SetKeyDelay, 10 ;Default value
 		
 		;;TODO - setup a run command to open up outlook if it isn't open
-		Sleep, 8000 ;;8 seconds
+		Sleep, 1000 * 10 ;;10 seconds
 		if (WinExist("ahk_exe outlook.exe") && !WinActive("ahk_exe outlook.exe")){
-			MsgBox, 0x1040, % "Info: Window Found", % "Info: Found Window for Outlook.\n\nSwitching over...", 5
+			;~ MsgBox, 0x1040, % "Info: Window Found", % "Info: Found Window for Outlook.\n\nSwitching over...", 3
+			Send, !{Space} ;open PowerRun
+			SendRaw, Info: Found Window for Outlook... Switching and Opening Month View.
+			Sleep, 2
+			Send, {Escape}
 			WinActivate
 			outlook_showMonth()
+			return
 		}
 		else if (WinActive("ahk_exe outlook.exe")){
-			MsgBox, 0x1040, % "Info: WinActive", % "Info: Found Window for Outlook. Opening Month View.", 5
+			;~ MsgBox, 0x1040, % "Info: WinActive", % "Info: Found Window for Outlook. Opening Month View.", 3
+			Send, !{Space} ;open PowerRun
+			SendRaw, Info: Found Window for Outlook. Opening Month View.
+			Sleep, 2
+			Send, {Escape}
 			outlook_showMonth()
+			return
 		}
 		else if (!WinExist("ahk_exe outlook.exe")){
-			MsgBox, 0x1010, % "Error: Window Not Found", % "Error: Window for Outlook does not exist.", 5
+			;~ MsgBox, 0x1010, % "Error: Window Not Found", % "Error: Window for Outlook does not exist.", 3
+			Send, !{Space} ;open PowerRun
+			SendRaw, Error: Window for Outlook does not exist.
+			Sleep, 2
+			Send, {Escape}
+			return
 		}
 		else {
-			MsgBox, 0x1010, % "Error: Unknown", % "Something went wrong... ¯\_(ツ)_/¯", 5
+			;~ MsgBox, 0x1010, % "Error: Unknown", % "Something went wrong... ¯\_(ツ)_/¯", 3
+			SendRaw, Something went wrong... ¯\_(ツ)_/¯
+			Sleep, 2
+			Send, {Escape}
 			return
 		}
 	}
