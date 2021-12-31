@@ -41,11 +41,11 @@ global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 ;OPEN FILES, OPEN SOFTWARE, OPEN PROGRAMS, OPEN APPLICATIONS, OPEN APPS
 ;===============================================================================
 ^#AppsKey::Run, "AHK_Utility_Mouse_Position_As_Percentage_Tooltip.exe"
-;Open/Run Notepad++
-;WindowsKey + N
 #n::Run, "Notepad++"
-;WindowsKey + a → h → k = Open/Run AutoHotkey Editor (SciTE4AutoHotkey.exe)
 ;~ #a::Run, E:\Software\AutoHotKey\SciTE\SciTE.exe
+IfWinActive title_of_window ahk_exe application.exe
+
+#IfWinActive
 #a::Run, "E:\Software\AutoHotkey_MyInstallation_v01\SciTE\SciTE.exe"
 ;Voicemeeter 
 ;Windows Key + S
