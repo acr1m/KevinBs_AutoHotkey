@@ -3,24 +3,58 @@
 #IfWinActive ahk_exe FancyZonesEditor.exe
 ;;If window is active
 
-#^!+Enter::
-{
-	NumpadSub::
+
+NumpadSub::
 	;;reduce window to minimin size possible 64x 72y
-									;~ ;;result
-	fancyZones_setSize(400, 400)
-	Send, ^{Tab}{Space}^{Tab}+{Tab}             
-	Send, {Tab}
+	
+	;; 1r 2c
+	Loop, 2
+	{
+		loopIteration := 1
+		loopWidth := 960
+		loopHeight := 1040
+		fancyZones_setSize(loopWidth, loopHeight)
+		fancyZones_resetPos()
+		fancyZones_setPos(loopWidth, loopHeight)
+		
+		loopIteration := loopIteration + 1
+		;;Create a new floating-window-zone and select it.
+		Send, ^{Tab}{Space}^{Tab}+{Tab}
+	}
+	;; 2r 2c
+	Loop, 4
+	{
+		fancyZones_setSize(960, 520)
+		Send, ^{Tab}{Space}^{Tab}+{Tab}
+	}
+	;; 1r 3c
+	Loop, 3
+	{
+		fancyZones_setSize(640, 1040)
+		Send, ^{Tab}{Space}^{Tab}+{Tab}
+	}
+	;; 2r 3c
+	Loop, 6
+	{
+		fancyZones_setSize(640, 520)
+		Send, ^{Tab}{Space}^{Tab}+{Tab}
+	}
+
+	;;select next pre-existing floating-window-zone.
+	;~ Send, {Tab}
 
 	return
-}
+
 ;;Re-declare any window as an acceptable 
 ;;case-scenario before exit.
-
 #IfWinActive
 
-Pause::ExitApp
+;;used for debugging
+;~ Pause::ExitApp
 
+
+;;FUNCTIONS
+;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;reduces window to minimin size possible 64x 72y
 fancyZones_resetSize(){
 	SendMode, Input
@@ -77,4 +111,21 @@ fancyZones_setSize(w := 400, h := 400){
 	SendMode, Event
 }
 
-
+fancyZones_resetPos(){
+	repeatKey("Left", 300)
+	repeatKey("Up", 300)
+}
+fancyZones_setPos(p_loopWidth, p_loopHeight, p_loopIteration){
+	;; p_loopIteration starts at a value of 1
+	screenHeight := 1040
+	screenWidth := 1920
+	maxRows := screenHeight / p_loopHeight
+	maxColumns := screenWidth / p_loopWidth
+	Loop, maxRows
+	{
+		iterationXPos := (p_loopIteration - 1) * (screenWidth / p_loopWidth)
+	}
+	iterationYPos := (p_loopIteration - 1) * (screenHeight / p_loopWidth)
+	repeatCtrlKey("Right", iterationXPos)
+	
+}
