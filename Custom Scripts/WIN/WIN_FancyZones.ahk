@@ -8,19 +8,15 @@ NumpadSub::
 	;;reduce window to minimin size possible 64x 72y
 	
 	;; 1r 2c
-	Loop, 2
-	{
-		loopIteration := 1
-		loopWidth := 960
-		loopHeight := 1040
-		fancyZones_setSize(loopWidth, loopHeight)
-		fancyZones_resetPos()
-		fancyZones_setPos(loopWidth, loopHeight)
-		
-		loopIteration := loopIteration + 1
-		;;Create a new floating-window-zone and select it.
-		Send, ^{Tab}{Space}^{Tab}+{Tab}
-	}
+	
+	wndWidth := 960
+	wndHeight := 1040
+	fancyZones_setSize(wndWidth, wndHeight)
+	fancyZones_setPos(wndWidth, wndHeight)
+	
+	;;Create a new floating-window-zone and select it.
+	Send, ^{Tab}{Space}^{Tab}+{Tab}
+
 	;; 2r 2c
 	Loop, 4
 	{
@@ -101,10 +97,8 @@ fancyZones_setSize(w := 400, h := 400){
 	;~ MsgBox, % "incrAmnt[1] = " . incrAmnt[1] . "`nincrAmnt[2] = " . incrAmnt[2] "`nend"
 	;;w = 10(x)+ 70
 	;;w - 70 = 10x
-	
 	x := Floor(Abs((w - 64) / 10))
 	y := Floor(Abs((h - 72) / 10))
-	
 	repeatShiftKey("Right", x, 2)
 	repeatShiftKey("Up", y, 2)
 	Sleep, 400
@@ -115,7 +109,8 @@ fancyZones_resetPos(){
 	repeatKey("Left", 300)
 	repeatKey("Up", 300)
 }
-fancyZones_setPos(p_loopWidth, p_loopHeight, p_loopIteration){
+fancyZones_setPos(p_loopWidth, p_loopHeight){
+	fancyZones_resetPos()
 	;; p_loopIteration starts at a value of 1
 	screenHeight := 1040
 	screenWidth := 1920
