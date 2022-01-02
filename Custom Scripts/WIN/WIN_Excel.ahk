@@ -15,6 +15,8 @@
 #x::gosub, label_OpenExcel
 
 #Insert::
+	KeyWait, Insert
+	KeyWait, LWin
 	gosub, label_OpenExcel
 	Sleep, 8000
 	excel_StampTimeCurrent_OnNextLine()
@@ -91,8 +93,7 @@ label_OpenExcel:
 #IfWinActive
 
 ;LABELS
-excel_ActivateDrawBorderTool()
-{ 
+excel_ActivateDrawBorderTool(){ 
 	;~ Send, {Alt}
 	;~ Send, hbw
 	Send, {Alt}hbw
@@ -101,8 +102,7 @@ excel_ActivateDrawBorderTool()
 	;~ Send, {Escape}
 	return
 }
-excel_AddTopBorder()
-{
+excel_AddTopBorder(){
 	excel_setBorderColorToAccent1()
 	SetKeyDelay, 50
 	Send, {Home}
@@ -117,8 +117,7 @@ excel_AddTopBorder()
 	SetKeyDelay, Default
 	return
 }
-excel_EncapIfErrorIf()
-{
+excel_EncapIfErrorIf(){
 	;archive/save the clipboard's contents and clear
 	clipArchive := ClipboardAll
 	Clipboard :=
@@ -151,21 +150,20 @@ excel_EncapIfErrorIf()
 		Clipboard := clipArchive
 	return
 }
-excel_Hotkey_#Insert()
-{
+excel_Hotkey_#Insert(){
+	KeyWait, Insert
+	KeyWait, LWin
 	excel_StampTimeCurrent_OnNextLine()
 	return
 }
-excel_NavigateToBottomLeftCell()
-{
+excel_NavigateToBottomLeftCell(){
 	Send, ^{Home 2}
 	Send, ^{Down}
 	Send, {Down}
 	excel_StampTimeCurrent()
 	return
 }
-excel_StampTimeCurrent()
-{
+excel_StampTimeCurrent(){
 	SetKeyDelay, 100
 	
 	clipHolder := ClipboardAll
@@ -194,8 +192,7 @@ excel_StampTimeCurrent()
 	SetKeyDelay, Default
 	return
 }
-excel_StampTimeCurrent_OnNextLine()
-{
+excel_StampTimeCurrent_OnNextLine(){
 	excel_NavigateToBottomLeftCell()
 	excel_StampTimeCurrent()
 	Send, {Right 2}
