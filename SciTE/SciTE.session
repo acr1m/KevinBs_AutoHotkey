@@ -2,12 +2,12 @@
 
 position.left=-2
 position.top=5
-position.width=822
+position.width=644
 position.height=1037
 position.maximize=0
 
-mru.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Macros.ahk
-mru.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Excel.ahk
+mru.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_SciTE4AutoHotkey_Mark_All_Selection.ahk
+mru.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Macros.ahk
 mru.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Excel_filepaths.ahk
 mru.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Outlook.ahk
 mru.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\Test_BlockComments.ahk
@@ -15,85 +15,89 @@ mru.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_RegEx
 mru.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_repeatKey().ahk
 mru.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Math_Keyboard_v1_2_7.ahk
 mru.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\My_Custom_AHK_API_Function_List.ahk
-mru.10.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
+mru.10.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
 
 buffer.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Main_1_2_7.ahk
-buffer.1.position=6777
-buffer.1.scroll=183
-buffer.1.current=1
+buffer.1.position=6337
+buffer.1.scroll=164
 buffer.1.bookmarks=114,115,411,412
 
-buffer.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_FancyZones.ahk
-buffer.2.position=185
-buffer.2.scroll=0
+buffer.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Excel.ahk
+buffer.2.position=3687
+buffer.2.scroll=143
+buffer.2.current=1
 
-buffer.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Explorer.ahk
-buffer.3.position=662
-buffer.3.scroll=6
+buffer.3.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
+buffer.3.position=31
+buffer.3.scroll=0
 
-buffer.4.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\AhkAbbrevs.properties
-buffer.4.position=4479
-buffer.4.scroll=54
+buffer.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_FancyZones.ahk
+buffer.4.position=185
+buffer.4.scroll=0
 
-buffer.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_SciTE4AutoHotkey.ahk
-buffer.5.position=67
-buffer.5.scroll=0
+buffer.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Explorer.ahk
+buffer.5.position=662
+buffer.5.scroll=6
 
-buffer.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_Main_Method_Library.ahk
-buffer.6.position=2230
-buffer.6.scroll=65
-buffer.6.bookmarks=34,43,72,85,94,99,127,132
+buffer.6.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\AhkAbbrevs.properties
+buffer.6.position=4479
+buffer.6.scroll=54
 
-buffer.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_Emojis_And_Symbols.ahk
-buffer.7.position=7332
-buffer.7.scroll=73
-buffer.7.bookmarks=66
+buffer.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_SciTE4AutoHotkey.ahk
+buffer.7.position=67
+buffer.7.scroll=0
 
-buffer.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_colorHandler.ahk
-buffer.8.position=181
-buffer.8.scroll=0
+buffer.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_Main_Method_Library.ahk
+buffer.8.position=2230
+buffer.8.scroll=65
+buffer.8.bookmarks=34,43,72,85,94,99,127,132
 
-buffer.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_SciTE4AutoHotkey_Mark_All_Selection.ahk
-buffer.9.position=257
-buffer.9.scroll=0
+buffer.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_Emojis_And_Symbols.ahk
+buffer.9.position=7332
+buffer.9.scroll=73
+buffer.9.bookmarks=66
 
-buffer.10.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Macros.ahk
-buffer.10.position=530
+buffer.10.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_colorHandler.ahk
+buffer.10.position=181
 buffer.10.scroll=0
-buffer.10.folds=10,28,34
 
-buffer.11.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Excel.ahk
-buffer.11.position=474
+buffer.11.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_SciTE4AutoHotkey_Mark_All_Selection.ahk
+buffer.11.position=257
 buffer.11.scroll=0
 
-buffer.12.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Excel_filepaths.ahk
-buffer.12.position=696
+buffer.12.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Macros.ahk
+buffer.12.position=530
 buffer.12.scroll=0
+buffer.12.folds=10,28,34
 
-buffer.13.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Outlook.ahk
-buffer.13.position=321
-buffer.13.scroll=8
+buffer.13.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Excel_filepaths.ahk
+buffer.13.position=194
+buffer.13.scroll=0
 
-buffer.14.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\Test_BlockComments.ahk
-buffer.14.position=5
-buffer.14.scroll=0
+buffer.14.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Outlook.ahk
+buffer.14.position=321
+buffer.14.scroll=8
 
-buffer.15.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_RegEx_Expression_Editing_Shortcuts.ahk
-buffer.15.position=67
+buffer.15.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\Test_BlockComments.ahk
+buffer.15.position=5
 buffer.15.scroll=0
 
-buffer.16.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_repeatKey().ahk
-buffer.16.position=61
+buffer.16.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_RegEx_Expression_Editing_Shortcuts.ahk
+buffer.16.position=67
 buffer.16.scroll=0
 
-buffer.17.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Math_Keyboard_v1_2_7.ahk
-buffer.17.position=3266
-buffer.17.scroll=100
+buffer.17.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_repeatKey().ahk
+buffer.17.position=61
+buffer.17.scroll=0
 
-buffer.18.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\My_Custom_AHK_API_Function_List.ahk
-buffer.18.position=398
-buffer.18.scroll=8
+buffer.18.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Math_Keyboard_v1_2_7.ahk
+buffer.18.position=3266
+buffer.18.scroll=100
 
-buffer.19.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
-buffer.19.position=1132
+buffer.19.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\My_Custom_AHK_API_Function_List.ahk
+buffer.19.position=1374
 buffer.19.scroll=0
+
+buffer.20.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
+buffer.20.position=1238
+buffer.20.scroll=18
