@@ -21,14 +21,14 @@
 
 
 
-#Persistent
+#PersistenT 
 
 ;SCROLL SPEED MONITORING (AS TOOLTIP)
 ;===============================================================================
 ;auto-execute section===========================================================
 ;	cmd,      label,              time interval in milliseconds
-	SetTimer, ScrollSpeedMonitor, 50
-	return 
+ SetTimer, ScrollSpeedMonitor, 50
+ return
 ;end of auto-execute section;---------------------------------------------------
 ;-------------------------------------------------------------------------------
 
