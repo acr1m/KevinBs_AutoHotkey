@@ -25,14 +25,14 @@ global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 #Include %A_ScriptDir%
 #Include AHK_GUI_Mouse_Control.ahk
 
+;WINDOW/APP CONTEXT SENSITIVE SCRIPTS
 #Include %A_ScriptDir%\WIN
 #Include WIN_Windows_Color_Picker.ahk
-
-;WINDOW/APP CONTEXT SENSITIVE SCRIPTS
 #Include WIN_Excel.ahk
 #Include WIN_Outlook.ahk
 #Include WIN_SciTE4AutoHotkey.ahk
 #Include WIN_FancyZones.ahk
+#Include WIN_Explorer.ahk
 ;==============================================================================
 
 ;==============================================================================
@@ -43,7 +43,6 @@ global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 ^#AppsKey::Run, "AHK_Utility_Mouse_Position_As_Percentage_Tooltip.exe"
 #n::Run, "Notepad++"
 ;~ #a::Run, E:\Software\AutoHotKey\SciTE\SciTE.exe
-IfWinActive title_of_window ahk_exe application.exe
 
 #IfWinActive
 #a::Run, "E:\Software\AutoHotkey_MyInstallation_v01\SciTE\SciTE.exe"
@@ -200,7 +199,7 @@ F20::Run, "C:\Program Files (x86)\VB\Voicemeeter\voicemeeter.exe"
 			return
 	}
 	return
-	
+	repeatKey(
 /* 
 ~*RButton Up::
 	Suspend, Permit
@@ -369,40 +368,6 @@ ScrollLock::
 		return
 	}
 }
-
-; target any File Browswer / Windows Explorer window
-lbl_w_Windows_Explorer:
-#IfWinActive ahk_class CabinetWClass ahk_exe Explorer.EXE 
-	; [Middle Mouse Button Click]
-	MButton::
-	{
-		; If hotkey was triggered within DOUBLE_TAP_LIMIT,
-			; then activate the doubleTap process and reset the 
-			; listener key to false for the next occurence.
-			; DOUBLE_TAP_LIMIT approximately 350 milliseconds atm
-		if (A_ThisHotkey = A_PriorHotkey && A_TimeSincePriorHotkey < DOUBLE_TAP_LIMIT) {
-			; Toggle Left Folder Navigation Panel
-			Send, !vn{Enter}
-		}
-		; Toggle Right Preview Panel
-		Send, !p
-		return
-	}
-	;copy file address, file path + file name
-	;Ctrl
-	^+c::
-	{
-		KeyWait, Ctrl
-		KeyWait, Shift
-		Clipboard := 
-		Send, {Alt}hcp
-		ClipWait
-		Clipboard := SubStr(Clipboard, 2, -1)
-		;~ Clipboard := thisClipNoQuotations
-		;~ MsgBox, %Clipboard%
-		return
-	}
-	
 
 ;~ #IfWinActive TI Connect™ CE ahk_class GlassWndClass-GlassWindowClass-4 ahk_exe TI Connect CE.exe
 #IfWinActive ahk_exe TI Connect CE.exe
