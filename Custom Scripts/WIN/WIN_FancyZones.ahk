@@ -1,5 +1,5 @@
-#Include %A_ScriptDir%\..\LIB\LIB_Main_Method_Library.ahk
-#Include %A_ScriptDir%\..\LIB\LIB_repeatKey().ahk
+;~ #Include %A_ScriptDir%\..\LIB\LIB_Main_Method_Library.ahk
+;~ #Include %A_ScriptDir%\..\LIB\LIB_repeatKey().ahk
 #IfWinActive ahk_exe FancyZonesEditor.exe
 ;;If window is active
 

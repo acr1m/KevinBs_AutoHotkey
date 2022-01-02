@@ -8,7 +8,7 @@ NumpadSub::
 	;;reduce window to minimin size possible 64x 72y
 	
 	;; 1r 2c
-
+	
 	wndWidth := 960
 	wndHeight := 1040
 	fancyZones_setSize(wndWidth, wndHeight)
