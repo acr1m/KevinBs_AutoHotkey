@@ -26,8 +26,8 @@ label_OpenExcel:
 	;~ MsgBox,,, % "Msg from `n#IfWinActive NONE `n#x::", % 3
 	Run, %filePathFor_Excel% %filePathFor_Excel_doc%
 	return
-	
-#IfWinExist ahk_class XLMAIN ahk_exe EXCEL.EXE
+
+#IfWinExist Time_Stamps_Main_v5.xlsm - Excel ahk_class XLMAIN ahk_exe EXCEL.EXE
 #x::
 	;~ MsgBox,,, % "Msg from `n#IfWinExist EXCEL`n#x::", % 3
 	WinActivate ; Activates the window found by the above #IfWin directive.
@@ -37,7 +37,7 @@ label_OpenExcel:
 	WinActivate
 	excel_Hotkey_#Insert()
 	return
-#IfWinActive ahk_class XLMAIN ahk_exe EXCEL.EXE
+#IfWinActive Time_Stamps_Main_v5.xlsm - Excel ahk_class XLMAIN ahk_exe EXCEL.EXE
 {
 	;;Scroll Left
 	+WheelUp::
