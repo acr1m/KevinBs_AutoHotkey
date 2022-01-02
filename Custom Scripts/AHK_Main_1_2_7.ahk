@@ -199,7 +199,7 @@ F20::Run, "C:\Program Files (x86)\VB\Voicemeeter\voicemeeter.exe"
 			return
 	}
 	return
-	repeatKey(
+
 /* 
 ~*RButton Up::
 	Suspend, Permit
