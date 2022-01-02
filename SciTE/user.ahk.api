@@ -20,3 +20,11 @@ repeatShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_press
 restoreClipboard()
 rstrClip()
 setClipboard(p_clipWaitTime := 1, p_str := "")
+
+excel_ActivateDrawBorderTool()
+excel_AddTopBorder()
+excel_EncapIfErrorIf()
+excel_NavigateToBottomLeftCell()
+excel_StampTimeCurrent()
+excel_StampTimeCurrent_OnNextLine()
+excel_setBorderColorToAccent1()
