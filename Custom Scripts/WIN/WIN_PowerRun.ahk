@@ -2,7 +2,14 @@
 
 ::!word::
 ::!wordhippo::
-{
+	pwrRun_fireFoxSearch("word")
+	return
+
+
+
+
+
+pwrRun_fireFoxSearch(str := ""){
 	if (WinExist("Firefox")){
 		;;delete text
 		Send, +{Home}{Delete}
@@ -12,7 +19,7 @@
 		;;select address bar
 		Send, ^l
 		;;type !word and then space
-		Send, word{Space}
+		Send, %str%{Space}
 	}
 	else {
 		;;delete text
@@ -23,10 +30,14 @@
 		;;select address bar
 		Send, ^l
 		;;type !word and then space
-		Send, word{Space}
+		Send, %str%{Space}
 	}
 	return
 }
+
+
+
+
 ;;Re-declare any window as an acceptable 
 ;;case-scenario before exit.
 #IfWinActive
