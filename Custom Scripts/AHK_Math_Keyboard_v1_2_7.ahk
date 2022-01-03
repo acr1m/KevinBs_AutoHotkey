@@ -1,4 +1,4 @@
-﻿#Include E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_Main_Method_Library.ahk
+﻿;~ #Include E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_Main_Method_Library.ahk
 #InstallKeybdHook
 
 ;~ TOOLBAR ICON

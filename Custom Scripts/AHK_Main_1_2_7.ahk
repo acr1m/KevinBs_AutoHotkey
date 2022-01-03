@@ -23,6 +23,7 @@ global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 #Include LIB_repeatKey().ahk
 
 #Include %A_ScriptDir%
+#Include AHK_Math_Keyboard_v1_2_7.ahk
 #Include AHK_GUI_Mouse_Control.ahk
 
 ;WINDOW/APP CONTEXT SENSITIVE SCRIPTS
