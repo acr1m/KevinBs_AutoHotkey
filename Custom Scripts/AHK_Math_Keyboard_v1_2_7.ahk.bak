@@ -1,42 +1,44 @@
-﻿#Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_Main_Method_Library.ahk
+﻿#Include E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_Main_Method_Library.ahk
 #InstallKeybdHook
 
 ;~ TOOLBAR ICON
 	Menu, Tray, Icon, E:\Assets\Icons\math_ruler_.bmp
 ;===============================================================================
-;~ CONSTANTS
-	global SUSPEND_LIMIT := 200 ; n milliseconds
-	global DOUBLE_TAP_LIMIT := 350 ; n milliseconds
-	global INCREMENT_LIMIT := 500 ; n milliseconds
+;~ ;CONSTANTS
+	;~ global SUSPEND_LIMIT := 200 ; n milliseconds
+	;~ global DOUBLE_TAP_LIMIT := 350 ; n milliseconds
+	;~ global INCREMENT_LIMIT := 500 ; n milliseconds
 ;~ STARTING VARIABLES
 	global g_windowSentinelIsOn := true ; default = true
 	global currentRaisedPower := 1 ;used for incrementing n. Ex:  a^n
 
 ;~ MATH-INPUT-STYLE SWITCHES FOR EDITOR/BROWSER/ENVIRONMENT COMPATABILITY 
-	;~ used for typeSquareRoot() function
-	global style_paste := false ;~ default value = false
-	global style_backSlash := true ;~ default value = true
-	global style_squareRootLeftAmount := 0 ;~ default value = 0
+	;~ used for mathKbd_typeSquareRoot() function
+	global mathKbd_style_paste := false ;~ default value = false
+	global mathKbd_style_backSlash := true ;~ default value = true
+	global mathKbd_style_squareRootLeftAmount := 0 ;~ default value = 0
 	
-;~ SET STYLE FUNCTION
-setMathInputStyle(p_1 := false, p_2 := true, p_3 := 3, p_4 := 0){
-	style_paste := p_1
-	style_backSlash := p_2
-	style_squareRootBackspaceAmount := p_3
-	style_squareRootLeftAmount := p_4
-}
 ;run the Active Window Sentinel method
-activeWindowSentinel()
+mathKbd_activeWindowSentinel()
 
-activeWindowSentinel(){
+
+;~ SET STYLE FUNCTION
+mathKbd_setMathInputStyle(p_1 := false, p_2 := true, p_3 := 3, p_4 := 0){
+	mathKbd_style_paste := p_1
+	mathKbd_style_backSlash := p_2
+	mathKbd_style_squareRootBackspaceAmount := p_3
+	mathKbd_style_squareRootLeftAmount := p_4
+}
+
+mathKbd_activeWindowSentinel(){
 	while(g_windowSentinelIsOn){
 		Sleep, 3000
 		if (WinActive("Desmos")){
-			setMathInputStyle(false, false, 2, 0)
+			mathKbd_setMathInputStyle(false, false, 2, 0)
 		} else if (WinActive("Mathway")){
-			setMathInputStyle(true, false, 3, 1)
+			mathKbd_setMathInputStyle(true, false, 3, 1)
 		} else {
-			setMathInputStyle(false, true, 3, 0)
+			mathKbd_setMathInputStyle(false, true, 3, 0)
 		}
 	}
 }
@@ -57,15 +59,15 @@ activeWindowSentinel(){
 ;~ AUTORUN COMMANDS
 ;===============================================================================
 #IfWinActive
-debugFunction()
+mathKbd_debugFunction()
 
-debugFunction()
+mathKbd_debugFunction()
 {
 	MsgBox, function called at TOP of script.
 	return
 }
 
-setMathInputStyle()
+mathKbd_setMathInputStyle()
 
 ;===============================================================================
 ;~ SCRIPT MANAGEMENT / SUSPENSION CONTROL
@@ -128,23 +130,23 @@ setMathInputStyle()
 	;this function is a double-tap that turns a plus "+" into a minus "-"
 	$Numpad1::
 		SendRaw, 1
-		incrementVariables(,"x","y","z","1")
+		mathKbd_incrementVariables(,"x","y","z","1")
 		return
 	$Numpad2::
 		SendRaw, 2
-		incrementVariables(,"pi","\theta","r","2")
+		mathKbd_incrementVariables(,"pi","\theta","r","2")
 		return
 	$Numpad3::
 		SendRaw, 3
-		incrementVariables(,"e","3")
+		mathKbd_incrementVariables(,"e","3")
 		return
 	$Numpad4::
 		SendRaw, 4
-		incrementVariables(,"t","u","v","w","4")
+		mathKbd_incrementVariables(,"t","u","v","w","4")
 		return
 	$Numpad5::
 		SendRaw, 5
-		incrementVariables(,"i","j","k","5")
+		mathKbd_incrementVariables(,"i","j","k","5")
 		return
 	$Numpad6::
 		SendRaw, 6
@@ -152,36 +154,41 @@ setMathInputStyle()
 		return
 	$Numpad7::
 		SendRaw, 7
-		incrementVariables(350,"(",")")
+		mathKbd_incrementVariables(350,"(",")")
 		return
 	$Numpad8::
 		SendRaw, 8
-		incrementPower()
+		mathKbd_incrementPower()
 		return
 	$Numpad9::
 		SendRaw, 9
 		; negative incrementation, i.e. decrement by 1 at a time
-		incrementPower(,-1)
+		mathKbd_incrementPower(,-1)
 		return
-	
+	~x::
+		Send, x
+		if (doubleTap()){
+			Send, {BackSpace, 2}^2{Tab}
+		}
+		return
 	
 	;this function is a double-tap that turns a plus "+" into a minus "-"
 	$NumpadAdd:: 
 		SendRaw, +
-		incrementVariables(,"-","+")
+		mathKbd_incrementVariables(,"-","+")
 		return
 	NumpadSub::
 		Send, {Backspace}
 		return
 	NumpadMult:: ; superscript, power, multiply, squared, increment, iteration
 		Send, {*}
-		incrementPower()
+		mathKbd_incrementPower()
 		return
 	NumpadDiv:: ; square root, 
 		Send, {/}
 		if (doubleTap()){
-			Send, {Backspace %style_squareRootBackspaceAmount%}
-			typeSquareRoot()
+			Send, {Backspace %mathKbd_style_squareRootBackspaceAmount%}
+			mathKbd_typeSquareRoot()
 		}
 		return
 
@@ -320,11 +327,11 @@ setMathInputStyle()
 		
 		+2::
 			Send, {^}		; superscript, power
-			incrementPower(INCREMENT_LIMIT,1)
+			mathKbd_incrementPower(INCREMENT_LIMIT,1)
 			return
 		+/::
 		Right & NumpadDiv::
-			typeSquareRoot()
+			mathKbd_typeSquareRoot()
 			return
 		Right & NumpadMult::		Send, +5		; = %
 		+3::						Send, {+}		; addition, plus, sum, add
@@ -701,7 +708,7 @@ setMathInputStyle()
 {
 	NumpadMult:: ; superscript, power, multiply, squared, increment, iteration
 		Send, {*}
-		incrementPowerNoCarrotWithExtraBackspacing()
+		mathKbd_incrementPowerNoCarrotWithExtraBackspacing()
 		return
 
 	+Tab::Left
@@ -729,11 +736,11 @@ setMathInputStyle()
 		;~ pasteSquareRoot(1)
 		;~ return
 	::theta::
-		paste("θ")
+		mathKbd_paste("θ")
 		return
 	::inf::
 	::infinity::
-		paste("∞")
+		mathKbd_paste("∞")
 		return
 #Hotstring C0 O0 ?0 *0		;~ Turn off Hotstring directives
 }
@@ -751,17 +758,17 @@ setMathInputStyle()
 ;~ OTHER METHODS
 ;==============================================================================
 
-incrementPowerNoCarrotWithExtraBackspacing()
+mathKbd_incrementPowerNoCarrotWithExtraBackspacing()
 {
-	incrementPower(,,,,,false,true)
+	mathKbd_incrementPower(,,,,,false,true)
 }
 
-incrementPowerNoCarrot()
+mathKbd_incrementPowerNoCarrot()
 {
-	incrementPower(,,,,false)
+	mathKbd_incrementPower(,,,,false)
 }
 
-incrementPower( p_timeLimit := -1, p_incrementAmount := 1, p_initialBackspaceAmount := 2, p_subsequentBackspaceAmount :=3, p_rightAmount := 1, p_sendCarrot := true, p_extraBackspacing := false){
+mathKbd_incrementPower( p_timeLimit := -1, p_incrementAmount := 1, p_initialBackspaceAmount := 2, p_subsequentBackspaceAmount :=3, p_rightAmount := 1, p_sendCarrot := true, p_extraBackspacing := false){
 	if (doubleTap(p_timeLimit)){
 		currentRaisedPower += p_incrementAmount
 		if (currentRaisedPower = 2)
@@ -785,7 +792,7 @@ incrementPower( p_timeLimit := -1, p_incrementAmount := 1, p_initialBackspaceAmo
 }
 
 ; variadic parameter__________________vvvvvvv________
-incrementVariables(p_timeLimit := "", p_vars*){
+mathKbd_incrementVariables(p_timeLimit := "", p_vars*){
 	; if undeclared, set timelimit to default increment time value
 	if (p_timeLimit == ""){
 		p_timeLimit := INCREMENT_LIMIT
@@ -822,26 +829,26 @@ incrementVariables(p_timeLimit := "", p_vars*){
 	Send, {CtrlUp}{ShiftUp}{AltUp}
 }
 
-typeSquareRoot(){
-	if (style_paste == false){
-		if (style_backSlash == false || style_backSlash == 0)
-			Send, sqrt{Left %style_squareRootLeftAmount%}
-		else if (style_backSlash == true || style_backSlash == 1)
-			Send, \sqrt{Left %style_squareRootLeftAmount%}
-	} else if (style_paste == true){
-		pasteSquareRoot()
+mathKbd_typeSquareRoot(){
+	if (mathKbd_style_paste == false){
+		if (mathKbd_style_backSlash == false || mathKbd_style_backSlash == 0)
+			Send, sqrt{Left %mathKbd_style_squareRootLeftAmount%}
+		else if (mathKbd_style_backSlash == true || mathKbd_style_backSlash == 1)
+			Send, \sqrt{Left %mathKbd_style_squareRootLeftAmount%}
+	} else if (mathKbd_style_paste == true){
+		mathKbd_pasteSquareRoot()
 	}
 }
 
-pasteSquareRoot(){
+mathKbd_pasteSquareRoot(){
 	archiveClipboard()
 	Clipboard := "√"			; square root, radical  √:(A+251)
-	Send, ^v{Left %style_squareRootLeftAmount%}
+	Send, ^v{Left %mathKbd_style_squareRootLeftAmount%}
 	restoreClipboard()
 	return
 }
 
-paste(str := ""){	
+mathKbd_paste(str := ""){	
 	archiveClipboard()
 	Clipboard := str
 	Send, ^v 
