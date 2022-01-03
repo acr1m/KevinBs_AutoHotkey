@@ -1,4 +1,5 @@
-﻿;~ #Include E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_Main_Method_Library.ahk
+﻿#Include %A_ScriptDir%\LIB\LIB_Main_Method_Library.ahk
+#SingleInstance Force
 #InstallKeybdHook
 
 ;~ TOOLBAR ICON
