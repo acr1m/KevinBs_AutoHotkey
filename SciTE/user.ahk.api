@@ -1,3 +1,4 @@
+pwrRun_fireFoxSearch(str := "")
 archClip()
 archiveClipboard()
 archiveThenCopy(p_clipWaitTime := 0)
