@@ -36,6 +36,7 @@ global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 #Include WIN_FancyZones.ahk
 #Include WIN_Explorer.ahk
 #Include WIN_PowerRun.ahk
+#Include WIN_Word.ahk
 ;==============================================================================
 
 ;==============================================================================
