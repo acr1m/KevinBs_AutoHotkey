@@ -43,10 +43,3 @@ Escape::ExitApp
 	return
 	
 
-;~ mousePos:		X: 243		Y: 831
-;~ mousePercent:	X: 0.352174%	Y: 0.763085%
-;~ Client size:	w: 674		h: 1030
-;~ Window size:	w: 690		h: 1089
-;~ ahk_class SciTEWindow
-;~ Title: AHK_Mouse_Position_As_Percentage_Tooltip.ahk - SciTE4AutoHotkey [7 of 9]
-;~ Control: Scintilla1

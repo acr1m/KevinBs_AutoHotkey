@@ -2,7 +2,8 @@
 
 ;Define your file path locations here inside of quotation marks "like\this.file"
 filePathFor_Excel := "C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE"
-filePathFor_Excel_doc := "https://d.docs.live.net/72d27cf0d2cf4c8e/Documents/Time_Stamps_Main_v5.xlsm"
+;~ filePathFor_Excel_doc := "https://d.docs.live.net/72d27cf0d2cf4c8e/Documents/Time_Stamps_Main_v5.xlsm"
+filePathFor_Excel_doc := "E:\Library\OneDrive\Documents\Spreadsheets\Time_Stamps_Main_v5.xlsm"
 
 /* 
 FILEPATHS
