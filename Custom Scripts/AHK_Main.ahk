@@ -17,10 +17,12 @@ global PRIMARY_MOUSE := "Left"
 global SWAP_RETVAL := 
 global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 ;###############################################################################
-#Include %A_ScriptDir%\LIB
+#Include %A_ScriptDir%\_lib
 #Include LIB_Main_Method_Library.ahk
 #Include LIB_Emojis_And_Symbols.ahk
 #Include LIB_repeatKey().ahk
+#Include LIB_oneKey_Copy_Paste_Mode.ahk
+
 
 #Include %A_ScriptDir%
 ;~ #Include AHK_Math_Keyboard_v1_2_7.ahk
@@ -28,7 +30,7 @@ global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 #Include AHK_GUI_Mouse_Control.ahk
 
 ;WINDOW/APP CONTEXT SENSITIVE SCRIPTS
-#Include %A_ScriptDir%\WIN
+#Include %A_ScriptDir%\_win
 #Include WIN_Windows_Color_Picker.ahk
 #Include WIN_Excel.ahk
 #Include WIN_Outlook.ahk

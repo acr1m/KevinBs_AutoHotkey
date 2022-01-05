@@ -1,5 +1,5 @@
 ;~ #Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_Main_Method_Library.ahk
-#Include %A_ScriptDir%\LIB
+#Include %A_ScriptDir%\_lib
 #Include LIB_Main_Method_Library.ahk
 #Include LIB_Mouse_Swap_Primary_Button.ahk
 #InstallKeybdHook
