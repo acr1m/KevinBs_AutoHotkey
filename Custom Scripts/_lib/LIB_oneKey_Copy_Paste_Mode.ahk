@@ -13,8 +13,9 @@ x::x
 ;; copy
 c::
 {
-	if oneKey_
-	Send, ^c
+	if (oneKey_){
+		Send, ^c
+	}
 	return
 }
 ;; paste

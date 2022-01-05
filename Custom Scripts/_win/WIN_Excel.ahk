@@ -4,7 +4,7 @@
  * 		excel_ActivateDrawBorderTool()
  * 		excel_AddTopBorder()
  * 		excel_EncapIfErrorIf()
- * 		excel_Hotkey_#Insert()
+ * 		excel_Hotkey_LWinInsert()
  *		excel_NavigateToBottomLeftCell()
  * 		excel_StampTimeCurrent()
  * 		excel_StampTimeCurrent_OnNextLine()
@@ -12,6 +12,7 @@
  */
 
 #IfWinActive
+
 #x::gosub, label_OpenExcel
 
 #Insert::
@@ -36,8 +37,12 @@ label_OpenExcel:
 	return
 #Insert::
 	;~ MsgBox,,, % "Msg from `n#IfWinExist EXCEL `n#Insert::", % 3
+	KeyWait, Insert
+	KeyWait, LWin
 	WinActivate
-	excel_Hotkey_#Insert()
+	Sleep, 500
+	WinActivate
+	excel_Hotkey_LWinInsert()
 	return
 #IfWinActive Time_Stamps_Main_v5.xlsm - Excel ahk_class XLMAIN ahk_exe EXCEL.EXE
 {
@@ -86,7 +91,7 @@ label_OpenExcel:
 	#Insert::
 	^+Insert::
 		;~ MsgBox,,, % "Msg from `n#IfWinActive EXCEL `n#Insert::", % 3
-		excel_Hotkey_#Insert()
+		excel_Hotkey_LWinInsert()
 		return
 	
 }
@@ -124,7 +129,7 @@ excel_EncapIfErrorIf(){
 	;edit cell contents
 		Send, {F2} 
 	;select all except the beginning "=" sign
-		Send, {Home}{Right}{ShiftDown}{End}{ShiftUp} 
+		Send, ^{Home}{Right}{ShiftDown}^{End}{ShiftUp} 
 	;cut
 		Send, ^x 
 	;wait for clipboard to have content before proceeding
@@ -150,52 +155,72 @@ excel_EncapIfErrorIf(){
 		Clipboard := clipArchive
 	return
 }
-excel_Hotkey_#Insert(){
+excel_Hotkey_LWinInsert(){
 	KeyWait, Insert
 	KeyWait, LWin
 	excel_StampTimeCurrent_OnNextLine()
 	return
 }
 excel_NavigateToBottomLeftCell(){
+	SetKeyDelay, 200
 	Send, ^{Home 2}
 	Send, ^{Down}
 	Send, {Down}
-	excel_StampTimeCurrent()
 	return
 }
 excel_StampTimeCurrent(){
-	SetKeyDelay, 100
+	;; new method
+	;~ FormatTime, Clipboard
+	;~ FormatTime, Clipboard, , yyyy/MM/dd hh:mm:ss tt
+	FormatTime, outputVar, , yyyy/MM/dd hh:mm:ss tt
+	;~ MsgBox, % outputVar
+	SetKeyDelay, -1
+	Send, %outputVar%{Tab}{Left}
+
+	;~ SetKeyDelay, 0
+	;~ FormatTime, timeStamp
+	;~ SendRaw, % timeStamp
+	;~ Send, {Enter}
+	;~ SetKeyDelay, Default
 	
-	clipHolder := ClipboardAll
-	Clipboard := "=now()"
-	
-	Send, ^v
-	KeyWait, Ctrl
-	
-	Send, ^c
-	KeyWait, Ctrl		
-	
-	Send, {Alt}
-	KeyWait, Alt
-	Send, h
-	KeyWait, h
-	Send, v
-	KeyWait, v
-	Send, v
-	KeyWait, v
-	Send, {Escape}
-	KeyWait, Escape
-	Send, {Escape}
-	
-	;~ Clipboard := clipHolder
-	
-	SetKeyDelay, Default
+	;; old method
+/*	SetKeyDelay, 100
+ * 	
+ * 	clipHolder := ClipboardAll
+ * 	Clipboard := "=now()"
+ * 	
+ * 	Send, ^v
+ * 	KeyWait, Ctrl
+ * 	
+ * 	Send, ^c
+ * 	KeyWait, Ctrl		
+ * 	
+ * 	Send, {Alt}
+ * 	KeyWait, Alt
+ * 	Send, h
+ * 	KeyWait, h
+ * 	Send, v
+ * 	KeyWait, v
+ * 	Send, v
+ * 	KeyWait, v
+ * 	Send, {Escape}
+ * 	KeyWait, Escape
+ * 	Send, {Escape}
+ * 	
+ * 	;~ Clipboard := clipHolder
+ * 	
+ * 	SetKeyDelay, Default
+ */
+	SetKeyDelay, 0
 	return
 }
 excel_StampTimeCurrent_OnNextLine(){
 	excel_NavigateToBottomLeftCell()
 	excel_StampTimeCurrent()
+	Sleep, 200
+	SetKeyDelay, 20
 	Send, {Right 2}
+	SetKeyDelay, 0
 	return
 }
 excel_setBorderColorToAccent1()

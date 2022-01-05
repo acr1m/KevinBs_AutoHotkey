@@ -6,90 +6,70 @@ position.width=839
 position.height=1037
 position.maximize=0
 
-mru.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_colorHandler.ahk
-mru.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_SciTE4AutoHotkey_Mark_All_Selection.ahk
-mru.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Macros.ahk
-mru.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Excel_filepaths.ahk
-mru.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Outlook.ahk
-mru.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\Test_BlockComments.ahk
-mru.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_RegEx_Expression_Editing_Shortcuts.ahk
-mru.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_repeatKey().ahk
-mru.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Math_Keyboard_v1_2_7.ahk
-mru.10.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_PowerRun.ahk
+mru.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_FancyZones.ahk
+mru.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\UTILITY_RegEx_Expression_Editing_Shortcuts.ahk
+mru.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_macros\temp_macro.ahk
+mru.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib\LIB_oneKey_Copy_Paste_Mode.ahk
+mru.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_GUI_Mouse_Control.ahk
+mru.6.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\ahk.api
+mru.7.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\ahk2.properties
+mru.8.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\AhkAbbrevs.properties
+mru.9.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\ahk.properties
+mru.10.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\ahk.keywords.properties
 
-buffer.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Main_1_2_7.ahk
-buffer.1.position=88
+buffer.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Main.ahk
+buffer.1.position=1169
 buffer.1.scroll=0
 buffer.1.current=1
-buffer.1.bookmarks=115,116,412,413
+buffer.1.bookmarks=121,122,418,419
 
-buffer.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Excel.ahk
-buffer.2.position=3172
-buffer.2.scroll=95
+buffer.2.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
+buffer.2.position=333
+buffer.2.scroll=0
 
-buffer.3.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
-buffer.3.position=1898
-buffer.3.scroll=9
+buffer.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_Excel.ahk
+buffer.3.position=1045
+buffer.3.scroll=20
+buffer.3.bookmarks=218
+buffer.3.folds=101,110,125,227
 
-buffer.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_FancyZones.ahk
-buffer.4.position=185
+buffer.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_FancyZones.ahk
+buffer.4.position=241
 buffer.4.scroll=0
 
-buffer.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Explorer.ahk
-buffer.5.position=662
-buffer.5.scroll=6
+buffer.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\UTILITY_RegEx_Expression_Editing_Shortcuts.ahk
+buffer.5.position=97
+buffer.5.scroll=0
 
-buffer.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_SciTE4AutoHotkey.ahk
-buffer.6.position=166
+buffer.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_macros\temp_macro.ahk
+buffer.6.position=17
 buffer.6.scroll=0
+buffer.6.folds=5,39,54
 
-buffer.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_Main_Method_Library.ahk
-buffer.7.position=1944
-buffer.7.scroll=65
-buffer.7.bookmarks=34,43,72,85,94,99,127,132
+buffer.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib\LIB_oneKey_Copy_Paste_Mode.ahk
+buffer.7.position=289
+buffer.7.scroll=0
 
-buffer.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_Emojis_And_Symbols.ahk
-buffer.8.position=7332
-buffer.8.scroll=73
-buffer.8.bookmarks=66
+buffer.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_GUI_Mouse_Control.ahk
+buffer.8.position=113
+buffer.8.scroll=0
 
-buffer.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_colorHandler.ahk
-buffer.9.position=181
-buffer.9.scroll=0
+buffer.9.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\ahk.api
+buffer.9.position=1711
+buffer.9.scroll=10
 
-buffer.10.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_SciTE4AutoHotkey_Mark_All_Selection.ahk
-buffer.10.position=257
-buffer.10.scroll=0
+buffer.10.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\ahk2.properties
+buffer.10.position=7054
+buffer.10.scroll=75
 
-buffer.11.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Macros.ahk
-buffer.11.position=530
+buffer.11.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\AhkAbbrevs.properties
+buffer.11.position=61
 buffer.11.scroll=0
-buffer.11.folds=10,28,34
 
-buffer.12.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Excel_filepaths.ahk
-buffer.12.position=194
+buffer.12.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\ahk.properties
+buffer.12.position=1
 buffer.12.scroll=0
 
-buffer.13.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_Outlook.ahk
-buffer.13.position=321
-buffer.13.scroll=8
-
-buffer.14.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\Test_BlockComments.ahk
-buffer.14.position=5
-buffer.14.scroll=0
-
-buffer.15.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_RegEx_Expression_Editing_Shortcuts.ahk
-buffer.15.position=67
-buffer.15.scroll=0
-
-buffer.16.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\LIB\LIB_repeatKey().ahk
-buffer.16.position=61
-buffer.16.scroll=0
-
-buffer.17.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Math_Keyboard_v1_2_7.ahk
-buffer.17.position=21357
-buffer.17.scroll=820
-
-buffer.18.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\WIN\WIN_PowerRun.ahk
-buffer.18.position=128
-buffer.18.scroll=0
+buffer.13.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\ahk.keywords.properties
+buffer.13.position=5463
+buffer.13.scroll=76

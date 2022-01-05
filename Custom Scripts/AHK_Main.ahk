@@ -16,12 +16,13 @@ isCompiled := A_IsCompiled
 global PRIMARY_MOUSE := "Left"
 global SWAP_RETVAL := 
 global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
+global oneKey_HasItBeenSet := false
 ;###############################################################################
 #Include %A_ScriptDir%\_lib
 #Include LIB_Main_Method_Library.ahk
 #Include LIB_Emojis_And_Symbols.ahk
 #Include LIB_repeatKey().ahk
-#Include LIB_oneKey_Copy_Paste_Mode.ahk
+;~ #Include LIB_oneKey_Copy_Paste_Mode.ahk
 
 
 #Include %A_ScriptDir%
