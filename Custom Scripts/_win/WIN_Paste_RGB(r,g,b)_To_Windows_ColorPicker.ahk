@@ -24,8 +24,12 @@
 ; alt+v
 	!v::
 		testClip := "rgb(93, 05, 123)"
-		clipArray := StrSplit(testClip, ",")
-		
+		clipArray := StrSplit(testClip, ",", " rgb()")
+		Clipboard := 
+		for index, val in clipArray{
+			Clipboard := Clipboard . "`n" . "val[" . index . "] =>>" . val . "<<"
+		}
+
 		; Dot "." is the concatenation operator to explicitly 
 		;	combine two items
 		;	-there must be at least one space on each side of the string

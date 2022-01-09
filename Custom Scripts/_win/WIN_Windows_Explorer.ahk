@@ -1,6 +1,17 @@
 ; target any File Browswer / Windows Explorer window
 lbl_w_Windows_Explorer:
 #IfWinActive ahk_class CabinetWClass ahk_exe Explorer.EXE 
+
+;; Scroll left.
++WheelUp::
+	Send, {Left}
+	return
+	
+;; Scroll right.
++WheelDown::  
+	Send, {Right}
+	return
+
 ; [Middle Mouse Button Click]
 MButton::
 {

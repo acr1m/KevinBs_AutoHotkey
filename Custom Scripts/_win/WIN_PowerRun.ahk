@@ -1,4 +1,4 @@
-#IfWinActive PowerLauncher ahk_class HwndWrapper[PowerLauncher;;300ce19b-7b4c-49eb-a764-0a730ee71419] ahk_exe PowerLauncher.exe
+#IfWinActive PowerLauncher ahk_exe PowerLauncher.exe
 
 ::!word::
 ::??word::
@@ -32,7 +32,14 @@
 ::color names::
 	Run, Firefox.exe "https://www.w3schools.com/colors/colors_names.asp"
 	return
-
+::??anime::
+#Include %A_ScriptDir%\..\_lib\LIB_time().ahk
+	v_domain := "https://www.livechart.me/timetable?date="
+	v_date := time_getDate("yyyy-MM-dd")
+	v_target := v_domain . v_date
+	MsgBox, %v_target%
+	Run, Chrome.exe %v_target%
+	return
 pwrRun_fireFoxSearch(str := "", extraSend := ""){
 	if (WinExist("Firefox")){
 		;;delete text
