@@ -22,13 +22,17 @@ global oneKey_HasItBeenSet := false
 #Include LIB_Main_Method_Library.ahk
 #Include LIB_Emojis_And_Symbols.ahk
 #Include LIB_repeatKey().ahk
+#Include LIB_time().ahk
+#Include LIB_RegEx().ahk
 ;~ #Include LIB_oneKey_Copy_Paste_Mode.ahk
 
+;;UTITILITIES
+#Include %A_ScriptDir%\_utility
 
 #Include %A_ScriptDir%
 ;~ #Include AHK_Math_Keyboard_v1_2_7.ahk
 ;~ Run, AHK_Math_Keyboard_.exe
-#Include AHK_GUI_Mouse_Control.ahk
+#Include _gui\GUI_Mouse_Control.ahk
 
 ;WINDOW/APP CONTEXT SENSITIVE SCRIPTS
 #Include %A_ScriptDir%\_win
@@ -37,7 +41,7 @@ global oneKey_HasItBeenSet := false
 #Include WIN_Outlook.ahk
 #Include WIN_SciTE4AutoHotkey.ahk
 #Include WIN_FancyZones.ahk
-#Include WIN_Explorer.ahk
+#Include WIN_Windows_Explorer.ahk
 #Include WIN_PowerRun.ahk
 #Include WIN_Word.ahk
 ;==============================================================================
@@ -56,7 +60,6 @@ global oneKey_HasItBeenSet := false
 ;Voicemeeter 
 ;Windows Key + S
 #s::Run, "C:\Program Files (x86)\VB\Voicemeeter\voicemeeter.exe"
-F20::Run, "C:\Program Files (x86)\VB\Voicemeeter\voicemeeter.exe"
 ;Sound Control Panel
 ^#s::Run, "E:\Assets\Scripts\Windows Commands\Sound Control Panel - Playback Tab.bat"
 ;Windows Excel (#a)
@@ -425,3 +428,8 @@ Tab::
 
 #IfWinActive
 
+;; ctrl+insert - types out the date in a pre-defined format that is changeable
+^Insert::
+	;~ time_sendDate("yyyy")
+	time_sendDate()
+	return
