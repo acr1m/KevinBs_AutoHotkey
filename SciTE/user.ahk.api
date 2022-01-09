@@ -1,32 +1,45 @@
-oneKey_setState_Paste(Boolean)
-oneKey_getState_Paste(Boolean)
-oneKey_setState_Copy(Boolean)
-oneKey_getState_Copy(Boolean)
-oneKey_setState_Cut(Boolean)
-oneKey_getState_Cut(Boolean)
+
+RegEx_SwapTabs(rgx_replaceWith := "\\\\t")
+
+RegEx_SwapLineBreaks(rgx_replaceWith := "\\n")
+
+RegEx_SwapLineBreaks(rgx_replaceWith := "\\n")\n\tDescr:\tReplaces the Clipboard contents. Swaps out line-break characters with the given RegEx string.\n\tReturn:\tSTRING\n\tNotes: Search Expression := "((?:\r\n)|(?:\r)|(?:\n))"\n\t\t- Matches a single token of (CR+LF or CR or LF)
+
+RegEx_parseDocumentForFunctions()
+
+
+
+
+copySelection(p_clipWaitTime := 1)\n\tDescr:\tSends "Ctrl+c"\n\tReturn:\tBOOLEAN\n\tParams:\tp_clipWaitTime:= INTEGER (seconds)\n\tNotes:\tMake sure to have something "selected" before calling this method for it to work.
+
+time_getDate(STRING:= dateFormat)\r\n Descr:\tgets the date in the specified format.\r\n Return:\tSTRING\r\n Params:\r\n\tp_dateFormat: STRING \r\n\tmust use only these characters\r\n \t(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")\r\n \t[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
+time_sendDate(STRING: dateFormat)\r\n Descr:\tUses the 'Send, ' command, after getting the formatted date specified.\r\n Return:\tSTRING\r\n Params:\r\n\tp_dateFormat: STRING \r\n\tmust use only these characters\r\n \t(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")\r\n \t[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
+time_translateDate(p_timeShift := 0, p_timeUnit := "Days", p_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")
+StrReplace(Haystack, Needle [, ReplaceText, OutputVarCount, Limit])
+
 pwrRun_fireFoxSearch(str := "", extraSend := "")
 archClip()
 archiveClipboard()
 archiveThenCopy(p_clipWaitTime := 0)
 ctrlC(p_clipWaitTime := 1)
 doubleTap(p_timeLimit := -1)
-GetClientSize(v_hWnd, ByRef w := "", ByRef h := "")
+GetClientSize(v_hWnd, \nByRef w := "", \nByRef h := "")
 getClipboard(ByRef p_var)
-mouseEvent(p_clickDelay := 200, p_coordAsPercent*)
+mouseEvent(p_clickDelay := 200, \np_coordAsPercent*)
 moveCurrentLineDown(p_moveAmount := 1)
 moveCurrentLineUp(p_moveAmount := 1)
 pasteClipboard(p_str := "")
 rapidFire(p_thisHotkey := "", p_sendKey := "", p_time := 0)
-repeatAltKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
-repeatAltShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
-repeatCtrlAltShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
-repeatCtrlKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
-repeatCtrlShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
-repeatKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
-repeatShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
+repeatAltKey(p_key := "K", \np_keyPressAmount := 1, \np_delayAmount := -1, \np_pressDuration := -1)
+repeatAltShiftKey(p_key := "K", \np_keyPressAmount := 1, \np_delayAmount := -1, \np_pressDuration := -1)
+repeatCtrlAltShiftKey(p_key := "K", \np_keyPressAmount := 1, \np_delayAmount := -1, \np_pressDuration := -1)
+repeatCtrlKey(p_key := "K", \np_keyPressAmount := 1, \np_delayAmount := -1, \np_pressDuration := -1)
+repeatCtrlShiftKey(p_key := "K", \np_keyPressAmount := 1, \np_delayAmount := -1, \np_pressDuration := -1)
+repeatKey(p_key := "K", \np_keyPressAmount := 1, \np_delayAmount := -1, \np_pressDuration := -1)
+repeatShiftKey(p_key := "K", \np_keyPressAmount := 1, \np_delayAmount := -1, \np_pressDuration := -1)
 restoreClipboard()
 rstrClip()
-setClipboard(p_clipWaitTime := 1, p_str := "")
+setClipboard(p_clipWaitTime := 1, \np_str := "")
 
 excel_ActivateDrawBorderTool()
 excel_AddTopBorder()
@@ -36,12 +49,12 @@ excel_StampTimeCurrent()
 excel_StampTimeCurrent_OnNextLine()
 excel_setBorderColorToAccent1()
 
-mathKbd_setMathInputStyle(p_1 := false, p_2 := true, p_3 := 3, p_4 := 0)
+mathKbd_setMathInputStyle(p_1 := false, \np_2 := true, \np_3 := 3, \np_4 := 0)
 mathKbd_activeWindowSentinel()
 mathKbd_debugFunction()incrementPowerNoCarrotWithExtraBackspacing()
 mathKbd_incrementPowerNoCarrot()
-mathKbd_incrementPower( p_timeLimit := -1, p_incrementAmount := 1, p_initialBackspaceAmount := 2, p_subsequentBackspaceAmount :=3, p_rightAmount := 1, p_sendCarrot := true, p_extraBackspacing := false)
-mathKbd_incrementVariables(p_timeLimit := "", p_vars*)
+mathKbd_incrementPower( p_timeLimit := -1, \np_incrementAmount := 1, \np_initialBackspaceAmount := 2, \np_subsequentBackspaceAmount :=3, \np_rightAmount := 1, \np_sendCarrot := true, \np_extraBackspacing := false)
+mathKbd_incrementVariables(p_timeLimit := "", \np_vars*)
 mathKbd_typeSquareRoot()
 mathKbd_pasteSquareRoot()
 mathKbd_paste(str := "")
