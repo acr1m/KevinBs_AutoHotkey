@@ -1,0 +1,2728 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Findings Exportmodule="FindingsXmlFileWriter" Exportversion="1">
+  <Finding Expression="(?:([\s\S\.]*?)([\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:([\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>AHK_Main.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#KeyHistory 500  ;(Default is 40, Max is 500)
+#SingleInstance Force
+#InstallKeybdHook
+;~ #InstallMouseHook
+#HotkeyInterval 1000 ;one second interval
+#MaxHotkeysPerInterval 1000 ;1 thousand keys per above interval
+#Hotstring EndChars -()[]{}: "/\.?!`n
+
+Menu, Tray, Icon, E:\Software\iconsext-1.47\icons\Keyboards\msctf_410.ico
+
+;~ global isAdmin := A_IsAdmin
+isAdmin := A_IsAdmin
+;~ global isCompiled := A_IsCompiled
+isCompiled := A_IsCompiled
+;;;;CONSTANTS
+global PRIMARY_MOUSE := "Left"
+global SWAP_RETVAL := 
+global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
+global oneKey_HasItBeenSet := false
+;###############################################################################
+#Include %A_ScriptDir%\_lib
+#Include LIB_Main_Method_Library.ahk
+#Include LIB_Emojis_And_Symbols.ahk
+#Include LIB_repeatKey().ahk
+#Include LIB_time().ahk
+#Include LIB_RegEx().ahk
+;~ #Include LIB_oneKey_Copy_Paste_Mode.ahk
+
+;;UTITILITIES
+#Include %A_ScriptDir%\_utility
+
+#Include %A_ScriptDir%
+;~ #Include AHK_Math_Keyboard_v1_2_7.ahk
+;~ Run, AHK_Math_Keyboard_.exe
+#Include _gui\GUI_Mouse_Control.ahk
+
+;WINDOW/APP CONTEXT SENSITIVE SCRIPTS
+#Include %A_ScriptDir%\_win
+#Include WIN_Windows_Color_Picker.ahk
+#Include WIN_Excel.ahk
+#Include WIN_Outlook.ahk
+#Include WIN_SciTE4AutoHotkey.ahk
+#Include WIN_FancyZones.ahk
+#Include WIN_Windows_Explorer.ahk
+#Include WIN_PowerRun.ahk
+#Include WIN_Word.ahk
+;==============================================================================
+
+;==============================================================================
+;WINDOWS KEY SHORTCUTS &amp;&amp;
+;SOFTWARE OPEN/START/RUN SHORTCUTS
+;OPEN FILES, OPEN SOFTWARE, OPEN PROGRAMS, OPEN APPLICATIONS, OPEN APPS
+;===============================================================================
+^#AppsKey::Run, "AHK_Utility_Mouse_Position_As_Percentage_Tooltip.exe"
+#n::Run, "Notepad++"
+;~ #a::Run, E:\Software\AutoHotKey\SciTE\SciTE.exe
+
+#IfWinActive
+#a::Run, "E:\Software\AutoHotkey_MyInstallation_v01\SciTE\SciTE.exe"
+;Voicemeeter 
+;Windows Key + S
+#s::Run, "C:\Program Files (x86)\VB\Voicemeeter\voicemeeter.exe"
+;Sound Control Panel
+^#s::Run, "E:\Assets\Scripts\Windows Commands\Sound Control Panel - Playback Tab.bat"
+;Windows Excel (#a)
+;###############################################################################
+;~ HOTSTRING END CHARACTERS
+	;~ #Hotstring EndChars -()[]{}:;'"/\,.?!`n 
+	
+	;~ `n=[enter], `t=[tab]
+	;~ ? (question mark): The hotstring will be triggered even when it is 
+		;~ inside another word; that is, when the character typed immediately
+		;~ before it is alphanumeric. For example, if :?:al::airline is a 
+		;~ hotstring, typing "practical " would produce "practicairline ". 
+		;~ Use ?0 to turn this option back off.
+;===============================================================================
+;~ HOTSTRING OPTIONS 
+	;~ #Hotstring SE ; •SE stands for SendEvent, which is the default in versions older than 1.0.43.
+	;~ #Hotstring SI 
+			; •SI stands for SendInput, which typically has superior speed and 
+			;reliability than the other modes. Another benefit is that like 
+			;SendPlay below, SendInput postpones anything you type during a 
+			;hotstring's auto-replacement text. This prevents your keystrokes 
+			;from being interspersed with those of the replacement. When 
+			;SendInput is u
+	;~ #Hotstring SP ; •SP stands for SendPlay, which may allow hotstrings to work in a broader variety of games.
+	;~ #Hotstring O  ; omit ending character (for all hotstrings in document underneath this rule)
+	;~ #Hotstring O0  ; turn off "omit ending character" (for all hotstrings in document underneath this rule)
+	;~ #Hotstring Kn ; key delay (n = milliseconds) between each sent keystroke
+	;~ #Hotstring *  ; turn on No Ending Character Required
+	;~ #Hotstring *0 ; turn off No Ending Character Required
+	;~ #Hotstring R  ; sends output as raw
+	;~ #Hotstring C  ; case sensitive
+	;~ #Hotstring C0 ; turn off case sensitive
+;===============================================================================
+;~ HOTKEY PREFIXES
+	;~ [$] prefix keeps the hotkey from triggering itself in a loop
+	;~ [~] When the hotkey fires, its key's native function will not 
+			;be blocked (hidden from the system). 
+	;~ [*] Wildcard: Fire the hotkey even if extra modifiers are being held down. This is often used in conjunction with remapping keys or buttons.
+;===============================================================================
+
+;MOUSE - SWITCH PRIMARY MOUSE
+;MOUSE CONTROL PANEL (HOLD-RIGHT-CLICK)
+;~ ~MButton::
+	;~ ;if left or right mouse button down, wait for 2 seconds, 
+	;~ ;if 2 seconds passed, then set primary mouse to matching button.
+	;~ if (GetMouseState("LButton") == true){
+		;~ KeyWait, LButton, t2
+		;~ if (ErrorLevel == 1){
+			;~ PRIMARY_MOUSE := "Left"
+			;~ MsgBox, , Primary Mouse, Primary Mouse has been set to LEFT, 2 ;closes in 2 seconds
+		;~ }
+	;~ }
+	;~ else if (GetKeyState("RButton") == true){
+		;~ KeyWait, RButton, t2
+		;~ if (ErrorLevel == 1){
+			;~ PRIMARY_MOUSE := "Right"
+			;~ MsgBox, , Primary Mouse, Primary Mouse has been set to RIGHT, 2 ;closes in 2 seconds
+		;~ }
+	;~ }
+	;~ return
+^!m::
+	;~ assignPrimaryMouseButton()
+	;~ swapPrimaryMouseButton()
+	return
+
+~*LButton::
+/* 
+	Suspend, Permit
+	if (PRIMARY_MOUSE == "Left"){
+		Click, Left Down
+		;~ MouseClick, Left,,,,,D
+	}
+	else if (PRIMARY_MOUSE == "Right"){
+		Click, Right Down
+		;~ MouseClick, Right,,,,,D
+	}
+	else{
+		Click, Left Down
+		;~ MouseClick, Left,,,,,D
+	}
+*/
+	if (PRIMARY_MOUSE == "Right"){
+		KeyWait, LButton, t2 ;wait for 2 seconds
+		if (ErrorLevel == 1){
+			;~ if (WinExist("Mouse Control Panel"))
+			if (WinExist("Mouse Control Panel ahk_class AutoHotkeyGUI"))
+				WinActivate
+			else
+				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_GUI_Mouse_Control.exe
+				;~ gosub GUI_Mouse_Control
+				gosub GuiShow_Mouse_Control
+			return
+		}
+		else
+			return
+	}
+	return
+	
+/* 
+~*LButton Up::
+	Suspend, Permit
+	if (PRIMARY_MOUSE == "Left"){
+		Click, Left Up
+		;~ MouseClick, Left
+	}
+	else if (PRIMARY_MOUSE == "Right"){
+		Click, Right Up
+		;~ MouseClick, Right
+	}
+	else{
+		Click, Left Up
+		;~ MouseClick, Left
+	}
+	return
+ */
+~*RButton::
+/* 
+	Suspend, Permit
+	if (PRIMARY_MOUSE == "Right"){
+		Click, Left Down
+		;~ MouseClick, Left,,,,,D
+	}
+	else if (PRIMARY_MOUSE == "Left"){
+		Click, Right Down
+		;~ MouseClick, Right,,,,,D
+	}
+	else{
+		Click, Right Down
+		;~ MouseClick, Right,,,,,D
+	} 
+*/
+	;start timer
+	mouseControlPanelTimer := A_TickCount
+	if (PRIMARY_MOUSE == "Left"){
+		KeyWait, RButton, t2 ;wait for 2 seconds
+		if (ErrorLevel == 1){
+			;~ if (WinExist("Mouse Control Panel"))
+			if (WinExist("Mouse Control Panel ahk_class AutoHotkeyGUI"))
+				WinActivate
+			else
+				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_GUI_Mouse_Control.exe
+				;~ gosub GUI_Mouse_Control
+				gosub GuiShow_Mouse_Control
+			return
+		}
+		else
+			return
+	}
+	return
+
+/* 
+~*RButton Up::
+	Suspend, Permit
+	if (PRIMARY_MOUSE == "Right")
+		Click, Left Up
+		;~ MouseClick, Left,,,,,U
+	else if (PRIMARY_MOUSE == "Left")
+		Click, Right Up
+		;~ MouseClick, Right,,,,,U
+	else
+		Click, Right Up
+		;~ MouseClick, Right,,,,,U
+	return
+ */
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;MOUSE WHEEL
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;===============================================================================
+/* ;SCROLL SPEED MONITORING (AS TOOLTIP)
+ * ;===============================================================================
+ * #Persistent
+ * SetTimer, ScrollSpeedMonitor, 50
+ * return
+ * ;-------------------------------------------------------------------------------
+ * ScrollSpeedMonitor:
+ * ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . scrollAmount ""
+ * return
+ */
+;===============================================================================
+~$WheelUp::
+	if (A_PriorHotkey == A_ThisHotkey &amp;&amp; A_TimeSincePriorHotkey &lt; 500){
+		if (A_TimeSincePriorHotkey &lt; 10)
+			return
+		else if (A_TimeSincePriorHotkey &gt; 10){
+			deltaTime := A_TimeSincePriorHotkey + !(A_TimeSincePriorHotkey)
+			
+			;basically, the closer the delta time is to 0, the higher the number is
+			;use a graphing calculator to visualize the control curve
+			;https://www.desmos.com/calculator/a688c7bdoi
+			;https://www.desmos.com/calculator/730lsilbdz
+			;https://www.desmos.com/calculator/ogtxptay3x
+			scrollAmount := Ceil(Abs((Log(deltaTime)/Log(1.5))-15))
+					
+			;~ ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . int ""
+			Send, {WheelUp %scrollAmount%}
+		}
+	}
+	return
+~$WheelDown::
+	if (A_PriorHotkey == A_ThisHotkey &amp;&amp; A_TimeSincePriorHotkey &lt; 500){
+		if (A_TimeSincePriorHotkey &lt; 10)
+			return
+		else if (A_TimeSincePriorHotkey &gt; 10){
+			deltaTime := A_TimeSincePriorHotkey + !(A_TimeSincePriorHotkey)
+			
+			;basically, the closer the delta time is to 0, the higher the number is
+			;use a graphing calculator to visualize the control curve
+			scrollAmount := Ceil(Abs((Log(deltaTime)/Log(1.5))-15))
+			
+			;~ ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . int ""
+			Send, {WheelDown %scrollAmount%}
+		}
+	}
+	return
+;==============================================================================
+;HOTKEYS
+;==============================================================================
+~AppsKey::AppsKey
+; Shift+Space = Underscore _
++Space:: Send, {_}
++NumpadSub:: Send, {_}
+AppsKey &amp; Left::Send, ^#{Left}
+AppsKey &amp; Right::Send, ^#{Right}
+;~ $s::
+	;~ Send, s
+	;~ ; wait for "a" key to be pressed down
+	;~ KeyWait, a, D
+	
+	;~ return
+
+;~ ~s &amp; a::Send, ^#{Left}
+^+z::Send, ^y
+Click, 
+
+
+;HOLD WINDOWS KEY AND DOUBLE TAP CTRL OR ALT TO MOVE DESKTOPS
+~#LCtrl::
+	;~ #LCtrl
+	if (doubleTap()){
+		Send, #^{Left}
+	}
+	return
+~#LAlt::
+	;~ #LAlt
+	if (doubleTap()){
+		Send, #^{Right}
+	}
+	return
+
+;Window Title &amp; Class Grabber
+;this gets the active window Title name and the Class and stores it into the clipboard.
+#AppsKey::
+{
+	myTitle := 
+		WinGetTitle, myTitle, A
+		WinGetClass, class, A
+	tWindow	:= "Active Window Params are as follows.`n"
+	tTitle := "• Title:[" myTitle "].`n"
+	tClass := "• Class:[" class "].`n"
+	Clipboard := "• Title: [" myTitle "]`n• Class: [" class "]`n"
+	tContents := "The contents of the clipboard are as follows:`n"
+
+	;thin horizontal line
+	hl1 := "────────────────────────`n"
+	;thick horizontal line
+	hl2 := "========================`n"
+	MsgBox,  %tWindow% %hl1% %tTitle% %tClass% %hl2% %tContents% %hl1% %clipboard%
+	return
+}
+;===============================================================================
+;===============================================================================
+
+
+
+
+;===============================================================================
+;SCREENSHOT HOTKEYS
+;===============================================================================
+;if double tap, take active window screenshot, else, send ScrollLock
+ScrollLock::
+	if (doubleTap()){
+		SetScrollLockState, Off
+		;[Alt+PrtSc] used for ShareX, captures active window region as image.
+		Send, !{PrintScreen}
+	} else {
+		Send, {ScrollLock}
+	}
+	return
+;-------------------------------------------------------------------------------
+
+
+
+;===============================================================================
+;NOTEPAD++ =====================================================================
+#IfWinActive ahk_class Notepad++
+{
+	; [Middle Mouse Button Click]
+	MButton::
+	{
+/*		If hotkey was triggered within DOUBLE_TAP_LIMIT,
+ *		then activate the doubleTap process and reset the 
+ *		listener key to false for the next occurence.
+ *		DOUBLE_TAP_LIMIT approximately 350 milliseconds atm 
+ */
+		if (A_ThisHotkey = A_PriorHotkey &amp;&amp; A_TimeSincePriorHotkey &lt; DOUBLE_TAP_LIMIT) 
+		{
+			; Toggle - Viewing of "Document Map", Panel
+			Send, !v
+		}
+		
+	;this is the custom hotkey *in-editor* that directly targets the Toggle Workspace Folder: View, commmand
+		Send, !b
+		return
+	}
+}
+
+;~ #IfWinActive TI Connect™ CE ahk_class GlassWndClass-GlassWindowClass-4 ahk_exe TI Connect CE.exe
+#IfWinActive ahk_exe TI Connect CE.exe
+{
+	:O?:sto::{→}
+	$/::
+		SendRaw, 
+		return
+	^/::
+		KeyWait, Ctrl
+		Send, /
+		return
+	^l::
+		SendRaw, ⌊
+		return
+	;duplicate line
+	^d::
+		Send, {Home 2}
+		Send, +{End}
+		Send, ^c
+		Send, {End}
+		Send, {Enter}
+		Send, ^v
+		return
+}
+
+#IfWinActive ahk_class Qt5153QWindowOwnDCIcon ahk_exe HD-Player.exe
+;~ $RButton::LButton
+;~ $LButton::RButton
+
+#IfWinActive ahk_exe audacity.exe
+$+Space::+Space
+
+#IfWinActive Sticky Notes ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe
+Tab::
+	Send, {Space 4}
+	return
++Tab::
+	Send, {BackSpace 4}
+	return
+^+Up:: moveCurrentLineUp()
+^+Down:: moveCurrentLineDown()
+
+
+#IfWinActive ahk_exe mixcraft9.exe
+^Left::Home
+^Right::End
+
+#IfWinActive
+
+;; ctrl+insert - types out the date in a pre-defined format that is changeable
+^Insert::
+	;~ time_sendDate("yyyy")
+	time_sendDate()
+	return</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+        <Match Id="4"></Match>
+        <Match Id="5"></Match>
+        <Match Id="6">#KeyHistory 500  ;(Default is 40, Max is 500)
+#SingleInstance Force
+#InstallKeybdHook
+;~ #InstallMouseHook
+#HotkeyInterval 1000 ;one second interval
+#MaxHotkeysPerInterval 1000 ;1 thousand keys per above interval
+#Hotstring EndChars -()[]{}: "/\.?!`n
+
+Menu, Tray, Icon, E:\Software\iconsext-1.47\icons\Keyboards\msctf_410.ico
+
+;~ global isAdmin := A_IsAdmin
+isAdmin := A_IsAdmin
+;~ global isCompiled := A_IsCompiled
+isCompiled := A_IsCompiled
+;;;;CONSTANTS
+global PRIMARY_MOUSE := "Left"
+global SWAP_RETVAL := 
+global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
+global oneKey_HasItBeenSet := false
+;###############################################################################
+#Include %A_ScriptDir%\_lib
+#Include LIB_Main_Method_Library.ahk
+#Include LIB_Emojis_And_Symbols.ahk
+#Include LIB_repeatKey().ahk
+#Include LIB_time().ahk
+#Include LIB_RegEx().ahk
+;~ #Include LIB_oneKey_Copy_Paste_Mode.ahk
+
+;;UTITILITIES
+#Include %A_ScriptDir%\_utility
+
+#Include %A_ScriptDir%
+;~ #Include AHK_Math_Keyboard_v1_2_7.ahk
+;~ Run, AHK_Math_Keyboard_.exe
+#Include _gui\GUI_Mouse_Control.ahk
+
+;WINDOW/APP CONTEXT SENSITIVE SCRIPTS
+#Include %A_ScriptDir%\_win
+#Include WIN_Windows_Color_Picker.ahk
+#Include WIN_Excel.ahk
+#Include WIN_Outlook.ahk
+#Include WIN_SciTE4AutoHotkey.ahk
+#Include WIN_FancyZones.ahk
+#Include WIN_Windows_Explorer.ahk
+#Include WIN_PowerRun.ahk
+#Include WIN_Word.ahk
+;==============================================================================
+
+;==============================================================================
+;WINDOWS KEY SHORTCUTS &amp;&amp;
+;SOFTWARE OPEN/START/RUN SHORTCUTS
+;OPEN FILES, OPEN SOFTWARE, OPEN PROGRAMS, OPEN APPLICATIONS, OPEN APPS
+;===============================================================================
+^#AppsKey::Run, "AHK_Utility_Mouse_Position_As_Percentage_Tooltip.exe"
+#n::Run, "Notepad++"
+;~ #a::Run, E:\Software\AutoHotKey\SciTE\SciTE.exe
+
+#IfWinActive
+#a::Run, "E:\Software\AutoHotkey_MyInstallation_v01\SciTE\SciTE.exe"
+;Voicemeeter 
+;Windows Key + S
+#s::Run, "C:\Program Files (x86)\VB\Voicemeeter\voicemeeter.exe"
+;Sound Control Panel
+^#s::Run, "E:\Assets\Scripts\Windows Commands\Sound Control Panel - Playback Tab.bat"
+;Windows Excel (#a)
+;###############################################################################
+;~ HOTSTRING END CHARACTERS
+	;~ #Hotstring EndChars -()[]{}:;'"/\,.?!`n 
+	
+	;~ `n=[enter], `t=[tab]
+	;~ ? (question mark): The hotstring will be triggered even when it is 
+		;~ inside another word; that is, when the character typed immediately
+		;~ before it is alphanumeric. For example, if :?:al::airline is a 
+		;~ hotstring, typing "practical " would produce "practicairline ". 
+		;~ Use ?0 to turn this option back off.
+;===============================================================================
+;~ HOTSTRING OPTIONS 
+	;~ #Hotstring SE ; •SE stands for SendEvent, which is the default in versions older than 1.0.43.
+	;~ #Hotstring SI 
+			; •SI stands for SendInput, which typically has superior speed and 
+			;reliability than the other modes. Another benefit is that like 
+			;SendPlay below, SendInput postpones anything you type during a 
+			;hotstring's auto-replacement text. This prevents your keystrokes 
+			;from being interspersed with those of the replacement. When 
+			;SendInput is u
+	;~ #Hotstring SP ; •SP stands for SendPlay, which may allow hotstrings to work in a broader variety of games.
+	;~ #Hotstring O  ; omit ending character (for all hotstrings in document underneath this rule)
+	;~ #Hotstring O0  ; turn off "omit ending character" (for all hotstrings in document underneath this rule)
+	;~ #Hotstring Kn ; key delay (n = milliseconds) between each sent keystroke
+	;~ #Hotstring *  ; turn on No Ending Character Required
+	;~ #Hotstring *0 ; turn off No Ending Character Required
+	;~ #Hotstring R  ; sends output as raw
+	;~ #Hotstring C  ; case sensitive
+	;~ #Hotstring C0 ; turn off case sensitive
+;===============================================================================
+;~ HOTKEY PREFIXES
+	;~ [$] prefix keeps the hotkey from triggering itself in a loop
+	;~ [~] When the hotkey fires, its key's native function will not 
+			;be blocked (hidden from the system). 
+	;~ [*] Wildcard: Fire the hotkey even if extra modifiers are being held down. This is often used in conjunction with remapping keys or buttons.
+;===============================================================================
+
+;MOUSE - SWITCH PRIMARY MOUSE
+;MOUSE CONTROL PANEL (HOLD-RIGHT-CLICK)
+;~ ~MButton::
+	;~ ;if left or right mouse button down, wait for 2 seconds, 
+	;~ ;if 2 seconds passed, then set primary mouse to matching button.
+	;~ if (GetMouseState("LButton") == true){
+		;~ KeyWait, LButton, t2
+		;~ if (ErrorLevel == 1){
+			;~ PRIMARY_MOUSE := "Left"
+			;~ MsgBox, , Primary Mouse, Primary Mouse has been set to LEFT, 2 ;closes in 2 seconds
+		;~ }
+	;~ }
+	;~ else if (GetKeyState("RButton") == true){
+		;~ KeyWait, RButton, t2
+		;~ if (ErrorLevel == 1){
+			;~ PRIMARY_MOUSE := "Right"
+			;~ MsgBox, , Primary Mouse, Primary Mouse has been set to RIGHT, 2 ;closes in 2 seconds
+		;~ }
+	;~ }
+	;~ return
+^!m::
+	;~ assignPrimaryMouseButton()
+	;~ swapPrimaryMouseButton()
+	return
+
+~*LButton::
+/* 
+	Suspend, Permit
+	if (PRIMARY_MOUSE == "Left"){
+		Click, Left Down
+		;~ MouseClick, Left,,,,,D
+	}
+	else if (PRIMARY_MOUSE == "Right"){
+		Click, Right Down
+		;~ MouseClick, Right,,,,,D
+	}
+	else{
+		Click, Left Down
+		;~ MouseClick, Left,,,,,D
+	}
+*/
+	if (PRIMARY_MOUSE == "Right"){
+		KeyWait, LButton, t2 ;wait for 2 seconds
+		if (ErrorLevel == 1){
+			;~ if (WinExist("Mouse Control Panel"))
+			if (WinExist("Mouse Control Panel ahk_class AutoHotkeyGUI"))
+				WinActivate
+			else
+				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_GUI_Mouse_Control.exe
+				;~ gosub GUI_Mouse_Control
+				gosub GuiShow_Mouse_Control
+			return
+		}
+		else
+			return
+	}
+	return
+	
+/* 
+~*LButton Up::
+	Suspend, Permit
+	if (PRIMARY_MOUSE == "Left"){
+		Click, Left Up
+		;~ MouseClick, Left
+	}
+	else if (PRIMARY_MOUSE == "Right"){
+		Click, Right Up
+		;~ MouseClick, Right
+	}
+	else{
+		Click, Left Up
+		;~ MouseClick, Left
+	}
+	return
+ */
+~*RButton::
+/* 
+	Suspend, Permit
+	if (PRIMARY_MOUSE == "Right"){
+		Click, Left Down
+		;~ MouseClick, Left,,,,,D
+	}
+	else if (PRIMARY_MOUSE == "Left"){
+		Click, Right Down
+		;~ MouseClick, Right,,,,,D
+	}
+	else{
+		Click, Right Down
+		;~ MouseClick, Right,,,,,D
+	} 
+*/
+	;start timer
+	mouseControlPanelTimer := A_TickCount
+	if (PRIMARY_MOUSE == "Left"){
+		KeyWait, RButton, t2 ;wait for 2 seconds
+		if (ErrorLevel == 1){
+			;~ if (WinExist("Mouse Control Panel"))
+			if (WinExist("Mouse Control Panel ahk_class AutoHotkeyGUI"))
+				WinActivate
+			else
+				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_GUI_Mouse_Control.exe
+				;~ gosub GUI_Mouse_Control
+				gosub GuiShow_Mouse_Control
+			return
+		}
+		else
+			return
+	}
+	return
+
+/* 
+~*RButton Up::
+	Suspend, Permit
+	if (PRIMARY_MOUSE == "Right")
+		Click, Left Up
+		;~ MouseClick, Left,,,,,U
+	else if (PRIMARY_MOUSE == "Left")
+		Click, Right Up
+		;~ MouseClick, Right,,,,,U
+	else
+		Click, Right Up
+		;~ MouseClick, Right,,,,,U
+	return
+ */
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;MOUSE WHEEL
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;===============================================================================
+/* ;SCROLL SPEED MONITORING (AS TOOLTIP)
+ * ;===============================================================================
+ * #Persistent
+ * SetTimer, ScrollSpeedMonitor, 50
+ * return
+ * ;-------------------------------------------------------------------------------
+ * ScrollSpeedMonitor:
+ * ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . scrollAmount ""
+ * return
+ */
+;===============================================================================
+~$WheelUp::
+	if (A_PriorHotkey == A_ThisHotkey &amp;&amp; A_TimeSincePriorHotkey &lt; 500){
+		if (A_TimeSincePriorHotkey &lt; 10)
+			return
+		else if (A_TimeSincePriorHotkey &gt; 10){
+			deltaTime := A_TimeSincePriorHotkey + !(A_TimeSincePriorHotkey)
+			
+			;basically, the closer the delta time is to 0, the higher the number is
+			;use a graphing calculator to visualize the control curve
+			;https://www.desmos.com/calculator/a688c7bdoi
+			;https://www.desmos.com/calculator/730lsilbdz
+			;https://www.desmos.com/calculator/ogtxptay3x
+			scrollAmount := Ceil(Abs((Log(deltaTime)/Log(1.5))-15))
+					
+			;~ ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . int ""
+			Send, {WheelUp %scrollAmount%}
+		}
+	}
+	return
+~$WheelDown::
+	if (A_PriorHotkey == A_ThisHotkey &amp;&amp; A_TimeSincePriorHotkey &lt; 500){
+		if (A_TimeSincePriorHotkey &lt; 10)
+			return
+		else if (A_TimeSincePriorHotkey &gt; 10){
+			deltaTime := A_TimeSincePriorHotkey + !(A_TimeSincePriorHotkey)
+			
+			;basically, the closer the delta time is to 0, the higher the number is
+			;use a graphing calculator to visualize the control curve
+			scrollAmount := Ceil(Abs((Log(deltaTime)/Log(1.5))-15))
+			
+			;~ ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . int ""
+			Send, {WheelDown %scrollAmount%}
+		}
+	}
+	return
+;==============================================================================
+;HOTKEYS
+;==============================================================================
+~AppsKey::AppsKey
+; Shift+Space = Underscore _
++Space:: Send, {_}
++NumpadSub:: Send, {_}
+AppsKey &amp; Left::Send, ^#{Left}
+AppsKey &amp; Right::Send, ^#{Right}
+;~ $s::
+	;~ Send, s
+	;~ ; wait for "a" key to be pressed down
+	;~ KeyWait, a, D
+	
+	;~ return
+
+;~ ~s &amp; a::Send, ^#{Left}
+^+z::Send, ^y
+Click, 
+
+
+;HOLD WINDOWS KEY AND DOUBLE TAP CTRL OR ALT TO MOVE DESKTOPS
+~#LCtrl::
+	;~ #LCtrl
+	if (doubleTap()){
+		Send, #^{Left}
+	}
+	return
+~#LAlt::
+	;~ #LAlt
+	if (doubleTap()){
+		Send, #^{Right}
+	}
+	return
+
+;Window Title &amp; Class Grabber
+;this gets the active window Title name and the Class and stores it into the clipboard.
+#AppsKey::
+{
+	myTitle := 
+		WinGetTitle, myTitle, A
+		WinGetClass, class, A
+	tWindow	:= "Active Window Params are as follows.`n"
+	tTitle := "• Title:[" myTitle "].`n"
+	tClass := "• Class:[" class "].`n"
+	Clipboard := "• Title: [" myTitle "]`n• Class: [" class "]`n"
+	tContents := "The contents of the clipboard are as follows:`n"
+
+	;thin horizontal line
+	hl1 := "────────────────────────`n"
+	;thick horizontal line
+	hl2 := "========================`n"
+	MsgBox,  %tWindow% %hl1% %tTitle% %tClass% %hl2% %tContents% %hl1% %clipboard%
+	return
+}
+;===============================================================================
+;===============================================================================
+
+
+
+
+;===============================================================================
+;SCREENSHOT HOTKEYS
+;===============================================================================
+;if double tap, take active window screenshot, else, send ScrollLock
+ScrollLock::
+	if (doubleTap()){
+		SetScrollLockState, Off
+		;[Alt+PrtSc] used for ShareX, captures active window region as image.
+		Send, !{PrintScreen}
+	} else {
+		Send, {ScrollLock}
+	}
+	return
+;-------------------------------------------------------------------------------
+
+
+
+;===============================================================================
+;NOTEPAD++ =====================================================================
+#IfWinActive ahk_class Notepad++
+{
+	; [Middle Mouse Button Click]
+	MButton::
+	{
+/*		If hotkey was triggered within DOUBLE_TAP_LIMIT,
+ *		then activate the doubleTap process and reset the 
+ *		listener key to false for the next occurence.
+ *		DOUBLE_TAP_LIMIT approximately 350 milliseconds atm 
+ */
+		if (A_ThisHotkey = A_PriorHotkey &amp;&amp; A_TimeSincePriorHotkey &lt; DOUBLE_TAP_LIMIT) 
+		{
+			; Toggle - Viewing of "Document Map", Panel
+			Send, !v
+		}
+		
+	;this is the custom hotkey *in-editor* that directly targets the Toggle Workspace Folder: View, commmand
+		Send, !b
+		return
+	}
+}
+
+;~ #IfWinActive TI Connect™ CE ahk_class GlassWndClass-GlassWindowClass-4 ahk_exe TI Connect CE.exe
+#IfWinActive ahk_exe TI Connect CE.exe
+{
+	:O?:sto::{→}
+	$/::
+		SendRaw, 
+		return
+	^/::
+		KeyWait, Ctrl
+		Send, /
+		return
+	^l::
+		SendRaw, ⌊
+		return
+	;duplicate line
+	^d::
+		Send, {Home 2}
+		Send, +{End}
+		Send, ^c
+		Send, {End}
+		Send, {Enter}
+		Send, ^v
+		return
+}
+
+#IfWinActive ahk_class Qt5153QWindowOwnDCIcon ahk_exe HD-Player.exe
+;~ $RButton::LButton
+;~ $LButton::RButton
+
+#IfWinActive ahk_exe audacity.exe
+$+Space::+Space
+
+#IfWinActive Sticky Notes ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe
+Tab::
+	Send, {Space 4}
+	return
++Tab::
+	Send, {BackSpace 4}
+	return
+^+Up:: moveCurrentLineUp()
+^+Down:: moveCurrentLineDown()
+
+
+#IfWinActive ahk_exe mixcraft9.exe
+^Left::Home
+^Right::End
+
+#IfWinActive
+
+;; ctrl+insert - types out the date in a pre-defined format that is changeable
+^Insert::
+	;~ time_sendDate("yyyy")
+	time_sendDate()
+	return</Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:([\s\S\.]*?)([\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:([\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>AHK_Math_Keyboard_.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#Include %A_ScriptDir%\LIB\LIB_Main_Method_Library.ahk
+#SingleInstance Force
+#InstallKeybdHook
+
+;~ TOOLBAR ICON
+	Menu, Tray, Icon, E:\Assets\Icons\math_ruler_.bmp
+;===============================================================================
+;~ ;CONSTANTS
+	;~ global SUSPEND_LIMIT := 200 ; n milliseconds
+	;~ global DOUBLE_TAP_LIMIT := 350 ; n milliseconds
+	;~ global INCREMENT_LIMIT := 500 ; n milliseconds
+;~ STARTING VARIABLES
+	global g_windowSentinelIsOn := true ; default = true
+	global currentRaisedPower := 1 ;used for incrementing n. Ex:  a^n
+
+;~ MATH-INPUT-STYLE SWITCHES FOR EDITOR/BROWSER/ENVIRONMENT COMPATABILITY 
+	;~ used for mathKbd_typeSquareRoot() function
+	global mathKbd_style_paste := false ;~ default value = false
+	global mathKbd_style_backSlash := true ;~ default value = true
+	global mathKbd_style_squareRootLeftAmount := 0 ;~ default value = 0
+	
+;run the Active Window Sentinel method
+mathKbd_activeWindowSentinel()
+
+
+;~ SET STYLE FUNCTION
+mathKbd_setMathInputStyle(p_1 := false, p_2 := true, p_3 := 3, p_4 := 0)</Match>
+        <Match Id="2">#Include %A_ScriptDir%\LIB\LIB_Main_Method_Library.ahk
+#SingleInstance Force
+#InstallKeybdHook
+
+;~ TOOLBAR ICON
+	Menu, Tray, Icon, E:\Assets\Icons\math_ruler_.bmp
+;===============================================================================
+;~ ;CONSTANTS
+	;~ global SUSPEND_LIMIT := 200 ; n milliseconds
+	;~ global DOUBLE_TAP_LIMIT := 350 ; n milliseconds
+	;~ global INCREMENT_LIMIT := 500 ; n milliseconds
+;~ STARTING VARIABLES
+	global g_windowSentinelIsOn := true ; default = true
+	global currentRaisedPower := 1 ;used for incrementing n. Ex:  a^n
+
+;~ MATH-INPUT-STYLE SWITCHES FOR EDITOR/BROWSER/ENVIRONMENT COMPATABILITY 
+	;~ used for mathKbd_typeSquareRoot() function
+	global mathKbd_style_paste := false ;~ default value = false
+	global mathKbd_style_backSlash := true ;~ default value = true
+	global mathKbd_style_squareRootLeftAmount := 0 ;~ default value = 0
+	
+;run the Active Window Sentinel method
+</Match>
+        <Match Id="3">
+</Match>
+        <Match Id="4">mathKbd_activeWindowSentinel</Match>
+        <Match Id="5">()
+
+
+;~ SET STYLE FUNCTION
+mathKbd_setMathInputStyle(p_1 := false, p_2 := true, p_3 := 3, p_4 := 0)</Match>
+        <Match Id="6"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">{
+	mathKbd_style_paste := p_1
+	mathKbd_style_backSlash := p_2
+	mathKbd_style_squareRootBackspaceAmount := p_3
+	mathKbd_style_squareRootLeftAmount := p_4
+}
+
+mathKbd_activeWindowSentinel()</Match>
+        <Match Id="2">{
+	mathKbd_style_paste := p_1
+	mathKbd_style_backSlash := p_2
+	mathKbd_style_squareRootBackspaceAmount := p_3
+	mathKbd_style_squareRootLeftAmount := p_4
+}
+
+</Match>
+        <Match Id="3">
+</Match>
+        <Match Id="4">mathKbd_activeWindowSentinel</Match>
+        <Match Id="5">()</Match>
+        <Match Id="6"></Match>
+      </MatchCollection>
+      <MatchCollection Id="3">
+        <Match Id="1">{
+	while(g_windowSentinelIsOn){
+		Sleep, 3000
+		if (WinActive("Desmos")){
+			mathKbd_setMathInputStyle(false, false, 2, 0)
+		} else if (WinActive("Mathway")){
+			mathKbd_setMathInputStyle(true, false, 3, 1)
+		} else {
+			mathKbd_setMathInputStyle(false, true, 3, 0)
+		}
+	}
+}
+
+;===============================================================================
+
+
+;===============================================================================
+;~ DIRECTIVES 
+	SendMode, Event				;~ sets all hotkeys below to use SendEvent
+	SetKeyDelay, 30				;~ set all hotkeys below to have a delay of n milliseconds, 0.00n seconds
+	#Hotstring SE 			;~ sets all hotstrings below to use SendEvent (instead of SendInput)
+	#Hotstring K30			;~ which will allow a key delay of n milliseconds, 0.00n seconds
+	#Hotstring B			;~ activate automatic backspacing (the default)
+	#Hotstring O 			;~ [O] omit ending-character trail space
+	#Hotstring EndChars -()[]{}: "/\,.?!`n
+;===============================================================================
+;~ AUTORUN COMMANDS
+;===============================================================================
+#IfWinActive
+mathKbd_debugFunction()
+
+mathKbd_debugFunction()</Match>
+        <Match Id="2">{
+	while(g_windowSentinelIsOn){
+		Sleep, 3000
+		if (WinActive("Desmos")){
+			mathKbd_setMathInputStyle(false, false, 2, 0)
+		} else if (WinActive("Mathway")){
+			mathKbd_setMathInputStyle(true, false, 3, 1)
+		} else {
+			mathKbd_setMathInputStyle(false, true, 3, 0)
+		}
+	}
+}
+
+;===============================================================================
+
+
+;===============================================================================
+;~ DIRECTIVES 
+	SendMode, Event				;~ sets all hotkeys below to use SendEvent
+	SetKeyDelay, 30				;~ set all hotkeys below to have a delay of n milliseconds, 0.00n seconds
+	#Hotstring SE 			;~ sets all hotstrings below to use SendEvent (instead of SendInput)
+	#Hotstring K30			;~ which will allow a key delay of n milliseconds, 0.00n seconds
+	#Hotstring B			;~ activate automatic backspacing (the default)
+	#Hotstring O 			;~ [O] omit ending-character trail space
+	#Hotstring EndChars -()[]{}: "/\,.?!`n
+;===============================================================================
+;~ AUTORUN COMMANDS
+;===============================================================================
+#IfWinActive
+</Match>
+        <Match Id="3">
+</Match>
+        <Match Id="4">mathKbd_debugFunction</Match>
+        <Match Id="5">()
+
+mathKbd_debugFunction()</Match>
+        <Match Id="6"></Match>
+      </MatchCollection>
+      <MatchCollection Id="4">
+        <Match Id="1">
+{
+	MsgBox, function called at TOP of script.
+	return
+}
+
+mathKbd_setMathInputStyle()
+
+;===============================================================================
+;~ SCRIPT MANAGEMENT / SUSPENSION CONTROL
+	F4::Suspend, Toggle
+	NumpadDot &amp; Numpad0::Suspend, On 	;hotkeys are suspended
+	NumpadDot &amp; Numpad1::Suspend, Off 	;hotkeys are live
+
+	;Captures Numpad0 when Numlock is On or Off
+	^NumpadIns:: 
+	^+NumpadIns:: Suspend, Toggle
+
+	^+PGUP::
+	^+NumpadAdd::
+	^!=::	Suspend, Off 	;~ hotkeys are live
+
+	^+NumpadSub::
+	^+PGDN::
+	^!-::	Suspend, On		;~ hotkeys are suspended
+
+	$-::
+	Suspend Permit
+	SendRaw, -
+	if (doubleTap(SUSPEND_LIMIT))</Match>
+        <Match Id="2">
+{
+	MsgBox, function called at TOP of script.
+	return
+}
+
+</Match>
+        <Match Id="3">
+</Match>
+        <Match Id="4">mathKbd_setMathInputStyle</Match>
+        <Match Id="5">()
+
+;===============================================================================
+;~ SCRIPT MANAGEMENT / SUSPENSION CONTROL
+	F4::Suspend, Toggle
+	NumpadDot &amp; Numpad0::Suspend, On 	;hotkeys are suspended
+	NumpadDot &amp; Numpad1::Suspend, Off 	;hotkeys are live
+
+	;Captures Numpad0 when Numlock is On or Off
+	^NumpadIns:: 
+	^+NumpadIns:: Suspend, Toggle
+
+	^+PGUP::
+	^+NumpadAdd::
+	^!=::	Suspend, Off 	;~ hotkeys are live
+
+	^+NumpadSub::
+	^+PGDN::
+	^!-::	Suspend, On		;~ hotkeys are suspended
+
+	$-::
+	Suspend Permit
+	SendRaw, -
+	if (doubleTap(SUSPEND_LIMIT))</Match>
+        <Match Id="6"></Match>
+      </MatchCollection>
+      <MatchCollection Id="5">
+        <Match Id="1">{
+		Send, {BackSpace 2}
+		Suspend On
+	}
+	return
+
+	$=::
+	Suspend Permit
+	SendRaw, =
+	if (doubleTap(SUSPEND_LIMIT)){
+		Send, {BackSpace 2}
+		Suspend Off
+	}
+	return
+;===============================================================================
+
+
+
+
+
+	;~ 	HOTKEY enable "modifier" key to still function by outputting {default value} upon release 
+	;	of the key without successfully triggering another declared hotkey.
+	Right::Right
+	Down::Down
+
+	;this function is a double-tap that turns a decimal "." into a comma ","
+	$NumpadDot::
+		Suspend, Permit
+	{
+		SendRaw, .
+		if (doubleTap()){
+			Send, {BackSpace 2}{,}
+		}
+		return
+	}
+	Numpad0::Numpad0
+	
+	;this function is a double-tap that turns a plus "+" into a minus "-"
+	$Numpad1::
+		SendRaw, 1
+		mathKbd_incrementVariables(,"x","y","z","1")
+		return
+	$Numpad2::
+		SendRaw, 2
+		mathKbd_incrementVariables(,"pi","\theta","r","2")
+		return
+	$Numpad3::
+		SendRaw, 3
+		mathKbd_incrementVariables(,"e","3")
+		return
+	$Numpad4::
+		SendRaw, 4
+		mathKbd_incrementVariables(,"t","u","v","w","4")
+		return
+	$Numpad5::
+		SendRaw, 5
+		mathKbd_incrementVariables(,"i","j","k","5")
+		return
+	$Numpad6::
+		SendRaw, 6
+		;~ incrementTrigFunctions(,"sin","cos","tan","csc","sec","cot")
+		return
+	$Numpad7::
+		SendRaw, 7
+		mathKbd_incrementVariables(350,"(",")")
+		return
+	$Numpad8::
+		SendRaw, 8
+		mathKbd_incrementPower()
+		return
+	$Numpad9::
+		SendRaw, 9
+		; negative incrementation, i.e. decrement by 1 at a time
+		mathKbd_incrementPower(,-1)
+		return
+	~x::
+		Send, x
+		if (doubleTap()){
+			Send, {BackSpace, 2}^2{Tab}
+		}
+		return
+	
+	;this function is a double-tap that turns a plus "+" into a minus "-"
+	$NumpadAdd:: 
+		SendRaw, +
+		mathKbd_incrementVariables(,"-","+")
+		return
+	NumpadSub::
+		Send, {Backspace}
+		return
+	NumpadMult:: ; superscript, power, multiply, squared, increment, iteration
+		Send, {*}
+		mathKbd_incrementPower()
+		return
+	NumpadDiv:: ; square root, 
+		Send, {/}
+		if (doubleTap()){
+			Send, {Backspace %mathKbd_style_squareRootBackspaceAmount%}
+			mathKbd_typeSquareRoot()
+		}
+		return
+
+;~ HOTKEY Navigation
+	;~ Backspace &amp; Space
+		Right &amp; NumpadSub::Send, {Backspace}
+		Right &amp; Numpad0::Send, {Space}
+		Right &amp; PGDN::Send, {Tab 8}			; Tab to the end.
+	
+;~ HOTKEY Variables --------------------
+	;~ X Variable
+		Right &amp; Numpad1::Send, {x}	;i.e. Alt+120
+		Right &amp; Numpad9::Send, {t}	;i.e. Alt+
+		Right &amp; Numpad3::Send, {y}	;i.e. Alt+121
+		Down &amp; Numpad3::Send, {e}	;i.e. Alt+101
+;~ HOTKEY SYMBOLS
+	;~ Constants &amp; Variables
+		Down &amp; Numpad1::	Send, -\inf 	; "-∞ "
+		Down &amp; Numpad2::	Send, \inf 		;  "∞ " 
+;~ HOTKEY Parentheses, Brackets, Commas, Semicolons, Colons --------------
+	;~ Comma
+		Right &amp; NumpadDot::	Send, {,}
+		
+	;~ Ordered Pair, Comma inside of Parentheses
+		Down &amp; Numpad7::	Send, (-\inf{,}\inf){Left 2}
+	
+	;~ Parentheses ; 
+	{
+		$^!9::Send, \left(
+		$^!0::Send, \right)
+		
+		$+9::				Send, (){Left}
+		Right &amp; Numpad7::	Send, (){Left}
+		; ")" Right Paranthesis
+		$+0::
+			; store the clipboard's contents before utilizing
+			clipTemp := ClipboardAll
+			
+			;highlight the next character
+			Send, {LShift down}{Right 1}{LShift up}
+			
+			; copy the highlighted character to the clipboard to "scan" it
+			Send, ^c
+			Sleep, 30 ; milliseconds
+			
+			; If the copied character is the same and the one we're trying to type...
+			; then leave it alone and exit the highlighted text.
+			; Else, plop down a ")".
+			if (Clipboard == ")"){
+				Send, {Left}{Right}
+			}
+			else
+			{
+				Send, {Left}{)}
+			}
+			
+			; restore the clipboard's contents
+			Clipboard := clipTemp
+			return
+	}
+	
+	;~ Curly Brace, Curly Brackets
+	{
+		$^!+[::Send, \left{{}
+		$^!+]::Send, \right{}}
+		$+[::Send, {{}{}}{Left}
+		$+]::
+		{
+			; store the clipboard's contents before utilizing
+			clipTemp := ClipboardAll
+			;highlight the next character
+			Send, {LShift down}{Right 1}{LShift up}
+			; copy the highlighted character to the clipboard to "scan" it
+			Send, ^c
+			Sleep, 30 ; milliseconds
+			; If the copied character is the same and the one we're trying to type...
+			; then leave it alone and exit the highlighted text.
+			; Else, plop down a ")".
+			if (Clipboard == "}"){
+				Send, {Left}{Right}
+			}
+			else
+			{
+				Send, {Left}{}}
+			}
+			; restore the clipboard's contents
+			Clipboard := clipTemp
+			return
+		}
+	}
+	;~ Square Brackets
+	{
+		$^![::Send, \left[
+		$^!]::Send, \right]
+		$[::Send, []{Left}
+		$]::
+		{
+			; store the clipboard's contents before utilizing
+			clipTemp := ClipboardAll
+			
+			;highlight the next character
+			Send, {LShift down}{Right 1}{LShift up}
+			
+			; copy the highlighted character to the clipboard to "scan" it
+			Send, ^c
+			Sleep, 30 ; milliseconds
+			
+			; If the copied character is the same and the one we're trying to type...
+			; then leave it alone and exit the highlighted text.
+			; Else, plop down a ")".
+			if (Clipboard == "]"){
+				Send, {Left}{Right}
+			}
+			else
+			{
+				Send, {Left}{]}
+			}
+			
+			; restore the clipboard's contents
+			Clipboard := clipTemp
+			return
+		}
+	}
+;~ HOTKEY Operators
+{
+	;~ Subscripts, Superscripts, Exponents, Radicals, Powers, Roots, Relationals
+	{
+		Right &amp; Numpad2::			Send, {_}		; subscript, underscore
+		Right &amp; Numpad4::			Send, {&lt;}		; less-than
+		Down &amp; Numpad4::			Send, {≤}		; less-than or equal to
+		Right &amp; Numpad5::			Send, {=}		; equals
+		Down &amp; Numpad5::			Send, {≈}		; approx symbol
+		Right &amp; Numpad6::			Send, {&gt;}		; greater-than
+		Down &amp; Numpad6::			Send, {≥}		; greater-than or equal to
+		Right &amp; Numpad8::			Send, {^}		; superscript, power
+		
+		+2::
+			Send, {^}		; superscript, power
+			mathKbd_incrementPower(INCREMENT_LIMIT,1)
+			return
+		+/::
+		Right &amp; NumpadDiv::
+			mathKbd_typeSquareRoot()
+			return
+		Right &amp; NumpadMult::		Send, +5		; = %
+		+3::						Send, {+}		; addition, plus, sum, add
+		^p:: 
+		{
+			KeyWait, p ;wait for key to be released to avoid triggering
+					;in combination with {Shift}
+			Send, {+} ;[Shift+=] -&gt; {=}
+			return ;exit method
+		}	
+		+4::						Send, {-}		; subtraction, minus, difference, subtract, negative, 
+		Right &amp; NumpadAdd::			Send, {-}		; subtraction, minus, difference, subtract, negative, 
+		Down &amp; NumpadAdd::			Send, {±}		; plus or minus ±:(A+241)
+	;~HOTKEYS Functions
+		;~Trigonometric Functions
+		^Insert::					Send, sin(){Left}
+		^Delete::					Send, csc(){Left}
+		^Home::						Send, cos(){Left}
+		^End::						Send, sec(){Left}
+		^PGUP::						Send, tan(){Left}
+		^PGDN::						Send, cot(){Left}
+	}
+}
+
+;~ HOTSTRING Brackets and Separators============================================
+	;~ Angled Brackets
+		::leftanglebracket::⟨
+		::langbk::⟨
+		::rightanglebracket::⟩ 
+		::rangbk::⟩ 
+		::angle::∠
+	;~ Comma
+			;DEPRECATED, keyboard periods no longer trigger commas, only a 
+			;timed-double-tap NumpadDot triggers a comma replacement
+		;~ :*?:..::{,}
+	;~ Therefore
+		::therefore::∴
+		::tf::∴
+	;~ Because
+		::because::∵
+		::bc::∵
+	;~ Ellipses
+		::'''::⋯
+		;~ ::...::… 
+;~ HOTSTRING Superscripts, Exponents, Radicals, Powers, Roots==================
+{
+	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
+		::ss::
+			Send, {^}{2}{Right}
+			return
+		::sq::{^}2{Right}			; squared, power of 2, exponent 2
+		::srd::{^}2{Right}			; squared, power of 2, exponent 2
+		::sqrd::{^}2{Right}			; squared, power of 2, exponent 2
+		::squared::{^}2{Right}		; squared, power of 2, exponent 2
+		::root::\sqrt				; square root, radical  √:(A+251)
+		::srt::\sqrt				; square root, radical  √:(A+251)
+		::sqrtt::√					; square root, radical  √:(A+251)
+		::radical::√    			; square root, radical  √:(A+251)
+		::ex::e{^}x{Right}			; exponential constant to the power of x
+	#Hotstring ?0			;~ [?0] turn off "if-suffix" trigger
+		::crt::∛ 
+		::frt::∜
+		::3rt::∛ 
+		::4rt::∜
+}
+; HOTSTRING NUMBERS============================================================
+{
+	;~ #Hotstring *			;~ [*] turn on No Ending-Character Required
+	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
+		;~ :?:root::√
+		::zero::0
+		::one::1
+		:T:two::2			;~ [T] send as raw text, no keystrokes
+		::three::3
+		::four::4
+		::five::5
+		::six::6
+		::seven::7
+		::eight::8
+		::nine::9
+		::ten::10
+		::eleven::11
+		::twelve::12
+		::thirteen::13
+		::fourteen::14
+		::fifteen::15
+		::sixteen::16
+		::seventeen::17
+		::eighteen::18
+		::nineteen::19
+		::twenty::20
+		::thirty::30
+		::fourty::40
+		::fifty::50
+		::sixty::60
+		::seventy::70
+		::eighty::80
+		::ninety::90
+		::hundred::100
+		::onehundred::100
+	#Hotstring ?0			;~ [?0] turn off "if-suffix" trigger
+	#Hotstring *0 			;~ [*0] turn off No Ending-Character Required
+}
+
+;~ HOTSTRINGS UNICODE &amp; ASCII SYMBOLS 
+{
+	;~ [O] omits the ending character from outputting in the replaced hotstring
+	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
+		:R:plus::+ 		;~ [R] sends output as raw, without translating as keywords
+		:R:add::+
+		:R*:pp::+	;plus
+		:R*:nn::-	;minus
+		:R*:mm::-	;minus
+		:R*:tt::*	;times
+		:R*:dd::/	;divided
+		::min::-
+		::minus::-
+}
+;~ #IfWinActive Topic: Discussion: Mixed Derivatives ; target specific window
+{
+		;~ ::min::
+			;~ Send, {Backspace}{-}
+		;~ ::minus::
+			;~ Send, {Backspace 3}{-}
+}
+;~ #IfWinActive ; re-declare targeting of any window
+{
+		::neg::-
+		::negative::-
+		::times::{*}
+		::multiplied::{*}
+		::dot::{*} 			;~ For browser math input * *
+		::realdot::· 		;~ For generic text field input
+		::divided::{/}
+		::plusminus::±
+		::minusplus::∓
+		;~ ::inf::∞
+		;~ ::inf::\inf 
+		:C:union::∪		;~ [C] caps sensitive hotstring
+		:C:U::
+		::sumseq::∑
+		::elementof::∈
+		;~ ::in::∈
+		;~ ::f(::ƒ(
+		::equals::=
+		::approx::≈
+		::approximately::≈
+		::notequal::≠
+		::notequals::≠
+		::deg::°
+		::degg::
+		{
+			Clipboard:= "\deg"
+			Send, ^v 
+			return
+		}
+		;~ :T:deggg::\deg			; Doesn't work in Mathway browser, the back-slash and forward-slash 
+									; are captured as ratio dividers before getting a chance to finish
+									; the character command.
+		
+		;integrals 
+		:?0:int::\int
+		:?0:integral::\int
+		::dint::\dint
+		::defint::\dint
+		::definite integral::\dint
+		
+		
+	#Hotstring ?0	;~ turns off "if-suffix" trigger
+}
+;~ Superscripts================================================================
+{
+	#Hotstring ?	;~ turns on "if-suffix" trigger
+	;~ ⁰ⁱ¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ
+	;~ [O] omit ending character trail space
+	;~ [?] if-suffix, still triggers
+	::supi'::ⁱ
+	::supn'::ⁿ
+	::sup1'::¹
+	::sup2'::²
+	::sup3'::³
+	::sup1'::¹
+	::sup2'::²
+	::sup3'::³
+	;---------------------------------
+	::sup::
+	::pow::
+	::pwr::
+	::power::{^}
+	::sup1::
+	::pow1::
+	::pwr1::
+	::power1::{^}1{Right}
+	::sup2::
+	::pow2::
+	::pwr2::
+	::power2::{^}2{Right}
+	::sup3::
+	::pow3::
+	::pwr3::
+	::power3::{^}3{Right}
+	::sup4::
+	::pow4::
+	::pwr4::
+	::power4::{^}4{Right}
+	::sup5::
+	::pow5::
+	::pwr5::
+	::power5::{^}5{Right}
+	::sup6::
+	::pow6::
+	::pwr6::
+	::power6::{^}6{Right}
+	::sup7::
+	::pow7::
+	::pwr7::
+	::power7::{^}7{Right}
+	::sup8::
+	::pow8::
+	::pwr8::
+	::power8::{^}8{Right}
+	::sup9::
+	::pow9::
+	::pwr9::
+	::power9::{^}9{Right}
+	::sup0::
+	::pow0::
+	::pwr0::
+	::power0::{^}0{Right}
+	::supx::
+	::powx::
+	::pwrx::
+	::powerx::{^}x{Right}
+	::supn::
+	::pown::
+	::pwrn::
+	::powern::{^}n{Right}
+	::supone::
+	::powone::
+	::pwrone::
+	::powerone::{^}1{Right}
+	::suptwo::
+	::powtwo::
+	::pwrtwo::
+	::powertwo::{^}2{Right}
+	::supthree::
+	::powthree::
+	::pwrthree::
+	::powerthree::{^}3{Right}
+	::supfour::
+	::powfour::
+	::pwrfour::
+	::powerfour::{^}4{Right}
+	::supfive::
+	::powfive::
+	::pwrfive::
+	::powerfive::{^}5{Right}
+	::supsix::
+	::powsix::
+	::pwrsix::
+	::powersix::{^}6{Right}
+	::supseven::
+	::powseven::
+	::pwrseven::
+	::powerseven::{^}7{Right}
+	::supeight::
+	::poweight::
+	::pwreight::
+	::powereight::{^}8{Right}
+	::supnine::
+	::pownine::
+	::pwrnine::
+	::powernine::{^}9{Right}
+	::supzero::
+	::powzero::
+	::pwrzero::
+	::powerzero::{^}0{Right}
+	;---------------------------------
+}
+;~ Subscripts==================================================================
+{
+	;~ ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎
+	;~ ₐ ₑ ₒ ₓ ₔ ₕ ₖ ₗ ₘ ₙ ₚ ₛ ₜ
+	::suba'::ₐ
+	::subn'::ₙ
+	::subx'::ₓ
+	::sub1'::₁
+	::sub2'::₂
+	::sub3'::₃
+	;---------------------------------
+	::base::{_}
+	::base1::{_}1{Right}
+	::base2::{_}2{Right}
+	::base3::{_}3{Right}
+	::base4::{_}4{Right}
+	::base5::{_}5{Right}
+	::base6::{_}6{Right}
+	::base7::{_}7{Right}
+	::base8::{_}8{Right}
+	::base9::{_}9{Right}
+	::base0::{_}0{Right}
+	::basex::{_}x{Right}
+	::basen::{_}n{Right}
+	;---------------------------------
+	::sub::{_}
+	::sub1::{_}1{Right}
+	::sub2::{_}2{Right}
+	::sub3::{_}3{Right}
+	::sub4::{_}4{Right}
+	::sub5::{_}5{Right}
+	::sub6::{_}6{Right}
+	::sub7::{_}7{Right}
+	::sub8::{_}8{Right}
+	::sub9::{_}9{Right}
+	::sub0::{_}0{Right}
+	::subx::{_}x{Right}
+	::subn::{_}n{Right}
+	;---------------------------------
+	#Hotstring ?0	;~ turns off "if-suffix" trigger
+}
+;~ Fractions===================================================================
+{
+	::onehalf::½
+	::onethird::⅓
+	::onefourth::¼
+	::onefifth::⅕
+	::onesixth::⅙
+	::oneseventh::⅐
+	::oneeighth::⅛
+	::oneninth::⅑
+	::threefourths::¾
+}
+;~ Greek Letters===============================================================
+{
+	;~ #Hotstring C ;~ [C] case sensitive
+	;~ letters are automatically replaced/matched with Capitalization of replaced string.
+	#Hotstring ?	;~ turns on "if-suffix" trigger
+	::alpha%::α
+	::alpha;::α
+	::alpha::\alpha
+	::beta%::β
+	::beta;::β
+	::beta::\beta
+	::gamma%::γ
+	::gamma;::γ
+	::gamma::\gamma
+	::delta%::δ
+	::delta;::δ
+	::delta::\delta
+	::epsilon%::ε
+	::epsilon;::ε
+	::epsilon::\eplison
+	::theta%::θ
+	::theta;::θ
+	::theta::\theta
+	::phi%::φ
+	::phi;::φ
+	::phi::\phi
+	::pi%::π
+	::pi;::π
+	;~ ::pi::\pi
+	::omega%::ω
+	::omega;::ω
+	::omega::\omega
+	;~ #Hotstring C0 ;~ [C0] turn off case sensitive
+	#Hotstring ?0	;~ turns off "if-suffix" trigger
+	
+	#Hotstring C0 O0 ?0 *0		;~ Reset Hotstring directives
+}
+;==============================================================================
+
+
+#IfWinActive Mathway 
+{
+	NumpadMult:: ; superscript, power, multiply, squared, increment, iteration
+		Send, {*}
+		mathKbd_incrementPowerNoCarrotWithExtraBackspacing()
+		return
+
+	+Tab::Left
+
+	;~ +/::
+	;~ Right &amp; NumpadDiv::
+		;~ pasteSquareRoot(1)
+		;~ return
+	
+	;~ NumpadDiv::
+		;~ Send, {/}
+		;~ if (doubleTap()){
+			;~ Send, {Backspace 2}
+			;~ ;pasteSquareRoot(1)
+		;~ }
+		;~ return
+
+;HOTSTRINGS===========================================
+	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
+	;~ ::srt::
+	;~ ::root::
+	;~ ::sqrt::
+	;~ ::sqrtt::
+	;~ ::radical::
+		;~ pasteSquareRoot(1)
+		;~ return
+	::theta::
+		mathKbd_paste("θ")
+		return
+	::inf::
+	::infinity::
+		mathKbd_paste("∞")
+		return
+#Hotstring C0 O0 ?0 *0		;~ Turn off Hotstring directives
+}
+
+#IfWinActive Desmos
+
+
+#IfWinActive ;end specific window targeting
+
+
+
+;==============================================================================
+;==============================================================================
+;==============================================================================
+;~ OTHER METHODS
+;==============================================================================
+
+mathKbd_incrementPowerNoCarrotWithExtraBackspacing()</Match>
+        <Match Id="2">{
+		Send, {BackSpace 2}
+		Suspend On
+	}
+	return
+
+	$=::
+	Suspend Permit
+	SendRaw, =
+	if (doubleTap(SUSPEND_LIMIT)){
+		Send, {BackSpace 2}
+		Suspend Off
+	}
+	return
+;===============================================================================
+
+
+
+
+
+	;~ 	HOTKEY enable "modifier" key to still function by outputting {default value} upon release 
+	;	of the key without successfully triggering another declared hotkey.
+	Right::Right
+	Down::Down
+
+	;this function is a double-tap that turns a decimal "." into a comma ","
+	$NumpadDot::
+		Suspend, Permit
+	{
+		SendRaw, .
+		if (doubleTap()){
+			Send, {BackSpace 2}{,}
+		}
+		return
+	}
+	Numpad0::Numpad0
+	
+	;this function is a double-tap that turns a plus "+" into a minus "-"
+	$Numpad1::
+		SendRaw, 1
+		mathKbd_incrementVariables(,"x","y","z","1")
+		return
+	$Numpad2::
+		SendRaw, 2
+		mathKbd_incrementVariables(,"pi","\theta","r","2")
+		return
+	$Numpad3::
+		SendRaw, 3
+		mathKbd_incrementVariables(,"e","3")
+		return
+	$Numpad4::
+		SendRaw, 4
+		mathKbd_incrementVariables(,"t","u","v","w","4")
+		return
+	$Numpad5::
+		SendRaw, 5
+		mathKbd_incrementVariables(,"i","j","k","5")
+		return
+	$Numpad6::
+		SendRaw, 6
+		;~ incrementTrigFunctions(,"sin","cos","tan","csc","sec","cot")
+		return
+	$Numpad7::
+		SendRaw, 7
+		mathKbd_incrementVariables(350,"(",")")
+		return
+	$Numpad8::
+		SendRaw, 8
+		mathKbd_incrementPower()
+		return
+	$Numpad9::
+		SendRaw, 9
+		; negative incrementation, i.e. decrement by 1 at a time
+		mathKbd_incrementPower(,-1)
+		return
+	~x::
+		Send, x
+		if (doubleTap()){
+			Send, {BackSpace, 2}^2{Tab}
+		}
+		return
+	
+	;this function is a double-tap that turns a plus "+" into a minus "-"
+	$NumpadAdd:: 
+		SendRaw, +
+		mathKbd_incrementVariables(,"-","+")
+		return
+	NumpadSub::
+		Send, {Backspace}
+		return
+	NumpadMult:: ; superscript, power, multiply, squared, increment, iteration
+		Send, {*}
+		mathKbd_incrementPower()
+		return
+	NumpadDiv:: ; square root, 
+		Send, {/}
+		if (doubleTap()){
+			Send, {Backspace %mathKbd_style_squareRootBackspaceAmount%}
+			mathKbd_typeSquareRoot()
+		}
+		return
+
+;~ HOTKEY Navigation
+	;~ Backspace &amp; Space
+		Right &amp; NumpadSub::Send, {Backspace}
+		Right &amp; Numpad0::Send, {Space}
+		Right &amp; PGDN::Send, {Tab 8}			; Tab to the end.
+	
+;~ HOTKEY Variables --------------------
+	;~ X Variable
+		Right &amp; Numpad1::Send, {x}	;i.e. Alt+120
+		Right &amp; Numpad9::Send, {t}	;i.e. Alt+
+		Right &amp; Numpad3::Send, {y}	;i.e. Alt+121
+		Down &amp; Numpad3::Send, {e}	;i.e. Alt+101
+;~ HOTKEY SYMBOLS
+	;~ Constants &amp; Variables
+		Down &amp; Numpad1::	Send, -\inf 	; "-∞ "
+		Down &amp; Numpad2::	Send, \inf 		;  "∞ " 
+;~ HOTKEY Parentheses, Brackets, Commas, Semicolons, Colons --------------
+	;~ Comma
+		Right &amp; NumpadDot::	Send, {,}
+		
+	;~ Ordered Pair, Comma inside of Parentheses
+		Down &amp; Numpad7::	Send, (-\inf{,}\inf){Left 2}
+	
+	;~ Parentheses ; 
+	{
+		$^!9::Send, \left(
+		$^!0::Send, \right)
+		
+		$+9::				Send, (){Left}
+		Right &amp; Numpad7::	Send, (){Left}
+		; ")" Right Paranthesis
+		$+0::
+			; store the clipboard's contents before utilizing
+			clipTemp := ClipboardAll
+			
+			;highlight the next character
+			Send, {LShift down}{Right 1}{LShift up}
+			
+			; copy the highlighted character to the clipboard to "scan" it
+			Send, ^c
+			Sleep, 30 ; milliseconds
+			
+			; If the copied character is the same and the one we're trying to type...
+			; then leave it alone and exit the highlighted text.
+			; Else, plop down a ")".
+			if (Clipboard == ")"){
+				Send, {Left}{Right}
+			}
+			else
+			{
+				Send, {Left}{)}
+			}
+			
+			; restore the clipboard's contents
+			Clipboard := clipTemp
+			return
+	}
+	
+	;~ Curly Brace, Curly Brackets
+	{
+		$^!+[::Send, \left{{}
+		$^!+]::Send, \right{}}
+		$+[::Send, {{}{}}{Left}
+		$+]::
+		{
+			; store the clipboard's contents before utilizing
+			clipTemp := ClipboardAll
+			;highlight the next character
+			Send, {LShift down}{Right 1}{LShift up}
+			; copy the highlighted character to the clipboard to "scan" it
+			Send, ^c
+			Sleep, 30 ; milliseconds
+			; If the copied character is the same and the one we're trying to type...
+			; then leave it alone and exit the highlighted text.
+			; Else, plop down a ")".
+			if (Clipboard == "}"){
+				Send, {Left}{Right}
+			}
+			else
+			{
+				Send, {Left}{}}
+			}
+			; restore the clipboard's contents
+			Clipboard := clipTemp
+			return
+		}
+	}
+	;~ Square Brackets
+	{
+		$^![::Send, \left[
+		$^!]::Send, \right]
+		$[::Send, []{Left}
+		$]::
+		{
+			; store the clipboard's contents before utilizing
+			clipTemp := ClipboardAll
+			
+			;highlight the next character
+			Send, {LShift down}{Right 1}{LShift up}
+			
+			; copy the highlighted character to the clipboard to "scan" it
+			Send, ^c
+			Sleep, 30 ; milliseconds
+			
+			; If the copied character is the same and the one we're trying to type...
+			; then leave it alone and exit the highlighted text.
+			; Else, plop down a ")".
+			if (Clipboard == "]"){
+				Send, {Left}{Right}
+			}
+			else
+			{
+				Send, {Left}{]}
+			}
+			
+			; restore the clipboard's contents
+			Clipboard := clipTemp
+			return
+		}
+	}
+;~ HOTKEY Operators
+{
+	;~ Subscripts, Superscripts, Exponents, Radicals, Powers, Roots, Relationals
+	{
+		Right &amp; Numpad2::			Send, {_}		; subscript, underscore
+		Right &amp; Numpad4::			Send, {&lt;}		; less-than
+		Down &amp; Numpad4::			Send, {≤}		; less-than or equal to
+		Right &amp; Numpad5::			Send, {=}		; equals
+		Down &amp; Numpad5::			Send, {≈}		; approx symbol
+		Right &amp; Numpad6::			Send, {&gt;}		; greater-than
+		Down &amp; Numpad6::			Send, {≥}		; greater-than or equal to
+		Right &amp; Numpad8::			Send, {^}		; superscript, power
+		
+		+2::
+			Send, {^}		; superscript, power
+			mathKbd_incrementPower(INCREMENT_LIMIT,1)
+			return
+		+/::
+		Right &amp; NumpadDiv::
+			mathKbd_typeSquareRoot()
+			return
+		Right &amp; NumpadMult::		Send, +5		; = %
+		+3::						Send, {+}		; addition, plus, sum, add
+		^p:: 
+		{
+			KeyWait, p ;wait for key to be released to avoid triggering
+					;in combination with {Shift}
+			Send, {+} ;[Shift+=] -&gt; {=}
+			return ;exit method
+		}	
+		+4::						Send, {-}		; subtraction, minus, difference, subtract, negative, 
+		Right &amp; NumpadAdd::			Send, {-}		; subtraction, minus, difference, subtract, negative, 
+		Down &amp; NumpadAdd::			Send, {±}		; plus or minus ±:(A+241)
+	;~HOTKEYS Functions
+		;~Trigonometric Functions
+		^Insert::					Send, sin(){Left}
+		^Delete::					Send, csc(){Left}
+		^Home::						Send, cos(){Left}
+		^End::						Send, sec(){Left}
+		^PGUP::						Send, tan(){Left}
+		^PGDN::						Send, cot(){Left}
+	}
+}
+
+;~ HOTSTRING Brackets and Separators============================================
+	;~ Angled Brackets
+		::leftanglebracket::⟨
+		::langbk::⟨
+		::rightanglebracket::⟩ 
+		::rangbk::⟩ 
+		::angle::∠
+	;~ Comma
+			;DEPRECATED, keyboard periods no longer trigger commas, only a 
+			;timed-double-tap NumpadDot triggers a comma replacement
+		;~ :*?:..::{,}
+	;~ Therefore
+		::therefore::∴
+		::tf::∴
+	;~ Because
+		::because::∵
+		::bc::∵
+	;~ Ellipses
+		::'''::⋯
+		;~ ::...::… 
+;~ HOTSTRING Superscripts, Exponents, Radicals, Powers, Roots==================
+{
+	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
+		::ss::
+			Send, {^}{2}{Right}
+			return
+		::sq::{^}2{Right}			; squared, power of 2, exponent 2
+		::srd::{^}2{Right}			; squared, power of 2, exponent 2
+		::sqrd::{^}2{Right}			; squared, power of 2, exponent 2
+		::squared::{^}2{Right}		; squared, power of 2, exponent 2
+		::root::\sqrt				; square root, radical  √:(A+251)
+		::srt::\sqrt				; square root, radical  √:(A+251)
+		::sqrtt::√					; square root, radical  √:(A+251)
+		::radical::√    			; square root, radical  √:(A+251)
+		::ex::e{^}x{Right}			; exponential constant to the power of x
+	#Hotstring ?0			;~ [?0] turn off "if-suffix" trigger
+		::crt::∛ 
+		::frt::∜
+		::3rt::∛ 
+		::4rt::∜
+}
+; HOTSTRING NUMBERS============================================================
+{
+	;~ #Hotstring *			;~ [*] turn on No Ending-Character Required
+	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
+		;~ :?:root::√
+		::zero::0
+		::one::1
+		:T:two::2			;~ [T] send as raw text, no keystrokes
+		::three::3
+		::four::4
+		::five::5
+		::six::6
+		::seven::7
+		::eight::8
+		::nine::9
+		::ten::10
+		::eleven::11
+		::twelve::12
+		::thirteen::13
+		::fourteen::14
+		::fifteen::15
+		::sixteen::16
+		::seventeen::17
+		::eighteen::18
+		::nineteen::19
+		::twenty::20
+		::thirty::30
+		::fourty::40
+		::fifty::50
+		::sixty::60
+		::seventy::70
+		::eighty::80
+		::ninety::90
+		::hundred::100
+		::onehundred::100
+	#Hotstring ?0			;~ [?0] turn off "if-suffix" trigger
+	#Hotstring *0 			;~ [*0] turn off No Ending-Character Required
+}
+
+;~ HOTSTRINGS UNICODE &amp; ASCII SYMBOLS 
+{
+	;~ [O] omits the ending character from outputting in the replaced hotstring
+	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
+		:R:plus::+ 		;~ [R] sends output as raw, without translating as keywords
+		:R:add::+
+		:R*:pp::+	;plus
+		:R*:nn::-	;minus
+		:R*:mm::-	;minus
+		:R*:tt::*	;times
+		:R*:dd::/	;divided
+		::min::-
+		::minus::-
+}
+;~ #IfWinActive Topic: Discussion: Mixed Derivatives ; target specific window
+{
+		;~ ::min::
+			;~ Send, {Backspace}{-}
+		;~ ::minus::
+			;~ Send, {Backspace 3}{-}
+}
+;~ #IfWinActive ; re-declare targeting of any window
+{
+		::neg::-
+		::negative::-
+		::times::{*}
+		::multiplied::{*}
+		::dot::{*} 			;~ For browser math input * *
+		::realdot::· 		;~ For generic text field input
+		::divided::{/}
+		::plusminus::±
+		::minusplus::∓
+		;~ ::inf::∞
+		;~ ::inf::\inf 
+		:C:union::∪		;~ [C] caps sensitive hotstring
+		:C:U::
+		::sumseq::∑
+		::elementof::∈
+		;~ ::in::∈
+		;~ ::f(::ƒ(
+		::equals::=
+		::approx::≈
+		::approximately::≈
+		::notequal::≠
+		::notequals::≠
+		::deg::°
+		::degg::
+		{
+			Clipboard:= "\deg"
+			Send, ^v 
+			return
+		}
+		;~ :T:deggg::\deg			; Doesn't work in Mathway browser, the back-slash and forward-slash 
+									; are captured as ratio dividers before getting a chance to finish
+									; the character command.
+		
+		;integrals 
+		:?0:int::\int
+		:?0:integral::\int
+		::dint::\dint
+		::defint::\dint
+		::definite integral::\dint
+		
+		
+	#Hotstring ?0	;~ turns off "if-suffix" trigger
+}
+;~ Superscripts================================================================
+{
+	#Hotstring ?	;~ turns on "if-suffix" trigger
+	;~ ⁰ⁱ¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ
+	;~ [O] omit ending character trail space
+	;~ [?] if-suffix, still triggers
+	::supi'::ⁱ
+	::supn'::ⁿ
+	::sup1'::¹
+	::sup2'::²
+	::sup3'::³
+	::sup1'::¹
+	::sup2'::²
+	::sup3'::³
+	;---------------------------------
+	::sup::
+	::pow::
+	::pwr::
+	::power::{^}
+	::sup1::
+	::pow1::
+	::pwr1::
+	::power1::{^}1{Right}
+	::sup2::
+	::pow2::
+	::pwr2::
+	::power2::{^}2{Right}
+	::sup3::
+	::pow3::
+	::pwr3::
+	::power3::{^}3{Right}
+	::sup4::
+	::pow4::
+	::pwr4::
+	::power4::{^}4{Right}
+	::sup5::
+	::pow5::
+	::pwr5::
+	::power5::{^}5{Right}
+	::sup6::
+	::pow6::
+	::pwr6::
+	::power6::{^}6{Right}
+	::sup7::
+	::pow7::
+	::pwr7::
+	::power7::{^}7{Right}
+	::sup8::
+	::pow8::
+	::pwr8::
+	::power8::{^}8{Right}
+	::sup9::
+	::pow9::
+	::pwr9::
+	::power9::{^}9{Right}
+	::sup0::
+	::pow0::
+	::pwr0::
+	::power0::{^}0{Right}
+	::supx::
+	::powx::
+	::pwrx::
+	::powerx::{^}x{Right}
+	::supn::
+	::pown::
+	::pwrn::
+	::powern::{^}n{Right}
+	::supone::
+	::powone::
+	::pwrone::
+	::powerone::{^}1{Right}
+	::suptwo::
+	::powtwo::
+	::pwrtwo::
+	::powertwo::{^}2{Right}
+	::supthree::
+	::powthree::
+	::pwrthree::
+	::powerthree::{^}3{Right}
+	::supfour::
+	::powfour::
+	::pwrfour::
+	::powerfour::{^}4{Right}
+	::supfive::
+	::powfive::
+	::pwrfive::
+	::powerfive::{^}5{Right}
+	::supsix::
+	::powsix::
+	::pwrsix::
+	::powersix::{^}6{Right}
+	::supseven::
+	::powseven::
+	::pwrseven::
+	::powerseven::{^}7{Right}
+	::supeight::
+	::poweight::
+	::pwreight::
+	::powereight::{^}8{Right}
+	::supnine::
+	::pownine::
+	::pwrnine::
+	::powernine::{^}9{Right}
+	::supzero::
+	::powzero::
+	::pwrzero::
+	::powerzero::{^}0{Right}
+	;---------------------------------
+}
+;~ Subscripts==================================================================
+{
+	;~ ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎
+	;~ ₐ ₑ ₒ ₓ ₔ ₕ ₖ ₗ ₘ ₙ ₚ ₛ ₜ
+	::suba'::ₐ
+	::subn'::ₙ
+	::subx'::ₓ
+	::sub1'::₁
+	::sub2'::₂
+	::sub3'::₃
+	;---------------------------------
+	::base::{_}
+	::base1::{_}1{Right}
+	::base2::{_}2{Right}
+	::base3::{_}3{Right}
+	::base4::{_}4{Right}
+	::base5::{_}5{Right}
+	::base6::{_}6{Right}
+	::base7::{_}7{Right}
+	::base8::{_}8{Right}
+	::base9::{_}9{Right}
+	::base0::{_}0{Right}
+	::basex::{_}x{Right}
+	::basen::{_}n{Right}
+	;---------------------------------
+	::sub::{_}
+	::sub1::{_}1{Right}
+	::sub2::{_}2{Right}
+	::sub3::{_}3{Right}
+	::sub4::{_}4{Right}
+	::sub5::{_}5{Right}
+	::sub6::{_}6{Right}
+	::sub7::{_}7{Right}
+	::sub8::{_}8{Right}
+	::sub9::{_}9{Right}
+	::sub0::{_}0{Right}
+	::subx::{_}x{Right}
+	::subn::{_}n{Right}
+	;---------------------------------
+	#Hotstring ?0	;~ turns off "if-suffix" trigger
+}
+;~ Fractions===================================================================
+{
+	::onehalf::½
+	::onethird::⅓
+	::onefourth::¼
+	::onefifth::⅕
+	::onesixth::⅙
+	::oneseventh::⅐
+	::oneeighth::⅛
+	::oneninth::⅑
+	::threefourths::¾
+}
+;~ Greek Letters===============================================================
+{
+	;~ #Hotstring C ;~ [C] case sensitive
+	;~ letters are automatically replaced/matched with Capitalization of replaced string.
+	#Hotstring ?	;~ turns on "if-suffix" trigger
+	::alpha%::α
+	::alpha;::α
+	::alpha::\alpha
+	::beta%::β
+	::beta;::β
+	::beta::\beta
+	::gamma%::γ
+	::gamma;::γ
+	::gamma::\gamma
+	::delta%::δ
+	::delta;::δ
+	::delta::\delta
+	::epsilon%::ε
+	::epsilon;::ε
+	::epsilon::\eplison
+	::theta%::θ
+	::theta;::θ
+	::theta::\theta
+	::phi%::φ
+	::phi;::φ
+	::phi::\phi
+	::pi%::π
+	::pi;::π
+	;~ ::pi::\pi
+	::omega%::ω
+	::omega;::ω
+	::omega::\omega
+	;~ #Hotstring C0 ;~ [C0] turn off case sensitive
+	#Hotstring ?0	;~ turns off "if-suffix" trigger
+	
+	#Hotstring C0 O0 ?0 *0		;~ Reset Hotstring directives
+}
+;==============================================================================
+
+
+#IfWinActive Mathway 
+{
+	NumpadMult:: ; superscript, power, multiply, squared, increment, iteration
+		Send, {*}
+		mathKbd_incrementPowerNoCarrotWithExtraBackspacing()
+		return
+
+	+Tab::Left
+
+	;~ +/::
+	;~ Right &amp; NumpadDiv::
+		;~ pasteSquareRoot(1)
+		;~ return
+	
+	;~ NumpadDiv::
+		;~ Send, {/}
+		;~ if (doubleTap()){
+			;~ Send, {Backspace 2}
+			;~ ;pasteSquareRoot(1)
+		;~ }
+		;~ return
+
+;HOTSTRINGS===========================================
+	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
+	;~ ::srt::
+	;~ ::root::
+	;~ ::sqrt::
+	;~ ::sqrtt::
+	;~ ::radical::
+		;~ pasteSquareRoot(1)
+		;~ return
+	::theta::
+		mathKbd_paste("θ")
+		return
+	::inf::
+	::infinity::
+		mathKbd_paste("∞")
+		return
+#Hotstring C0 O0 ?0 *0		;~ Turn off Hotstring directives
+}
+
+#IfWinActive Desmos
+
+
+#IfWinActive ;end specific window targeting
+
+
+
+;==============================================================================
+;==============================================================================
+;==============================================================================
+;~ OTHER METHODS
+;==============================================================================
+
+</Match>
+        <Match Id="3">
+</Match>
+        <Match Id="4">mathKbd_incrementPowerNoCarrotWithExtraBackspacing</Match>
+        <Match Id="5">()</Match>
+        <Match Id="6"></Match>
+      </MatchCollection>
+      <MatchCollection Id="6">
+        <Match Id="1">
+{
+	mathKbd_incrementPower(,,,,,false,true)
+}
+
+mathKbd_incrementPowerNoCarrot()</Match>
+        <Match Id="2">
+{
+	mathKbd_incrementPower(,,,,,false,true)
+}
+
+</Match>
+        <Match Id="3">
+</Match>
+        <Match Id="4">mathKbd_incrementPowerNoCarrot</Match>
+        <Match Id="5">()</Match>
+        <Match Id="6"></Match>
+      </MatchCollection>
+      <MatchCollection Id="7">
+        <Match Id="1">
+{
+	mathKbd_incrementPower(,,,,false)
+}
+
+mathKbd_incrementPower( p_timeLimit := -1, p_incrementAmount := 1, p_initialBackspaceAmount := 2, p_subsequentBackspaceAmount :=3, p_rightAmount := 1, p_sendCarrot := true, p_extraBackspacing := false)</Match>
+        <Match Id="2">
+{
+	mathKbd_incrementPower(,,,,false)
+}
+
+</Match>
+        <Match Id="3">
+</Match>
+        <Match Id="4">mathKbd_incrementPower</Match>
+        <Match Id="5">( p_timeLimit := -1, p_incrementAmount := 1, p_initialBackspaceAmount := 2, p_subsequentBackspaceAmount :=3, p_rightAmount := 1, p_sendCarrot := true, p_extraBackspacing := false)</Match>
+        <Match Id="6"></Match>
+      </MatchCollection>
+      <MatchCollection Id="8">
+        <Match Id="1">{
+	if (doubleTap(p_timeLimit)){
+		currentRaisedPower += p_incrementAmount
+		if (currentRaisedPower = 2)
+			Send, {Backspace %p_initialBackspaceAmount%} ;2
+		else if (p_extraBackspacing == true &amp;&amp; currentRaisedPower &gt;= 11){
+			extraBackspaceAmount := p_subsequentBackspaceAmount + 1
+			Send, {Backspace %extraBackspaceAmount%}
+		} 
+		else
+			Send, {Backspace %p_subsequentBackspaceAmount%} ;3
+		
+		if (p_sendCarrot == true)
+			Send, {^}%currentRaisedPower%{Right %p_rightAmount%} ;1
+		else if (p_sendCarrot == false &amp;&amp; currentRaisedPower = 2)
+			Send, {^}%currentRaisedPower%{Right %p_rightAmount%} ;1
+		else
+			Send, %currentRaisedPower%{Right %p_rightAmount%} ;1
+	}
+	else
+		currentRaisedPower := 1
+}
+
+; variadic parameter__________________vvvvvvv________
+mathKbd_incrementVariables(p_timeLimit := "", p_vars*)</Match>
+        <Match Id="2">{
+	if (doubleTap(p_timeLimit)){
+		currentRaisedPower += p_incrementAmount
+		if (currentRaisedPower = 2)
+			Send, {Backspace %p_initialBackspaceAmount%} ;2
+		else if (p_extraBackspacing == true &amp;&amp; currentRaisedPower &gt;= 11){
+			extraBackspaceAmount := p_subsequentBackspaceAmount + 1
+			Send, {Backspace %extraBackspaceAmount%}
+		} 
+		else
+			Send, {Backspace %p_subsequentBackspaceAmount%} ;3
+		
+		if (p_sendCarrot == true)
+			Send, {^}%currentRaisedPower%{Right %p_rightAmount%} ;1
+		else if (p_sendCarrot == false &amp;&amp; currentRaisedPower = 2)
+			Send, {^}%currentRaisedPower%{Right %p_rightAmount%} ;1
+		else
+			Send, %currentRaisedPower%{Right %p_rightAmount%} ;1
+	}
+	else
+		currentRaisedPower := 1
+}
+
+; variadic parameter__________________vvvvvvv________
+</Match>
+        <Match Id="3">
+</Match>
+        <Match Id="4">mathKbd_incrementVariables</Match>
+        <Match Id="5">(p_timeLimit := "", p_vars*)</Match>
+        <Match Id="6"></Match>
+      </MatchCollection>
+      <MatchCollection Id="9">
+        <Match Id="1">{
+	; if undeclared, set timelimit to default increment time value
+	if (p_timeLimit == ""){
+		p_timeLimit := INCREMENT_LIMIT
+		;~ MsgBox, % "Set p_timeLimit from `"`" to INCREMENT_LIMIT = " . INCREMENT_LIMIT . "`p_vars.MaxIndex() = " . p_vars.MaxIndex()
+	}
+	; if within doubleTap limit, set str to params[index] value, send output,
+	; and increment the index value
+	if (doubleTap(p_timeLimit)){
+		
+		; set the string to the next parameter element
+		str := p_vars[currentRaisedPower]
+		
+		; delete the last printed element by checking the string length of prev elem
+		previousIndex := currentRaisedPower - 1
+		if (previousIndex == 0){
+			backspaceAmount := 2
+			previousIndex := 1
+		} else { 
+			backspaceAmount := StrLen(p_vars[previousIndex]) + 1
+		}
+		; remove last print by backspaceAmount and print new string
+		Send, {Backspace %backspaceAmount%}%str%
+		
+		; after sending output and incrementing +1, if index variable would be higher than 
+		; length of p_vars* object, then cycle back to beginning of elem index [1].
+		currentRaisedPower += 1 ;intially starts at 1, first run sets to 2
+		if (currentRaisedPower &gt; p_vars.MaxIndex())
+			currentRaisedPower := 1
+	}
+	else
+		currentRaisedPower := 1
+	
+	;send the release of any modifier keys to keep them from getting spam-locked
+	Send, {CtrlUp}{ShiftUp}{AltUp}
+}
+
+mathKbd_typeSquareRoot()</Match>
+        <Match Id="2">{
+	; if undeclared, set timelimit to default increment time value
+	if (p_timeLimit == ""){
+		p_timeLimit := INCREMENT_LIMIT
+		;~ MsgBox, % "Set p_timeLimit from `"`" to INCREMENT_LIMIT = " . INCREMENT_LIMIT . "`p_vars.MaxIndex() = " . p_vars.MaxIndex()
+	}
+	; if within doubleTap limit, set str to params[index] value, send output,
+	; and increment the index value
+	if (doubleTap(p_timeLimit)){
+		
+		; set the string to the next parameter element
+		str := p_vars[currentRaisedPower]
+		
+		; delete the last printed element by checking the string length of prev elem
+		previousIndex := currentRaisedPower - 1
+		if (previousIndex == 0){
+			backspaceAmount := 2
+			previousIndex := 1
+		} else { 
+			backspaceAmount := StrLen(p_vars[previousIndex]) + 1
+		}
+		; remove last print by backspaceAmount and print new string
+		Send, {Backspace %backspaceAmount%}%str%
+		
+		; after sending output and incrementing +1, if index variable would be higher than 
+		; length of p_vars* object, then cycle back to beginning of elem index [1].
+		currentRaisedPower += 1 ;intially starts at 1, first run sets to 2
+		if (currentRaisedPower &gt; p_vars.MaxIndex())
+			currentRaisedPower := 1
+	}
+	else
+		currentRaisedPower := 1
+	
+	;send the release of any modifier keys to keep them from getting spam-locked
+	Send, {CtrlUp}{ShiftUp}{AltUp}
+}
+
+</Match>
+        <Match Id="3">
+</Match>
+        <Match Id="4">mathKbd_typeSquareRoot</Match>
+        <Match Id="5">()</Match>
+        <Match Id="6"></Match>
+      </MatchCollection>
+      <MatchCollection Id="10">
+        <Match Id="1">{
+	if (mathKbd_style_paste == false){
+		if (mathKbd_style_backSlash == false || mathKbd_style_backSlash == 0)
+			Send, sqrt{Left %mathKbd_style_squareRootLeftAmount%}
+		else if (mathKbd_style_backSlash == true || mathKbd_style_backSlash == 1)
+			Send, \sqrt{Left %mathKbd_style_squareRootLeftAmount%}
+	} else if (mathKbd_style_paste == true){
+		mathKbd_pasteSquareRoot()
+	}
+}
+
+mathKbd_pasteSquareRoot()</Match>
+        <Match Id="2">{
+	if (mathKbd_style_paste == false){
+		if (mathKbd_style_backSlash == false || mathKbd_style_backSlash == 0)
+			Send, sqrt{Left %mathKbd_style_squareRootLeftAmount%}
+		else if (mathKbd_style_backSlash == true || mathKbd_style_backSlash == 1)
+			Send, \sqrt{Left %mathKbd_style_squareRootLeftAmount%}
+	} else if (mathKbd_style_paste == true){
+		mathKbd_pasteSquareRoot()
+	}
+}
+
+</Match>
+        <Match Id="3">
+</Match>
+        <Match Id="4">mathKbd_pasteSquareRoot</Match>
+        <Match Id="5">()</Match>
+        <Match Id="6"></Match>
+      </MatchCollection>
+      <MatchCollection Id="11">
+        <Match Id="1">{
+	archiveClipboard()
+	Clipboard := "√"			; square root, radical  √:(A+251)
+	Send, ^v{Left %mathKbd_style_squareRootLeftAmount%}
+	restoreClipboard()
+	return
+}
+
+mathKbd_paste(str := "")</Match>
+        <Match Id="2">{
+	archiveClipboard()
+	Clipboard := "√"			; square root, radical  √:(A+251)
+	Send, ^v{Left %mathKbd_style_squareRootLeftAmount%}
+	restoreClipboard()
+	return
+}
+
+</Match>
+        <Match Id="3">
+</Match>
+        <Match Id="4">mathKbd_paste</Match>
+        <Match Id="5">(str := "")</Match>
+        <Match Id="6"></Match>
+      </MatchCollection>
+      <MatchCollection Id="12">
+        <Match Id="1">{	
+	archiveClipboard()
+	Clipboard := str
+	Send, ^v 
+	restoreClipboard()
+	return
+}
+;==============================================================================
+;==============================================================================
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+        <Match Id="4"></Match>
+        <Match Id="5"></Match>
+        <Match Id="6">{	
+	archiveClipboard()
+	Clipboard := str
+	Send, ^v 
+	restoreClipboard()
+	return
+}
+;==============================================================================
+;==============================================================================
+</Match>
+      </MatchCollection>
+      <MatchCollection Id="13">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+        <Match Id="4"></Match>
+        <Match Id="5"></Match>
+        <Match Id="6">
+</Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+</Findings>
