@@ -15,11 +15,13 @@
 ;~ CLIPBOARD METHODS
 ;==============================================================================
 
-/* Make sure to have something "selected" before 
- * calling this method for it to work.
- */
-ctrlC(p_clipWaitTime := 1)
-{
+/**	copySelection(p_clipWaitTime := 1)
+;;	Descr:	Sends "Ctrl+c"
+;;	Return:	BOOLEAN
+;;	Params:	p_clipWaitTime:=	INTEGER (seconds)
+;;	Notes:	Make sure to have something "selected" before calling this method for it to work.
+*/
+copySelection(p_clipWaitTime := 1){
 	;copy command
 	Send, ^c	
 	;make sure not to proceed without the clipboard being filled
@@ -87,7 +89,7 @@ archiveThenCopy(p_clipWaitTime := 0)
 {
 	;save and wipe the clipboard
 	archiveClipboard()
-	ctrlC(p_clipWaitTime)
+	copySelection(p_clipWaitTime)
 	return
 }
 
@@ -221,7 +223,7 @@ moveCurrentLineDown(p_moveAmount := 1)
 	Send, {Home}{ShiftDown}{End}{ShiftUp}
 	
 	;cut
-	ctrlC()
+	copySelection()
 	Send, {Delete}
 	
 	;move caret down n times
@@ -256,7 +258,7 @@ moveCurrentLineUp(p_moveAmount := 1)
 	Send, {Home}{ShiftDown}{End}{ShiftUp}
 	
 	;cut
-	ctrlC()
+	copySelection()
 	Send, {Delete}
 	
 	;move caret up n times
