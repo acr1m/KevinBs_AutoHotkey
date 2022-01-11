@@ -6,7 +6,7 @@
 #MaxHotkeysPerInterval 1000 ;1 thousand keys per above interval
 #Hotstring EndChars -()[]{}: "/\.?!`n
 
-Menu, Tray, Icon, % "E:\Software\iconsext-1.47\icons\Keyboards\msctf_410.ico"
+Menu, Tray, Icon, % "E:\Assets\Icons\keyboards\msctf_410.ico"
 
 ;~ global isAdmin := A_IsAdmin
 isAdmin := A_IsAdmin
@@ -51,6 +51,7 @@ global oneKey_HasItBeenSet := false
 ;;;; activates when pressing
 ;;;;;; Ctrl+Alt+Shift+{Pause}
 ^!+CtrlBreak::ExitApp
+1::generate_loremIpsum(7)
 ;==============================================================================
 ;WINDOWS KEY SHORTCUTS &&
 ;SOFTWARE OPEN/START/RUN SHORTCUTS
