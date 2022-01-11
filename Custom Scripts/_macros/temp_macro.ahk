@@ -1,3 +1,9 @@
+
+Menu, Tray, Icon, % "E:\Assets\Icons\key_circle_red_white.ico"
+;: Menu, Tray, Icon, % "E:\Assets\Icons\key_circle_blue_white.ico"
+;: Menu, Tray, Icon, % "E:\Assets\Icons\key_circle_green_white.ico"
+
+
 #Include %A_ScriptDir%\..\_lib
 #Include LIB_Main_Method_Library.ahk
 #Include LIB_Emojis_And_Symbols.ahk
@@ -7,31 +13,90 @@
 
 Pause::ExitApp
 
-;; macro buttons on Razer Black Widow Keyboard (M1~M5)
-;; M1 - F20
-;; M2 - F21
-;; M3 - F22
-;; M4 - F23
-;; M5 - F24
+;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;; temp start
 
-;; M1 (keyboard)
-;; F20::
+;: temp end
+;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-;; M2 (keyboard)
-F20::
-	copySelection()
-	Clipboard := RegEx_SwapLineBreaks()
-    Clipboard := RegEx_SwapTabs()
-	Clipboard := RegExReplace(Clipboard, "(?:/\*\*)|(?:\*/)")
-	Clipboard := RegExReplace(Clipboard, "(?:;; ?)")
-	return
-F21::
-	;; outVar := RegExReplace(RegEx_parseDocumentForFunctions(), "\\", "line`")
+;; Macro Buttons on Razer Black Widow Keyboard (M1~M5)
+;; ┌──────────┬──────────┬──────────┬──────────┬──────────┐
+;; │ M1 = F20 │ M2 = F21 │ M3 = F22 │ M4 = F23 │ M5 = F24 │
+;; └──────────┴──────────┴──────────┴──────────┴──────────┘
+
+;; M1 - parse the whole document
+F20::macro_f20_00()
+
+macro_f20_00(){
+	;; outVar := RegExReplace(regex_parseDocumentForFunctions(), "\\", "line`")
 	;; MsgBox, % "Clipboard Contents on the next line...`n" . outVar
-	RegEx_parseDocumentForFunctions()
+	Clipboard := regex_parseDocumentForFunctions("`r`n")
+	MsgBox, % Clipboard
 	return
-
-
+}
+;; M2 - remove whitespace characters
+;; prep for "user.ahk.api" documentation
+F21::
+{
+	;; this preps a selection of text for pasting into "user.ahk.api"
+		copySelection()
+		;: MsgBox, , copySelectio(), % Clipboard
+		;: regex_selection_removeCommentDelimiters()
+		;: regex_selection_swapLineBreaksAndTabs("\\n", "\\t")
+		regex_clipboard_removeCommentDelimiters()
+		;: MsgBox, , regex_clipboard_removeCommentDelimiters(), % Clipboard
+		regex_clipboard_swapLineBreaksAndTabs("\\n", "\\t")
+		;: MsgBox, , regex_clipboard_swapLineBreaksAndTabs`(`"\\n`"`, `"\\t`"`), % Clipboard
+		pasteClipboard()
+		return
+}
+;; M3 - sort lines
+F22::
+{
+	regex_selection_sortAndPaste()
+	return
+}
+;; M4 - parse document
+F23::
+{	
+	Clipboard := regex_parseDocumentForFunctions("`r`n")
+	;: MsgBox, % Clipboard
+	;;: regex_selection_removeCommentDelimiters()
+	;;: regex_selection_swapLineBreaksAndTabs("\\n", "\\t")
+	
+	regex_clipboard_removeCommentDelimiters()
+	;: MsgBox, % Clipboard
+	
+	;: regex_clipboard_swapLineBreaksAndTabs("\\n", "\\t")
+	;: MsgBox, % Clipboard
+	;;: regex_selection_sortAndPaste()
+	
+	;: regex_clipboard_sort()
+	;: MsgBox, % Clipboard
+	
+	FileAppend, %Clipboard%, E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user2.ahk.api
+	return
+}
+F24::
+{	
+	Clipboard := regex_parseDocumentForFunctions("`r`n")
+	;: MsgBox, % Clipboard
+	;;: regex_selection_removeCommentDelimiters()
+	;;: regex_selection_swapLineBreaksAndTabs("\\n", "\\t")
+	
+	regex_clipboard_removeCommentDelimiters()
+	;: MsgBox, % Clipboard
+	
+	regex_clipboard_swapLineBreaksAndTabs("\\n", "\\t")
+	;: MsgBox, % Clipboard
+	;;: regex_selection_sortAndPaste()
+	
+	;: regex_clipboard_sort()
+	;: MsgBox, % Clipboard
+	
+	FileAppend, %Clipboard%, E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user3.ahk.api
+	return
+}
 
 ;; ahk v1 syntax
 /* NumpadSub::
