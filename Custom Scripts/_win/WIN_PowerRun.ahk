@@ -13,81 +13,101 @@
 	pwrRun_fireFoxSearch("test","{Space}1{Space}2{Space}3")
 	return
 ::??blend::
+::??color Mix::
+::??color Mixer::
 ::??colorblend::
 ::??colorMix::
-::??color Mix::
 ::??colorMixer::
-::??color Mixer::
 	Run, Firefox.exe "https://www.w3schools.com/colors/colors_mixer.asp"
 	return
-::??colorPick::
 ::??color Pick::
 ::??color Picker::
+::??colorPick::
 	Run, Firefox.exe "https://www.w3schools.com/colors/colors_picker.asp"
 	return
-::??colorName::
 ::??color name::
-::??colorNames::
 ::??color names::
+::??colorName::
+::??colorNames::
 	Run, Firefox.exe "https://www.w3schools.com/colors/colors_names.asp"
 	return
 ::??anime::
-::??liveChart::
 ::??liveChart.me::
+::??liveChart::
 	v_domain := "https://www.livechart.me/timetable?date="
 	v_date := time_translateDate(-3, ,"yyyy-MM-dd")
 	v_target := v_domain . v_date
 	;: MsgBox, %v_target%
 	Run, Chrome.exe %v_target%
 	return
-::??sortLines::
 ::??sort::
+::??sortLines::
 ::??sortSelection::
 	regex_selection_sortAndPaste()
 	return
-::??parse for functions::
 ::??parse document for functions::
+::??parse for functions::
 ::??parseDocumentForFunctions::
 ::??parseForFunctions::
 	Clipboard := regex_parseDocumentForFunctions()
 	return
-::??loremipsum::
+::??ipsum1::
+::??lipsum1::
 ::??loremipsum1::
+::??loremipsum::
 	pwrRun_clearText()
 	generate_loremIpsum(1)
 	return
+::??ipsum2::
+::??lipsum2::
 ::??loremipsum2::
 	pwrRun_clearText()
 	generate_loremIpsum(2)
 	return
+::??ipsum3::
+::??lipsum3::
 ::??loremipsum3::
 	pwrRun_clearText()
 	generate_loremIpsum(3)
 	return
+::??ipsum4::
+::??lipsum4::
 ::??loremipsum4::
 	pwrRun_clearText()
 	generate_loremIpsum(4)
 	return
+::??ipsum5::
+::??lipsum5::
 ::??loremipsum5::
 	pwrRun_clearText()
 	generate_loremIpsum(5)
 	return
+::??ipsum6::
+::??lipsum6::
 ::??loremipsum6::
 	pwrRun_clearText()
 	generate_loremIpsum(6)
 	return
+::??ipsum7::
+::??lipsum7::
 ::??loremipsum7::
 	pwrRun_clearText()
 	generate_loremIpsum(7)
 	return
+::??ipsum8::
+::??lipsum8::
 ::??loremipsum8::
 	pwrRun_clearText()
 	generate_loremIpsum(8)
 	return
+::??ipsum9::
+::??lipsum9::
 ::??loremipsum9::
 	pwrRun_clearText()
 	generate_loremIpsum(9)
 	return
+::??ipsum10::
+::??lipsum10::
 ::??loremipsum10::
 	pwrRun_clearText()
 	generate_loremIpsum(10)
