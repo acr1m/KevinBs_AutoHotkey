@@ -27,7 +27,7 @@ copySelection(p_clipWaitTime := 1){
 	;make sure not to proceed without the clipboard being filled
 	ClipWait, p_clipWaitTime ;wait for n seconds
 	if ErrorLevel {
-		;~ MsgBox, The attempt to copy text onto the clipboard failed. Returning.
+		MsgBox, , copySelection(), The attempt to copy text onto the clipboard failed. Returning.
 		return false
 	}
 	return true
@@ -51,7 +51,7 @@ setClipboard(p_clipWaitTime := 1, p_str := "")
 	;make sure not to proceed without the clipboard being filled
 	ClipWait, p_clipWaitTime ;wait for n seconds
 	if ErrorLevel {
-		MsgBox, The attempt to copy text onto the clipboard failed. Returning.
+		MsgBox, , setClipboard(), The attempt to copy text onto the clipboard failed. Returning.
 		return false
 	}
 	return true
@@ -70,17 +70,39 @@ getClipboard(ByRef p_var){
  * @note	At end of method process, restores Clipboard back to what 
  *			it was prior to calling this method.
  */
+/**	pasteClipboard()
+	Descr:	Handles the pasting of Clipboard contents.
+	Return:	BOOLEAN -	true if successful.
+			* 			false if error occurred.
+	Params:	p_str := ""
+	Notes:	If argument is left blank, then paste current Clipboard contents.
+			If argument is defined, then paste the argument without affecting the current Clipboard.
+*/
 pasteClipboard(p_str := ""){
-	testBool := setClipboard(1, p_str)
-	Sleep, 200
-	if (testBool == true){
+	retVal := false
+	;; paste like normal
+	if (p_str == ""){ 
 		Send, ^v
 		retVal := true
 	}
+	;; if argument is defined, then paste it without affecting the current Clipboard.
+	else if (p_str != ""){
+		testBool := setClipboard(1, p_str)
+		Sleep, 200
+		if (testBool == true){
+			Send, ^v
+			retVal := true
+		}
+		else {
+			retVal := false
+		}
+		restoreClipboard()
+	}
+	;; return unsuccessful
 	else {
 		retVal := false
 	}
-	restoreClipboard()
+	
 	return retVal
 }
 
