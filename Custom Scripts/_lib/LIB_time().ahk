@@ -68,7 +68,7 @@ time_getDate(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt"){
 	return % outputVar
 }
 
-/* time_translateDate_day(p_days := -3, p_dateUnit := "Days", p_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")
+/* time_translateDate(p_days := -3, p_dateUnit := "Days", p_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")
 ;; Descr:	Uses [EnvAdd,] command to shift the current date by a given number and unit.
 	Return:	STRING
 	Params:	p_days :=		STRING
@@ -82,16 +82,18 @@ time_translateDate(p_timeShift := 0, p_timeUnit := "Days", p_dateFormat := "yyyy
 	;; v_date := time_getDate("yyyyMMdd")
 	;; FormatTime, v_date, % (v_date)
 	
+	;; METHOD 1
 	;; The built-in variable [A_Now] contains the current local time in YYYYMMDDHH24MISS format.
 	var1 := A_Now
 	EnvAdd, var1, %p_timeShift%, %p_timeUnit%
 	
+	;; METHOD 2
 	;; Make it blank so that the below will use the current timestamp instead.
 	var2 := ""
 	var2 += p_timeShift, %p_timeUnit%
 	
-	MsgBox, %var1%  ; The answer will be the date 31 days from now.
-	MsgBox, % "var1 := " . var1 . "`nvar2 := " . var2 . "`n"
+	;; MsgBox, %var1%  ; The answer will be the date 31 days from now.
+	;; MsgBox, % "var1 := " . var1 . "`nvar2 := " . var2 . "`n"
 	
 	FormatTime, outVar, %var2%, %p_dateFormat%
 	return outVar
