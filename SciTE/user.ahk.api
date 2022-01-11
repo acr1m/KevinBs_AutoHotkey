@@ -1,21 +1,43 @@
+generate_loremIpsum()\n\tDescr:\tUsing the Clipboard (without affecting most recent clip), Pastes 1 to 10 paragraphs of generated Lorem Ipsum text. Default is 3 paragraphs.\n\tReturn:\tVOID\n\tParams:\tp_paragraphAmount :=\tINTEGER\n\tNotes:\tGenerated text acquired from "https://lipsum.com".\n
+generate_loremIpsum()\ngenerate_loremIpsum(p_paragraphAmount := 3)
 
-RegEx_SwapTabs(rgx_replaceWith := "\\\\t")
-
-RegEx_SwapLineBreaks(rgx_replaceWith := "\\n")
-
-RegEx_SwapLineBreaks(rgx_replaceWith := "\\n")\n\tDescr:\tReplaces the Clipboard contents. Swaps out line-break characters with the given RegEx string.\n\tReturn:\tSTRING\n\tNotes: Search Expression := "((?:\r\n)|(?:\r)|(?:\n))"\n\t\t- Matches a single token of (CR+LF or CR or LF)
-
-RegEx_parseDocumentForFunctions()
-
-
+regex_SwapTabs(rgx_replaceWith := "\\t")
+regex_SwapLineBreaks(rgx_replaceWith := "\\n")
+regex_parseDocumentForFunctions(p_CRLF := "\\r\\n")
+regex_selection_swapLineBreaksAndTabs(p_lineBreakSubstitution := "\\n", p_tabSubstitution := "\\t")
+regex_clipboard_swapLineBreaksAndTabs(p_lineBreakSubstitution := "\\n", p_tabSubstitution := "\\t")
+regex_selection_removeCommentDelimiters(p_delimiter_begin := "(/\\*\\*?\\s*)",	p_delimiter_mid := "((;;\\s)|(;:\\s)|(;~\\s))",	p_delimiter_end := "(?:\\*/)")
+regex_clipboard_removeCommentDelimiters(p_delimiter_begin := "(/\\*\\*?\\s*)",	p_delimiter_mid := "(?<=(?:\\r|\\n|(?:\\r\\n)))((;;\\s)|(;:\\s)|(;~\\s))",	p_delimiter_end := "(?:\\*/)")
+regex_selection_sort()
+regex_parseDocumentForFunctions(p_CRLF := "\\r\\n", p_TAB := "\\t")
+regex_selection_sortAndPaste()
+regex_clipboard_sort()
+regex_clipboard_sortAndPaste()
 
 
 copySelection(p_clipWaitTime := 1)\n\tDescr:\tSends "Ctrl+c"\n\tReturn:\tBOOLEAN\n\tParams:\tp_clipWaitTime:= INTEGER (seconds)\n\tNotes:\tMake sure to have something "selected" before calling this method for it to work.
-
+regex_clipboard_removeCommentDelimiters(p_delimiter_begin := "(/\*\*?\s*)"\n\t\t,\tp_delimiter_mid := "(?<=(?:\r|\n|(?:\r\n)))((;;\s)|(;:\s)|(;~\s))"\n\t\t,\tp_delimiter_end := "(?:\)")
+regex_clipboard_swapLineBreaksAndTabs(p_lineBreakSubstitution := "\n", p_tabSubstitution := "\t")
+regex_parseDocumentForFunctions()\n\tDescr:\tSelects All, Copies Selection, then replaces Clipboard with a list of functions if any.\n\tReturn:\tSTRING - Returns a string list (not an array) of functions. \n\tParams:\tp_CRLF := "\\r\\n"\n\tNotes:\tReplace text is considered raw. If actuall control characters are desired, use "`" to escape. 
+regex_parseDocumentForFunctions()\nregex_parseDocumentForFunctions(p_CRLF := "\\r\\n")
+regex_parseDocumentForFunctions(p_CRLF := "\r\n")
+regex_selection_removeCommentDelimiters()\nregex_selection_removeCommentDelimiters(p_delimiter_begin := "(/\*\*?\s*)"\n\t\t,\tp_delimiter_mid := "((;;\s)|(;:\s)|(;~\s))"\n\t\t,\tp_delimiter_end := "(?:\)")
+regex_selection_sort()
+regex_selection_sort()
+regex_selection_sortAndPaste()
+regex_selection_sortAndPaste()
+regex_selection_swapLineBreaksAndTabs()\n\tDescr:\tAdds current selection to Clipboard, then modifies the clipboard's contents,\n\t\t\t\treplacing line-breaks with "\n" by default,\n\t\t\t\tand tabs with "\t" by default.\n\tReturn:\tSTRING\n\tParams: p_lineBreakSubstitution := \t"\n"\n\t\t\tp_tabSubstitution \t\t:=\t"\t"\n\tNotes:\tMust have something selected for this method to work. \n
+regex_selection_swapLineBreaksAndTabs()\nregex_selection_swapLineBreaksAndTabs(p_lineBreakSubstitution := "\\n", p_tabSubstitution := "\\t")
+regex_SwapLineBreaks()\nregex_SwapLineBreaks(rgx_replaceWith := "\\n")
+regex_SwapLineBreaks(rgx_replaceWith := "\\n")\n\tDescr:\tReplaces the Clipboard contents. Swaps out line-break characters with the given RegEx string.\n\tReturn:\tSTRING\n\tNotes: Search Expression := "((?:\r\n)|(?:\r)|(?:\n))"\n\t\t- Matches a single token of (CR+LF or CR or LF)
+regex_SwapLineBreaks(rgx_replaceWith := "\n")
+regex_SwapTabs()\nregex_SwapTabs(rgx_replaceWith := "\\t")
+regex_SwapTabs(rgx_replaceWith := "\t")
+StrReplace(Haystack, Needle [, ReplaceText, OutputVarCount, Limit])
 time_getDate(STRING:= dateFormat)\r\n Descr:\tgets the date in the specified format.\r\n Return:\tSTRING\r\n Params:\r\n\tp_dateFormat: STRING \r\n\tmust use only these characters\r\n \t(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")\r\n \t[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
 time_sendDate(STRING: dateFormat)\r\n Descr:\tUses the 'Send, ' command, after getting the formatted date specified.\r\n Return:\tSTRING\r\n Params:\r\n\tp_dateFormat: STRING \r\n\tmust use only these characters\r\n \t(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")\r\n \t[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
+time_translateDate(p_days := -3, p_dateUnit := "Days", p_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")\nDescr:\tUses [EnvAdd,] command to shift the current date by a given number and unit.\n\tReturn:\tSTRING\n\tParams:\tp_days :=\t\tSTRING\n\t\t\tp_dateUnit :=\t["Seconds" | "Minutes" | "Hours" | "Days" ]\n\t\t\t\t\t\tor\t["s" | "m" | "h" | "d"]\n\t\t\tp_dateFormat :=\tSTRING
 time_translateDate(p_timeShift := 0, p_timeUnit := "Days", p_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")
-StrReplace(Haystack, Needle [, ReplaceText, OutputVarCount, Limit])
 
 pwrRun_fireFoxSearch(str := "", extraSend := "")
 archClip()
