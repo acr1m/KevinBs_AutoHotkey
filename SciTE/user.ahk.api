@@ -1,3 +1,6 @@
+pwrRun_clearText()\n\tDescr:\tSelects all, Delete, Escape, then wait 200 (default) milliseconds.\n\tReturn:\tVOID\n\tParams:\tp_waitTime :=\tINTEGER\n\tNotes:\tThis is particularly used to clear the text typed into the \n\t\t\t\tPowerRun search bar before Escaping the search bar.\n
+pwrRun_clearText()\npwrRun_clearText(p_waitTime := 200)
+
 generate_loremIpsum()\n\tDescr:\tUsing the Clipboard (without affecting most recent clip), Pastes 1 to 10 paragraphs of generated Lorem Ipsum text. Default is 3 paragraphs.\n\tReturn:\tVOID\n\tParams:\tp_paragraphAmount :=\tINTEGER\n\tNotes:\tGenerated text acquired from "https://lipsum.com".\n
 generate_loremIpsum()\ngenerate_loremIpsum(p_paragraphAmount := 3)
 
