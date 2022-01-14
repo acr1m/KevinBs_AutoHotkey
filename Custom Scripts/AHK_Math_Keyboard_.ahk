@@ -1,10 +1,10 @@
-﻿#Include %A_ScriptDir%\LIB\LIB_Main_Method_Library.ahk
+﻿#Include %A_ScriptDir%\_lib\LIB_Main_Method_Library.ahk
 #SingleInstance Force
 #InstallKeybdHook
 
 ;~ TOOLBAR ICON
 	Menu, Tray, Icon, E:\Assets\Icons\math_ruler_.bmp
-;===============================================================================
+;;██████████████████████████████████████████████████████████████████████████████
 ;~ ;CONSTANTS
 	;~ global SUSPEND_LIMIT := 200 ; n milliseconds
 	;~ global DOUBLE_TAP_LIMIT := 350 ; n milliseconds
@@ -44,10 +44,10 @@ mathKbd_activeWindowSentinel(){
 	}
 }
 
-;===============================================================================
+;;██████████████████████████████████████████████████████████████████████████████
 
 
-;===============================================================================
+;;██████████████████████████████████████████████████████████████████████████████
 ;~ DIRECTIVES 
 	SendMode, Event				;~ sets all hotkeys below to use SendEvent
 	SetKeyDelay, 30				;~ set all hotkeys below to have a delay of n milliseconds, 0.00n seconds
@@ -56,9 +56,9 @@ mathKbd_activeWindowSentinel(){
 	#Hotstring B			;~ activate automatic backspacing (the default)
 	#Hotstring O 			;~ [O] omit ending-character trail space
 	#Hotstring EndChars -()[]{}: "/\,.?!`n
-;===============================================================================
+;;██████████████████████████████████████████████████████████████████████████████
 ;~ AUTORUN COMMANDS
-;===============================================================================
+;;██████████████████████████████████████████████████████████████████████████████
 #IfWinActive
 mathKbd_debugFunction()
 
@@ -70,7 +70,7 @@ mathKbd_debugFunction()
 
 mathKbd_setMathInputStyle()
 
-;===============================================================================
+;;██████████████████████████████████████████████████████████████████████████████
 ;~ SCRIPT MANAGEMENT / SUSPENSION CONTROL
 	F4::Suspend, Toggle
 	NumpadDot & Numpad0::Suspend, On 	;hotkeys are suspended
@@ -105,7 +105,7 @@ mathKbd_setMathInputStyle()
 		Suspend Off
 	}
 	return
-;===============================================================================
+;;██████████████████████████████████████████████████████████████████████████████
 
 
 
@@ -665,7 +665,9 @@ mathKbd_setMathInputStyle()
 	::oneninth::⅑
 	::threefourths::¾
 }
-;~ Greek Letters===============================================================
+;;██████████████████████████████████████████████████████████████████████████████
+;~ Greek Letters
+;;██████████████████████████████████████████████████████████████████████████████
 {
 	;~ #Hotstring C ;~ [C] case sensitive
 	;~ letters are automatically replaced/matched with Capitalization of replaced string.
@@ -702,8 +704,15 @@ mathKbd_setMathInputStyle()
 	
 	#Hotstring C0 O0 ?0 *0		;~ Reset Hotstring directives
 }
-;==============================================================================
-
+;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;;##############################################################################
+;;//////////////////////////////////////////////////////////////////////////////
+;;««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««««
+;;»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
+;;░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+;;▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+;;▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+;;██████████████████████████████████████████████████████████████████████████████
 
 #IfWinActive Mathway 
 {
@@ -753,11 +762,11 @@ mathKbd_setMathInputStyle()
 
 
 
-;==============================================================================
-;==============================================================================
-;==============================================================================
+;;██████████████████████████████████████████████████████████████████████████████
+;;██████████████████████████████████████████████████████████████████████████████
+;;██████████████████████████████████████████████████████████████████████████████
 ;~ OTHER METHODS
-;==============================================================================
+;;██████████████████████████████████████████████████████████████████████████████
 
 mathKbd_incrementPowerNoCarrotWithExtraBackspacing()
 {
@@ -769,7 +778,13 @@ mathKbd_incrementPowerNoCarrot()
 	mathKbd_incrementPower(,,,,false)
 }
 
-mathKbd_incrementPower( p_timeLimit := -1, p_incrementAmount := 1, p_initialBackspaceAmount := 2, p_subsequentBackspaceAmount :=3, p_rightAmount := 1, p_sendCarrot := true, p_extraBackspacing := false){
+mathKbd_incrementPower( p_timeLimit := -1
+		, p_incrementAmount := 1
+		, p_initialBackspaceAmount := 2
+		, p_subsequentBackspaceAmount :=3
+		, p_rightAmount := 1
+		, p_sendCarrot := true
+		, p_extraBackspacing := false){
 	if (doubleTap(p_timeLimit)){
 		currentRaisedPower += p_incrementAmount
 		if (currentRaisedPower = 2)
@@ -794,19 +809,19 @@ mathKbd_incrementPower( p_timeLimit := -1, p_incrementAmount := 1, p_initialBack
 
 ; variadic parameter__________________vvvvvvv________
 mathKbd_incrementVariables(p_timeLimit := "", p_vars*){
-	; if undeclared, set timelimit to default increment time value
+	;; if undeclared, set timelimit to default increment time value
 	if (p_timeLimit == ""){
 		p_timeLimit := INCREMENT_LIMIT
 		;~ MsgBox, % "Set p_timeLimit from `"`" to INCREMENT_LIMIT = " . INCREMENT_LIMIT . "`p_vars.MaxIndex() = " . p_vars.MaxIndex()
 	}
-	; if within doubleTap limit, set str to params[index] value, send output,
-	; and increment the index value
+	;; if within doubleTap limit, set str to params[index] value, send output,
+	;;;; and increment the index value
 	if (doubleTap(p_timeLimit)){
 		
-		; set the string to the next parameter element
+		;; set the string to the next parameter element
 		str := p_vars[currentRaisedPower]
 		
-		; delete the last printed element by checking the string length of prev elem
+		;; delete the last printed element by checking the string length of prev elem
 		previousIndex := currentRaisedPower - 1
 		if (previousIndex == 0){
 			backspaceAmount := 2
@@ -814,11 +829,12 @@ mathKbd_incrementVariables(p_timeLimit := "", p_vars*){
 		} else { 
 			backspaceAmount := StrLen(p_vars[previousIndex]) + 1
 		}
-		; remove last print by backspaceAmount and print new string
+		;; remove last print by backspaceAmount and print new string
 		Send, {Backspace %backspaceAmount%}%str%
-		
-		; after sending output and incrementing +1, if index variable would be higher than 
-		; length of p_vars* object, then cycle back to beginning of elem index [1].
+				
+/* 		After sending output and incrementing +1, if index variable would be higher than 
+;; 			length of p_vars* object, then cycle back to beginning of elem index [1].
+*/		
 		currentRaisedPower += 1 ;intially starts at 1, first run sets to 2
 		if (currentRaisedPower > p_vars.MaxIndex())
 			currentRaisedPower := 1
@@ -826,7 +842,7 @@ mathKbd_incrementVariables(p_timeLimit := "", p_vars*){
 	else
 		currentRaisedPower := 1
 	
-	;send the release of any modifier keys to keep them from getting spam-locked
+	;; send the release of any modifier keys to keep them from getting spam-locked
 	Send, {CtrlUp}{ShiftUp}{AltUp}
 }
 
@@ -856,5 +872,5 @@ mathKbd_paste(str := ""){
 	restoreClipboard()
 	return
 }
-;==============================================================================
-;==============================================================================
+;;██████████████████████████████████████████████████████████████████████████████
+;;██████████████████████████████████████████████████████████████████████████████

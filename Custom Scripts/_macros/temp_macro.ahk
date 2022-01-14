@@ -2,7 +2,7 @@
 Menu, Tray, Icon, % "E:\Assets\Icons\key_circle_red_white.ico"
 ;: Menu, Tray, Icon, % "E:\Assets\Icons\key_circle_blue_white.ico"
 ;: Menu, Tray, Icon, % "E:\Assets\Icons\key_circle_green_white.ico"
-
+#SingleInstance Force
 
 #Include %A_ScriptDir%\..\_lib
 #Include LIB_Main_Method_Library.ahk
@@ -12,10 +12,34 @@ Menu, Tray, Icon, % "E:\Assets\Icons\key_circle_red_white.ico"
 #Include LIB_RegEx().ahk
 
 Pause::ExitApp
-
+global macroSwitch_M1 := false
+global macroSwitch_M2 := false
+global macroSwitch_M3 := false
+global macroSwitch_M4 := false
+global macroSwitch_M5 := false
 ;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;; temp start
-
+Tab::Tab
+~Tab & Space::
+{
+	ks := GetKeyState("Shift")
+	OutputDebug, START OF BLOCK,`tks = %ks%
+	;; if shift is up
+	if (!GetKeyState("Shift")){
+		ks := GetKeyState("Shift")
+		OutputDebug, shift is UP,`t`tks = %ks%
+	        Send, {Space 4}
+	}
+	;; if shift is down
+	else if (GetKeyState("Shift")){
+		ks := GetKeyState("Shift")
+		OutputDebug, shift is DOWN,`t`tks = %ks%
+		Send, {Delete 4}
+	}
+	ks := GetKeyState("Shift")
+	OutputDebug, END OF BLOCK,`t`tks = %ks%
+	return
+}
 ;: temp end
 ;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -25,31 +49,62 @@ Pause::ExitApp
 ;; └──────────┴──────────┴──────────┴──────────┴──────────┘
 
 ;; M1 - parse the whole document
-F20::macro_f20_00()
+F20::macro_f20_01()
+
+macro_f20_02(){
+	macroSwitch_M1 := !macroSwitch_M1
+	while (macroSwitch_M1){
+		Send, {Right}
+		Sleep, 100
+	}
+}
+macro_f20_01(){
+	;; switch the boolean state
+	macroSwitch_M1 := (!macroSwitch_M1)
+	
+	while (macroSwitch_M1){
+		;; open the save dialog
+		Send, {AppsKey}{Down}{Enter}
+		Sleep, 500
+		
+		;; check the filename
+		Clipboard :=
+		copySelection()
+		ClipWait
+		if (Clipboard == "PNG40082..*"){
+			Send, {End}{BackSpace 3}.png{Enter}y
+			Sleep, 400
+			MsgBox, , % "title", % "hit end of list"
+			
+			;: Exit
+			return
+		}
+		;; send the file-type and save
+		Send, {End}{BackSpace 3}.png{Enter}y
+		Sleep, 400
+		Send, {Down}
+	}
+	return
+}
 
 macro_f20_00(){
 	;; outVar := RegExReplace(regex_parseDocumentForFunctions(), "\\", "line`")
 	;; MsgBox, % "Clipboard Contents on the next line...`n" . outVar
 	Clipboard := regex_parseDocumentForFunctions("`r`n")
+	
+	
 	MsgBox, % Clipboard
+	
 	return
 }
 ;; M2 - remove whitespace characters
 ;; prep for "user.ahk.api" documentation
 F21::
 {
-	;; this preps a selection of text for pasting into "user.ahk.api"
-		copySelection()
-		;: MsgBox, , copySelectio(), % Clipboard
-		;: regex_selection_removeCommentDelimiters()
-		;: regex_selection_swapLineBreaksAndTabs("\\n", "\\t")
-		regex_clipboard_removeCommentDelimiters()
-		;: MsgBox, , regex_clipboard_removeCommentDelimiters(), % Clipboard
-		regex_clipboard_swapLineBreaksAndTabs("\\n", "\\t")
-		;: MsgBox, , regex_clipboard_swapLineBreaksAndTabs`(`"\\n`"`, `"\\t`"`), % Clipboard
-		pasteClipboard()
-		return
+	regex_convertText_SciTE_API(true)
+	return
 }
+
 ;; M3 - sort lines
 F22::
 {

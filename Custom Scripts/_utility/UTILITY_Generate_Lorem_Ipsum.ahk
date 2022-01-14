@@ -5,13 +5,13 @@
 */
 
 /**	generate_loremIpsum()
-	Descr:	Using the Clipboard (without affecting most recent clip), Pastes 1 to 10 paragraphs of generated Lorem Ipsum text. Default is 3 paragraphs.
-	Return:	VOID
+	Descr:	Returns 1-10 paragraphs of generated Lorem Ipsum text. Default is 3 paragraphs.
+	Return:	STRING
 	Params:	p_paragraphAmount :=	INTEGER
 	Notes:	Generated text acquired from "https://lipsum.com".
 */
 generate_loremIpsum(p_paragraphAmount := 3){
-	archiveClipboard()
+	retVal := ""
 	file := "E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\lorem_ipsum.txt"
 	
 	;;;; EXPRESSION STYLE - SYNTAX
@@ -35,10 +35,9 @@ generate_loremIpsum(p_paragraphAmount := 3){
 	;;;; EXPRESSION STYLE - SYNTAX
 	Loop, % p_paragraphAmount{
 		FileReadLine, appendVar, % file, % A_Index
-		Clipboard .= "`r`n" . appendVar
+		retVal .= appendVar . "`r`n" 
 	}
 	;: MsgBox, , % "Method 3", % Clipboard
 	
-	pasteClipboard()
-	restoreClipboard()
+	return retVal
 }

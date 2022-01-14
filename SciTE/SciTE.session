@@ -1,64 +1,80 @@
 # SciTE session file
 
-position.left=144
-position.top=5
-position.width=663
-position.height=977
-position.maximize=1
+position.left=122
+position.top=50
+position.width=772
+position.height=946
+position.maximize=0
 
-mru.1.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
-mru.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_macros\temp_macro.ahk
-mru.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib\LIB_RegEx().ahk
-mru.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib\LIB_time().ahk
-mru.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_PowerRun.ahk
-mru.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_SciTE4AutoHotkey.ahk
-mru.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\UTILITY_Horizontal_Scrolling.ahk
-mru.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\UTILITY_Cut_Copy_Paste_(pause_to_break).ahk
-mru.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib\LIB_Main_Method_Library.ahk
-mru.10.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
+mru.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_Mouse_Control.ahk
+mru.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\SmartGUI_WIN.ahk
+mru.3.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\AhkAbbrevs.properties
+mru.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib\LIB_Main_Method_Library.ahk
+mru.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_Outlook.ahk
+mru.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_RegEx_Visual_Keyboard_generated_gui3.ahk
+mru.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_RegEx_Visual_Keyboard_generated_gui4.ahk
+mru.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\UTILITY_Generate_Lorem_Ipsum.ahk
+mru.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_PowerRun.ahk
+mru.10.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\Windows_Calendar_App_WIN.ahk
 
-buffer.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Main.ahk
-buffer.1.position=4822
-buffer.1.scroll=92
+buffer.1.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
+buffer.1.position=369
+buffer.1.scroll=0
 
-buffer.2.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
-buffer.2.position=3958
-buffer.2.scroll=57
-buffer.2.current=1
+buffer.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Main.ahk
+buffer.2.position=558
+buffer.2.scroll=4
+buffer.2.bookmarks=55,178,228
 
 buffer.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_macros\temp_macro.ahk
-buffer.3.position=1534
-buffer.3.scroll=17
+buffer.3.position=566
+buffer.3.scroll=8
 
 buffer.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib\LIB_RegEx().ahk
-buffer.4.position=1706
+buffer.4.position=599
 buffer.4.scroll=0
 
-buffer.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib\LIB_time().ahk
-buffer.5.position=308
-buffer.5.scroll=0
+buffer.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_RegEx_Visual_Keyboard.ahk
+buffer.5.position=591
+buffer.5.scroll=19
 
-buffer.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_PowerRun.ahk
-buffer.6.position=1115
-buffer.6.scroll=23
+buffer.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_Mouse_Control.ahk
+buffer.6.position=2652
+buffer.6.scroll=10
 
-buffer.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_SciTE4AutoHotkey.ahk
-buffer.7.position=383
-buffer.7.scroll=0
+buffer.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\SmartGUI_WIN.ahk
+buffer.7.position=577
+buffer.7.scroll=15
 
-buffer.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\UTILITY_Horizontal_Scrolling.ahk
-buffer.8.position=156
+buffer.8.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\AhkAbbrevs.properties
+buffer.8.position=899
 buffer.8.scroll=0
 
-buffer.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\UTILITY_Cut_Copy_Paste_(pause_to_break).ahk
-buffer.9.position=490
-buffer.9.scroll=0
+buffer.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib\LIB_Main_Method_Library.ahk
+buffer.9.position=5146
+buffer.9.scroll=168
 
-buffer.10.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib\LIB_Main_Method_Library.ahk
-buffer.10.position=4881
-buffer.10.scroll=14
-buffer.10.folds=18,24,36,46,60,65,73,81,111,120,125,153,158,188,196,214,232,267,303,318
+buffer.10.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_Outlook.ahk
+buffer.10.position=263
+buffer.10.scroll=2
 
-buffer.11.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
-buffer.11.position=681
+buffer.11.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_RegEx_Visual_Keyboard_generated_gui3.ahk
+buffer.11.position=1291
 buffer.11.scroll=0
+
+buffer.12.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_RegEx_Visual_Keyboard_generated_gui4.ahk
+buffer.12.position=919
+buffer.12.scroll=0
+
+buffer.14.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\UTILITY_Generate_Lorem_Ipsum.ahk
+buffer.14.position=278
+buffer.14.scroll=0
+
+buffer.15.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_PowerRun.ahk
+buffer.15.position=1613
+buffer.15.scroll=64
+
+buffer.16.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\Windows_Calendar_App_WIN.ahk
+buffer.16.position=97
+buffer.16.scroll=0
+buffer.16.current=1

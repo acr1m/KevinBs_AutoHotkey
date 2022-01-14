@@ -51,66 +51,60 @@
 ::??parseForFunctions::
 	Clipboard := regex_parseDocumentForFunctions()
 	return
+::??ipsum::
+::??lipsum::
+::??loremipsum::
+	pwrRun_loremIpsumTextMethod()
+	return
 ::??ipsum1::
 ::??lipsum1::
 ::??loremipsum1::
-::??loremipsum::
-	pwrRun_clearText()
-	generate_loremIpsum(1)
+	pwrRun_loremIpsumTextMethod(1)
 	return
 ::??ipsum2::
 ::??lipsum2::
 ::??loremipsum2::
-	pwrRun_clearText()
-	generate_loremIpsum(2)
+	pwrRun_loremIpsumTextMethod(2)
 	return
 ::??ipsum3::
 ::??lipsum3::
 ::??loremipsum3::
-	pwrRun_clearText()
-	generate_loremIpsum(3)
+	pwrRun_loremIpsumTextMethod(3)
 	return
 ::??ipsum4::
 ::??lipsum4::
 ::??loremipsum4::
-	pwrRun_clearText()
-	generate_loremIpsum(4)
+	pwrRun_loremIpsumTextMethod(4)
 	return
 ::??ipsum5::
 ::??lipsum5::
 ::??loremipsum5::
-	pwrRun_clearText()
-	generate_loremIpsum(5)
+	pwrRun_loremIpsumTextMethod(5)
 	return
 ::??ipsum6::
 ::??lipsum6::
 ::??loremipsum6::
-	pwrRun_clearText()
-	generate_loremIpsum(6)
+	pwrRun_loremIpsumTextMethod(6)
 	return
 ::??ipsum7::
 ::??lipsum7::
 ::??loremipsum7::
-	pwrRun_clearText()
-	generate_loremIpsum(7)
+	pwrRun_loremIpsumTextMethod(7)
 	return
 ::??ipsum8::
 ::??lipsum8::
 ::??loremipsum8::
-	pwrRun_clearText()
-	generate_loremIpsum(8)
+	pwrRun_loremIpsumTextMethod(8)
 	return
 ::??ipsum9::
 ::??lipsum9::
 ::??loremipsum9::
-	pwrRun_clearText()
-	generate_loremIpsum(9)
+	pwrRun_loremIpsumTextMethod(9)
 	return
 ::??ipsum10::
 ::??lipsum10::
 ::??loremipsum10::
-	pwrRun_clearText()
-	generate_loremIpsum(10)
+	pwrRun_loremIpsumTextMethod(10)
 	return
 
 /**	pwrRun_clearText()
@@ -161,8 +155,31 @@ pwrRun_fireFoxSearch(str := "", extraSend := ""){
 	return
 }
 
-
-
+/**	pwrRun_loremIpsumTextMethod()
+	Descr:	Generates text, and sends a message telling user how to paste it. 
+	Return:	VOID-STRING-BOOLEAN-INTEGER_STRING-FLOAT_STRING
+	Params:	p_alpha :=	STRING
+			p_beta :=	BOOLEAN
+			p_gamma :=	INTEGER_STRING
+			p_delta :=	FLOAT_STRING
+	Notes:	Used for when activating generate_loremIpsum() in PowerRun.
+*/
+pwrRun_loremIpsumTextMethod(p_int := 3){
+	pwrRun_clearText()
+	str := generate_loremIpsum(p_int)
+	MsgBox, , % "Message", % "For the next 10 seconds,`nPress [ t ] to paste the generated text.", 3
+	KeyWait, t, D T10
+	;; if user doesn't press the button in time, then quit
+	if (ErrorLevel) {
+		MsgBox, , % "Message", % "User did not hit [ t ] key.`n[ t ] key is now released.", 3
+		return
+	}
+	else {
+		Send, {BackSpace}
+		pasteClipboard(str)
+	}
+	return
+}
 
 ;;Re-declare any window as an acceptable 
 ;;case-scenario before exit.

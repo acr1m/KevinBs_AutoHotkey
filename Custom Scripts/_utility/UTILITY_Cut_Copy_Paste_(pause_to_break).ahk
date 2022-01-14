@@ -1,12 +1,4 @@
-
-;; one clipboard
-;~ Menu, Tray, Icon, E:\Assets\Icons\cut_copy_paste_00.ico
-
-;; two clipboards
-;~ Menu, Tray, Icon, E:\Assets\Icons\cut_copy_paste_01.ico
-
-;; two clipboards - sliced
-Menu, Tray, Icon, E:\Assets\Icons\cut_copy_paste_02.ico
+Menu, Tray, Icon, E:\Assets\Icons\copy_cut_bg-red.ico
 
 #IfWinActive
 ;; select all

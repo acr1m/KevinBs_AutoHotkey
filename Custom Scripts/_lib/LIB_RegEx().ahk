@@ -1,5 +1,27 @@
 ;; Library of functions that utilitize Regular Expressions for string parsing and substitution.
 
+
+/**	regex_convertText_SciTE_API()
+	Descr:	Converts whitespace for .api files used by SciTE and removes
+				a limited amount of comment delimiters. 
+	Return:	STRING - returns selected text as a literal-string object. 
+	Params:	p_pasteInsteadOfReturnVal := BOOLEAN  (default := false)
+	Notes:	
+*/
+regex_convertText_SciTE_API(p_pasteInsteadOfReturnVal := false){
+	;; this preps a selection of text for pasting into "user.ahk.api"
+		copySelection()
+		;: MsgBox, , copySelectio(), % Clipboard
+		;: regex_selection_removeCommentDelimiters()
+		;: regex_selection_swapLineBreaksAndTabs("\\n", "\\t")
+		regex_clipboard_removeCommentDelimiters()
+		;: MsgBox, , regex_clipboard_removeCommentDelimiters(), % Clipboard
+		regex_clipboard_swapLineBreaksAndTabs("\\n", "\\t")
+		;: MsgBox, , regex_clipboard_swapLineBreaksAndTabs`(`"\\n`"`, `"\\t`"`), % Clipboard
+		pasteClipboard()
+		return
+}
+
 /**	regex_SwapTabs(rgx_replaceWith := "\\t")
 	Descr:	Replaces the Clipboard contents. Swaps out tab characters with the given RegEx string.
 	Return:	STRING

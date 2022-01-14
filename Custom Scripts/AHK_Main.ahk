@@ -7,7 +7,8 @@
 #Hotstring EndChars -()[]{}: "/\.?!`n
 
 Menu, Tray, Icon, % "E:\Assets\Icons\keyboards\msctf_410.ico"
-
+DetectHiddenWindows, On ;; Allows a script's hidden main window to be detected.
+SetTitleMatchMode, 2 ;; 2 = A window's title can contain WinTitle anywhere inside it to be a match.
 ;~ global isAdmin := A_IsAdmin
 isAdmin := A_IsAdmin
 ;~ global isCompiled := A_IsCompiled
@@ -17,7 +18,42 @@ global PRIMARY_MOUSE := "Left"
 global SWAP_RETVAL := 
 global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 global oneKey_HasItBeenSet := false
-;###############################################################################
+global main_lastActiveWindow := ""
+/*
+scrollWheel range  = [1, 100]
+I want the mouse to speed up, the longer the wheel has been 'active'.
+	there'd be a lifetime for the max_delta to be active.
+	if the lifetime isn't 'restored' before it runs out, 
+	then it should turn off. 
+parameters:
+	wheelTimeActive - delta of current lifetime
+	wheelLifeTime - limit of 'admissible' time to elapse 
+					to still trigger buildup.
+	wheelOutputAmount - 
+	wheelBuildupAmount - amount to build the OutputAmount by.
+WheelUp::
+{
+	if (wheel_thisTime <= 0){
+		wheel_startTime := A_TickCount
+		Send, {WheelUp, 1}
+	}
+	else if (){
+		
+		wheel_lastTime := wheel_thisTime
+	}
+	else {
+		
+	}
+		
+	wheel_thisTime := A_TickCount
+	wheel_startTime := a_tickcount
+	wheel_lifeTime := wheel_thisTime - wheel_startTime
+	if (
+	wheelOutputAmount += wheelBuildupAmount
+}
+*/
+global SCROLL_WHEEL_GRAVITY := 4
+;███████████████████████████████████████████████████████████████████████████████
 #Include %A_ScriptDir%\_lib
 #Include LIB_Main_Method_Library.ahk
 #Include LIB_Emojis_And_Symbols.ahk
@@ -46,17 +82,26 @@ global oneKey_HasItBeenSet := false
 #Include WIN_Windows_Explorer.ahk
 #Include WIN_PowerRun.ahk
 #Include WIN_Word.ahk
-;==============================================================================
+#Include SmartGUI_WIN.ahk
+;███████████████████████████████████████████████████████████████████████████████
 ;; BREAKER SWITCH
 ;;;; activates when pressing
 ;;;;;; Ctrl+Alt+Shift+{Pause}
 ^!+CtrlBreak::ExitApp
-1::generate_loremIpsum(7)
-;==============================================================================
+;███████████████████████████████████████████████████████████████████████████████
+;███████████████████████████████████████████████████████████████████████████████
+;; SUB-SCRIPT SWITCHES
+Pause::
+	DetectHiddenWindows, On ;; Allows a script's hidden main window to be detected.
+	SetTitleMatchMode, 2 ;; 2 = A window's title can contain WinTitle anywhere inside it to be a match.
+	WinClose, temp_macro.exe
+	WinClose, UTILITY_Cut_Copy_Paste_(pause_to_break).exe
+	return
+;███████████████████████████████████████████████████████████████████████████████
 ;WINDOWS KEY SHORTCUTS &&
 ;SOFTWARE OPEN/START/RUN SHORTCUTS
 ;OPEN FILES, OPEN SOFTWARE, OPEN PROGRAMS, OPEN APPLICATIONS, OPEN APPS
-;===============================================================================
+;███████████████████████████████████████████████████████████████████████████████%
 ^#AppsKey::Run, "AHK_Utility_Mouse_Position_As_Percentage_Tooltip.exe"
 #n::Run, "Notepad++"
 ;~ #a::Run, E:\Software\AutoHotKey\SciTE\SciTE.exe
@@ -79,7 +124,7 @@ global oneKey_HasItBeenSet := false
 		;~ before it is alphanumeric. For example, if :?:al::airline is a 
 		;~ hotstring, typing "practical " would produce "practicairline ". 
 		;~ Use ?0 to turn this option back off.
-;===============================================================================
+;███████████████████████████████████████████████████████████████████████████████%
 ;~ HOTSTRING OPTIONS 
 	;~ #Hotstring SE ; •SE stands for SendEvent, which is the default in versions older than 1.0.43.
 	;~ #Hotstring SI 
@@ -98,13 +143,13 @@ global oneKey_HasItBeenSet := false
 	;~ #Hotstring R  ; sends output as raw
 	;~ #Hotstring C  ; case sensitive
 	;~ #Hotstring C0 ; turn off case sensitive
-;===============================================================================
+;███████████████████████████████████████████████████████████████████████████████%
 ;~ HOTKEY PREFIXES
 	;~ [$] prefix keeps the hotkey from triggering itself in a loop
 	;~ [~] When the hotkey fires, its key's native function will not 
 			;be blocked (hidden from the system). 
 	;~ [*] Wildcard: Fire the hotkey even if extra modifiers are being held down. This is often used in conjunction with remapping keys or buttons.
-;===============================================================================
+;███████████████████████████████████████████████████████████████████████████████%
 
 ;MOUSE - SWITCH PRIMARY MOUSE
 ;MOUSE CONTROL PANEL (HOLD-RIGHT-CLICK)
@@ -232,13 +277,13 @@ global oneKey_HasItBeenSet := false
  */
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;███████████████████████████████████████████████████████████████████████████████%
 ;MOUSE WHEEL
-;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;███████████████████████████████████████████████████████████████████████████████%
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;===============================================================================
+;███████████████████████████████████████████████████████████████████████████████%
 /* ;SCROLL SPEED MONITORING (AS TOOLTIP)
- * ;===============================================================================
+ * ;███████████████████████████████████████████████████████████████████████████████%
  * #Persistent
  * SetTimer, ScrollSpeedMonitor, 50
  * return
@@ -247,7 +292,7 @@ global oneKey_HasItBeenSet := false
  * ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . scrollAmount ""
  * return
  */
-;===============================================================================
+;███████████████████████████████████████████████████████████████████████████████%
 ~$WheelUp::
 	if (A_PriorHotkey == A_ThisHotkey && A_TimeSincePriorHotkey < 500){
 		if (A_TimeSincePriorHotkey < 10)
@@ -283,26 +328,36 @@ global oneKey_HasItBeenSet := false
 		}
 	}
 	return
-;==============================================================================
+;███████████████████████████████████████████████████████████████████████████████
 ;HOTKEYS
-;==============================================================================
+;███████████████████████████████████████████████████████████████████████████████
 ~AppsKey::AppsKey
-; Shift+Space = Underscore _
-+Space:: Send, {_}
+
+;; single-tap = {underscore} and double-tap = {hyphen, i.e., minus}
++Space::_shift_space(shiftSpaceTapCounter)
+
+_shift_space(ByRef p_counter){
+	p_counter++
+	
+	;; when shift+space is hit twice, send -
+	if (p_counter == 2 && doubleTap(DOUBLE_TAP_LIMIT)){
+		Send, -
+		return
+	} else if (p_counter == 3 && doubleTap(DOUBLE_TAP_LIMIT)){
+		
+		return
+	} else {
+		Send, {_}
+		return
+	}
+}
+
 +NumpadSub:: Send, {_}
 AppsKey & Left::Send, ^#{Left}
 AppsKey & Right::Send, ^#{Right}
-;~ $s::
-	;~ Send, s
-	;~ ; wait for "a" key to be pressed down
-	;~ KeyWait, a, D
-	
-	;~ return
 
-;~ ~s & a::Send, ^#{Left}
+;; undo command
 ^+z::Send, ^y
-Click, 
-
 
 ;HOLD WINDOWS KEY AND DOUBLE TAP CTRL OR ALT TO MOVE DESKTOPS
 ~#LCtrl::
@@ -338,15 +393,11 @@ Click,
 	MsgBox,  %tWindow% %hl1% %tTitle% %tClass% %hl2% %tContents% %hl1% %clipboard%
 	return
 }
-;===============================================================================
-;===============================================================================
-
-
-
-
-;===============================================================================
+;███████████████████████████████████████████████████████████████████████████████
+;███████████████████████████████████████████████████████████████████████████████
+;███████████████████████████████████████████████████████████████████████████████
 ;SCREENSHOT HOTKEYS
-;===============================================================================
+;███████████████████████████████████████████████████████████████████████████████
 ;if double tap, take active window screenshot, else, send ScrollLock
 ScrollLock::
 	if (doubleTap()){
@@ -361,8 +412,9 @@ ScrollLock::
 
 
 
-;===============================================================================
-;NOTEPAD++ =====================================================================
+;███████████████████████████████████████████████████████████████████████████████
+;NOTEPAD++ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;███████████████████████████████████████████████████████████████████████████████
 #IfWinActive ahk_class Notepad++
 {
 	; [Middle Mouse Button Click]
@@ -418,6 +470,7 @@ ScrollLock::
 $+Space::+Space
 
 #IfWinActive Sticky Notes ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe
+{
 Tab::
 	Send, {Space 4}
 	return
@@ -426,7 +479,7 @@ Tab::
 	return
 ^+Up:: moveCurrentLineUp()
 ^+Down:: moveCurrentLineDown()
-
+}
 
 #IfWinActive ahk_exe mixcraft9.exe
 ^Left::Home

@@ -1,68 +1,68 @@
 #IfWinActive ahk_exe PowerLauncher.exe
-::calmonth::
-::month view::
-::monthview::
-::outlook calendar::
-::outlookcalendar::
-::view calendar::
-::view month::
-::viewcalendar::
-::viewcalendarmonth::
-::viewcalendarmonth::
-::viewmonth::
+::??calmonth::
+::??month view::
+::??monthview::
+::??outlook calendar::
+::??outlookcalendar::
+::??view calendar::
+::??view month::
+::??viewcalendar::
+::??viewcalendarmonth::
+::??viewcalendarmonth::
+::??viewmonth::
 {
 	if (WinExist("ahk_exe outlook.exe")){
+		pwrRun_clearText()
 		Send, {Escape}
-		WinActivate
+		WinActivate, ahk_exe outlook.exe
+		WinWaitActive, ahk_exe outlook.exe
+		outlook_showMonth()
 	}
+	;; attempt to open Outlook and then show month view
 	else {
 		SetKeyDelay, 2
 		;~ Send, !{Space}
 		SendRaw, looks like outlook isn't currently open...
-		Sleep, 1500 ;;1.5 seconds
-		Send, +{Home}{Delete}
+		Sleep, 1500 ;; 1.5 seconds
+		Send, ^a{Delete}
 		SendRaw, let's try opening it
-		Sleep, 1500 ;;1.5 seconds
-		Send, +{Home}{Delete}
+		Sleep, 1500 ;; 1.5 seconds
+		Send, ^a{Delete}
 		SendRaw, .outlook
-		Sleep, 800 ;;0.8 seconds
+		Sleep, 1000	;; 1 second
 		Send, {Enter}
-		SetKeyDelay, 10 ;Default value
+		WinWait, ahk_exe outlook.exe, , 20 ;; wait a maximum of 20 seconds
 		
-		;;TODO - setup a run command to open up outlook if it isn't open
-		Sleep, 1000 * 10 ;;10 seconds
+		if (ErrorLevel){
+			MsgBox, , % "Error", % "Outlook is taking too long to open.`n`nExiting method.", 3
+			return
+		}
+		
+		;; attempt to activate and wait for it to become active
+		WinActivate, ahk_exe outlook.exe
+		WinWaitActive, ahk_exe outlook.exe
+		SetKeyDelay, 10 ; back to the Default value (10)
+		
+		;; if it's in the background
 		if (WinExist("ahk_exe outlook.exe") && !WinActive("ahk_exe outlook.exe")){
-			;~ MsgBox, 0x1040, % "Info: Window Found", % "Info: Found Window for Outlook.\n\nSwitching over...", 3
-			Send, !{Space} ;open PowerRun
-			SendRaw, Info: Found Window for Outlook... Switching and Opening Month View.
-			Sleep, 2
-			Send, {Escape}
-			WinActivate
+			MsgBox, 0x1040, % "Info: Window Found", % "Info: Found Window for Outlook.\n\nSwitching over...", 3
+			WinActivate, ahk_exe outlook.exe
 			outlook_showMonth()
 			return
 		}
+		;; if it's already active
 		else if (WinActive("ahk_exe outlook.exe")){
-			;~ MsgBox, 0x1040, % "Info: WinActive", % "Info: Found Window for Outlook. Opening Month View.", 3
-			Send, !{Space} ;open PowerRun
-			SendRaw, Info: Found Window for Outlook. Opening Month View.
-			Sleep, 2
-			Send, {Escape}
+			MsgBox, 0x1040, % "Info: WinActive", % "Info: Found Window for Outlook. Opening Month View.", 3
+			WinActivate, ahk_exe outlook.exe
 			outlook_showMonth()
 			return
 		}
+		;; if it still doesn't exist
 		else if (!WinExist("ahk_exe outlook.exe")){
-			;~ MsgBox, 0x1010, % "Error: Window Not Found", % "Error: Window for Outlook does not exist.", 3
-			Send, !{Space} ;open PowerRun
-			SendRaw, Error: Window for Outlook does not exist.
-			Sleep, 2
-			Send, {Escape}
+			MsgBox, 0x1010, % "Error: Window Not Found", % "Error: Window for Outlook does not exist.", 3
 			return
-		}
-		else {
-			;~ MsgBox, 0x1010, % "Error: Unknown", % "Something went wrong... ¯\_(ツ)_/¯", 3
-			SendRaw, Something went wrong... ¯\_(ツ)_/¯
-			Sleep, 2
-			Send, {Escape}
+		} else {
+			MsgBox, 0x1010, % "Error: Unknown", % "Something went wrong... ¯\_(ツ)_/¯", 3
 			return
 		}
 	}
@@ -81,7 +81,7 @@
 
 ;~ #^!+Enter::
 ;~ {
-	;~ WinActivate
+	;~ WinActivate, ahk_exe outlook.exe
 	;~ return
 ;~ }
 
