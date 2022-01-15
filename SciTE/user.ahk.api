@@ -1,3 +1,7 @@
+
+time_translateDate(p_timeShift, p_timeUnit := "Days", p_format := "yyyy-MM-dd_hh-mm-ss_tt")\nDescr:\tUses [EnvAdd,] command to shift the current date by a given number and unit.\n\tReturn:\tSTRING\t- returns the resulting date-time as a string with the given format.\n\tParams:\tINTEGER\tp_timeShift\t:=\t(any positive or negative integer)\n\t\t\tSTRING\tp_timeUnit\t:=\t(default := "Days")\n\t\t\t\t\t\t\tthis\t["Seconds" | "Minutes" | "Hours" | "Days" ]\n\t\t\t\t\t\t\tor...\t["s" | "m" | "h" | "d"]\n\t\t\tSTRING\tp_format \t:=\t(default := "yyyy-MM-dd_hh-mm-ss_tt")\n
+time_translateDate(timeShiftAmount [, Unit, Format])\ntime_translateDate(p_timeShift\n\t\t\t, p_timeUnit := "Days"\n\t\t\t, p_format := "yyyy-MM-dd_hh-mm-ss_tt")\n
+
 archClip()
 archiveClipboard()
 archiveThenCopy(p_clipWaitTime := 0)
@@ -76,5 +80,3 @@ setClipboard(p_clipWaitTime := 1, p_str := "")
 StrReplace(Haystack, Needle [, ReplaceText, OutputVarCount, Limit])
 time_getDate(STRING:= dateFormat)\r\n Descr:\tgets the date in the specified format.\r\n Return:\tSTRING\r\n Params:\r\n\tp_dateFormat: STRING \r\n\tmust use only these characters\r\n \t(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")\r\n \t[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
 time_sendDate(STRING: dateFormat)\r\n Descr:\tUses the 'Send, ' command, after getting the formatted date specified.\r\n Return:\tSTRING\r\n Params:\r\n\tp_dateFormat: STRING \r\n\tmust use only these characters\r\n \t(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")\r\n \t[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
-time_translateDate(p_days := -3, p_dateUnit := "Days", p_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")\nDescr:\tUses [EnvAdd,] command to shift the current date by a given number and unit.\n\tReturn:\tSTRING\n\tParams:\tp_days :=\t\tSTRING\n\t\t\tp_dateUnit :=\t["Seconds" | "Minutes" | "Hours" | "Days" ]\n\t\t\t\t\t\tor\t["s" | "m" | "h" | "d"]\n\t\t\tp_dateFormat :=\tSTRING
-time_translateDate(p_timeShift := 0, p_timeUnit := "Days", p_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")

@@ -1,4 +1,4 @@
-Menu, Tray, Icon, E:\Assets\Icons\copy_cut_bg-red.ico
+Menu, Tray, Icon, % "E:\Assets\Icons\copy-cut-bg-red.ico"
 
 #IfWinActive
 ;; select all

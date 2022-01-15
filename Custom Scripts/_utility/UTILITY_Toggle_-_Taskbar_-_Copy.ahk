@@ -1,4 +1,10 @@
-Menu, Tray, Icon, % "E:\Software\iconsext-1.47\icons\shell32\shell32_40.ico"
+;: Menu, Tray, Icon, % "E:\Software\iconsext-1.47\icons\shell32\shell32_40.ico"
+
+;;;; Use the 2nd icon group from the file
+;: Menu, Tray, Icon, Shell32.dll, 40 
+
+;;;; Use icon with resource identifier (16813)
+Menu, Tray, Icon, Shell32.dll, -16813 
 
 #b:: HideShowTaskbar(hide := !hide)
 

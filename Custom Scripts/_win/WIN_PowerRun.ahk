@@ -1,4 +1,6 @@
 #IfWinActive PowerLauncher ahk_exe PowerLauncher.exe
+#Include pwrRun-date00-WIN.ahk
+
 ::???::
 	pwrRun_fireFoxSearch()
 	return
@@ -130,28 +132,43 @@ pwrRun_clearText(p_waitTime := 200){
 	Notes:	
 */
 pwrRun_fireFoxSearch(str := "", extraSend := ""){
-	if (WinExist("Firefox")){
+	/* if (WinExist("Firefox")){
 		;;delete text
-		Send, +{Home}{Delete}
+		pwrRun_clearText()
 		WinActivate
 		;;new tab
 		Run, "Firefox.exe" "about:newtab"
-		;;select address bar
-		Send, ^l
-		;;type !word and then space
-		Send, %str%{Space}
-	}
-	else {
-		;;delete text
-		Send, +{Home}{Delete}
-		;;new tab
-		Run, "Firefox.exe" "about:newtab"
-		Sleep, 200
+		Sleep, 500
 		;;select address bar
 		Send, ^l
 		;;type !word and then space
 		Send, %str%{Space}%extraSend%
 	}
+	else {
+		;;delete text
+		pwrRun_clearText()
+		;;new tab
+		Run, "Firefox.exe" "about:newtab"
+		WinWait, ahk_exe Firefox.exe
+		WinActivate
+		;;select address bar
+		Send, ^l
+		;;type !word and then space
+		Send, %str%{Space}%extraSend%
+	} 
+	*/
+	
+	;;delete text
+	pwrRun_clearText()
+	;;new tab
+	Run, "Firefox.exe" "about:newtab"
+	WinWait, ahk_exe Firefox.exe
+	WinActivate
+	;;select address bar
+	Send, ^l
+	;;type !word and then space
+	Send, %str%{Space}%extraSend%
+	
 	return
 }
 

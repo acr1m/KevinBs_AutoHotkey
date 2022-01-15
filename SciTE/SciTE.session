@@ -6,15 +6,15 @@ position.width=975
 position.height=1047
 position.maximize=0
 
-mru.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_Outlook.ahk
-mru.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_RegEx_Visual_Keyboard_generated_gui3.ahk
-mru.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_RegEx_Visual_Keyboard_generated_gui4.ahk
-mru.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\UTILITY_Generate_Lorem_Ipsum.ahk
-mru.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_PowerRun.ahk
-mru.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\UTILITY_Cut_Copy_Paste_(pause_to_break).ahk
-mru.7.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\AhkAbbrevs.properties
-mru.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Math_Keyboard_.ahk
-mru.9.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\SciTEGlobal.properties
+mru.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib\LIB_Main_Method_Library.ahk
+mru.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_Outlook.ahk
+mru.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_RegEx_Visual_Keyboard_generated_gui3.ahk
+mru.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_RegEx_Visual_Keyboard_generated_gui4.ahk
+mru.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\UTILITY_Generate_Lorem_Ipsum.ahk
+mru.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_PowerRun.ahk
+mru.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\UTILITY_Cut_Copy_Paste_(pause_to_break).ahk
+mru.8.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\AhkAbbrevs.properties
+mru.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Math_Keyboard_.ahk
 mru.10.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
 
 buffer.1.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
@@ -27,8 +27,8 @@ buffer.2.scroll=322
 buffer.2.bookmarks=339
 
 buffer.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_macros\temp_macro.ahk
-buffer.3.position=2094
-buffer.3.scroll=45
+buffer.3.position=3982
+buffer.3.scroll=119
 buffer.3.current=1
 
 buffer.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib\LIB_RegEx().ahk
@@ -48,8 +48,8 @@ buffer.7.position=577
 buffer.7.scroll=15
 
 buffer.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib\LIB_Main_Method_Library.ahk
-buffer.8.position=5146
-buffer.8.scroll=0
+buffer.8.position=4197
+buffer.8.scroll=142
 
 buffer.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_Outlook.ahk
 buffer.9.position=263
@@ -76,17 +76,13 @@ buffer.14.position=56
 buffer.14.scroll=0
 
 buffer.15.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\AhkAbbrevs.properties
-buffer.15.position=211
+buffer.15.position=105
 buffer.15.scroll=0
 
 buffer.16.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Math_Keyboard_.ahk
-buffer.16.position=22749
-buffer.16.scroll=718
+buffer.16.position=20629
+buffer.16.scroll=694
 
-buffer.17.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\SciTEGlobal.properties
-buffer.17.position=2489
-buffer.17.scroll=107
-
-buffer.18.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
-buffer.18.position=221
-buffer.18.scroll=0
+buffer.17.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
+buffer.17.position=154
+buffer.17.scroll=0

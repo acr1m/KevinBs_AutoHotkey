@@ -1,7 +1,9 @@
 
-Menu, Tray, Icon, % "E:\Assets\Icons\key_circle_red_white.ico"
+;: Menu, Tray, Icon, % "E:\Assets\Icons\key_circle_red_white.ico"
 ;: Menu, Tray, Icon, % "E:\Assets\Icons\key_circle_blue_white.ico"
 ;: Menu, Tray, Icon, % "E:\Assets\Icons\key_circle_green_white.ico"
+Menu, Tray, Icon, % "E:\Assets\Icons\voicemeeter_resources\VoicemeeterMacroButtons_100.ico"
+
 #SingleInstance Force
 
 #Include %A_ScriptDir%\..\_lib
@@ -11,35 +13,110 @@ Menu, Tray, Icon, % "E:\Assets\Icons\key_circle_red_white.ico"
 #Include LIB_time().ahk
 #Include LIB_RegEx().ahk
 
-Pause::ExitApp
+
 global macroSwitch_M1 := false
 global macroSwitch_M2 := false
 global macroSwitch_M3 := false
 global macroSwitch_M4 := false
 global macroSwitch_M5 := false
+
+Pause::ExitApp
+;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;; temp start
-Tab::Tab
-~Tab & Space::
-{
-	ks := GetKeyState("Shift")
-	OutputDebug, START OF BLOCK,`tks = %ks%
-	;; if shift is up
-	if (!GetKeyState("Shift")){
-		ks := GetKeyState("Shift")
-		OutputDebug, shift is UP,`t`tks = %ks%
-	        Send, {Space 4}
+
+;; Date Calculator
+;; ^Insert::MsgBox, , % "title", % "message " . time_translateDate(25,, "yyy / M-MMM / dd-ddd")
+^Insert::
+	n := 25
+	Clipboard := time_translateDate(n,, "MMMM d, yyyy")
+	MsgBox, , % "title", % "message " . time_translateDate(n,, "MMMM d, yyyy")
+	return
+
+/*                     _______________     _______________ 
+                      || CapsLock    ||   || Tab         ||
+                      ||_____________|| + ||_____________|| = 4-Spaces
+                      |/_____________\|   |/_____________\|
+*/
+/* _______________     _______________     _______________ 
+  || Shift       ||   || CapsLock    ||   || Tab         ||
+  ||_____________|| + ||_____________|| + ||_____________|| = 4-Backspaces
+  |/_____________\|   |/_____________\|   |/_____________\|
+*/
+
+/* 	- Allow Tab to function like normal on Down trigger, 
+		despite being a custom-combination modifier-key for Tab+Space.
+	- Also, if CapsLock is ON, 
+		- Tab sends 4-Spaces 
+		- Shift+Tab sends 4-Backspaces.
+*/
+
+/* $*Tab::
+{	capsLockIsOn := GetKeyState("CapsLock", "T")
+	if (capsLockIsOn){ ;; if CapsLock is ON
+		shiftIsDown := GetKeyState("Shift", "P")
+		if (shiftIsDown){ ;; if Shift is DOWN
+			Send, {Home}{Delete 4}^{Right}
+		} else if (!shiftIsDown){ ;; if Shift is UP
+			Send, {Space 4}
+		}
+	} else if (!capsLockIsOn){ ;; if CapsLock is OFF
+		Send, {Tab}
 	}
-	;; if shift is down
-	else if (GetKeyState("Shift")){
-		ks := GetKeyState("Shift")
-		OutputDebug, shift is DOWN,`t`tks = %ks%
-		Send, {Delete 4}
-	}
-	ks := GetKeyState("Shift")
-	OutputDebug, END OF BLOCK,`t`tks = %ks%
 	return
 }
+*/
+
+;; Block the trigger of Shift+Tab Down, only allowing input to send when Tab is released.
+/* $+Tab::return
+ */
+ 
+/* $+Tab Up::
+;; {	KeyWait, Tab
+;; 	KeyWait, Shift, D
+;; 	Send, +{Tab}
+;; 	return 
+;; }
+*/
+
+/* The hotkey-set below sends 4-spaces when Tab+Space is pressed
+;; and sends 4-Backspaces when Tab+Space is pressed while Shift is held down.
+;; 
+                 _______     ____________ 
+                || Tab ||   || Spacebar ||
+                ||_____|| + ||__________|| = 4-Spaces
+                |/_____\|   |/__________\| 
+   _________     _______     ____________ 
+  || Shift ||   || Tab ||   || Spacebar ||
+  ||_______|| + ||_____|| + ||__________|| = 4-Backspaces
+  |/_______\|   |/_____\|   |/__________\|
+*/
+
+/* Tab & Space::
+{
+;; 		The option, 'P', retrieves the 'physical-state' of the key,
+;; 			i.e., whether the user is actually holding it down.
+;; 	
+;;
+	
+	ks := GetKeyState("Shift", "P")
+	OutputDebug, START OF BLOCK,`tks = %ks%
+	if (!ks){ ;; if shift is up
+		;; ks := GetKeyState("Shift")
+		;; OutputDebug, shift is UP,`t`tks = %ks%
+		Send, {Space 4}
+	} else if (ks){ ;; if shift is down
+		;; ks := GetKeyState("Shift")
+		;; OutputDebug, shift is DOWN,`t`tks = %ks%
+		Send, {Home}{Delete 4}^{Right}
+	}
+	
+	;; ks := GetKeyState("Shift", "P")
+	;; OutputDebug, END OF BLOCK,`t`tks = %ks%
+	return
+} 
+*/
+
 ;: temp end
 ;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

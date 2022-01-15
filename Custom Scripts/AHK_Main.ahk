@@ -6,6 +6,7 @@
 #MaxHotkeysPerInterval 1000 ;1 thousand keys per above interval
 #Hotstring EndChars -()[]{}: "/\.?!`n
 
+Menu, Tray, MainWindow
 Menu, Tray, Icon, % "E:\Assets\Icons\keyboards\msctf_410.ico"
 DetectHiddenWindows, On ;; Allows a script's hidden main window to be detected.
 SetTitleMatchMode, 2 ;; 2 = A window's title can contain WinTitle anywhere inside it to be a match.
@@ -83,6 +84,7 @@ global SCROLL_WHEEL_GRAVITY := 4
 #Include WIN_PowerRun.ahk
 #Include WIN_Word.ahk
 #Include SmartGUI_WIN.ahk
+#Include Sticky-Notes-WIN.ahk
 ;███████████████████████████████████████████████████████████████████████████████
 ;; BREAKER SWITCH
 ;;;; activates when pressing
@@ -101,7 +103,7 @@ Pause::
 ;WINDOWS KEY SHORTCUTS &&
 ;SOFTWARE OPEN/START/RUN SHORTCUTS
 ;OPEN FILES, OPEN SOFTWARE, OPEN PROGRAMS, OPEN APPLICATIONS, OPEN APPS
-;███████████████████████████████████████████████████████████████████████████████%
+;███████████████████████████████████████████████████████████████████████████████
 ^#AppsKey::Run, "AHK_Utility_Mouse_Position_As_Percentage_Tooltip.exe"
 #n::Run, "Notepad++"
 ;~ #a::Run, E:\Software\AutoHotKey\SciTE\SciTE.exe
@@ -124,7 +126,7 @@ Pause::
 		;~ before it is alphanumeric. For example, if :?:al::airline is a 
 		;~ hotstring, typing "practical " would produce "practicairline ". 
 		;~ Use ?0 to turn this option back off.
-;███████████████████████████████████████████████████████████████████████████████%
+;███████████████████████████████████████████████████████████████████████████████
 ;~ HOTSTRING OPTIONS 
 	;~ #Hotstring SE ; •SE stands for SendEvent, which is the default in versions older than 1.0.43.
 	;~ #Hotstring SI 
@@ -277,13 +279,13 @@ Pause::
  */
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;███████████████████████████████████████████████████████████████████████████████%
+;███████████████████████████████████████████████████████████████████████████████
 ;MOUSE WHEEL
-;███████████████████████████████████████████████████████████████████████████████%
+;███████████████████████████████████████████████████████████████████████████████
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;███████████████████████████████████████████████████████████████████████████████%
+;███████████████████████████████████████████████████████████████████████████████
 /* ;SCROLL SPEED MONITORING (AS TOOLTIP)
- * ;███████████████████████████████████████████████████████████████████████████████%
+ * ;███████████████████████████████████████████████████████████████████████████████
  * #Persistent
  * SetTimer, ScrollSpeedMonitor, 50
  * return
@@ -292,7 +294,7 @@ Pause::
  * ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . scrollAmount ""
  * return
  */
-;███████████████████████████████████████████████████████████████████████████████%
+;███████████████████████████████████████████████████████████████████████████████
 ~$WheelUp::
 	if (A_PriorHotkey == A_ThisHotkey && A_TimeSincePriorHotkey < 500){
 		if (A_TimeSincePriorHotkey < 10)
@@ -469,17 +471,6 @@ ScrollLock::
 #IfWinActive ahk_exe audacity.exe
 $+Space::+Space
 
-#IfWinActive Sticky Notes ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe
-{
-Tab::
-	Send, {Space 4}
-	return
-+Tab::
-	Send, {BackSpace 4}
-	return
-^+Up:: moveCurrentLineUp()
-^+Down:: moveCurrentLineDown()
-}
 
 #IfWinActive ahk_exe mixcraft9.exe
 ^Left::Home

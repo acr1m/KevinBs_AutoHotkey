@@ -7,7 +7,7 @@
 ;; Descr:	Gets the date in the specified format.
 ;; Return:	STRING
 ;; Params:
-;;	p_dateFormat: STRING 
+;;	p_format: STRING 
 ;;	must use only these characters
 ;; 	(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")
 ;; 	[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
@@ -68,15 +68,18 @@ time_getDate(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt"){
 	return % outputVar
 }
 
-/* time_translateDate(p_days := -3, p_dateUnit := "Days", p_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")
+/* time_translateDate(p_timeShift, p_timeUnit := "Days", p_format := "yyyy-MM-dd_hh-mm-ss_tt")
 ;; Descr:	Uses [EnvAdd,] command to shift the current date by a given number and unit.
-	Return:	STRING
-	Params:	p_days :=		STRING
-			p_dateUnit :=	["Seconds" | "Minutes" | "Hours" | "Days" ]
-						or	["s" | "m" | "h" | "d"]
-			p_dateFormat :=	STRING
+	Return:	STRING	- returns the resulting date-time as a string with the given format.
+	Params:	INTEGER	p_timeShift	:=	(any positive or negative integer)
+			STRING	p_timeUnit	:=	(default := "Days")
+							this	["Seconds" | "Minutes" | "Hours" | "Days" ]
+							or...	["s" | "m" | "h" | "d"]
+			STRING	p_format 	:=	(default := "yyyy-MM-dd_hh-mm-ss_tt")
 */
-time_translateDate(p_timeShift := 0, p_timeUnit := "Days", p_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt"){
+time_translateDate(p_timeShift
+			, p_timeUnit := "Days"
+			, p_format := "yyyy-MM-dd_hh-mm-ss_tt"){
 	;; TODO - setup a method to subtract the current date by a given number and output as STRING.
 	;; FormatTime, 
 	;; v_date := time_getDate("yyyyMMdd")
@@ -92,10 +95,10 @@ time_translateDate(p_timeShift := 0, p_timeUnit := "Days", p_dateFormat := "yyyy
 	var2 := ""
 	var2 += p_timeShift, %p_timeUnit%
 	
-	;; MsgBox, %var1%  ; The answer will be the date 31 days from now.
+	;; MsgBox, %var1%  ; The answer will be the adjustesd date-time from now.
 	;; MsgBox, % "var1 := " . var1 . "`nvar2 := " . var2 . "`n"
 	
-	FormatTime, outVar, %var2%, %p_dateFormat%
+	FormatTime, outVar, %var2%, %p_format%
 	return outVar
 }
 
@@ -103,7 +106,7 @@ time_translateDate(p_timeShift := 0, p_timeUnit := "Days", p_dateFormat := "yyyy
 ;; Descr:	Gets the date in the specified format.
 ;; Return:	STRING
 ;; Params:
-;;	p_dateFormat: STRING 
+;;	p_format: STRING 
 ;;	must use only these characters
 ;; 	(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")
 ;; 	[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
