@@ -48,7 +48,26 @@ Tab::Tab
 ;; │ M1 = F20 │ M2 = F21 │ M3 = F22 │ M4 = F23 │ M5 = F24 │
 ;; └──────────┴──────────┴──────────┴──────────┴──────────┘
 
-;; M1 - parse the whole document
+/* _______________     _______________     _______________     _______________ 
+  ||             ||   ||             ||   ||             ||   ||             ||
+  ||_____________|| + ||_____________|| + ||_____________|| + ||_____________||
+  |/_____________\|   |/_____________\|   |/_____________\|   |/_____________\|
+*/
+
+;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+/* ______     _____ 
+  || FN || + || 7 || parse the whole document
+  ||____||   ||___||
+  |/____\|   |/___\|
+*/
+F19::macro_00()
+
+;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+/* ______ 
+  || M1 || macro_f20_01
+  ||____|| 
+  |/____\| 
+*/
 F20::macro_f20_01()
 
 macro_f20_02(){
@@ -87,7 +106,7 @@ macro_f20_01(){
 	return
 }
 
-macro_f20_00(){
+macro_00(){
 	;; outVar := RegExReplace(regex_parseDocumentForFunctions(), "\\", "line`")
 	;; MsgBox, % "Clipboard Contents on the next line...`n" . outVar
 	Clipboard := regex_parseDocumentForFunctions("`r`n")
@@ -97,21 +116,33 @@ macro_f20_00(){
 	
 	return
 }
-;; M2 - remove whitespace characters
-;; prep for "user.ahk.api" documentation
+;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+/* ______ 
+  || M2 || remove whitespace characters
+  ||____||
+  |/____\|
+*/
 F21::
 {
 	regex_convertText_SciTE_API(true)
 	return
 }
-
-;; M3 - sort lines
+;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+/* ______      ______     _____                          
+  || M3 ||░░░░|| FN ||░░░|| 0 || sort lines
+  ||____||░OR░||____||░+░||___|| 
+  |/____\|░░░░|/____\|░░░|/___\| 
+*/            
 F22::
 {
 	regex_selection_sortAndPaste()
 	return
 }
-;; M4 - parse document
+/* ______      ______     _____ 
+  || M4 ||░░░░|| FN ||░░░|| - || parse document
+  ||____||░OR░||____||░+░||___||
+  |/____\|░░░░|/____\|░░░|/___\|
+*/
 F23::
 {	
 	Clipboard := regex_parseDocumentForFunctions("`r`n")
@@ -132,6 +163,11 @@ F23::
 	FileAppend, %Clipboard%, E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user2.ahk.api
 	return
 }
+/* ______ 
+  || M5 || parse document
+  ||____||
+  |/____\|
+*/
 F24::
 {	
 	Clipboard := regex_parseDocumentForFunctions("`r`n")
