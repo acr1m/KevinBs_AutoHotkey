@@ -158,7 +158,7 @@ Lbl_Scroll_Wheel_Speed:
 	main_scrollMethod_01()
 	return  ;}
 
-/**	main_scrollMethod_02()
+/**	main_scrollMethod_02()vc
 	Descr:	Starting from the time of first ScrollWheel input, output speed
 				is gradually increased, as long as A_ThisHotkey is 
 				'double-tapped' (i.e., 're-triggered') within a given 
