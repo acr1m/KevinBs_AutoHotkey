@@ -1,58 +1,96 @@
 #IfWinActive PowerLauncher ahk_exe PowerLauncher.exe
 #Include pwrRun-date00-WIN.ahk
 
+;; this block is primarily for testing script, main.ahk should already include all of these
+#Include %A_ScriptDir%\..\_lib ;{ 
+#Include LIB_Main_Method_Library.ahk
+#Include LIB_Emojis_And_Symbols.ahk
+#Include LIB_repeatKey().ahk
+#Include LIB_time().ahk
+#Include LIB_RegEx().ahk
+#Include %A_ScriptDir%\..\_utility
+#Include UTILITY_Horizontal_Scrolling.ahk
+#Include UTILITY_Generate_Lorem_Ipsum.ahk  ;}
+
+;; opens a new tab in Firefox and activates the address bar for typing
+Lbl_Firefox_Search: ;{ 
 ::???::
 	pwrRun_fireFoxSearch()
-	return
+	return  ;}
+
+;; opens firefox and sets the address bar to the shortcut for WordHippo's search bar
+Lbl_Word_Hippo: ;{ 
 ::??word::
 ::??wordHippo::
 	pwrRun_fireFoxSearch("word")
-	return
+	return  ;}
+
+;; opens (https://regexr.com) in Firefox
+Lbl_Open_Regexr: ;{ 
 ::??regexr::
 	Run, Firefox.exe "https://regexr.com/"
-	return
-::??test::
-	pwrRun_fireFoxSearch("test","{Space}1{Space}2{Space}3")
-	return
-::??blend::
-::??color Mix::
-::??color Mixer::
-::??colorblend::
-::??colorMix::
-::??colorMixer::
-	Run, Firefox.exe "https://www.w3schools.com/colors/colors_mixer.asp"
-	return
+	return  ;}
+
+;; opens a color-mixer
+Lbl_Color_Mixer: ;{
+	::??blend::
+	::??color Mix::
+	::??color Mixer::
+	::??colorblend::
+	::??colorMix::
+	::??colorMixer::
+		Run, Firefox.exe "https://www.w3schools.com/colors/colors_mixer.asp"
+		return
+;}
+
+;; opens a color-picer
+Lbl_Color_Picker: ;{
 ::??color Pick::
 ::??color Picker::
 ::??colorPick::
 	Run, Firefox.exe "https://www.w3schools.com/colors/colors_picker.asp"
-	return
+	return  ;}
+
+;; opens color-name website
+Lbl_Color_Name: ;{
 ::??color name::
 ::??color names::
 ::??colorName::
 ::??colorNames::
 	Run, Firefox.exe "https://www.w3schools.com/colors/colors_names.asp"
-	return
+	return  ;}
+
+;; opens anime schedule shortcut (livechart.me/timetable)
+Lbl_Anime_LiveChart: ;{
 ::??anime::
 ::??liveChart.me::
 ::??liveChart::
-	v_domain := "https://www.livechart.me/timetable?date="
+	v_domain := "https://www.livechart.me/timetable?date=" ;{ 
 	v_date := time_translateDate(-3, ,"yyyy-MM-dd")
 	v_target := v_domain . v_date
 	;: MsgBox, %v_target%
 	Run, Chrome.exe %v_target%
-	return
+	return  ;}  ;}
+
+;; sorts selection and replaces it
+Lbl_Regex_Sort: ;{
 ::??sort::
 ::??sortLines::
 ::??sortSelection::
 	regex_selection_sortAndPaste()
-	return
+	return  ;}
+
+;; runs regex_parseDocumentForFunctions and assigns it to Clipboard
+Lbl_Regex_Parse_Document_For_Functions: ;{ 
 ::??parse document for functions::
 ::??parse for functions::
 ::??parseDocumentForFunctions::
 ::??parseForFunctions::
 	Clipboard := regex_parseDocumentForFunctions()
-	return
+	return  ;}
+
+;; runs the lorem-ipsum text method
+Lbl_Generate_Lorem_Ipsum: ;{ 
 ::??ipsum::
 ::??lipsum::
 ::??loremipsum::
@@ -107,8 +145,14 @@
 ::??lipsum10::
 ::??loremipsum10::
 	pwrRun_loremIpsumTextMethod(10)
-	return
+	return  ;}
 
+;; opens the WindowSpy.ahk GUI
+Lbl_Window_Spy: ;{ 
+::??windowspy::
+	Run, autohotkey.exe %A_AhkPath%\..\WindowSpy.ahk
+	return  ;}
+	
 /**	pwrRun_clearText()
 	Descr:	Selects all, Delete, Escape, then wait 200 (default) milliseconds.
 	Return:	VOID
