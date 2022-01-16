@@ -303,7 +303,6 @@ ScrollLock:: ;{
 	}
 	return  ;}
 
-
 ;NOTEPAD++ 
 #IfWinActive ahk_class Notepad++
 {
