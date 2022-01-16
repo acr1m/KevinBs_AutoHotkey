@@ -1,80 +1,57 @@
-﻿#KeyHistory 500  ;(Default is 40, Max is 500)
-#SingleInstance Force
-#InstallKeybdHook
-;~ #InstallMouseHook
-#HotkeyInterval 1000 ;one second interval
-#MaxHotkeysPerInterval 1000 ;1 thousand keys per above interval
+﻿#HotkeyInterval 1000 ;one second interval
 #Hotstring EndChars -()[]{}: "/\.?!`n
+#InstallKeybdHook
+#KeyHistory 500  ;(Default is 40, Max is 500)
+#MaxHotkeysPerInterval 1000 ;1 thousand keys per above interval
+#SingleInstance Force
 
 Menu, Tray, MainWindow
 Menu, Tray, Icon, % "E:\Assets\Icons\keyboards\msctf_410.ico"
 DetectHiddenWindows, On ;; Allows a script's hidden main window to be detected.
 SetTitleMatchMode, 2 ;; 2 = A window's title can contain WinTitle anywhere inside it to be a match.
-;~ global isAdmin := A_IsAdmin
-isAdmin := A_IsAdmin
-;~ global isCompiled := A_IsCompiled
-isCompiled := A_IsCompiled
-;;;;CONSTANTS
-global PRIMARY_MOUSE := "Left"
-global SWAP_RETVAL := 
-global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
-global oneKey_HasItBeenSet := false
-global main_lastActiveWindow := ""
-/*
-scrollWheel range  = [1, 100]
-I want the mouse to speed up, the longer the wheel has been 'active'.
-	there'd be a lifetime for the max_delta to be active.
-	if the lifetime isn't 'restored' before it runs out, 
-	then it should turn off. 
-parameters:
-	wheelTimeActive - delta of current lifetime
-	wheelLifeTime - limit of 'admissible' time to elapse 
-					to still trigger buildup.
-	wheelOutputAmount - 
-	wheelBuildupAmount - amount to build the OutputAmount by.
-WheelUp::
-{
-	if (wheel_thisTime <= 0){
-		wheel_startTime := A_TickCount
-		Send, {WheelUp, 1}
-	}
-	else if (){
-		
-		wheel_lastTime := wheel_thisTime
-	}
-	else {
-		
-	}
-		
-	wheel_thisTime := A_TickCount
-	wheel_startTime := a_tickcount
-	wheel_lifeTime := wheel_thisTime - wheel_startTime
-	if (
-	wheelOutputAmount += wheelBuildupAmount
-}
-*/
+
+Lbl_Global_Constants: ;{
+global g_PRIMARY_MOUSE := "Left"
+global g_SWAP_RETVAL := 
+global g_DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 global SCROLL_WHEEL_GRAVITY := 4
-;███████████████████████████████████████████████████████████████████████████████
-#Include %A_ScriptDir%\_lib
+;}
+
+Lbl_Global_Variables: ;{
+global isAdmin := A_IsAdmin
+global isCompiled := A_IsCompiled
+global g_oneKey_HasItBeenSet := false
+global g_main_lastActiveWindow := ""
+global g_scrollWheel_deltaTime
+global g_scrollWheel_scrollAmount
+global g_scrollWheel_startTime
+;}
+
+;; block of #Include libraries and utilities
+Lbl_Include_Block:
+
+;; LIBRARIES
+#Include %A_ScriptDir%\_lib ;{ 
 #Include LIB_Main_Method_Library.ahk
 #Include LIB_Emojis_And_Symbols.ahk
 #Include LIB_repeatKey().ahk
 #Include LIB_time().ahk
 #Include LIB_RegEx().ahk
-;~ #Include LIB_oneKey_Copy_Paste_Mode.ahk
+;~ #Include LIB_oneKey_Copy_Paste_Mode.ahk  ;}
 
-;;UTITILITIES
-#Include %A_ScriptDir%\_utility
+;; UTITILITIES
+#Include %A_ScriptDir%\_utility ;{ 
 #Include UTILITY_Horizontal_Scrolling.ahk
-#Include UTILITY_Generate_Lorem_Ipsum.ahk
+#Include UTILITY_Generate_Lorem_Ipsum.ahk  ;}
 
-#Include %A_ScriptDir%
+;; GUI's
+#Include %A_ScriptDir% ;{ 
+#Include _gui\GUI_Mouse_Control.ahk 
 ;~ #Include AHK_Math_Keyboard_v1_2_7.ahk
-;~ Run, AHK_Math_Keyboard_.exe
-#Include _gui\GUI_Mouse_Control.ahk
+;~ Run, AHK_Math_Keyboard_.exe  ;}
 
-;WINDOW/APP CONTEXT SENSITIVE SCRIPTS
-#Include %A_ScriptDir%\_win
+;; WINDOW/APP CONTEXT SENSITIVE SCRIPTS
+#Include %A_ScriptDir%\_win ;{ 
 #Include WIN_Windows_Color_Picker.ahk
 #Include WIN_Excel.ahk
 #Include WIN_Outlook.ahk
@@ -84,255 +61,153 @@ global SCROLL_WHEEL_GRAVITY := 4
 #Include WIN_PowerRun.ahk
 #Include WIN_Word.ahk
 #Include SmartGUI_WIN.ahk
-#Include Sticky-Notes-WIN.ahk
-;███████████████████████████████████████████████████████████████████████████████
-;; BREAKER SWITCH
-;;;; activates when pressing
-;;;;;; Ctrl+Alt+Shift+{Pause}
+#Include Sticky-Notes-WIN.ahk   ;}
+
+;; BREAKER-SWITCH - activates when pressing Ctrl+Alt+Shift+{Pause}
 ^!+CtrlBreak::ExitApp
-;███████████████████████████████████████████████████████████████████████████████
-;███████████████████████████████████████████████████████████████████████████████
-;; SUB-SCRIPT SWITCHES
-Pause::
+
+;; SUB-SCRIPT BREAKER-SWITCH
+Pause:: ;{
 	DetectHiddenWindows, On ;; Allows a script's hidden main window to be detected.
 	SetTitleMatchMode, 2 ;; 2 = A window's title can contain WinTitle anywhere inside it to be a match.
 	WinClose, temp_macro.exe
 	WinClose, UTILITY_Cut_Copy_Paste_(pause_to_break).exe
-	return
-;███████████████████████████████████████████████████████████████████████████████
-;WINDOWS KEY SHORTCUTS &&
-;SOFTWARE OPEN/START/RUN SHORTCUTS
-;OPEN FILES, OPEN SOFTWARE, OPEN PROGRAMS, OPEN APPLICATIONS, OPEN APPS
-;███████████████████████████████████████████████████████████████████████████████
-^#AppsKey::Run, "AHK_Utility_Mouse_Position_As_Percentage_Tooltip.exe"
+	return  ;}
+
+;{ WINDOWS KEY SHORTCUTS & SOFTWARE OPEN/START/RUN SHORTCUTS
+;        OPEN FILES, OPEN SOFTWARE, OPEN PROGRAMS, OPEN APPLICATIONS, OPEN APPS
+;}
+
+;; show mouse position tooltip
+Lbl_Show_Mouse_Position_Tooltip: ;{ 
+^#AppsKey::Run, "AHK_Utility_Mouse_Position_As_Percentage_Tooltip.exe"  ;}
+
+Lbl_Open_NotepadPP: ;{ 
 #n::Run, "Notepad++"
-;~ #a::Run, E:\Software\AutoHotKey\SciTE\SciTE.exe
+;~ #a::Run, E:\Software\AutoHotKey\SciTE\SciTE.exe ;}
 
+Lbl_Open_SciTE: ;{ 
 #IfWinActive
-#a::Run, "E:\Software\AutoHotkey_MyInstallation_v01\SciTE\SciTE.exe"
-;Voicemeeter 
-;Windows Key + S
-#s::Run, "C:\Program Files (x86)\VB\Voicemeeter\voicemeeter.exe"
-;Sound Control Panel
-^#s::Run, "E:\Assets\Scripts\Windows Commands\Sound Control Panel - Playback Tab.bat"
-;Windows Excel (#a)
-;###############################################################################
-;~ HOTSTRING END CHARACTERS
-	;~ #Hotstring EndChars -()[]{}:;'"/\,.?!`n 
-	
-	;~ `n=[enter], `t=[tab]
-	;~ ? (question mark): The hotstring will be triggered even when it is 
-		;~ inside another word; that is, when the character typed immediately
-		;~ before it is alphanumeric. For example, if :?:al::airline is a 
-		;~ hotstring, typing "practical " would produce "practicairline ". 
-		;~ Use ?0 to turn this option back off.
-;███████████████████████████████████████████████████████████████████████████████
-;~ HOTSTRING OPTIONS 
-	;~ #Hotstring SE ; •SE stands for SendEvent, which is the default in versions older than 1.0.43.
-	;~ #Hotstring SI 
-			; •SI stands for SendInput, which typically has superior speed and 
-			;reliability than the other modes. Another benefit is that like 
-			;SendPlay below, SendInput postpones anything you type during a 
-			;hotstring's auto-replacement text. This prevents your keystrokes 
-			;from being interspersed with those of the replacement. When 
-			;SendInput is u
-	;~ #Hotstring SP ; •SP stands for SendPlay, which may allow hotstrings to work in a broader variety of games.
-	;~ #Hotstring O  ; omit ending character (for all hotstrings in document underneath this rule)
-	;~ #Hotstring O0  ; turn off "omit ending character" (for all hotstrings in document underneath this rule)
-	;~ #Hotstring Kn ; key delay (n = milliseconds) between each sent keystroke
-	;~ #Hotstring *  ; turn on No Ending Character Required
-	;~ #Hotstring *0 ; turn off No Ending Character Required
-	;~ #Hotstring R  ; sends output as raw
-	;~ #Hotstring C  ; case sensitive
-	;~ #Hotstring C0 ; turn off case sensitive
-;███████████████████████████████████████████████████████████████████████████████%
-;~ HOTKEY PREFIXES
-	;~ [$] prefix keeps the hotkey from triggering itself in a loop
-	;~ [~] When the hotkey fires, its key's native function will not 
-			;be blocked (hidden from the system). 
-	;~ [*] Wildcard: Fire the hotkey even if extra modifiers are being held down. This is often used in conjunction with remapping keys or buttons.
-;███████████████████████████████████████████████████████████████████████████████%
+#a::Run, "E:\Software\AutoHotkey_MyInstallation_v01\SciTE\SciTE.exe" ;}
 
-;MOUSE - SWITCH PRIMARY MOUSE
-;MOUSE CONTROL PANEL (HOLD-RIGHT-CLICK)
-;~ ~MButton::
-	;~ ;if left or right mouse button down, wait for 2 seconds, 
-	;~ ;if 2 seconds passed, then set primary mouse to matching button.
-	;~ if (GetMouseState("LButton") == true){
-		;~ KeyWait, LButton, t2
-		;~ if (ErrorLevel == 1){
-			;~ PRIMARY_MOUSE := "Left"
-			;~ MsgBox, , Primary Mouse, Primary Mouse has been set to LEFT, 2 ;closes in 2 seconds
-		;~ }
-	;~ }
-	;~ else if (GetKeyState("RButton") == true){
-		;~ KeyWait, RButton, t2
-		;~ if (ErrorLevel == 1){
-			;~ PRIMARY_MOUSE := "Right"
-			;~ MsgBox, , Primary Mouse, Primary Mouse has been set to RIGHT, 2 ;closes in 2 seconds
-		;~ }
-	;~ }
-	;~ return
-^!m::
-	;~ assignPrimaryMouseButton()
-	;~ swapPrimaryMouseButton()
-	return
+Lbl_Open_Voicemeeter: ;{ 
+#s::Run, "C:\Program Files (x86)\VB\Voicemeeter\voicemeeter.exe" ;}
 
-~*LButton::
-/* 
-	Suspend, Permit
-	if (PRIMARY_MOUSE == "Left"){
-		Click, Left Down
-		;~ MouseClick, Left,,,,,D
-	}
-	else if (PRIMARY_MOUSE == "Right"){
-		Click, Right Down
-		;~ MouseClick, Right,,,,,D
-	}
-	else{
-		Click, Left Down
-		;~ MouseClick, Left,,,,,D
-	}
+Lbl_Open_Windows_Sound_Control_Panel: ;{ 
+^#s::Run, "E:\Assets\Scripts\Windows Commands\Sound Control Panel - Playback Tab.bat" ;}
+
+;; currently on-hold
+Lbl_Left_Mouse_Button: ;{
+;{ ~*LButton:: ;{ 
+;        	if (g_PRIMARY_MOUSE == "Right"){
+;        		KeyWait, LButton, t2 ;wait for 2 seconds
+;        		if (ErrorLevel == 1){
+;        			;~ if (WinExist("Mouse Control Panel"))
+;        			if (WinExist("Mouse Control Panel ahk_class AutoHotkeyGUI"))
+;        				WinActivate
+;        			else
+;        				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_GUI_Mouse_Control.exe
+;        				;~ gosub GUI_Mouse_Control
+;        				gosub GuiShow_Mouse_Control
+;        			return
+;        		}
+;        		else
+;        			return
+;        	}
+;        	return  ;}
+;} ;}
+
+;; currently on-hold
+Lbl_Right_Mouse_Button: ;{
+;{ ~*RButton:: ;{ 
+;        	;start timer
+;        	mouseControlPanelTimer := A_TickCount
+;        	if (g_PRIMARY_MOUSE == "Left"){
+;        		KeyWait, RButton, t2 ;wait for 2 seconds
+;        		if (ErrorLevel == 1){
+;        			;~ if (WinExist("Mouse Control Panel"))
+;        			if (WinExist("Mouse Control Panel ahk_class AutoHotkeyGUI"))
+;        				WinActivate
+;        			else
+;        				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_GUI_Mouse_Control.exe
+;        				;~ gosub GUI_Mouse_Control
+;        				gosub GuiShow_Mouse_Control
+;        			return
+;        		}
+;        		else
+;        			return
+;        	}
+;        	return  ;}
+;}
+;}
+
+
+;; shows the amount of scroll-wheel inputs sent as a tooltip following the mouse
+Lbl_Run_Scroll_Speed_Tooltip:
+#MButton:: ;{ 
+	;; Run, % "Autohotkey.exe" A_ScriptDir . "\_gui\GUI_Scroll_Speed_Monitoring.ahk"
+	;; "E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_Scroll_Speed_Monitoring.ahk"
+	Run, autohotkey.exe %A_ScriptDir%\_gui\GUI_Scroll_Speed_Monitoring.ahk
+	return  ;}
+;; this section handles the method of scroll-wheel input-output speed
+Lbl_Scroll_Wheel_Speed:
+~$WheelUp:: ;{ 
+	main_scrollMethod_01()
+	return  ;}
+~$WheelDown:: ;{ 
+	main_scrollMethod_01()
+	return  ;}
+
+/**	main_scrollMethod_02()
+	Descr:	Starting from the time of first ScrollWheel input, output speed
+				is gradually increased, as long as A_ThisHotkey is 
+				'double-tapped' (i.e., 're-triggered') within a given 
+				time_limit up to a given max_output_speed.
+	Return:	VOID
+	Params:	p_timeLimit := INTEGER (default := 500) 'milliseconds'
+			p_
+	Notes:	utilizes the global variable g_scrollWheel
 */
-	if (PRIMARY_MOUSE == "Right"){
-		KeyWait, LButton, t2 ;wait for 2 seconds
-		if (ErrorLevel == 1){
-			;~ if (WinExist("Mouse Control Panel"))
-			if (WinExist("Mouse Control Panel ahk_class AutoHotkeyGUI"))
-				WinActivate
-			else
-				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_GUI_Mouse_Control.exe
-				;~ gosub GUI_Mouse_Control
-				gosub GuiShow_Mouse_Control
-			return
-		}
-		else
-			return
-	}
-	return
+main_scrollMethod_02(p_timeLimit := 500){
+;{ NOTES...
+;   scrollWheel range  = [1, 100]
+;       I want the mouse to speed up, the longer the wheel has been 'active'.
+;       there'd be a lifetime for the max_delta to be active.
+;       if the lifetime isn't 'restored' before it runs out, 
+;       then it should turn off. 
+;   parameters:
+;       wheelTimeActive - delta of current lifetime
+;       wheelLifeTime - limit of 'admissible' time to elapse 
+;       				to still trigger buildup.
+;       wheelOutputAmount - 
+;       wheelBuildupAmount - amount to build the OutputAmount by.
+;}
 	
-/* 
-~*LButton Up::
-	Suspend, Permit
-	if (PRIMARY_MOUSE == "Left"){
-		Click, Left Up
-		;~ MouseClick, Left
-	}
-	else if (PRIMARY_MOUSE == "Right"){
-		Click, Right Up
-		;~ MouseClick, Right
-	}
-	else{
-		Click, Left Up
-		;~ MouseClick, Left
-	}
 	return
- */
-~*RButton::
-/* 
-	Suspend, Permit
-	if (PRIMARY_MOUSE == "Right"){
-		Click, Left Down
-		;~ MouseClick, Left,,,,,D
-	}
-	else if (PRIMARY_MOUSE == "Left"){
-		Click, Right Down
-		;~ MouseClick, Right,,,,,D
-	}
-	else{
-		Click, Right Down
-		;~ MouseClick, Right,,,,,D
-	} 
+}
+
+/**	main_scrollMethod_01()
+	Descr:	Utilizes a logarithmic function for scroll input that goes faster
+				when the value of A_TimeSincePriorHotkey is lower. 
+	Return:	VOID
+	Params:	p_elapsedTimeLimit := INTEGER (default := 500)
+	Notes:	
 */
-	;start timer
-	mouseControlPanelTimer := A_TickCount
-	if (PRIMARY_MOUSE == "Left"){
-		KeyWait, RButton, t2 ;wait for 2 seconds
-		if (ErrorLevel == 1){
-			;~ if (WinExist("Mouse Control Panel"))
-			if (WinExist("Mouse Control Panel ahk_class AutoHotkeyGUI"))
-				WinActivate
-			else
-				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_GUI_Mouse_Control.exe
-				;~ gosub GUI_Mouse_Control
-				gosub GuiShow_Mouse_Control
-			return
+main_scrollMethod_01(p_elapsedTimeLimit := 500){
+	if (doubleTap(p_elapsedTimeLimit)){
+		if (A_TimeSincePriorHotkey > 10){
+			g_scrollWheel_deltaTime := A_TimeSincePriorHotkey + !(A_TimeSincePriorHotkey)
+			g_scrollWheel_scrollAmount := Ceil(Abs((Log(g_scrollWheel_deltaTime)/Log(1.5))-15)) ;; https://www.desmos.com/calculator/ogtxptay3x
+			if (g_scrollWheel_scrollAmount > 30)
+				g_scrollWheel_scrollAmount := 30
+			;~ ToolTip % "g_scrollWheel_deltaTime: `t" . g_scrollWheel_deltaTime . "`nint:`t" . int ""
+			Send, {A_ThisHotkey %g_scrollWheel_scrollAmount%}
 		}
-		else
-			return
 	}
 	return
+}
 
-/* 
-~*RButton Up::
-	Suspend, Permit
-	if (PRIMARY_MOUSE == "Right")
-		Click, Left Up
-		;~ MouseClick, Left,,,,,U
-	else if (PRIMARY_MOUSE == "Left")
-		Click, Right Up
-		;~ MouseClick, Right,,,,,U
-	else
-		Click, Right Up
-		;~ MouseClick, Right,,,,,U
-	return
- */
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;███████████████████████████████████████████████████████████████████████████████
-;MOUSE WHEEL
-;███████████████████████████████████████████████████████████████████████████████
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;███████████████████████████████████████████████████████████████████████████████
-/* ;SCROLL SPEED MONITORING (AS TOOLTIP)
- * ;███████████████████████████████████████████████████████████████████████████████
- * #Persistent
- * SetTimer, ScrollSpeedMonitor, 50
- * return
- * ;-------------------------------------------------------------------------------
- * ScrollSpeedMonitor:
- * ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . scrollAmount ""
- * return
- */
-;███████████████████████████████████████████████████████████████████████████████
-~$WheelUp::
-	if (A_PriorHotkey == A_ThisHotkey && A_TimeSincePriorHotkey < 500){
-		if (A_TimeSincePriorHotkey < 10)
-			return
-		else if (A_TimeSincePriorHotkey > 10){
-			deltaTime := A_TimeSincePriorHotkey + !(A_TimeSincePriorHotkey)
-			
-			;basically, the closer the delta time is to 0, the higher the number is
-			;use a graphing calculator to visualize the control curve
-			;https://www.desmos.com/calculator/a688c7bdoi
-			;https://www.desmos.com/calculator/730lsilbdz
-			;https://www.desmos.com/calculator/ogtxptay3x
-			scrollAmount := Ceil(Abs((Log(deltaTime)/Log(1.5))-15))
-					
-			;~ ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . int ""
-			Send, {WheelUp %scrollAmount%}
-		}
-	}
-	return
-~$WheelDown::
-	if (A_PriorHotkey == A_ThisHotkey && A_TimeSincePriorHotkey < 500){
-		if (A_TimeSincePriorHotkey < 10)
-			return
-		else if (A_TimeSincePriorHotkey > 10){
-			deltaTime := A_TimeSincePriorHotkey + !(A_TimeSincePriorHotkey)
-			
-			;basically, the closer the delta time is to 0, the higher the number is
-			;use a graphing calculator to visualize the control curve
-			scrollAmount := Ceil(Abs((Log(deltaTime)/Log(1.5))-15))
-			
-			;~ ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . int ""
-			Send, {WheelDown %scrollAmount%}
-		}
-	}
-	return
-;███████████████████████████████████████████████████████████████████████████████
-;HOTKEYS
-;███████████████████████████████████████████████████████████████████████████████
+;; pass-through 
 ~AppsKey::AppsKey
 
 ;; single-tap = {underscore} and double-tap = {hyphen, i.e., minus}
@@ -342,10 +217,10 @@ _shift_space(ByRef p_counter){
 	p_counter++
 	
 	;; when shift+space is hit twice, send -
-	if (p_counter == 2 && doubleTap(DOUBLE_TAP_LIMIT)){
+	if (p_counter == 2 && doubleTap(g_DOUBLE_TAP_LIMIT)){
 		Send, -
 		return
-	} else if (p_counter == 3 && doubleTap(DOUBLE_TAP_LIMIT)){
+	} else if (p_counter == 3 && doubleTap(g_DOUBLE_TAP_LIMIT)){
 		
 		return
 	} else {
@@ -354,31 +229,50 @@ _shift_space(ByRef p_counter){
 	}
 }
 
+;; make the NumpadSub key function exactly like the 'hyphen'-key
 +NumpadSub:: Send, {_}
+
+;; swipe to desktop to the left
 AppsKey & Left::Send, ^#{Left}
+
+;; swipe to desktop to the right
 AppsKey & Right::Send, ^#{Right}
 
 ;; undo command
 ^+z::Send, ^y
 
 ;HOLD WINDOWS KEY AND DOUBLE TAP CTRL OR ALT TO MOVE DESKTOPS
+;~ #LCtrl
 ~#LCtrl::
-	;~ #LCtrl
-	if (doubleTap()){
+{	if (doubleTap()){
 		Send, #^{Left}
 	}
 	return
+}
+
+/** swipes to right desktop when double tapping Left-Alt while holding the windows key down.
+*/
 ~#LAlt::
-	;~ #LAlt
-	if (doubleTap()){
+{	if (doubleTap()){
 		Send, #^{Right}
 	}
 	return
+}
 
-;Window Title & Class Grabber
-;this gets the active window Title name and the Class and stores it into the clipboard.
-#AppsKey::
-{
+;; opens ahk window spy utility gui
+#AppsKey::Run, autohotkey.exe %A_AhkPath%\..\WindowSpy.ahk
+
+
+/**	main_windowTitleAndClassGrabber() [DEPRECATED]
+	Descr:	this gets the active window Title name and the Class and stores it into the clipboard.
+	Return:	VOID, (sets STRING to Clipboard)
+	Params:	p_alpha :=	STRING	(default := "str")
+			p_beta :=	BOOLEAN
+			p_gamma :=	INTEGER_STRING
+			p_delta :=	FLOAT_STRING
+	Notes:	[DEPRECATED]
+*/
+main_windowTitleAndClassGrabber(){
 	myTitle := 
 		WinGetTitle, myTitle, A
 		WinGetClass, class, A
@@ -395,13 +289,11 @@ AppsKey & Right::Send, ^#{Right}
 	MsgBox,  %tWindow% %hl1% %tTitle% %tClass% %hl2% %tContents% %hl1% %clipboard%
 	return
 }
-;███████████████████████████████████████████████████████████████████████████████
-;███████████████████████████████████████████████████████████████████████████████
-;███████████████████████████████████████████████████████████████████████████████
-;SCREENSHOT HOTKEYS
-;███████████████████████████████████████████████████████████████████████████████
-;if double tap, take active window screenshot, else, send ScrollLock
-ScrollLock::
+
+;; SCREENSHOT HOTKEYS
+
+;; if double tap, take active window screenshot, else, send ScrollLock
+ScrollLock:: ;{ 
 	if (doubleTap()){
 		SetScrollLockState, Off
 		;[Alt+PrtSc] used for ShareX, captures active window region as image.
@@ -409,25 +301,21 @@ ScrollLock::
 	} else {
 		Send, {ScrollLock}
 	}
-	return
-;-------------------------------------------------------------------------------
+	return  ;}
 
 
-
-;███████████████████████████████████████████████████████████████████████████████
-;NOTEPAD++ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-;███████████████████████████████████████████████████████████████████████████████
+;NOTEPAD++ 
 #IfWinActive ahk_class Notepad++
 {
 	; [Middle Mouse Button Click]
 	MButton::
 	{
-/*		If hotkey was triggered within DOUBLE_TAP_LIMIT,
+/*		If hotkey was triggered within g_DOUBLE_TAP_LIMIT,
  *		then activate the doubleTap process and reset the 
  *		listener key to false for the next occurence.
- *		DOUBLE_TAP_LIMIT approximately 350 milliseconds atm 
+ *		g_DOUBLE_TAP_LIMIT approximately 350 milliseconds atm 
  */
-		if (A_ThisHotkey = A_PriorHotkey && A_TimeSincePriorHotkey < DOUBLE_TAP_LIMIT) 
+		if (A_ThisHotkey = A_PriorHotkey && A_TimeSincePriorHotkey < g_DOUBLE_TAP_LIMIT) 
 		{
 			; Toggle - Viewing of "Document Map", Panel
 			Send, !v
@@ -464,22 +352,24 @@ ScrollLock::
 		return
 }
 
-#IfWinActive ahk_class Qt5153QWindowOwnDCIcon ahk_exe HD-Player.exe
+#IfWinActive ahk_class Qt5153QWindowOwnDCIcon ahk_exe HD-Player.exe ;{ 
 ;~ $RButton::LButton
-;~ $LButton::RButton
+;~ $LButton::RButton  ;}
 
-#IfWinActive ahk_exe audacity.exe
+#IfWinActive ahk_exe audacity.exe ;{ 
 $+Space::+Space
+  ;}
 
-
-#IfWinActive ahk_exe mixcraft9.exe
+#IfWinActive ahk_exe mixcraft9.exe ;{ 
 ^Left::Home
 ^Right::End
-
+  ;}
+  
 #IfWinActive
 
 ;; ctrl+insert - types out the date in a pre-defined format that is changeable
+Lbl_Insert_Date: ;{
 ^Insert::
 	;~ time_sendDate("yyyy")
 	time_sendDate()
-	return
+	return  ;}

@@ -3,16 +3,7 @@
 #IfWinActive
 
  
-/* time_getDate(STRING:= dateFormat)
-;; Descr:	Gets the date in the specified format.
-;; Return:	STRING
-;; Params:
-;;	p_format: STRING 
-;;	must use only these characters
-;; 	(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")
-;; 	[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
-;; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
+
 /* Date Formats (case sensitive)
 ;; =============================================================================
 ;; Format 	Description
@@ -63,12 +54,22 @@
 ;; YWeek 		The ISO 8601 full year and week number. For example: 200453. If the week containing January 1st has four or more days in the new year, it is considered week 1. Otherwise, it is the last week of the previous year, and the next week is week 1. Consequently, both January 4th and the first Thursday of January are always in week 1.
 ;; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
+/** time_getDate(STRING:= dateFormat)
+;; Descr:	Gets the date in the specified format.
+;; Return:	STRING
+;; Params:
+;;	p_format: STRING 
+;;	must use only these characters
+;; 	(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")
+;; 	[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
+;; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
 time_getDate(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt"){
 	FormatTime, outputVar, , % p_str_dateFormat
 	return % outputVar
 }
 
-/* time_translateDate(p_timeShift, p_timeUnit := "Days", p_format := "yyyy-MM-dd_hh-mm-ss_tt")
+/** time_translateDate(p_timeShift, p_timeUnit := "Days", p_format := "yyyy-MM-dd_hh-mm-ss_tt")
 ;; Descr:	Uses [EnvAdd,] command to shift the current date by a given number and unit.
 	Return:	STRING	- returns the resulting date-time as a string with the given format.
 	Params:	INTEGER	p_timeShift	:=	(any positive or negative integer)

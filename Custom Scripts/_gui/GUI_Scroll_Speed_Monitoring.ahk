@@ -1,39 +1,13 @@
-/* ;SCROLL SPEED MONITORING (AS TOOLTIP)
- * ;===============================================================================
- * #Persistent
- * SetTimer, ScrollSpeedMonitor, 50
- * return
- * ;-------------------------------------------------------------------------------
- * ScrollSpeedMonitor:
- * ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . scrollAmount ""
- * return
- */
+;; shows the amount of scroll-wheel inputs sent as a tooltip following the mouse
 
-/* lines
- * 	of 
- * 	test
- * text 
- * 	to 
- * 	un-block-comment
- * 	
- */
+;; loop the given label-block by n-amount
+SetTimer, Lbl_Scroll_Speed_Monitor, 50
+return
 
+;; breaker-switch
+Pause::ExitApp
 
-
-
-#PersistenT 
-
-;SCROLL SPEED MONITORING (AS TOOLTIP)
-;===============================================================================
-;auto-execute section===========================================================
-;	cmd,      label,              time interval in milliseconds
- SetTimer, ScrollSpeedMonitor, 50
- return
-;end of auto-execute section;---------------------------------------------------
-;-------------------------------------------------------------------------------
-
-;	label
-	ScrollSpeedMonitor:
-;	statement, 
+;; this label-block is looped by the command 'SetTimer'
+Lbl_Scroll_Speed_Monitor: ;{ 
 	ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . scrollAmount ""
-	return
+	return  ;}
