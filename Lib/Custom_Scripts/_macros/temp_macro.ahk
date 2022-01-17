@@ -21,21 +21,18 @@ global macroSwitch_M4 := false
 global macroSwitch_M5 := false
 
 Pause::ExitApp
-;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 ;; temp start
-;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-;; Date Calculator
-;; ^Insert::MsgBox, , % "title", % "message " . time_translateDate(25,, "yyy / M-MMM / dd-ddd")
-^Insert::
+Lbl_Temp_Macros:
+	
+	
+
+Lbl_Date_Calculator:
+^Insert:: ;{ 
 	n := 25
 	Clipboard := time_translateDate(n,, "MMMM d, yyyy")
 	MsgBox, , % "title", % "message " . time_translateDate(n,, "MMMM d, yyyy")
-	return
-;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-MsgBox, , % "title", % "" . Asc("")
-;; Tab::Send, {ASC 09} ;; for some reason, this didn't work in some in-browser text-editors
-;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+	return  ;}
 
 
 
@@ -44,12 +41,9 @@ MsgBox, , % "title", % "" . Asc("")
   ||_____________|| + ||_____________|| = 4-Spaces
   |/_____________\|   |/_____________\|
 */
-Tab::return
-Tab Up::pasteClipboard("	")
 
-
-
-
+;; Tab::return
+;; Tab Up::pasteClipboard("	")
 
 /* _______________     _______________ 
   || CapsLock    ||   || Tab         ||
@@ -135,35 +129,63 @@ Tab Up::pasteClipboard("	")
 } 
 */
 
-;: temp end
-;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 ;; Macro Buttons on Razer Black Widow Keyboard (M1~M5)
 ;; ┌──────────┬──────────┬──────────┬──────────┬──────────┐
 ;; │ M1 = F20 │ M2 = F21 │ M3 = F22 │ M4 = F23 │ M5 = F24 │
 ;; └──────────┴──────────┴──────────┴──────────┴──────────┘
 
-/* _______________     _______________     _______________     _______________ 
-  ||             ||   ||             ||   ||             ||   ||             ||
-  ||_____________|| + ||_____________|| + ||_____________|| + ||_____________||
-  |/_____________\|   |/_____________\|   |/_____________\|   |/_____________\|
-*/
-
-;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-/* ______     _____ 
-  || FN || + || 7 || parse the whole document
+/** parse the whole document
+   ______     _____ 
+  || FN || + || 7 || 
   ||____||   ||___||
   |/____\|   |/___\|
 */
 F19::macro_00()
 
-;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-/* ______ 
-  || M1 || macro_f20_01
+/** macro_save_resourceHacker_00
+   ______ 
+  || M1 || 
   ||____|| 
   |/____\| 
 */
-F20::macro_f20_01()
+F20::macro_save_iconConvert_00()
+
+;; macro for saving files from (https://online-converting.com/image/)
+macro_save_iconConvert_00(){
+	;; switch the boolean state
+	macroSwitch_M1 := (!macroSwitch_M1)
+	
+	while (macroSwitch_M1){
+		;; open the save dialog
+		Send, {Enter}
+		;; WinWait, ahk_class #32770 ahk_exe firefox.exe
+		;; WinActivate
+		Sleep, 2000
+		
+		;; check the filename
+		Clipboard :=
+		copySelection()
+		ClipWait
+		
+		if (Clipboard == "Z.ico"){
+			Send, !s
+			Send, !y
+			Sleep, 400
+			MsgBox, , % "title", % "hit end of list"
+			
+			;: Exit
+			return
+		}
+		;; send the file-type and save
+		Send, !s
+		Send, !y
+		Sleep, 400
+		Send, {Tab 3}
+	}
+	return
+}
+
+
 
 macro_f20_02(){
 	macroSwitch_M1 := !macroSwitch_M1
@@ -172,7 +194,9 @@ macro_f20_02(){
 		Sleep, 100
 	}
 }
-macro_f20_01(){
+
+;; macro for saving resources from Resouce Hacker application
+macro_save_resourceHacker_00(){
 	;; switch the boolean state
 	macroSwitch_M1 := (!macroSwitch_M1)
 	
@@ -211,7 +235,7 @@ macro_00(){
 	
 	return
 }
-;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 /* ______ 
   || M2 || remove whitespace characters
   ||____||
@@ -222,7 +246,7 @@ F21::
 	regex_convertText_SciTE_API(true)
 	return
 }
-;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 /* ______      ______     _____                          
   || M3 ||░░░░|| FN ||░░░|| 0 || sort lines
   ||____||░OR░||____||░+░||___|| 

@@ -6,7 +6,8 @@
 #SingleInstance Force
 
 Menu, Tray, MainWindow
-Menu, Tray, Icon, % "E:\Assets\Icons\keyboards\msctf_410.ico"
+;; Menu, Tray, Icon, % "E:\Assets\Icons\keyboards\msctf_410.ico"
+Menu, Tray, Icon, % "E:\Assets\Icons\keyboard_keys\case_upper\A.ico"
 DetectHiddenWindows, On ;; Allows a script's hidden main window to be detected.
 SetTitleMatchMode, 2 ;; 2 = A window's title can contain WinTitle anywhere inside it to be a match.
 
