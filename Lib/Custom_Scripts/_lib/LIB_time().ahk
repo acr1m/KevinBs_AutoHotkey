@@ -2,8 +2,6 @@
 ;; -----examples of date formatting (FormatTime) are at the bottom.
 #IfWinActive
 
- 
-
 /* Date Formats (case sensitive)
 ;; =============================================================================
 ;; Format 	Description
@@ -54,6 +52,7 @@
 ;; YWeek 		The ISO 8601 full year and week number. For example: 200453. If the week containing January 1st has four or more days in the new year, it is considered week 1. Otherwise, it is the last week of the previous year, and the next week is week 1. Consequently, both January 4th and the first Thursday of January are always in week 1.
 ;; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
+
 /** time_getDate(STRING:= dateFormat)
 ;; Descr:	Gets the date in the specified format.
 ;; Return:	STRING
@@ -64,7 +63,7 @@
 ;; 	[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
 ;; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
-time_getDate(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt"){
+time_getDate(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt") {
 	FormatTime, outputVar, , % p_str_dateFormat
 	return % outputVar
 }
@@ -78,9 +77,7 @@ time_getDate(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt"){
 							or...	["s" | "m" | "h" | "d"]
 			STRING	p_format 	:=	(default := "yyyy-MM-dd_hh-mm-ss_tt")
 */
-time_translateDate(p_timeShift
-			, p_timeUnit := "Days"
-			, p_format := "yyyy-MM-dd_hh-mm-ss_tt"){
+time_translateDate(p_timeShift, p_timeUnit := "Days", p_format := "yyyy-MM-dd_hh-mm-ss_tt") {
 	;; TODO - setup a method to subtract the current date by a given number and output as STRING.
 	;; FormatTime, 
 	;; v_date := time_getDate("yyyyMMdd")
@@ -103,6 +100,15 @@ time_translateDate(p_timeShift
 	return outVar
 }
 
+/**	time_sendDate()
+	Descr:	____enter_a_description____
+	Return:	VOID-STRING-BOOLEAN-INTEGER_STRING-FLOAT_STRING
+	Params:	p_alpha :=	STRING	(default := "str")
+			p_beta :=	BOOLEAN
+			p_gamma :=	INTEGER_STRING
+			p_delta :=	FLOAT_STRING
+	Notes:	____How_to_or_when_is_this_used?____
+*/
 /* time_sendDate(STRING:= dateFormat)
 ;; Descr:	Gets the date in the specified format.
 ;; Return:	STRING
@@ -113,13 +119,13 @@ time_translateDate(p_timeShift
 ;; 	[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
 ;; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
-time_sendDate(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt"){
+time_sendDate(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt") {
 	outVar := time_getDate(p_str_dateFormat)
 	;~ Send, %outVar%
 	Send, % outVar
 }
 
-/* ;;EXAMPLES
+/** ;;EXAMPLES
 ;; FormatTime, TimeString
 ;; MsgBox, , "FormatTime`, TimeString", The current time and date (time first) is %TimeString%.
 ;; 

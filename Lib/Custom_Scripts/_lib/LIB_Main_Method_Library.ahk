@@ -1,5 +1,10 @@
 ;~ UTILITY METHODS
-
+#Include %A_ScriptDir%\_lib
+#Include LIB_Main_Method_Library.ahk
+#Include LIB_Emojis_And_Symbols.ahk
+#Include LIB_repeatKey().ahk
+#Include LIB_time().ahk
+#Include LIB_RegEx().ahk
 ;~ CONSTANTS
 	global SUSPEND_LIMIT := 200 ; n milliseconds
 	global DOUBLE_TAP_LIMIT := 350 ; n milliseconds
@@ -15,14 +20,15 @@
 ;~ CLIPBOARD METHODS
 ;==============================================================================
 
-/**	copySelection(p_clipWaitTime := 1)
-Descr:	Sends "Ctrl+c"
-Return:	BOOLEAN
+/*!
+	Function: copySelection(p_clipWaitTime := 1)
+		Sends "Ctrl+c"
+Returns:	BOOLEAN
 Params:	p_clipWaitTime:=	INTEGER (seconds)
 Notes:	Make sure to have something "selected" before calling this 
 			method for it to work.
 */
-copySelection(p_clipWaitTime := 1){
+copySelection(p_clipWaitTime := 1) {
 	;copy command
 	Send, ^c	
 	;make sure not to proceed without the clipboard being filled
@@ -34,9 +40,10 @@ copySelection(p_clipWaitTime := 1){
 	return true
 }
 
-/** setClipboard()
-Descr:	Attempts to set the passed arguement's value to the Clipboard.
-Return:	BOOLEAN - true, if successful.
+/*!
+	Function: setClipboard()
+		Attempts to set the passed arguement's value to the Clipboard.
+Returns:	BOOLEAN - true, if successful.
 		BOOLEAN - false, if error occurred.
 Params:	p_clipWaitTime := 1
 		p_str := ""
@@ -45,7 +52,7 @@ Params:	p_clipWaitTime := 1
 Notes:	At end of method process, restores Clipboard back to what 
 			it was prior to calling this method.
  */
-setClipboard(p_clipWaitTime := 1, p_str := ""){
+setClipboard(p_clipWaitTime := 1, p_str := "") {
 	;archive Clipboard contents
 	archiveClipboard()
 	;set Clipboard
@@ -59,15 +66,16 @@ setClipboard(p_clipWaitTime := 1, p_str := ""){
 	return true
 }
 
-/**	getClipboard(outputVar)
-Descr:	Assigns Clipboard's content's value to the given argument.
-Return:	BOOLEAN - true, if success
+/*!
+	Function: getClipboard(outputVar)
+		Assigns Clipboard's content's value to the given argument.
+Returns:	BOOLEAN - true, if success
 		BOOLEAN - false, if failure
 		INTEGER - -1, if unknown error
 Params:	ByRef p_outputVar := OBJECT
 Notes:	Must declare a variable object as argument.
 */
-getClipboard(ByRef p_outputVar){
+getClipboard(ByRef p_outputVar) {
 	p_outputVar := Clipboard
 	if (p_outputVar != Clipboard)
 		retVal := false ;; failure - does not match Clipboard
@@ -78,29 +86,29 @@ getClipboard(ByRef p_outputVar){
 	return retVal
 }
 
-
-/**	pasteClipboard()
-Descr:	Handles the pasting of Clipboard contents, without affecting
+/*!
+	Function: pasteClipboard()
+		Handles the pasting of Clipboard contents, without affecting
 			the current clip.
-Return:	BOOLEAN - true, if successful.
+Returns:	- BOOLEAN - true, if successful.
 		BOOLEAN - false, if error occurred.
 Params:	p_str := ""
 Notes:	If argument is left blank, then paste current Clipboard contents.
 		If argument is defined, then paste the argument without 
 			affecting the current Clipboard.
 */
-pasteClipboard(p_str := ""){
+pasteClipboard(p_str := "") {
 	retVal := false
 	;; paste like normal
-	if (p_str == ""){ 
+	if (p_str == "") { 
 		Send, ^v
 		retVal := true
 	}
 	;; if argument is defined, then paste it without affecting the current Clipboard.
-	else if (p_str != ""){
+	else if (p_str != "") {
 		testBool := setClipboard(1, p_str)
 		Sleep, 200
-		if (testBool == true){
+		if (testBool == true) {
 			Send, ^v
 			retVal := true
 		}
@@ -118,7 +126,7 @@ pasteClipboard(p_str := ""){
 }
 
 ;[DEPRECATED], use setClipboard() isntead
-archiveThenCopy(p_clipWaitTime := 0){
+archiveThenCopy(p_clipWaitTime := 0) {
 	;save and wipe the clipboard
 	archiveClipboard()
 	copySelection(p_clipWaitTime)
@@ -126,11 +134,11 @@ archiveThenCopy(p_clipWaitTime := 0){
 }
 
 ;used in setClipboard() method
-archClip(){
+archClip() {
 	return archiveClipboard()
 }
 ;used in setClipboard() method
-archiveClipboard(){
+archiveClipboard() {
 	;if archivedClipboard is not equal to ClipboardAll
 	if (g_archivedClipboard != ClipboardAll) {
 		;clips are different, so overwrite archive with current clipAll
@@ -154,12 +162,12 @@ archiveClipboard(){
 }
 
 ;used in setClipboard() method
-rstrClip(){
+rstrClip() {
 	return restoreClipboard()
 }
 ;used in setClipboard() method
-restoreClipboard(){
-	if (g_archivedClipboard != ClipboardAll){
+restoreClipboard() {
+	if (g_archivedClipboard != ClipboardAll) {
 		;clips are different, so overwrite clipboard with current archive
 		Clipboard := g_archivedClipboard
 		
@@ -167,7 +175,7 @@ restoreClipboard(){
 		return true
 	}
 	;"==" case-sensitive is-equal-to operator
-	else if (g_archivedClipboard == ClipboardAll){
+	else if (g_archivedClipboard == ClipboardAll) {
 		;both clips are the same, process failed
 		return false
 	} 
@@ -180,31 +188,32 @@ restoreClipboard(){
 ;; OTHER METHODS
 ;;==============================================================================
 
-/**	doubleTap()
-Descr:	Checks if user hit the triggered hotkey recently (within a given time
+/*!
+	Function: doubleTap()
+		Checks if user hit the triggered hotkey recently (within a given time
 			limit).
-Return:	BOOLEAN
+Returns:	BOOLEAN
 Params:	p_timeLimit :=	INTEGER|FLOAT (default := DOUBLE_TAP_LIMIT | 350)
 Notes:	Does not prevent a 'triple-tap' evaulating as two 'double-taps'.
 			e.g., if p_timeLimit is 500, and 3 taps are sent 200ms apart,
 				then doubleTap() would return TRUE twice. 
 EXAMPLE: if (doubleTap(350)) { commands }
 */
-doubleTap(p_timeLimit := -1){
-	if(p_timeLimit != -1){
+doubleTap(p_timeLimit := -1) {
+	if(p_timeLimit != -1) {
 		;; If p_timeLimit is not -1, then the argument exists, so we let it stand.
 	}
 	;; We can't let the p_timeLimit be (0 | false | 1 | true), because 
 	;; it's impracticle and nearly impossible. So we'll re-assign to a global
 	;; default value if it exists. 
-	else if (p_timeLimit == 0){
+	else if (p_timeLimit == 0) {
 		if (DOUBLE_TAP_LIMIT <= 0)
 			p_timeLimit := 350
 		else
 			p_timeLimit := DOUBLE_TAP_LIMIT
 	}
 	
-	if  (A_PriorHotkey = A_ThisHotkey && A_TimeSincePriorHotkey < p_timeLimit){
+	if  (A_PriorHotkey = A_ThisHotkey && A_TimeSincePriorHotkey < p_timeLimit) {
 		;~ MsgBox, %outText% ; for debugging
 		return true
 	} 
@@ -214,7 +223,7 @@ doubleTap(p_timeLimit := -1){
 }
 
 
-rapidFire(p_thisHotkey := "", p_sendKey := "", p_time := 0){
+rapidFire(p_thisHotkey := "", p_sendKey := "", p_time := 0) {
 	if (p_thisHotkey == "")
 		p_thisHotkey := A_ThisHotkey
 	
@@ -222,7 +231,7 @@ rapidFire(p_thisHotkey := "", p_sendKey := "", p_time := 0){
 	
 	if (p_time == 0)
 		p_time := TIME_INTERVAL_RAPIDFIRE
-	while (GetKeyState(p_thisHotkey, "P")){
+	while (GetKeyState(p_thisHotkey, "P")) {
 		;~ MsgBox % GetKeyName(p_sendKey)
 		Send % GetKeyName(p_sendKey)
 		Sleep, p_time
@@ -310,15 +319,10 @@ GetClientSize(v_hWnd, ByRef w := "", ByRef h := "")
 	h := NumGet(rect, 12, "int")
 }
 
-
-
-
-
-
 ;========================================================================
 ;MOUSE EVENT METHOD
 ;------------------------------------------------------------------------
-mouseEvent(p_clickDelay := 200, p_coordAsPercent*){
+mouseEvent(p_clickDelay := 200, p_coordAsPercent*) {
 	;p_coords := {x,y},{x,y},{x,y},{x,y}
 	;CoordMode, ToolTip|Pixel|Mouse|Caret|Menu [, Screen|Window|Client]
 	;MouseGetPos [, OutputVarX, OutputVarY, OutputVarWin, OutputVarControl, 1|2|3]

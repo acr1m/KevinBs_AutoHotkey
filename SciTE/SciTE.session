@@ -1,85 +1,79 @@
 # SciTE session file
 
-position.left=-7
-position.top=4
-position.width=975
+position.left=898
+position.top=0
+position.width=1029
 position.height=1047
 position.maximize=0
 
-mru.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\Sticky-Notes-WIN.ahk
-mru.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_RegEx_Visual_Keyboard.ahk
-mru.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_RegEx_Visual_Keyboard_generated_gui5.ahk
-mru.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\pwrRun-date00-WIN.ahk
-mru.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_PowerRun.ahk
+mru.1.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\platforms.properties
+mru.2.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\toolbar.properties
+mru.3.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\UserToolbar.properties
+mru.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\_lib\LIB_time().ahk
+mru.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\_lib\LIB_RegEx().ahk
 mru.6.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
-mru.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_Scroll_Speed_Monitoring.ahk
-mru.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_SciTE4AutoHotkey.ahk
-mru.9.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\toolbar.properties
-mru.10.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\tools\TillaGoto.ahk
+mru.7.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\Styles\HatOfGod_New_v2.style.properties
+mru.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Copied_Scripts\GenDocs\Demo\TestLib.ahk
+mru.9.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\tools\Autorun.ahk
+mru.10.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\Autorun.ahk
 
-buffer.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\AHK_Main.ahk
-buffer.1.position=3827
-buffer.1.scroll=118
+buffer.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\AHK_Main.ahk
+buffer.1.position=1444
+buffer.1.scroll=36
 buffer.1.current=1
-buffer.1.bookmarks=149,154,157,171
-buffer.1.folds=13,20,34,43,48,54,70,77,82,85,89,93,96,100,121,147,154,157,161,171,189,196,216,247,253,256,266,275,296,331,354,358,362,370
+buffer.1.bookmarks=265,267
+buffer.1.folds=16,23,37,46,51,57,73,80,97,100,104,108,111,115,136,162,169,172,176,186,204,211,231,277,283,286,296,305,326,338,361,384,388,392,399,413
 
-buffer.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\UTILITY_Cut_Copy_Paste_(pause_to_break).ahk
-buffer.2.position=236
+buffer.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\AHK_Math_Keyboard_.ahk
+buffer.2.position=1124
 buffer.2.scroll=0
+buffer.2.folds=27,34,66,94,103,122,171,190,220,255,289,319,487,817,852,858,899
 
-buffer.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_macros\temp_macro.ahk
-buffer.3.position=432
-buffer.3.scroll=0
-buffer.3.bookmarks=72
-buffer.3.folds=113
+buffer.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\_macros\temp_macro.ahk
+buffer.3.position=6427
+buffer.3.scroll=225
 
-buffer.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib\LIB_time().ahk
-buffer.4.position=2624
-buffer.4.scroll=43
+buffer.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\_lib\LIB_Main_Method_Library.ahk
+buffer.4.position=6327
+buffer.4.scroll=200
 
-buffer.5.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
-buffer.5.position=1
+buffer.5.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\platforms.properties
+buffer.5.position=165
 buffer.5.scroll=0
 
-buffer.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\Sticky-Notes-WIN.ahk
-buffer.6.position=158
+buffer.6.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\toolbar.properties
+buffer.6.position=567
 buffer.6.scroll=0
 
-buffer.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_RegEx_Visual_Keyboard.ahk
-buffer.7.position=126
+buffer.7.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\UserToolbar.properties
+buffer.7.position=448
 buffer.7.scroll=0
 
-buffer.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_RegEx_Visual_Keyboard_generated_gui5.ahk
-buffer.8.position=116
-buffer.8.scroll=0
+buffer.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\_lib\LIB_time().ahk
+buffer.8.position=4616
+buffer.8.scroll=77
 
-buffer.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\pwrRun-date00-WIN.ahk
-buffer.9.position=11
-buffer.9.scroll=0
+buffer.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\_lib\LIB_RegEx().ahk
+buffer.9.position=1472
+buffer.9.scroll=46
 
-buffer.10.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_PowerRun.ahk
-buffer.10.position=3490
-buffer.10.scroll=0
-buffer.10.folds=5,16,22,29,35,47,55,64,76,84,93,151,156,163,171,178,219,228
+buffer.10.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
+buffer.10.position=4708
+buffer.10.scroll=96
 
-buffer.11.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
-buffer.11.position=28570
-buffer.11.scroll=551
+buffer.11.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\Styles\HatOfGod_New_v2.style.properties
+buffer.11.position=1956
+buffer.11.scroll=44
 
-buffer.12.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_Scroll_Speed_Monitoring.ahk
-buffer.12.position=385
+buffer.12.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Copied_Scripts\GenDocs\Demo\TestLib.ahk
+buffer.12.position=6
 buffer.12.scroll=0
+buffer.12.folds=1,12,18,43,46,54,172
 
-buffer.13.path=E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win\WIN_SciTE4AutoHotkey.ahk
-buffer.13.position=371
+buffer.13.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\tools\Autorun.ahk
+buffer.13.position=2
 buffer.13.scroll=0
 
-buffer.14.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\toolbar.properties
-buffer.14.position=544
+buffer.14.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\Autorun.ahk
+buffer.14.position=103
 buffer.14.scroll=0
-
-buffer.15.path=E:\Software\AutoHotkey_MyInstallation_v01\SciTE\tools\TillaGoto.ahk
-buffer.15.position=19527
-buffer.15.scroll=711
-buffer.15.folds=1,9,12,25,53,58,63,68,74,155,158,163,345,355,357,364,365,371,375,379,384,388,450,465,477,598,619,624,749,778,937,946,976,1014,1062,1088,1141,1167,1177,1218,1243,1277,1288,1299,1358,1363,1368,1372,1419,1439,1443,1641,1656,1709,1715,1738,1743,1833,1864,1868,1904,1944,1983,1996,2002,2013,2068,2073,2077,2102,2182,2190,2197,2201,2230,2285,2293,2300,2306,2315

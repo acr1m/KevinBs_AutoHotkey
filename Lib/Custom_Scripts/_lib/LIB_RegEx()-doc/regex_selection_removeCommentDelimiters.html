@@ -1,0 +1,28 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>regex_selection_removeCommentDelimiters()</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="default.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<h1>regex_selection_removeCommentDelimiters()</h1>
+
+<pre class="Syntax">regex_selection_removeCommentDelimiters()</pre>
+<h3>Parameters</h4>
+<dl>
+  <dt>p_delimiter_begin</dt>
+  <dd>&quot;(/**?\s*)&quot;
+p_delimiter_mid - &quot;(?&lt;=(?:\r|\n|(?:\r\n)))((;;\s)|(;:\s)|(;~\s))&quot;
+p_delimiter_end := &quot;(?:*/)&quot;</dd>
+</dl>
+<h3>Returns</h3>
+<p>VOID</p>
+<h3>Remarks</h3>
+<p>Must have something selected for this method to work.</p>
+
+</body>
+</html>

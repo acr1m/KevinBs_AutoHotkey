@@ -6,6 +6,8 @@
 #SingleInstance Force
 
 Menu, Tray, MainWindow
+Menu, Tray, Click, 1
+Menu, Tray, Default, 
 ;; Menu, Tray, Icon, % "E:\Assets\Icons\keyboards\msctf_410.ico"
 Menu, Tray, Icon, % "E:\Assets\Icons\keyboard_keys\case_upper\A.ico"
 DetectHiddenWindows, On ;; Allows a script's hidden main window to be detected.
@@ -79,22 +81,34 @@ Pause:: ;{
 ;        OPEN FILES, OPEN SOFTWARE, OPEN PROGRAMS, OPEN APPLICATIONS, OPEN APPS
 ;}
 
+Lbl_Run_Copy_Paste_Simple:
+^F23::
+	v_file := A_ScriptDir . "\_shortcuts\UTILITY_Cut_Copy_Paste_(pause_to_break).exe - Shortcut.lnk"
+	Run, explorer %v_file%
+	return
+
+Lbl_Run_Temp_Macro:
+^F24::
+	v_file := A_ScriptDir . "\_shortcuts\temp_macro.exe - Shortcut.lnk"
+	Run, explorer %v_file%
+	return
+
 ;; show mouse position tooltip
-Lbl_Show_Mouse_Position_Tooltip: ;{ 
+Lbl_Run_Mouse_Position_Tooltip: ;{ 
 ^#AppsKey::Run, "AHK_Utility_Mouse_Position_As_Percentage_Tooltip.exe"  ;}
 
-Lbl_Open_NotepadPP: ;{ 
+Lbl_Run_NotepadPP: ;{ 
 #n::Run, "Notepad++"
 ;~ #a::Run, E:\Software\AutoHotKey\SciTE\SciTE.exe ;}
 
-Lbl_Open_SciTE: ;{ 
+Lbl_Run_SciTE: ;{ 
 #IfWinActive
 #a::Run, "E:\Software\AutoHotkey_MyInstallation_v01\SciTE\SciTE.exe" ;}
 
-Lbl_Open_Voicemeeter: ;{ 
+Lbl_Run_Voicemeeter: ;{ 
 #s::Run, "C:\Program Files (x86)\VB\Voicemeeter\voicemeeter.exe" ;}
 
-Lbl_Open_Windows_Sound_Control_Panel: ;{ 
+Lbl_Run_Windows_Sound_Control_Panel: ;{ 
 ^#s::Run, "E:\Assets\Scripts\Windows Commands\Sound Control Panel - Playback Tab.bat" ;}
 
 ;; currently on-hold
@@ -239,8 +253,23 @@ AppsKey & Left::Send, ^#{Left}
 ;; swipe to desktop to the right
 AppsKey & Right::Send, ^#{Right}
 
-;; undo command
+;; undo commandv
 ^+z::Send, ^y
+
+;; re-map default Windows-Key behavior, [LWin] => WinPaste, [LWin+z] => [LWin]
+Lbl_WindowsKey_Paste:
+;; LWin Up::MsgBox, , % "LWin", % "LWin: Up`nTickCount = " . A_TickCount . "`nA_Now = " . A_Now, 0
+
+;{ ;; LWin::
+;       	;; return
+;       ;; $LWin Up::Send, #v
+;       
+;       ;; LControl & LWin Up::
+;       ;; $!LWin::
+;       	;; Send, {LWin}
+;       	;; MsgBox, % "Send, {LWin}"
+;       	;; return
+;}
 
 ;HOLD WINDOWS KEY AND DOUBLE TAP CTRL OR ALT TO MOVE DESKTOPS
 ;~ #LCtrl
@@ -364,7 +393,20 @@ $+Space::+Space
 ^Left::Home
 ^Right::End
   ;}
-  
+
+;; this targets the script-debug-window from the tray-icon
+#IfWinActive E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\AHK_Main.ahk - AutoHotkey v1.1.33.10 ahk_class AutoHotkey ahk_exe AutoHotkey.exe
+k:: ;{
+	Send, ^k
+	return
+;}
+Space::F5
+
+
+;;Re-declare any window as an acceptable 
+;;case-scenario before exit.
+#IfWinActive
+
 #IfWinActive
 
 ;; ctrl+insert - types out the date in a pre-defined format that is changeable

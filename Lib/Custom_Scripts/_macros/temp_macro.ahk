@@ -24,14 +24,14 @@ Pause::ExitApp
 
 ;; temp start
 Lbl_Temp_Macros:
-	
-	
+
 
 Lbl_Date_Calculator:
 ^Insert:: ;{ 
-	n := 25
-	Clipboard := time_translateDate(n,, "MMMM d, yyyy")
-	MsgBox, , % "title", % "message " . time_translateDate(n,, "MMMM d, yyyy")
+	n := 1000
+	d := "Days"
+	Clipboard := time_translateDate(n, d, "MMMM d, yyyy")
+	MsgBox, , % "title", % "message " . time_translateDate(n, d, "MMMM d, yyyy hh:mm:ss")
 	return  ;}
 
 
@@ -184,7 +184,6 @@ macro_save_iconConvert_00(){
 	}
 	return
 }
-
 
 
 macro_f20_02(){
