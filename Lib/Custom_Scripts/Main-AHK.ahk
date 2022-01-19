@@ -228,14 +228,14 @@ main_scrollMethod_01(p_elapsedTimeLimit := 500){
 ;; single-tap = {underscore} and double-tap = {hyphen, i.e., minus}
 +Space::_shift_space(shiftSpaceTapCounter)
 
-_shift_space(ByRef p_counter){
+_shift_space(ByRef p_counter) {
 	p_counter++
 	
 	;; when shift+space is hit twice, send -
-	if (p_counter == 2 && doubleTap(g_DOUBLE_TAP_LIMIT)){
+	if (p_counter == 2 && doubleTap(g_DOUBLE_TAP_LIMIT)) {
 		Send, -
 		return
-	} else if (p_counter == 3 && doubleTap(g_DOUBLE_TAP_LIMIT)){
+	} else if (p_counter == 3 && doubleTap(g_DOUBLE_TAP_LIMIT)) {
 		
 		return
 	} else {
