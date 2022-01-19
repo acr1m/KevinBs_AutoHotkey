@@ -1,5 +1,5 @@
-;~ #Include %A_ScriptDir%\..\LIB\LIB_Main_Method_Library.ahk
-;~ #Include %A_ScriptDir%\..\LIB\LIB_repeatKey().ahk
+;~ #Include %A-ScriptDir%\..\LIB\LIB-Main-Method-Library.ahk
+;~ #Include %A-ScriptDir%\..\LIB\LIB-repeatKey().ahk
 #IfWinActive ahk_exe FancyZonesEditor.exe
 ;;If window is active
 
@@ -14,7 +14,7 @@ NumpadSub::
 	fancyZones_setSize(wndWidth, wndHeight)
 	fancyZones_setPos(wndWidth, wndHeight)
 	
-	;;Create a new floating-window-zone and select it.
+	;;Create a new floating\-window-zone and select it.
 	Send, ^{Tab}{Space}^{Tab}+{Tab}
 
 	;; 2r 2c
@@ -36,7 +36,7 @@ NumpadSub::
 		Send, ^{Tab}{Space}^{Tab}+{Tab}
 	}
 
-	;;select next pre-existing floating-window-zone.
+	;;select next pre-existing floating\-window-zone.
 	;~ Send, {Tab}
 
 	return

@@ -24,7 +24,7 @@
 	return
 
 label_OpenExcel:
-#Include WIN_Excel_filepaths.ahk
+#Include Excel-filepaths-WIN.ahk
 	;~ Run, % "open" filePathFor_Excel
 	;~ MsgBox,,, % "Msg from `n#IfWinActive NONE `n#x::", % 3
 	Run, %filePathFor_Excel% %filePathFor_Excel_doc%

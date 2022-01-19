@@ -1,7 +1,7 @@
 ;; This is a utility script which, when active, injects {Ctrl} on key-down of
 ;; x, c, and v, to cut, copy, and paste.
 
-;~ #IfWinActive PowerLauncher ahk_class HwndWrapper[PowerLauncher;;300ce19b-7b4c-49eb-a764-0a730ee71419] ahk_exe PowerLauncher_exe
+;~ #IfWinActive PowerLauncher ahk_class HwndWrapper[PowerLauncher;;300ce19b-7b4c-49eb-a764-0a730ee71419] ahk_exe PowerLauncher.exe
 ;~ c::c
 ;~ v::v
 ;~ x::x

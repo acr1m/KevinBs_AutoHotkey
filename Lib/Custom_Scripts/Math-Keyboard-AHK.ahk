@@ -1,4 +1,4 @@
-﻿#Include %A_ScriptDir%\_lib\LIB_Main_Method_Library.ahk
+﻿#Include %A-ScriptDir%\-lib\LIB-Main-Method-Library.ahk
 #SingleInstance Force
 #InstallKeybdHook
 

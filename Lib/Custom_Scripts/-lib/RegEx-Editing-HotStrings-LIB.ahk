@@ -1,4 +1,4 @@
-#Include LIB_Main_Method_Library.ahk
+#Include Main-Method-Library-LIB.ahk
 #Include LIB_
 
 MsgBox "test1"

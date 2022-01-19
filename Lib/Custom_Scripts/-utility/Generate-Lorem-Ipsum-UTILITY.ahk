@@ -1,5 +1,5 @@
 /* ;: for testing purposes
-;; #Include %A_ScriptDir%\..\_lib\LIB_Main_Method_Library.ahk
+;; #Include %A-ScriptDir%\..\-lib\LIB-Main-Method-Library.ahk
 ;; Pause::ExitApp
 ;; 1::generate_loremIpsum(6)
 */
@@ -12,7 +12,7 @@
 */
 generate_loremIpsum(p_paragraphAmount := 3){
 	retVal := ""
-	file := "E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\lorem_ipsum.txt"
+	file := "E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\-utility\lorem_ipsum.txt"
 	
 	;;;; EXPRESSION STYLE - SYNTAX
 	;: i := 1

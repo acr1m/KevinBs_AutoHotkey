@@ -1,5 +1,5 @@
-#Include LIB_Main_Method_Library.ahk
-#Include LIB_repeatKey().ahk
+#Include Main-Method-Library-LIB.ahk
+#Include repeatKey()-LIB.ahk
 
 
 +9::Send, +9+0{Left}

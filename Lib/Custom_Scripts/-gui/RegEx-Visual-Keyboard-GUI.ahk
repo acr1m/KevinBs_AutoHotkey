@@ -1,6 +1,6 @@
-#Include %A_ScriptDir%\..\_lib
-#Include LIB_Main_Method_Library.ahk
-#Include LIB_repeatKey().ahk
+#Include %A_ScriptDir%\..\-lib
+#Include Main-Method-Library-LIB.ahk
+#Include repeatKey()-LIB.ahk
 
 _w   := 120
 _h   := 40

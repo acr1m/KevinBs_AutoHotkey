@@ -1,4 +1,4 @@
-#Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_Main_Method_Library.ahk
+#Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-Main-Method-Library.ahk
 #Persistent
 
 ;GET MOUSE POS AS PERCENTAGE - TOOLTIP

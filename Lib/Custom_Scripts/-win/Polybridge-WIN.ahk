@@ -1,7 +1,7 @@
 #SingleInstance Force
 #InstallKeybdHook
 #InstallMouseHook
-#Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_Main_Method_Library.ahk
+#Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-Main-Method-Library.ahk
 
 global g_PolyBridge_UndoRedoInterval := 10
 

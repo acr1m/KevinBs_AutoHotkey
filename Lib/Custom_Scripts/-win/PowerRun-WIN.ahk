@@ -2,15 +2,15 @@
 #Include pwrRun-date00-WIN.ahk
 
 ;; this block is primarily for testing script, main.ahk should already include all of these
-;; #Include %A_ScriptDir%\..\_lib ;{ 
-;; #Include LIB_Main_Method_Library.ahk
-;; #Include LIB_Emojis_And_Symbols.ahk
-;; #Include LIB_repeatKey().ahk
-;; #Include LIB_time().ahk
-;; #Include LIB_RegEx().ahk
-;; #Include %A_ScriptDir%\..\_utility
-;; #Include UTILITY_Horizontal_Scrolling.ahk
-;; #Include UTILITY_Generate_Lorem_Ipsum.ahk  ;}
+;; #Include %A_ScriptDir%\..\-lib ;{ 
+;; #Include Main-Method-Library-LIB.ahk
+;; #Include Emojis-And-Symbols-LIB.ahk
+;; #Include repeatKey()-LIB.ahk
+;; #Include time()-LIB.ahk
+;; #Include RegEx()-LIB.ahk
+;; #Include %A_ScriptDir%\..\-utility
+;; #Include Horizontal-Scrolling-UTILITY.ahk
+;; #Include Generate-Lorem-Ipsum-UTILITY.ahk  ;}
 
 ;; opens a new tab in Firefox and activates the address bar for typing
 Lbl_Firefox_Search: ;{ 

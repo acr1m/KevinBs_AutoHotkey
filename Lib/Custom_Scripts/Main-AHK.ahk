@@ -34,36 +34,36 @@ global g_scrollWheel_startTime
 Lbl_Include_Block:
 
 ;; LIBRARIES
-#Include %A_ScriptDir%\_lib ;{ 
-#Include LIB_Main_Method_Library.ahk
-#Include LIB_Emojis_And_Symbols.ahk
-#Include LIB_repeatKey().ahk
-#Include LIB_time().ahk
-#Include LIB_RegEx().ahk
-;~ #Include LIB_oneKey_Copy_Paste_Mode.ahk  ;}
+#Include %A_ScriptDir%\-lib ;{ 
+#Include Main-Method-Library-LIB.ahk
+#Include Emojis-And-Symbols-LIB.ahk
+#Include repeatKey()-LIB.ahk
+#Include time()-LIB.ahk
+#Include RegEx()-LIB.ahk
+;~ #Include oneKey-Copy-Paste-Mode-LIB.ahk  ;}
 
 ;; UTITILITIES
-#Include %A_ScriptDir%\_utility ;{ 
-#Include UTILITY_Horizontal_Scrolling.ahk
-#Include UTILITY_Generate_Lorem_Ipsum.ahk  ;}
+#Include %A_ScriptDir%\-utility ;{ 
+#Include Horizontal-Scrolling-UTILITY.ahk
+#Include Generate-Lorem-Ipsum-UTILITY.ahk  ;}
 
 ;; GUI's
-#Include %A_ScriptDir% ;{ 
-#Include _gui\GUI_Mouse_Control.ahk 
-;~ #Include AHK_Math_Keyboard_v1_2_7.ahk
+#Include %A_ScriptDir%\-gui
+#Include Mouse-Control-GUI.ahk 
+;~ #Include AHK-Math-Keyboard-v1-2-7.ahk
 ;~ Run, AHK_Math_Keyboard_.exe  ;}
 
 ;; WINDOW/APP CONTEXT SENSITIVE SCRIPTS
-#Include %A_ScriptDir%\_win ;{ 
-#Include WIN_Windows_Color_Picker.ahk
-#Include WIN_Excel.ahk
-#Include WIN_Outlook.ahk
-#Include WIN_SciTE4AutoHotkey.ahk
-#Include WIN_FancyZones.ahk
-#Include WIN_Windows_Explorer.ahk
-#Include WIN_PowerRun.ahk
-#Include WIN_Word.ahk
-#Include SmartGUI_WIN.ahk
+#Include %A_ScriptDir%\-win ;{ 
+#Include Windows-Color-Picker-WIN.ahk
+#Include Excel-WIN.ahk
+#Include Outlook-WIN.ahk
+#Include SciTE4AutoHotkey-WIN.ahk
+#Include FancyZones-WIN.ahk
+#Include Windows-Explorer-WIN.ahk
+#Include PowerRun-WIN.ahk
+#Include Word-WIN.ahk
+#Include SmartGUI-WIN.ahk
 #Include Sticky-Notes-WIN.ahk   ;}
 
 ;; BREAKER-SWITCH - activates when pressing Ctrl+Alt+Shift+{Pause}
@@ -73,8 +73,8 @@ Lbl_Include_Block:
 Pause:: ;{
 	DetectHiddenWindows, On ;; Allows a script's hidden main window to be detected.
 	SetTitleMatchMode, 2 ;; 2 = A window's title can contain WinTitle anywhere inside it to be a match.
-	WinClose, temp_macro.exe
-	WinClose, UTILITY_Cut_Copy_Paste_(pause_to_break).exe
+	WinClose, temp-macro.exe
+	WinClose, Cut-Copy-Paste-(pause-to-break)-UTILITY.exe
 	return  ;}
 
 ;{ WINDOWS KEY SHORTCUTS & SOFTWARE OPEN/START/RUN SHORTCUTS
@@ -83,19 +83,19 @@ Pause:: ;{
 
 Lbl_Run_Copy_Paste_Simple:
 ^F23::
-	v_file := A_ScriptDir . "\_shortcuts\UTILITY_Cut_Copy_Paste_(pause_to_break).exe - Shortcut.lnk"
+	v_file := A_ScriptDir . "\-shortcuts\Cut-Copy-Paste-(pause-to-break)-UTILITY.exe-Shortcut.lnk"
 	Run, explorer %v_file%
 	return
 
 Lbl_Run_Temp_Macro:
 ^F24::
-	v_file := A_ScriptDir . "\_shortcuts\temp_macro.exe - Shortcut.lnk"
+	v_file := A_ScriptDir . "\-shortcuts\temp-macro.exe-Shortcut.lnk"
 	Run, explorer %v_file%
 	return
 
 ;; show mouse position tooltip
 Lbl_Run_Mouse_Position_Tooltip: ;{ 
-^#AppsKey::Run, "AHK_Utility_Mouse_Position_As_Percentage_Tooltip.exe"  ;}
+^#AppsKey::Run, "AHK-Utility-Mouse-Position-As-Percentage-Tooltip.exe"  ;}
 
 Lbl_Run_NotepadPP: ;{ 
 #n::Run, "Notepad++"
@@ -103,7 +103,7 @@ Lbl_Run_NotepadPP: ;{
 
 Lbl_Run_SciTE: ;{ 
 #IfWinActive
-#a::Run, "E:\Software\AutoHotkey_MyInstallation_v01\SciTE\SciTE.exe" ;}
+#a::Run, "E:\Software\AutoHotkey-MyInstallation-v01\SciTE\SciTE.exe" ;}
 
 Lbl_Run_Voicemeeter: ;{ 
 #s::Run, "C:\Program Files (x86)\VB\Voicemeeter\voicemeeter.exe" ;}
@@ -121,7 +121,7 @@ Lbl_Left_Mouse_Button: ;{
 ;        			if (WinExist("Mouse Control Panel ahk_class AutoHotkeyGUI"))
 ;        				WinActivate
 ;        			else
-;        				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_GUI_Mouse_Control.exe
+;        				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-GUI-Mouse-Control.exe
 ;        				;~ gosub GUI_Mouse_Control
 ;        				gosub GuiShow_Mouse_Control
 ;        			return
@@ -144,7 +144,7 @@ Lbl_Right_Mouse_Button: ;{
 ;        			if (WinExist("Mouse Control Panel ahk_class AutoHotkeyGUI"))
 ;        				WinActivate
 ;        			else
-;        				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_GUI_Mouse_Control.exe
+;        				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-GUI-Mouse-Control.exe
 ;        				;~ gosub GUI_Mouse_Control
 ;        				gosub GuiShow_Mouse_Control
 ;        			return
@@ -160,9 +160,9 @@ Lbl_Right_Mouse_Button: ;{
 ;; shows the amount of scroll-wheel inputs sent as a tooltip following the mouse
 Lbl_Run_Scroll_Speed_Tooltip:
 #MButton:: ;{ 
-	;; Run, % "Autohotkey.exe" A_ScriptDir . "\_gui\GUI_Scroll_Speed_Monitoring.ahk"
-	;; "E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui\GUI_Scroll_Speed_Monitoring.ahk"
-	Run, autohotkey.exe %A_ScriptDir%\_gui\GUI_Scroll_Speed_Monitoring.ahk
+	;; Run, % "Autohotkey.exe" A_ScriptDir . "\-gui\GUI-Scroll-Speed-Monitoring.ahk"
+	;; "E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\-gui\GUI-Scroll-Speed-Monitoring.ahk"
+	Run, autohotkey.exe %A_ScriptDir%\-gui\GUI-Scroll-Speed-Monitoring.ahk
 	return  ;}
 ;; this section handles the method of scroll-wheel input-output speed
 Lbl_Scroll_Wheel_Speed:
@@ -394,8 +394,8 @@ $+Space::+Space
 ^Right::End
   ;}
 
-;; this targets the script-debug-window from the tray-icon
-#IfWinActive E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\AHK_Main.ahk - AutoHotkey v1.1.33.10 ahk_class AutoHotkey ahk_exe AutoHotkey.exe
+;; this targets the script-debug\-window from the tray-icon
+#IfWinActive E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom-Scripts\AHK-Main.ahk - AutoHotkey v1.1.33.10 ahk_class AutoHotkey ahk_exe AutoHotkey.exe
 k:: ;{
 	Send, ^k
 	return

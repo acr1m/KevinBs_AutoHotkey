@@ -2,13 +2,13 @@
 <Findings Exportmodule="FindingsXmlFileWriter" Exportversion="1">
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>GUI_Mouse_Control.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-gui</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
-        <Match Id="1">;~ #Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_Main_Method_Library.ahk
-#Include %A_ScriptDir%\_lib
-#Include LIB_Main_Method_Library.ahk
-#Include LIB_Mouse_Swap_Primary_Button.ahk
+        <Match Id="1">;~ #Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-Main-Method-Library.ahk
+#Include %A_ScriptDir%-lib
+#Include Main-Method-Library-LIB.ahk
+#Include Mouse-Swap-Primary-Button-LIB.ahk
 #InstallKeybdHook
 #InstallMouseHook
 #SingleInstance
@@ -178,10 +178,10 @@ return</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>GUI_Mouse_Position_As_Percentage_Tooltip.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-gui</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
-        <Match Id="1">#Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_Main_Method_Library.ahk
+        <Match Id="1">#Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-Main-Method-Library.ahk
 #Persistent
 
 ;GET MOUSE POS AS PERCENTAGE - TOOLTIP
@@ -277,32 +277,32 @@ global SWAP_RETVAL :=
 global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 global oneKey_HasItBeenSet := false
 ;###############################################################################
-#Include %A_ScriptDir%\_lib
-#Include LIB_Main_Method_Library.ahk
-#Include LIB_Emojis_And_Symbols.ahk
-#Include LIB_repeatKey().ahk
-#Include LIB_time().ahk
-#Include LIB_RegEx().ahk
-;~ #Include LIB_oneKey_Copy_Paste_Mode.ahk
+#Include %A_ScriptDir%-lib
+#Include Main-Method-Library-LIB.ahk
+#Include Emojis-And-Symbols-LIB.ahk
+#Include repeatKey()-LIB.ahk
+#Include time()-LIB.ahk
+#Include RegEx()-LIB.ahk
+;~ #Include oneKey-Copy-Paste-Mode-LIB.ahk
 
 ;;UTITILITIES
-#Include %A_ScriptDir%\_utility
+#Include %A_ScriptDir%-utility
 
 #Include %A_ScriptDir%
-;~ #Include AHK_Math_Keyboard_v1_2_7.ahk
+;~ #Include AHK-Math-Keyboard-v1-2-7.ahk
 ;~ Run, AHK_Math_Keyboard_.exe
-#Include _gui\GUI_Mouse_Control.ahk
+#Include -gui\GUI-Mouse-Control.ahk
 
 ;WINDOW/APP CONTEXT SENSITIVE SCRIPTS
-#Include %A_ScriptDir%\_win
-#Include WIN_Windows_Color_Picker.ahk
-#Include WIN_Excel.ahk
-#Include WIN_Outlook.ahk
-#Include WIN_SciTE4AutoHotkey.ahk
-#Include WIN_FancyZones.ahk
-#Include WIN_Windows_Explorer.ahk
-#Include WIN_PowerRun.ahk
-#Include WIN_Word.ahk
+#Include %A_ScriptDir%-win
+#Include Windows-Color-Picker-WIN.ahk
+#Include Excel-WIN.ahk
+#Include Outlook-WIN.ahk
+#Include SciTE4AutoHotkey-WIN.ahk
+#Include FancyZones-WIN.ahk
+#Include Windows-Explorer-WIN.ahk
+#Include PowerRun-WIN.ahk
+#Include Word-WIN.ahk
 ;==============================================================================
 
 ;==============================================================================
@@ -702,7 +702,7 @@ Tab::
     <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
-        <Match Id="1">#Include %A_ScriptDir%\LIB\LIB_Main_Method_Library.ahk
+        <Match Id="1">#Include %A-ScriptDir%\LIB\LIB-Main-Method-Library.ahk
 #SingleInstance Force
 #InstallKeybdHook
 
@@ -1660,12 +1660,12 @@ mathKbd_paste(str := "")</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>GUI_RegEx_Visual_Keyboard.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-gui</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
-        <Match Id="1">#Include %A_ScriptDir%\..\_lib
-#Include LIB_Main_Method_Library.ahk
-#Include LIB_repeatKey().ahk
+        <Match Id="1">#Include %A_ScriptDir%\..-lib
+#Include Main-Method-Library-LIB.ahk
+#Include repeatKey()-LIB.ahk
 
 
 #NoTrayIcon
@@ -1714,7 +1714,7 @@ ExitApp</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>GUI_RegEx_Visual_Keyboard_generated_gui3.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-gui</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">#NoTrayIcon
@@ -1763,7 +1763,7 @@ ExitApp</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>GUI_RegEx_Visual_Keyboard_generated_gui2.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-gui</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">#NoTrayIcon
@@ -1807,7 +1807,7 @@ ExitApp</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>GUI_RegEx_Visual_Keyboard_generated_gui.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-gui</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">#NoTrayIcon
@@ -1866,10 +1866,10 @@ ExitApp
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>LIB_colorHandler.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
-        <Match Id="1">#Include LIB_Main_Method_Library.ahk
+        <Match Id="1">#Include Main-Method-Library-LIB.ahk
 
 
 #IfWinActive Color ahk_class #32770 ahk_exe notepad++.exe
@@ -1892,7 +1892,7 @@ ExitApp
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>GUI_Scroll_Speed_Monitoring.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_gui</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-gui</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">/* ;SCROLL SPEED MONITORING (AS TOOLTIP)
@@ -1941,7 +1941,7 @@ ExitApp
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>LIB_Emojis_And_Symbols.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">/* AHK_LIB_Emojis_And_Symbols.ahk
@@ -2369,7 +2369,7 @@ ExitApp
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>LIB_Main_Method_Library.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;~ UTILITY METHODS
@@ -2783,10 +2783,10 @@ mouseEvent(p_clickDelay := 200, p_coordAsPercent*)</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>LIB_RegEx_Editing_HotStrings.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
-        <Match Id="1">#Include LIB_Main_Method_Library.ahk
+        <Match Id="1">#Include Main-Method-Library-LIB.ahk
 #Include LIB_
 
 MsgBox "test1"
@@ -2801,7 +2801,7 @@ MsgBox % "test1", "test2"
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>LIB_RegEx().ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;; Library of functions that utilitize Regular Expressions for string parsing and substitution.
@@ -2863,7 +2863,7 @@ RegEx_parseDocumentForFunctions()</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>LIB_Mouse_Swap_Primary_Button.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;@description: This file script is a testing ground for DLL files and functions.
@@ -3072,13 +3072,13 @@ swapPrimaryMouseButton()</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>LIB_oneKey_Copy_Paste_Mode.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;; This is a utility script which, when active, injects {Ctrl} on key-down of
 ;; x, c, and v, to cut, copy, and paste.
 
-;~ #IfWinActive PowerLauncher ahk_class HwndWrapper[PowerLauncher;;300ce19b-7b4c-49eb-a764-0a730ee71419] ahk_exe PowerLauncher_exe
+;~ #IfWinActive PowerLauncher ahk_class HwndWrapper[PowerLauncher;;300ce19b-7b4c-49eb-a764-0a730ee71419] ahk_exe PowerLauncher.exe
 ;~ c::c
 ;~ v::v
 ;~ x::x
@@ -3183,11 +3183,11 @@ x::Send, ^x
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>LIB_RegEx_Expression_Editing_Shortcuts.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
-        <Match Id="1">#Include LIB_Main_Method_Library.ahk
-#Include LIB_repeatKey().ahk
+        <Match Id="1">#Include Main-Method-Library-LIB.ahk
+#Include repeatKey()-LIB.ahk
 
 
 +9::Send, +9+0{Left}
@@ -3206,7 +3206,7 @@ x::Send, ^x
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>LIB_repeatKey().ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">/* METHOD LIST
@@ -3319,7 +3319,7 @@ repeatCtrlAltShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, 
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>LIB_time().ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;; function library for time operations
@@ -3491,7 +3491,7 @@ time_sendDate(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>My_Custom_AHK_API_Function_List.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;~ MY CUSTOM .AHK.API COMMANDS
@@ -3557,7 +3557,7 @@ setClipboard
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>wiki_macro_typefaceFamilys.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_macros</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-macros</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">1::Send, Serif
@@ -3573,11 +3573,11 @@ w::Send, Uniform</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>UTILITY_RegEx_Expression_Editing_Shortcuts.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
-        <Match Id="1">#Include LIB_Main_Method_Library.ahk
-#Include LIB_repeatKey().ahk
+        <Match Id="1">#Include Main-Method-Library-LIB.ahk
+#Include repeatKey()-LIB.ahk
 
 
 +9::Send, +9+0{Left}
@@ -3596,15 +3596,15 @@ w::Send, Uniform</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>temp_macro.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_macros</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-macros</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
-        <Match Id="1">#Include %A_ScriptDir%\..\_lib
-#Include LIB_Main_Method_Library.ahk
-#Include LIB_Emojis_And_Symbols.ahk
-#Include LIB_repeatKey().ahk
-#Include LIB_time().ahk
-#Include LIB_RegEx().ahk
+        <Match Id="1">#Include %A_ScriptDir%\..-lib
+#Include Main-Method-Library-LIB.ahk
+#Include Emojis-And-Symbols-LIB.ahk
+#Include repeatKey()-LIB.ahk
+#Include time()-LIB.ahk
+#Include RegEx()-LIB.ahk
 
 Pause::ExitApp
 
@@ -3721,7 +3721,7 @@ F21::
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>Test_BlockComments.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_lib</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">
@@ -3834,7 +3834,7 @@ MsgBox, , Title, %str%
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>REFERENCE__While-Script.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_reference</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-reference</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">CoordMode, Mouse, Screen
@@ -3856,7 +3856,7 @@ return</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>UTILITY_Cut_Copy_Paste_(pause_to_break).ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">
@@ -3900,12 +3900,12 @@ Pause::ExitApp
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>REFERENCE_Mouse_Event_Tester.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_reference</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-reference</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">#InstallKeybdHook
 #InstallMouseHook
-#Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_Main_Method_Library.ahk
+#Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-Main-Method-Library.ahk
 
 
 
@@ -3937,7 +3937,7 @@ Pause::ExitApp
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>REFERENCE_AutoHotkey.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_reference</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-reference</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;===============================================================================
@@ -4021,7 +4021,7 @@ Menu, Tray, Icon, E:\Assets\Icons\math_ruler_.bmp
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>UTILITY_M1+M2=M3.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">lbutton::send % getkeystate("rbutton","p") ? "{mbutton down}" : "{lbutton down}"
@@ -4036,7 +4036,7 @@ rbutton up::send % getkeystate("rbutton") ? "{rbutton up}" : "{mbutton up}"</Mat
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>UTILITY_Mouse_Swap_Primary_Button.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;@description: This file script is a testing ground for DLL files and functions.
@@ -4084,7 +4084,7 @@ assignPrimaryMouseButton(primaryButton := "Left")</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>UTILITY_Horizontal_Scrolling.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">/* Descr:	This script handles horizontal mouse wheel scrolling when the user hold down the Shift key.
@@ -4129,7 +4129,7 @@ assignPrimaryMouseButton(primaryButton := "Left")</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>UTILITY_Spacebar=Left_Click.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;~ Scripted by Kevin A Boykin
@@ -4191,12 +4191,12 @@ Space Up::Send {Click, Up}
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>UTILITY_Spacebar=M1_Toggle.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
     <MatchCollections />
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>UTILITY_Tab_To_4_Spaces.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;INCLUDES/IMPORTS/INSTALLS==========================================
@@ -4244,7 +4244,7 @@ Space Up::Send {Click, Up}
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>UTILITY_Spacebar=Left_Click_v1.2_.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;~ Scripted by Kevin A Boykin
@@ -4312,7 +4312,7 @@ Space Up::Send {Click, Up}
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>UTILITY_Sticky_Keys.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">
@@ -4371,7 +4371,7 @@ toggle_ctrl()</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>UTILITY_Toggle_-_Taskbar_-_Copy.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">#b:: HideShowTaskbar(hide := !hide)
@@ -4395,7 +4395,7 @@ HideShowTaskbar(action)</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>UTILITY_temp_scriptlet_tester.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">
@@ -4463,7 +4463,7 @@ ExitApp</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>UTILITY_Screen_Magnifier_-_Made_by_holomind_-_No_GUI_V1.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\Magnifier</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility\Magnifier</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;~ Screen Magnifier - Made by "holomind"
@@ -4574,7 +4574,7 @@ In(x,a,b)</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>UTILITY_Screen_Magnifier_-_Made_by_holomind_-_GUI_V2.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_utility\Magnifier</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility\Magnifier</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;~ Screen Magnifier - Made by "holomind"
@@ -4690,7 +4690,7 @@ ExitApp </Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>WIN_Minecraft_Hotkeys.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">#InstallKeybdHook
@@ -4755,7 +4755,7 @@ x:: Send, {w down}{LCtrl down}
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>WIN_Excel_filepaths.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">
@@ -4793,11 +4793,11 @@ filePathFor_Excel_doc
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>WIN_FancyZones.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
-        <Match Id="1">;~ #Include %A_ScriptDir%\..\LIB\LIB_Main_Method_Library.ahk
-;~ #Include %A_ScriptDir%\..\LIB\LIB_repeatKey().ahk
+        <Match Id="1">;~ #Include %A-ScriptDir%\..\LIB\LIB-Main-Method-Library.ahk
+;~ #Include %A-ScriptDir%\..\LIB\LIB-repeatKey().ahk
 #IfWinActive ahk_exe FancyZonesEditor.exe
 ;;If window is active
 
@@ -4955,7 +4955,7 @@ fancyZones_setPos(p_loopWidth, p_loopHeight)</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>WIN_Excel.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;WIN_Excel.ahk
@@ -4984,7 +4984,7 @@ fancyZones_setPos(p_loopWidth, p_loopHeight)</Match>
 	return
 
 label_OpenExcel:
-#Include WIN_Excel_filepaths.ahk
+#Include Excel-filepaths-WIN.ahk
 	;~ Run, % "open" filePathFor_Excel
 	;~ MsgBox,,, % "Msg from `n#IfWinActive NONE `n#x::", % 3
 	Run, %filePathFor_Excel% %filePathFor_Excel_doc%
@@ -5231,7 +5231,7 @@ excel_setBorderColorToAccent1()
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>WIN_Outlook.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">#IfWinActive ahk_exe PowerLauncher.exe
@@ -5407,7 +5407,7 @@ outlook_showSchedule()</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>WIN_Paste_RGB(r,g,b)_To_Windows_ColorPicker.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">
@@ -5477,7 +5477,7 @@ outlook_showSchedule()</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>WIN_Outlook_filepaths.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">
@@ -5506,13 +5506,13 @@ filePathFor_Excel_doc
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>WIN_Polybridge.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">#SingleInstance Force
 #InstallKeybdHook
 #InstallMouseHook
-#Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_Main_Method_Library.ahk
+#Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-Main-Method-Library.ahk
 
 global g_PolyBridge_UndoRedoInterval := 10
 
@@ -5616,10 +5616,10 @@ y::
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>WIN_SciTE4AutoHotkey.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
-        <Match Id="1">;~ #Include %A_ScriptDir%\..\LIB\LIB_Main_Method_Library.ahk
+        <Match Id="1">;~ #Include %A-ScriptDir%\..\LIB\LIB-Main-Method-Library.ahk
 
 
 
@@ -5649,7 +5649,7 @@ y::
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>WIN_PowerRun.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">#IfWinActive PowerLauncher ahk_exe PowerLauncher.exe
@@ -5687,7 +5687,7 @@ y::
 	Run, Firefox.exe "https://www.w3schools.com/colors/colors_names.asp"
 	return
 ::??anime::
-#Include %A_ScriptDir%\..\_lib\LIB_time().ahk
+#Include %A-ScriptDir%\..\-lib\LIB-time().ahk
 	v_domain := "https://www.livechart.me/timetable?date="
 	v_date := time_getDate("yyyy-MM-dd")
 	v_target := v_domain . v_date
@@ -5738,7 +5738,7 @@ pwrRun_fireFoxSearch(str := "", extraSend := "")</Match>
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>WIN_Windows_Color_Picker.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;AHK_Windows_Color_Picker.ahk
@@ -5787,7 +5787,7 @@ v::
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>WIN_WindowSpy_Copy.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">;
@@ -6133,7 +6133,7 @@ return
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>WIN_Word.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">#IfWinActive ahk_class OpusApp ahk_exe WINWORD.EXE
@@ -6158,7 +6158,7 @@ return
   </Finding>
   <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
     <FileName>WIN_Windows_Explorer.ahk</FileName>
-    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\_win</FileFolder>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
         <Match Id="1">; target any File Browswer / Windows Explorer window

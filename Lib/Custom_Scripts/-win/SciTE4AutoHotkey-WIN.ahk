@@ -1,4 +1,4 @@
-;~ #Include %A_ScriptDir%\..\LIB\LIB_Main_Method_Library.ahk
+;~ #Include %A-ScriptDir%\..\LIB\LIB-Main-Method-Library.ahk
 
 #IfWinActive ahk_class SciTEWindow ahk_exe SciTE.exe
 

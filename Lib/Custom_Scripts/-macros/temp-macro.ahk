@@ -6,12 +6,12 @@ Menu, Tray, Icon, % "E:\Assets\Icons\voicemeeter_resources\VoicemeeterMacroButto
 
 #SingleInstance Force
 
-#Include %A_ScriptDir%\..\_lib
-#Include LIB_Main_Method_Library.ahk
-#Include LIB_Emojis_And_Symbols.ahk
-#Include LIB_repeatKey().ahk
-#Include LIB_time().ahk
-#Include LIB_RegEx().ahk
+#Include %A_ScriptDir%\..\-lib
+#Include Main-Method-Library-LIB.ahk
+#Include Emojis-And-Symbols-LIB.ahk
+#Include repeatKey()-LIB.ahk
+#Include time()-LIB.ahk
+#Include RegEx()-LIB.ahk
 
 
 global macroSwitch_M1 := false

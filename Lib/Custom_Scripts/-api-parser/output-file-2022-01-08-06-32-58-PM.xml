@@ -25,32 +25,32 @@ global SWAP_RETVAL :=
 global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 global oneKey_HasItBeenSet := false
 ;###############################################################################
-#Include %A_ScriptDir%\_lib
-#Include LIB_Main_Method_Library.ahk
-#Include LIB_Emojis_And_Symbols.ahk
-#Include LIB_repeatKey().ahk
-#Include LIB_time().ahk
-#Include LIB_RegEx().ahk
-;~ #Include LIB_oneKey_Copy_Paste_Mode.ahk
+#Include %A_ScriptDir%-lib
+#Include Main-Method-Library-LIB.ahk
+#Include Emojis-And-Symbols-LIB.ahk
+#Include repeatKey()-LIB.ahk
+#Include time()-LIB.ahk
+#Include RegEx()-LIB.ahk
+;~ #Include oneKey-Copy-Paste-Mode-LIB.ahk
 
 ;;UTITILITIES
-#Include %A_ScriptDir%\_utility
+#Include %A_ScriptDir%-utility
 
 #Include %A_ScriptDir%
-;~ #Include AHK_Math_Keyboard_v1_2_7.ahk
+;~ #Include AHK-Math-Keyboard-v1-2-7.ahk
 ;~ Run, AHK_Math_Keyboard_.exe
-#Include _gui\GUI_Mouse_Control.ahk
+#Include -gui\GUI-Mouse-Control.ahk
 
 ;WINDOW/APP CONTEXT SENSITIVE SCRIPTS
-#Include %A_ScriptDir%\_win
-#Include WIN_Windows_Color_Picker.ahk
-#Include WIN_Excel.ahk
-#Include WIN_Outlook.ahk
-#Include WIN_SciTE4AutoHotkey.ahk
-#Include WIN_FancyZones.ahk
-#Include WIN_Windows_Explorer.ahk
-#Include WIN_PowerRun.ahk
-#Include WIN_Word.ahk
+#Include %A_ScriptDir%-win
+#Include Windows-Color-Picker-WIN.ahk
+#Include Excel-WIN.ahk
+#Include Outlook-WIN.ahk
+#Include SciTE4AutoHotkey-WIN.ahk
+#Include FancyZones-WIN.ahk
+#Include Windows-Explorer-WIN.ahk
+#Include PowerRun-WIN.ahk
+#Include Word-WIN.ahk
 ;==============================================================================
 
 ;==============================================================================
@@ -464,32 +464,32 @@ global SWAP_RETVAL :=
 global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
 global oneKey_HasItBeenSet := false
 ;###############################################################################
-#Include %A_ScriptDir%\_lib
-#Include LIB_Main_Method_Library.ahk
-#Include LIB_Emojis_And_Symbols.ahk
-#Include LIB_repeatKey().ahk
-#Include LIB_time().ahk
-#Include LIB_RegEx().ahk
-;~ #Include LIB_oneKey_Copy_Paste_Mode.ahk
+#Include %A_ScriptDir%-lib
+#Include Main-Method-Library-LIB.ahk
+#Include Emojis-And-Symbols-LIB.ahk
+#Include repeatKey()-LIB.ahk
+#Include time()-LIB.ahk
+#Include RegEx()-LIB.ahk
+;~ #Include oneKey-Copy-Paste-Mode-LIB.ahk
 
 ;;UTITILITIES
-#Include %A_ScriptDir%\_utility
+#Include %A_ScriptDir%-utility
 
 #Include %A_ScriptDir%
-;~ #Include AHK_Math_Keyboard_v1_2_7.ahk
+;~ #Include AHK-Math-Keyboard-v1-2-7.ahk
 ;~ Run, AHK_Math_Keyboard_.exe
-#Include _gui\GUI_Mouse_Control.ahk
+#Include -gui\GUI-Mouse-Control.ahk
 
 ;WINDOW/APP CONTEXT SENSITIVE SCRIPTS
-#Include %A_ScriptDir%\_win
-#Include WIN_Windows_Color_Picker.ahk
-#Include WIN_Excel.ahk
-#Include WIN_Outlook.ahk
-#Include WIN_SciTE4AutoHotkey.ahk
-#Include WIN_FancyZones.ahk
-#Include WIN_Windows_Explorer.ahk
-#Include WIN_PowerRun.ahk
-#Include WIN_Word.ahk
+#Include %A_ScriptDir%-win
+#Include Windows-Color-Picker-WIN.ahk
+#Include Excel-WIN.ahk
+#Include Outlook-WIN.ahk
+#Include SciTE4AutoHotkey-WIN.ahk
+#Include FancyZones-WIN.ahk
+#Include Windows-Explorer-WIN.ahk
+#Include PowerRun-WIN.ahk
+#Include Word-WIN.ahk
 ;==============================================================================
 
 ;==============================================================================
@@ -887,7 +887,7 @@ Tab::
     <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts</FileFolder>
     <MatchCollections>
       <MatchCollection Id="1">
-        <Match Id="1">#Include %A_ScriptDir%\LIB\LIB_Main_Method_Library.ahk
+        <Match Id="1">#Include %A-ScriptDir%\LIB\LIB-Main-Method-Library.ahk
 #SingleInstance Force
 #InstallKeybdHook
 
@@ -914,7 +914,7 @@ mathKbd_activeWindowSentinel()
 
 ;~ SET STYLE FUNCTION
 mathKbd_setMathInputStyle(p_1 := false, p_2 := true, p_3 := 3, p_4 := 0)</Match>
-        <Match Id="2">#Include %A_ScriptDir%\LIB\LIB_Main_Method_Library.ahk
+        <Match Id="2">#Include %A-ScriptDir%\LIB\LIB-Main-Method-Library.ahk
 #SingleInstance Force
 #InstallKeybdHook
 
