@@ -9,7 +9,7 @@
 */
 
 /*!	
-	Function: regex_convertText_SciTE_API(p_replaceSelection)
+	Function: regex_convertText_SciTE_API(p_replaceSelection := false, p_useClipboard := false)
 		Converts whitespace for .api files used by SciTE and removes
 				a limited amount of comment delimiters. 
 	Returns:
@@ -19,22 +19,35 @@
 			- `***BOOLEAN*** (Default := *false*)`
 	Remarks:	This is used to manually copy and paste from file to file.
 */
-regex_convertText_SciTE_API(p_replaceSelection := false) {
+regex_convertText_SciTE_API(p_replaceSelection := false, p_useClipboard := false) {
 	;; this preps a selection of text for pasting into "user.ahk.api"
 		
 		retVal := ""
 		
-		archiveClipboard()
-		copySelection()
+		if (p_useClipboard == false) {
+			;; archive current clip and copy selection to clipboard
+			archiveClipboard()
+			copySelection()
+		}
+		else if (p_useClipboard == true) {
+			;; text already in clipboard
+		}
 		
 		regex_clipboard_removeCommentDelimiters()
 		regex_clipboard_swapLineBreaksAndTabs("\\n", "\\t")
 		retVat := Clipboard
 		
-		if (p_replaceSelection == true)
+		if (p_replaceSelection == true) {
 			pasteClipboard()
+		}
 		
-		restoreClipboard()
+		if (p_useClipboard == false) {
+			restoreClipboard()
+		}
+		else if (p_useClipboard == false) {
+			;; do nothing, allowing the clip to retain the modified text for pasting.
+		}
+		
 		return retVal
 }
 

@@ -1,0 +1,7 @@
+﻿#IfWinActive PowerLauncher ahk_exe PowerLauncher.exe 
+;; begin ifwinactive-block
+
+
+
+;; end #ifwinactive-block
+#IfWinActive 

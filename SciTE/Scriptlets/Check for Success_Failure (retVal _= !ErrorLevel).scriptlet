@@ -1,0 +1,11 @@
+﻿;; check for success/failure
+	if (ErrorLevel == 0) {
+		;; success
+		retVal := true
+	}
+	else if (ErrorLevel != 0) {
+		;; fail
+		retVal := false
+	}
+	
+	return retVal

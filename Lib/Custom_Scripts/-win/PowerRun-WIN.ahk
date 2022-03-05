@@ -1,4 +1,5 @@
-#IfWinActive PowerLauncher ahk_exe PowerLauncher.exe
+;; #IfWinActive PowerLauncher ahk_exe PowerLauncher.exe
+#IfWinActive ahk_exe PowerToys.PowerLauncher.exe
 #Include pwrRun-date00-WIN.ahk
 
 ;; this block is primarily for testing script, main.ahk should already include all of these
@@ -11,6 +12,48 @@
 ;; #Include %A_ScriptDir%\..\-utility
 ;; #Include Horizontal-Scrolling-UTILITY.ahk
 ;; #Include Generate-Lorem-Ipsum-UTILITY.ahk  ;}
+
+::??apiconvert::
+::??api convert::
+::??convertapi::
+::??convert api::
+::??convertahkapi::
+::??convert to ahk api::
+::??convert text to ahk api::
+::??convert clip to ahk api::
+	;; replace selection := false, use clipboard := true
+	regex_convertText_SciTE_API(false, true)
+	return
+
+Lbl_Begin_OCR_Task: ;{
+::??ocr::
+	
+	pwrRun_clearText()
+	
+	;; WinClose, ahk_exe PowerToys.PowerLauncher.exe
+	;; WinHide, ahk_exe PowerToys.PowerLauncher.exe
+	;; WinWaitClose ahk_exe PowerToys.PowerLauncher.exe
+	;; WinWaitNotActive, ahk_exe PowerToys.PowerLauncher.exe
+	
+	if (!WinActive("ahk_exe PowerToys.PowerLauncher.exe"))
+		Send, ^+{PrintScreen}
+	return
+;}
+
+Lbl_Open_AHK_Documents: ;{
+::??emoji::
+::??emojiahk::
+::??emoji.ahk::
+	Run, %g_SCITE_4AHK_EXE% %g_EMOJI_AHK_FILE% ;; vars defined in main.ahk
+	return
+::??mainahk::
+::??main.ahk::
+	Run, %g_SCITE_4AHK_EXE% %g_MAIN_AHK_FILE% ;; vars defined in main.ahk
+	return
+::??pwrrunahk::
+::??pwrrun.ahk::
+	Run, %g_SCITE_4AHK_EXE% %g_PWRRUN_AHK_FILE% ;; vars defined in main.ahk
+	return ;}
 
 ;; opens a new tab in Firefox and activates the address bar for typing
 Lbl_Firefox_Search: ;{ 
@@ -43,7 +86,7 @@ Lbl_Color_Mixer: ;{
 		return
 ;}
 
-;; opens a color-picer
+;; opens a color-picker
 Lbl_Color_Picker: ;{
 ::??color Pick::
 ::??color Picker::
@@ -73,12 +116,22 @@ Lbl_Anime_LiveChart: ;{
 	return  ;}  ;}
 
 ;; sorts selection and replaces it
-Lbl_Regex_Sort: ;{
-::??sort::
+Lbl_Regex_Sort_Selection: ;{
 ::??sortLines::
 ::??sortSelection::
 	regex_selection_sortAndPaste()
 	return  ;}
+
+;; sorts most recent clipboard content
+Lbl_Regex_Sort_Clipboard: ;{
+::??sort::
+::??sortclip::
+::??sortclipboard::
+	regex_clipboard_sort()
+	MsgBox, 0, Clipboard Sorted, Clipboard sorted`, ready to paste. , 3
+	return  ;}
+	
+	
 
 ;; runs regex_parseDocumentForFunctions and assigns it to Clipboard
 Lbl_Regex_Parse_Document_For_Functions: ;{ 
@@ -153,14 +206,14 @@ Lbl_Window_Spy: ;{
 	Run, autohotkey.exe %A_AhkPath%\..\WindowSpy.ahk
 	return  ;}
 	
-/**	pwrRun_clearText()
-	Descr:	Selects all, Delete, Escape, then wait 200 (default) milliseconds.
-	Return:	VOID
-	Params:	p_waitTime :=	INTEGER
-	Notes:	This is particularly used to clear the text typed into the 
-				PowerRun search bar before Escaping the search bar.
+/*!	Function: pwrRun_clearText()
+;	Descr:	Selects all, Delete, Escape, then wait 200 (default) milliseconds.
+;	Return:	VOID
+;	Params:	p_waitTime :=	INTEGER
+;	Notes:	This is particularly used to clear the text typed into the 
+;				PowerRun search bar before Escaping the search bar.
 */
-pwrRun_clearText(p_waitTime := 200){
+pwrRun_clearText(p_waitTime := 200) {
 	Send, ^a ;; select all
 	Send, {Delete}{Escape}
 	Sleep, % p_waitTime
@@ -168,14 +221,14 @@ pwrRun_clearText(p_waitTime := 200){
 }
 
 
-/**	pwrRun_fireFoxSearch()
-	Descr:	Opens Firefox and puts text caret in the address bar.
-	Return:	VOID
-	Params:	str := "", 
-			extraSend := ""
-	Notes:	
+/*!	Function: pwrRun_fireFoxSearch()
+;	Descr:	Opens Firefox and puts text caret in the address bar.
+;	Returns:	`**VOID**`
+;	Parameters:	- str := "", 
+;				- extraSend := ""
+;	Remarks:	
 */
-pwrRun_fireFoxSearch(str := "", extraSend := ""){
+pwrRun_fireFoxSearch(str := "", extraSend := "") {
 	/* if (WinExist("Firefox")){
 		;;delete text
 		pwrRun_clearText()
@@ -225,7 +278,7 @@ pwrRun_fireFoxSearch(str := "", extraSend := ""){
 			p_delta :=	FLOAT_STRING
 	Notes:	Used for when activating generate_loremIpsum() in PowerRun.
 */
-pwrRun_loremIpsumTextMethod(p_int := 3){
+pwrRun_loremIpsumTextMethod(p_int := 3) {
 	pwrRun_clearText()
 	str := generate_loremIpsum(p_int)
 	MsgBox, , % "Message", % "For the next 10 seconds,`nPress [ t ] to paste the generated text.", 3

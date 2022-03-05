@@ -1,0 +1,11 @@
+﻿#IfWinActive title_of_window ahk_exe application.exe
+;;If window is active
+
+#^!+Enter::
+{
+	
+	return
+}
+;;Re-declare any window as an acceptable 
+;;case-scenario before exit.
+#IfWinActive

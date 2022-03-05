@@ -34,8 +34,6 @@ Lbl_Date_Calculator:
 	MsgBox, , % "title", % "message " . time_translateDate(n, d, "MMMM d, yyyy hh:mm:ss")
 	return  ;}
 
-
-
 /* _______________     _______________ 
   || CapsLock    ||   || Tab         ||
   ||_____________|| + ||_____________|| = 4-Spaces
@@ -143,12 +141,39 @@ Lbl_Date_Calculator:
 F19::macro_00()
 
 /** macro_save_resourceHacker_00
-   ______ 
-  || M1 || 
-  ||____|| 
-  |/____\| 
+             ______ 
+  [ F20 ] = || M1 || OR   [ FN ] + [ 8 ]
+            ||____|| 
+            |/____\| 
 */
-F20::macro_save_iconConvert_00()
+F20::macro_MicrosoftToDo_insertTag_School("prgm3-assg2")
+
+;; F20::macro_save_iconConvert_00()
+
+/**	macro_MicrosoftToDo_insertTag_School(tag)
+	Descr:	Inserts #hash-tags into the tasks of Microsoft To Do desktop client application. 
+	  For it to work, user must have a task selected, without the right-side-input-panel being visible or active. 
+	  The macro will open the side panel, navigate to title of task and insert the passed "string" at the beginning of the title. 
+	Return:	VOID
+	Params:	tag :=	STRING - the string of the tag to be inserted (no-spaces)
+	Notes:	____How_to_or_when_is_this_used____
+*/
+macro_MicrosoftToDo_insertTag_School(tag) {
+
+	;; tag := "my-custom-tag"
+	;; SetKeyDelay, 100
+	Send, {Enter}
+	Sleep, 200
+	Send, {Tab 2}
+	Sleep, 200
+	Send, +3%tag%{Space}
+	Send, {Enter}
+	Send, {Escape}
+	Send, {Down}
+	return
+}
+
+
 
 ;; macro for saving files from (https://online-converting.com/image/)
 macro_save_iconConvert_00(){

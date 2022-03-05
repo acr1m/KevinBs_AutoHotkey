@@ -1,0 +1,16 @@
+﻿#IfWinExist title_of_window ahk_exe application.exe
+;;If window does exist
+
+#^!+Enter::
+{
+	WinActivate
+	return
+}
+
+#IfWinActive
+;;If window doesn't exist
+#^!+Enter::
+{
+	Run, 
+	return
+}

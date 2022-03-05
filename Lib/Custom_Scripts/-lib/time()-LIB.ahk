@@ -2,6 +2,17 @@
 ;; -----examples of date formatting (FormatTime) are at the bottom.
 #IfWinActive
 
+;; FormatTime, OutputVar [, YYYYMMDDHH24MISS, Format]
+;; 20171028 == 2017, October, 28, hour-00, min-00, sec-00
+;; MsgBox, % time_difference(20171028, 20220131, , "yyyy`ndd")
+
+
+v_days := time_difference(20171028,, "Days")
+v_years := Round(time_difference(20171028,, "Days")/365)
+;; v_days := Mod(v_days,(v_years * 365))
+v_days := Mod(v_days, (v_years * 365))
+MsgBox, % "years: " v_years "`ndays: " v_days
+
 /* Date Formats (case sensitive)
 ;; =============================================================================
 ;; Format 	Description
@@ -64,6 +75,7 @@
 ;; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 time_getDate(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt") {
+	;; get the current date/time in the style of the given format
 	FormatTime, outputVar, , % p_str_dateFormat
 	return % outputVar
 }
@@ -123,6 +135,106 @@ time_sendDate(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt") {
 	outVar := time_getDate(p_str_dateFormat)
 	;~ Send, %outVar%
 	Send, % outVar
+}
+
+/**	time_difference(p_date, p_initialDate := "", p_timeUnit := "Days", p_format := "yyyy-MM-dd_hh-mm-ss_tt")
+	Descr:	Returns the time difference from the 'p_date' to the 'p_initialDate'.
+	Return:	FORMATTED-DATE
+	Params:	INTEGER-DATE	p_date := YYYYMMDDHH24MISS
+			INTEGER-DATE	p_initialDate := (default := A_Now) || YYYYMMDDHH24MISS
+			STRING	p_timeUnit	:=	(default := "Days")
+				this	["Seconds" | "Minutes" | "Hours" | "Days" ]
+				or...	["s" | "m" | "h" | "d"]
+			STRING	p_format :=	FORMATTED-DATE
+			[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
+	Notes:	____How_to_or_when_is_this_used____
+*/
+time_difference(p_date, p_initialDate := "", p_timeUnit := "Days", p_format := "yyyy-MM-dd_hh-mm-ss_tt") {
+	
+	if (p_initialDate == "")
+		p_initialDate := A_Now
+	
+	timeDifferenceAmount := p_initialDate
+	
+	;; subtract, outputToVar,     by this amount, by these units
+	;; EnvSub, timeDifferenceAmount, %p_date%, %p_timeUnit%
+	EnvSub, timeDifferenceAmount, %p_date%, %p_timeUnit%
+	
+	;; FormatTime, retVal, %timeDifferenceAmount%, %p_format%
+	retVal := Abs(timeDifferenceAmount)
+	return retVal
+}
+
+/**	time_differenceInDays(p_date, p_initialDate := A_Now)
+	Descr:	____enter_a_description____
+	Return:	VOID-STRING-BOOLEAN-INTEGER_STRING-FLOAT_STRING
+	Params:	p_alpha :=	STRING	(default := "str")
+			p_beta :=	BOOLEAN
+			p_gamma :=	INTEGER_STRING
+			p_delta :=	FLOAT_STRING
+	Notes:	____How_to_or_when_is_this_used____
+*/
+time_differenceInDays(p_date, p_initialDate := "") {
+	
+	if (p_initialDate == "")
+		p_initialDate := A_Now
+	
+	retVal := time_difference(p_date, p_initialDate, "Days")
+	return retVal
+}
+
+/**	time_differenceInHours(p_date, p_initialDate := "")
+	Descr:	____enter_a_description____
+	Return:	VOID-STRING-BOOLEAN-INTEGER_STRING-FLOAT_STRING
+	Params:	p_alpha :=	STRING	(default := "str")
+			p_beta :=	BOOLEAN
+			p_gamma :=	INTEGER_STRING
+			p_delta :=	FLOAT_STRING
+	Notes:	____How_to_or_when_is_this_used____
+*/
+time_differenceInHours(p_date, p_initialDate := "") {
+	
+	if (p_initialDate == "")
+		p_initialDate := A_Now
+	
+	retVal := time_difference(p_date, p_initialDate, "Hours")
+	return retVal
+}
+
+/**	time_differenceInMinutes(p_date, p_initialDate := "")
+	Descr:	____enter_a_description____
+	Return:	VOID-STRING-BOOLEAN-INTEGER_STRING-FLOAT_STRING
+	Params:	p_alpha :=	STRING	(default := "str")
+			p_beta :=	BOOLEAN
+			p_gamma :=	INTEGER_STRING
+			p_delta :=	FLOAT_STRING
+	Notes:	____How_to_or_when_is_this_used____
+*/
+time_differenceInMinutes(p_date, p_initialDate := "") {
+	
+	if (p_initialDate == "")
+		p_initialDate := A_Now
+	
+	retVal := time_difference(p_date, p_initialDate, "Minutes")
+	return retVal
+}
+
+/**	time_differenceInSeconds(p_date, p_initialDate := "")
+	Descr:	____enter_a_description____
+	Return:	VOID-STRING-BOOLEAN-INTEGER_STRING-FLOAT_STRING
+	Params:	p_alpha :=	STRING	(default := "str")
+			p_beta :=	BOOLEAN
+			p_gamma :=	INTEGER_STRING
+			p_delta :=	FLOAT_STRING
+	Notes:	____How_to_or_when_is_this_used____
+*/
+time_differenceInSeconds(p_date, p_initialDate := "") {
+	
+	if (p_initialDate == "")
+		p_initialDate := A_Now
+	
+	retVal := time_difference(p_date, p_initialDate, "Seconds")
+	return retVal
 }
 
 /** ;;EXAMPLES

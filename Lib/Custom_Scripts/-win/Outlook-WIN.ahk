@@ -88,6 +88,8 @@
 #IfWinActive ahk_exe outlook.exe
 ;;If window is active
 
+Space::Send, {Space}
+
 ;;Open Calendar and show Month View
 !1::
 Space & m::

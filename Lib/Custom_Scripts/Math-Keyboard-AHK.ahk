@@ -1,24 +1,40 @@
-﻿#Include %A-ScriptDir%\-lib\LIB-Main-Method-Library.ahk
+﻿#Include %A_ScriptDir%\-lib\Main-Method-Library-LIB.ahk
+#Include E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\run()-LIB.ahk
 #SingleInstance Force
 #InstallKeybdHook
 
+;; re-run this file as admin if it isn't already so.
+run_AsAdmin()
+
 ;~ TOOLBAR ICON
-	Menu, Tray, Icon, E:\Assets\Icons\math_ruler_.bmp
+;
+;@Ahk2Exe-SetMainIcon E:\Assets\Icons\math\Custom-Icon-Design-Flatastic-7-Tools-2-ruler-pencil-math-offic.ico
+Menu, Tray, Icon, E:\Assets\Icons\math\Custom-Icon-Design-Flatastic-7-Tools-2-ruler-pencil-math-offic.ico
+
+;;
+;; Menu, Tray, Icon, E:\Assets\Icons\math_ruler_.bmp
 ;;██████████████████████████████████████████████████████████████████████████████
 ;~ ;CONSTANTS
-	;~ global SUSPEND_LIMIT := 200 ; n milliseconds
-	;~ global DOUBLE_TAP_LIMIT := 350 ; n milliseconds
-	;~ global INCREMENT_LIMIT := 500 ; n milliseconds
+	global g_SUSPEND_LIMIT := 200 ; n milliseconds
+	global g_DOUBLE_TAP_LIMIT := 350 ; n milliseconds
+	global g_INCREMENT_LIMIT := 500 ; n milliseconds
 ;~ STARTING VARIABLES
 	global g_windowSentinelIsOn := true ; default = true
-	global currentRaisedPower := 1 ;used for incrementing n. Ex:  a^n
+	global g_currentRaisedPower := 1 ;used for incrementing n. Ex:  a^n
 
 ;~ MATH-INPUT-STYLE SWITCHES FOR EDITOR/BROWSER/ENVIRONMENT COMPATABILITY 
 	;~ used for mathKbd_typeSquareRoot() function
 	global mathKbd_style_paste := false ;~ default value = false
 	global mathKbd_style_backSlash := true ;~ default value = true
 	global mathKbd_style_squareRootLeftAmount := 0 ;~ default value = 0
-	
+
+
+#Include %A_LineFile%\..\-win\Wolfram-WIN.ahk
+#Include %A_LineFile%\..\-win\Mathway-WIN.ahk
+#Include %A_LineFile%\..\-win\Desmos-WIN.ahk
+#Include %A_LineFile%\..\-utility\Word-MathInput-UTILITY.ahk
+
+
 ;run the Active Window Sentinel method
 mathKbd_activeWindowSentinel()
 
@@ -31,10 +47,10 @@ mathKbd_setMathInputStyle(p_1 := false, p_2 := true, p_3 := 3, p_4 := 0){
 	mathKbd_style_squareRootLeftAmount := p_4
 }
 
-mathKbd_activeWindowSentinel(){
-	while(g_windowSentinelIsOn){
+mathKbd_activeWindowSentinel() {
+	while(g_windowSentinelIsOn) {
 		Sleep, 3000
-		if (WinActive("Desmos")){
+		if (WinActive("Desmos")) {
 			mathKbd_setMathInputStyle(false, false, 2, 0)
 		} else if (WinActive("Mathway")){
 			mathKbd_setMathInputStyle(true, false, 3, 1)
@@ -88,23 +104,25 @@ mathKbd_setMathInputStyle()
 	^+PGDN::
 	^!-::	Suspend, On		;~ hotkeys are suspended
 
-	$-::
-	Suspend Permit
-	SendRaw, -
-	if (doubleTap(SUSPEND_LIMIT)){
-		Send, {BackSpace 2}
-		Suspend On
-	}
-	return
+;{ 	$-::
+;       	Suspend Permit
+;       	SendRaw, -
+;       	if (doubleTap(g_SUSPEND_LIMIT)) {
+;       		Send, {BackSpace 2}
+;       		Suspend On
+;       	}
+;       	return
+;}
 
-	$=::
-	Suspend Permit
-	SendRaw, =
-	if (doubleTap(SUSPEND_LIMIT)){
-		Send, {BackSpace 2}
-		Suspend Off
-	}
-	return
+;{ 	$=::
+;       	Suspend Permit
+;       	SendRaw, =
+;       	if (doubleTap(g_SUSPEND_LIMIT)) {
+;       		Send, {BackSpace 2}
+;       		Suspend Off
+;       	}
+;       	return
+;}
 ;;██████████████████████████████████████████████████████████████████████████████
 
 
@@ -121,7 +139,7 @@ mathKbd_setMathInputStyle()
 		Suspend, Permit
 	{
 		SendRaw, .
-		if (doubleTap()){
+		if (doubleTap()) {
 			Send, {BackSpace 2}{,}
 		}
 		return
@@ -166,28 +184,31 @@ mathKbd_setMathInputStyle()
 		; negative incrementation, i.e. decrement by 1 at a time
 		mathKbd_incrementPower(,-1)
 		return
-	~x::
+/*
+	$x::
 		Send, x
-		if (doubleTap()){
-			Send, {BackSpace, 2}^2{Tab}
-		}
+		;; if (doubleTap()) {
+			;; Send, {BackSpace, 2}^2{Tab}
+		;; }
 		return
-	
+*/
+
 	;this function is a double-tap that turns a plus "+" into a minus "-"
 	$NumpadAdd:: 
 		SendRaw, +
 		mathKbd_incrementVariables(,"-","+")
 		return
-	NumpadSub::
-		Send, {Backspace}
-		return
+;{ 	NumpadSub::
+;       		Send, {Backspace}
+;       		return
+;}
 	NumpadMult:: ; superscript, power, multiply, squared, increment, iteration
 		Send, {*}
 		mathKbd_incrementPower()
 		return
 	NumpadDiv:: ; square root, 
 		Send, {/}
-		if (doubleTap()){
+		if (doubleTap()) {
 			Send, {Backspace %mathKbd_style_squareRootBackspaceAmount%}
 			mathKbd_typeSquareRoot()
 		}
@@ -221,10 +242,13 @@ mathKbd_setMathInputStyle()
 		$^!9::Send, \left(
 		$^!0::Send, \right)
 		
-		$+9::				Send, (){Left}
+		;; $+9::				Send, (){Left}
 		Right & Numpad7::	Send, (){Left}
+		
+		/*
+		
 		; ")" Right Paranthesis
-		$+0::
+		$+0:: ;{
 			; store the clipboard's contents before utilizing
 			clipTemp := ClipboardAll
 			
@@ -238,17 +262,17 @@ mathKbd_setMathInputStyle()
 			; If the copied character is the same and the one we're trying to type...
 			; then leave it alone and exit the highlighted text.
 			; Else, plop down a ")".
-			if (Clipboard == ")"){
+			if (Clipboard == ")") {
 				Send, {Left}{Right}
-			}
-			else
-			{
+			} else {
 				Send, {Left}{)}
 			}
 			
 			; restore the clipboard's contents
 			Clipboard := clipTemp
-			return
+			return ;}
+			
+		*/
 	}
 	
 	;~ Curly Brace, Curly Brackets
@@ -268,7 +292,7 @@ mathKbd_setMathInputStyle()
 			; If the copied character is the same and the one we're trying to type...
 			; then leave it alone and exit the highlighted text.
 			; Else, plop down a ")".
-			if (Clipboard == "}"){
+			if (Clipboard == "}") {
 				Send, {Left}{Right}
 			}
 			else
@@ -284,6 +308,7 @@ mathKbd_setMathInputStyle()
 	{
 		$^![::Send, \left[
 		$^!]::Send, \right]
+		/*
 		$[::Send, []{Left}
 		$]::
 		{
@@ -312,6 +337,7 @@ mathKbd_setMathInputStyle()
 			Clipboard := clipTemp
 			return
 		}
+		*/
 	}
 ;~ HOTKEY Operators
 {
@@ -348,91 +374,93 @@ mathKbd_setMathInputStyle()
 		Down & NumpadAdd::			Send, {±}		; plus or minus ±:(A+241)
 	;~HOTKEYS Functions
 		;~Trigonometric Functions
-		^Insert::					Send, sin(){Left}
-		^Delete::					Send, csc(){Left}
-		^Home::						Send, cos(){Left}
-		^End::						Send, sec(){Left}
-		^PGUP::						Send, tan(){Left}
-		^PGDN::						Send, cot(){Left}
+		
+		;; ^Insert::					Send, sin(){Left}
+		;; ^Delete::					Send, csc(){Left}
+		;; ^Home::						Send, cos(){Left}
+		;; ^End::						Send, sec(){Left}
+		;; ^PGUP::						Send, tan(){Left}
+		;; ^PGDN::						Send, cot(){Left}
 	}
 }
 
 ;~ HOTSTRING Brackets and Separators============================================
 	;~ Angled Brackets
-		::leftanglebracket::⟨
-		::langbk::⟨
-		::rightanglebracket::⟩ 
-		::rangbk::⟩ 
-		::angle::∠
+		::leftanglebracket;::⟨
+		::langbk;::⟨
+		::rightanglebracket;::⟩ 
+		::rangbk;::⟩ 
+		::angle;::∠
 	;~ Comma
 			;DEPRECATED, keyboard periods no longer trigger commas, only a 
 			;timed-double-tap NumpadDot triggers a comma replacement
 		;~ :*?:..::{,}
 	;~ Therefore
-		::therefore::∴
-		::tf::∴
+		::therefore;::∴
+		::tf;::∴
 	;~ Because
-		::because::∵
-		::bc::∵
+		::because;::∵
+		::bc;::∵
 	;~ Ellipses
-		::'''::⋯
+		::''';::⋯
+		::ellipses;::⋯
 		;~ ::...::… 
 ;~ HOTSTRING Superscripts, Exponents, Radicals, Powers, Roots==================
 {
 	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
-		::ss::
+		::ss;::
 			Send, {^}{2}{Right}
 			return
-		::sq::{^}2{Right}			; squared, power of 2, exponent 2
-		::srd::{^}2{Right}			; squared, power of 2, exponent 2
-		::sqrd::{^}2{Right}			; squared, power of 2, exponent 2
-		::squared::{^}2{Right}		; squared, power of 2, exponent 2
-		::root::\sqrt				; square root, radical  √:(A+251)
-		::srt::\sqrt				; square root, radical  √:(A+251)
-		::sqrtt::√					; square root, radical  √:(A+251)
-		::radical::√    			; square root, radical  √:(A+251)
-		::ex::e{^}x{Right}			; exponential constant to the power of x
+		::sq;::{^}2{Right}			; squared, power of 2, exponent 2
+		::srd;::{^}2{Right}			; squared, power of 2, exponent 2
+		::sqrd;::{^}2{Right}			; squared, power of 2, exponent 2
+		::squared;::{^}2{Right}		; squared, power of 2, exponent 2
+		::root;::\sqrt				; square root, radical  √:(A+251)
+		::srt;::\sqrt				; square root, radical  √:(A+251)
+		::sqrtt;::√					; square root, radical  √:(A+251)
+		::radical;::√    			; square root, radical  √:(A+251)
+		::ex;::e{^}x{Right}			; exponential constant to the power of x
 	#Hotstring ?0			;~ [?0] turn off "if-suffix" trigger
-		::crt::∛ 
-		::frt::∜
-		::3rt::∛ 
-		::4rt::∜
+		::crt;::∛ 
+		::frt;::∜
+		::3rt;::∛ 
+		::4rt;::∜
 }
 ; HOTSTRING NUMBERS============================================================
 {
 	;~ #Hotstring *			;~ [*] turn on No Ending-Character Required
 	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
 		;~ :?:root::√
-		::zero::0
-		::one::1
-		:T:two::2			;~ [T] send as raw text, no keystrokes
-		::three::3
-		::four::4
-		::five::5
-		::six::6
-		::seven::7
-		::eight::8
-		::nine::9
-		::ten::10
-		::eleven::11
-		::twelve::12
-		::thirteen::13
-		::fourteen::14
-		::fifteen::15
-		::sixteen::16
-		::seventeen::17
-		::eighteen::18
-		::nineteen::19
-		::twenty::20
-		::thirty::30
-		::fourty::40
-		::fifty::50
-		::sixty::60
-		::seventy::70
-		::eighty::80
-		::ninety::90
-		::hundred::100
-		::onehundred::100
+		::zero;::0
+		::one;::1
+		:T:two;::2			;~ [T] send as raw text, no keystrokes
+		::three;::3
+		::four;::4
+		::five;::5
+		::six;::6
+		::seven;::7
+		::eight;::8
+		::nine;::9
+		::ten;::10
+		::eleven;::11
+		::twelve;::12
+		::thirteen;::13
+		::fourteen;::14
+		::fifteen;::15
+		::sixteen;::16
+		::seventeen;::17
+		::eighteen;::18
+		::nineteen;::19
+		::twenty;::20
+		::thirty;::30
+		::fourty;::40
+		::fifty;::50
+		::sixty;::60
+		::seventy;::70
+		::eighty;::80
+		::ninety;::90
+		::hundred;::100
+		::onehundred;::100
 	#Hotstring ?0			;~ [?0] turn off "if-suffix" trigger
 	#Hotstring *0 			;~ [*0] turn off No Ending-Character Required
 }
@@ -441,64 +469,96 @@ mathKbd_setMathInputStyle()
 {
 	;~ [O] omits the ending character from outputting in the replaced hotstring
 	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
-		:R:plus::+ 		;~ [R] sends output as raw, without translating as keywords
-		:R:add::+
-		:R*:pp::+	;plus
-		:R*:nn::-	;minus
-		:R*:mm::-	;minus
-		:R*:tt::*	;times
-		:R*:dd::/	;divided
-		::min::-
-		::minus::-
+		:R:plus;::+ 		;~ [R] sends output as raw, without translating as keywords
+		:R:add;::+
+		:R*:pp;::+	;plus
+		:R*:nn;::-	;minus
+		:R*:mm;::-	;minus
+		:R*:tt;::*	;times
+		:R*:dd;::/	;divided
+		;; ::min;::-
+		;; ::minus;::-
 }
 ;~ #IfWinActive Topic: Discussion: Mixed Derivatives ; target specific window
 {
-		;~ ::min::
+		;~ ::min;::
 			;~ Send, {Backspace}{-}
-		;~ ::minus::
+		;~ ::minus;::
 			;~ Send, {Backspace 3}{-}
 }
-;~ #IfWinActive ; re-declare targeting of any window
+
+#IfWinActive ; re-declare targeting of any window
 {
-		::neg::-
-		::negative::-
-		::times::{*}
-		::multiplied::{*}
-		::dot::{*} 			;~ For browser math input * *
-		::realdot::· 		;~ For generic text field input
-		::divided::{/}
-		::plusminus::±
-		::minusplus::∓
-		;~ ::inf::∞
-		;~ ::inf::\inf 
-		:C:union::∪		;~ [C] caps sensitive hotstring
-		:C:U::
-		::sumseq::∑
-		::elementof::∈
-		;~ ::in::∈
-		;~ ::f(::ƒ(
-		::equals::=
-		::approx::≈
-		::approximately::≈
-		::notequal::≠
-		::notequals::≠
-		::deg::°
-		::degg::
-		{
-			Clipboard:= "\deg"
-			Send, ^v 
-			return
-		}
-		;~ :T:deggg::\deg			; Doesn't work in Mathway browser, the back-slash and forward-slash 
+		::neg;::-
+		::negative;::-
+		
+		::-;::—
+		::minus;::—
+		::subtract;::—
+		
+		::times;::{*}
+		::multiplied;::{*}
+		
+		::timex;::×
+		::timesx;::×
+		
+		::returncarriage;::¬
+		::rc;::¬
+		::not;::¬
+		::negation;::¬
+		
+		
+		::ssneg;::¯
+		::ssnegative;::¯
+		::supneg;::¯
+		::superneg;::¯
+		::supernegative;::¯
+		
+		::ssminus;::‾
+		::sssubtract;::‾
+		::superminus;::‾
+		::supersubtract;::‾
+		
+		;; ::dot;::{*} 			;~ For browser math input * *
+		::cdot;::· 			;~ For generic text field input
+		::realdot;::· 		;~ For generic text field input
+		::div;::÷
+		::divided;::÷
+		::plusminus;::±
+		::minusplus;::∓
+		::inf;::∞
+		::infinity;::∞
+		;~ ::inf;::\inf 
+		:C:union;::∪		;~ [C] caps sensitive hotstring
+		::sumseq;::∑
+		::sum;::∑
+		:C:Sigma;::∑
+		::elementof;::∈
+		::in;::∈
+		::f;::ƒ
+		::f(;::ƒ(
+		::equals;::=
+		::approx;::≈
+		::approximately;::≈
+		::notequal;::≠
+		::notequals;::≠
+		::deg;::°
+		;; ::degg;::
+		;; {
+			;; Clipboard:= "\deg"
+			;; Send, ^v 
+			;; return
+		;; }
+		;~ :T:deggg;::\deg			; Doesn't work in Mathway browser, the back-slash and forward-slash 
 									; are captured as ratio dividers before getting a chance to finish
 									; the character command.
 		
 		;integrals 
-		:?0:int::\int
-		:?0:integral::\int
-		::dint::\dint
-		::defint::\dint
-		::definite integral::\dint
+		:?0:int;::\int
+		:?0:integral;::\int
+		::dint;::\dint
+		::defint;::\dint
+		::definite integral;::\dint
 		
 		
 	#Hotstring ?0	;~ turns off "if-suffix" trigger
@@ -509,161 +569,161 @@ mathKbd_setMathInputStyle()
 	;~ ⁰ⁱ¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ
 	;~ [O] omit ending character trail space
 	;~ [?] if-suffix, still triggers
-	::supi'::ⁱ
-	::supn'::ⁿ
-	::sup1'::¹
-	::sup2'::²
-	::sup3'::³
-	::sup1'::¹
-	::sup2'::²
-	::sup3'::³
+	::supi;::ⁱ
+	::supn;::ⁿ
+	::sup1;::¹
+	::sup2;::²
+	::sup3;::³
+	::sup1;::¹
+	::sup2;::²
+	::sup3;::³
 	;---------------------------------
-	::sup::
-	::pow::
-	::pwr::
-	::power::{^}
-	::sup1::
-	::pow1::
-	::pwr1::
-	::power1::{^}1{Right}
-	::sup2::
-	::pow2::
-	::pwr2::
-	::power2::{^}2{Right}
-	::sup3::
-	::pow3::
-	::pwr3::
-	::power3::{^}3{Right}
-	::sup4::
-	::pow4::
-	::pwr4::
-	::power4::{^}4{Right}
-	::sup5::
-	::pow5::
-	::pwr5::
-	::power5::{^}5{Right}
-	::sup6::
-	::pow6::
-	::pwr6::
-	::power6::{^}6{Right}
-	::sup7::
-	::pow7::
-	::pwr7::
-	::power7::{^}7{Right}
-	::sup8::
-	::pow8::
-	::pwr8::
-	::power8::{^}8{Right}
-	::sup9::
-	::pow9::
-	::pwr9::
-	::power9::{^}9{Right}
-	::sup0::
-	::pow0::
-	::pwr0::
-	::power0::{^}0{Right}
-	::supx::
-	::powx::
-	::pwrx::
-	::powerx::{^}x{Right}
-	::supn::
-	::pown::
-	::pwrn::
-	::powern::{^}n{Right}
-	::supone::
-	::powone::
-	::pwrone::
-	::powerone::{^}1{Right}
-	::suptwo::
-	::powtwo::
-	::pwrtwo::
-	::powertwo::{^}2{Right}
-	::supthree::
-	::powthree::
-	::pwrthree::
-	::powerthree::{^}3{Right}
-	::supfour::
-	::powfour::
-	::pwrfour::
-	::powerfour::{^}4{Right}
-	::supfive::
-	::powfive::
-	::pwrfive::
-	::powerfive::{^}5{Right}
-	::supsix::
-	::powsix::
-	::pwrsix::
-	::powersix::{^}6{Right}
-	::supseven::
-	::powseven::
-	::pwrseven::
-	::powerseven::{^}7{Right}
-	::supeight::
-	::poweight::
-	::pwreight::
-	::powereight::{^}8{Right}
-	::supnine::
-	::pownine::
-	::pwrnine::
-	::powernine::{^}9{Right}
-	::supzero::
-	::powzero::
-	::pwrzero::
-	::powerzero::{^}0{Right}
+	::sup;::
+	::pow;::
+	::pwr;::
+	::power;::{^}
+	::sup1;::
+	::pow1;::
+	::pwr1;::
+	::power1;::{^}1{Right}
+	::sup2;::
+	::pow2;::
+	::pwr2;::
+	::power2;::{^}2{Right}
+	::sup3;::
+	::pow3;::
+	::pwr3;::
+	::power3;::{^}3{Right}
+	::sup4;::
+	::pow4;::
+	::pwr4;::
+	::power4;::{^}4{Right}
+	::sup5;::
+	::pow5;::
+	::pwr5;::
+	::power5;::{^}5{Right}
+	::sup6;::
+	::pow6;::
+	::pwr6;::
+	::power6;::{^}6{Right}
+	::sup7;::
+	::pow7;::
+	::pwr7;::
+	::power7;::{^}7{Right}
+	::sup8;::
+	::pow8;::
+	::pwr8;::
+	::power8;::{^}8{Right}
+	::sup9;::
+	::pow9;::
+	::pwr9;::
+	::power9;::{^}9{Right}
+	::sup0;::
+	::pow0;::
+	::pwr0;::
+	::power0;::{^}0{Right}
+	::supx;::
+	::powx;::
+	::pwrx;::
+	::powerx;::{^}x{Right}
+	::supn;::
+	::pown;::
+	::pwrn;::
+	::powern;::{^}n{Right}
+	::supone;::
+	::powone;::
+	::pwrone;::
+	::powerone;::{^}1{Right}
+	::suptwo;::
+	::powtwo;::
+	::pwrtwo;::
+	::powertwo;::{^}2{Right}
+	::supthree;::
+	::powthree;::
+	::pwrthree;::
+	::powerthree;::{^}3{Right}
+	::supfour;::
+	::powfour;::
+	::pwrfour;::
+	::powerfour;::{^}4{Right}
+	::supfive;::
+	::powfive;::
+	::pwrfive;::
+	::powerfive;::{^}5{Right}
+	::supsix;::
+	::powsix;::
+	::pwrsix;::
+	::powersix;::{^}6{Right}
+	::supseven;::
+	::powseven;::
+	::pwrseven;::
+	::powerseven;::{^}7{Right}
+	::supeight;::
+	::poweight;::
+	::pwreight;::
+	::powereight;::{^}8{Right}
+	::supnine;::
+	::pownine;::
+	::pwrnine;::
+	::powernine;::{^}9{Right}
+	::supzero;::
+	::powzero;::
+	::pwrzero;::
+	::powerzero;::{^}0{Right}
 	;---------------------------------
 }
 ;~ Subscripts==================================================================
 {
 	;~ ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎
 	;~ ₐ ₑ ₒ ₓ ₔ ₕ ₖ ₗ ₘ ₙ ₚ ₛ ₜ
-	::suba'::ₐ
-	::subn'::ₙ
-	::subx'::ₓ
-	::sub1'::₁
-	::sub2'::₂
-	::sub3'::₃
+	::suba;::ₐ
+	::subn;::ₙ
+	::subx;::ₓ
+	::sub1;::₁
+	::sub2;::₂
+	::sub3;::₃
 	;---------------------------------
-	::base::{_}
-	::base1::{_}1{Right}
-	::base2::{_}2{Right}
-	::base3::{_}3{Right}
-	::base4::{_}4{Right}
-	::base5::{_}5{Right}
-	::base6::{_}6{Right}
-	::base7::{_}7{Right}
-	::base8::{_}8{Right}
-	::base9::{_}9{Right}
-	::base0::{_}0{Right}
-	::basex::{_}x{Right}
-	::basen::{_}n{Right}
+	::base;::{_}
+	::base1;::{_}1{Right}
+	::base2;::{_}2{Right}
+	::base3;::{_}3{Right}
+	::base4;::{_}4{Right}
+	::base5;::{_}5{Right}
+	::base6;::{_}6{Right}
+	::base7;::{_}7{Right}
+	::base8;::{_}8{Right}
+	::base9;::{_}9{Right}
+	::base0;::{_}0{Right}
+	::basex;::{_}x{Right}
+	::basen;::{_}n{Right}
 	;---------------------------------
-	::sub::{_}
-	::sub1::{_}1{Right}
-	::sub2::{_}2{Right}
-	::sub3::{_}3{Right}
-	::sub4::{_}4{Right}
-	::sub5::{_}5{Right}
-	::sub6::{_}6{Right}
-	::sub7::{_}7{Right}
-	::sub8::{_}8{Right}
-	::sub9::{_}9{Right}
-	::sub0::{_}0{Right}
-	::subx::{_}x{Right}
-	::subn::{_}n{Right}
+	::sub;::{_}
+	::sub1;::{_}1{Right}
+	::sub2;::{_}2{Right}
+	::sub3;::{_}3{Right}
+	::sub4;::{_}4{Right}
+	::sub5;::{_}5{Right}
+	::sub6;::{_}6{Right}
+	::sub7;::{_}7{Right}
+	::sub8;::{_}8{Right}
+	::sub9;::{_}9{Right}
+	::sub0;::{_}0{Right}
+	::subx;::{_}x{Right}
+	::subn;::{_}n{Right}
 	;---------------------------------
 	#Hotstring ?0	;~ turns off "if-suffix" trigger
 }
 ;~ Fractions===================================================================
 {
-	::onehalf::½
-	::onethird::⅓
-	::onefourth::¼
-	::onefifth::⅕
-	::onesixth::⅙
-	::oneseventh::⅐
-	::oneeighth::⅛
-	::oneninth::⅑
-	::threefourths::¾
+	::onehalf;::½
+	::onethird;::⅓
+	::onefourth;::¼
+	::onefifth;::⅕
+	::onesixth;::⅙
+	::oneseventh;::⅐
+	::oneeighth;::⅛
+	::oneninth;::⅑
+	::threefourths;::¾
 }
 ;;██████████████████████████████████████████████████████████████████████████████
 ;~ Greek Letters
@@ -674,31 +734,31 @@ mathKbd_setMathInputStyle()
 	#Hotstring ?	;~ turns on "if-suffix" trigger
 	::alpha%::α
 	::alpha;::α
-	::alpha::\alpha
+	;; ::alpha;::\alpha
 	::beta%::β
 	::beta;::β
-	::beta::\beta
+	;; ::beta;::\beta
 	::gamma%::γ
 	::gamma;::γ
-	::gamma::\gamma
+	;; ::gamma;::\gamma
 	::delta%::δ
 	::delta;::δ
-	::delta::\delta
+	;; ::delta;::\delta
 	::epsilon%::ε
 	::epsilon;::ε
-	::epsilon::\eplison
+	;; ::epsilon;::\eplison
 	::theta%::θ
 	::theta;::θ
-	::theta::\theta
+	;; ::theta;::\theta
 	::phi%::φ
 	::phi;::φ
-	::phi::\phi
+	;; ::phi;::\phi
 	::pi%::π
 	::pi;::π
-	;~ ::pi::\pi
+	;~ ::pi;::\pi
 	::omega%::ω
 	::omega;::ω
-	::omega::\omega
+	;; ::omega;::\omega
 	;~ #Hotstring C0 ;~ [C0] turn off case sensitive
 	#Hotstring ?0	;~ turns off "if-suffix" trigger
 	
@@ -713,53 +773,6 @@ mathKbd_setMathInputStyle()
 ;;▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
 ;;▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 ;;██████████████████████████████████████████████████████████████████████████████
-
-#IfWinActive Mathway 
-{
-	NumpadMult:: ; superscript, power, multiply, squared, increment, iteration
-		Send, {*}
-		mathKbd_incrementPowerNoCarrotWithExtraBackspacing()
-		return
-
-	+Tab::Left
-
-	;~ +/::
-	;~ Right & NumpadDiv::
-		;~ pasteSquareRoot(1)
-		;~ return
-	
-	;~ NumpadDiv::
-		;~ Send, {/}
-		;~ if (doubleTap()){
-			;~ Send, {Backspace 2}
-			;~ ;pasteSquareRoot(1)
-		;~ }
-		;~ return
-
-;HOTSTRINGS===========================================
-	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
-	;~ ::srt::
-	;~ ::root::
-	;~ ::sqrt::
-	;~ ::sqrtt::
-	;~ ::radical::
-		;~ pasteSquareRoot(1)
-		;~ return
-	::theta::
-		mathKbd_paste("θ")
-		return
-	::inf::
-	::infinity::
-		mathKbd_paste("∞")
-		return
-#Hotstring C0 O0 ?0 *0		;~ Turn off Hotstring directives
-}
-
-#IfWinActive Desmos
-
-
-#IfWinActive ;end specific window targeting
-
 
 
 ;;██████████████████████████████████████████████████████████████████████████████
@@ -815,10 +828,10 @@ mathKbd_incrementPower( p_timeLimit := -1
 		, p_sendCarrot := true
 		, p_extraBackspacing := false){
 	if (doubleTap(p_timeLimit)){
-		currentRaisedPower += p_incrementAmount
-		if (currentRaisedPower = 2)
+		g_currentRaisedPower += p_incrementAmount
+		if (g_currentRaisedPower = 2)
 			Send, {Backspace %p_initialBackspaceAmount%} ;2
-		else if (p_extraBackspacing == true && currentRaisedPower >= 11){
+		else if (p_extraBackspacing == true && g_currentRaisedPower >= 11){
 			extraBackspaceAmount := p_subsequentBackspaceAmount + 1
 			Send, {Backspace %extraBackspaceAmount%}
 		} 
@@ -826,42 +839,42 @@ mathKbd_incrementPower( p_timeLimit := -1
 			Send, {Backspace %p_subsequentBackspaceAmount%} ;3
 		
 		if (p_sendCarrot == true)
-			Send, {^}%currentRaisedPower%{Right %p_rightAmount%} ;1
-		else if (p_sendCarrot == false && currentRaisedPower = 2)
-			Send, {^}%currentRaisedPower%{Right %p_rightAmount%} ;1
+			Send, {^}%g_currentRaisedPower%{Right %p_rightAmount%} ;1
+		else if (p_sendCarrot == false && g_currentRaisedPower = 2)
+			Send, {^}%g_currentRaisedPower%{Right %p_rightAmount%} ;1
 		else
-			Send, %currentRaisedPower%{Right %p_rightAmount%} ;1
+			Send, %g_currentRaisedPower%{Right %p_rightAmount%} ;1
 	}
 	else
-		currentRaisedPower := 1
+		g_currentRaisedPower := 1
 	return
 }
 
 /**	mathKbd_incrementVariables()
 	Descr:	Variadic method that cycles through the given 'string' variable arguments.
 	Return:	VOID
-	Params:	p_timeLimit :=	INTEGER	(default := INCREMENT_LIMIT)
+	Params:	p_timeLimit :=	INTEGER	(default := g_INCREMENT_LIMIT)
 			p_vars* :=	STRING (default := none, must provide at least one argument)
 				---> Can accept any amount of 'string' variables.
 	Notes:	Method will loop back to the hotkey's natural output and then continue 
 				working it's way through the given list of 'string' variables. 
 */
 ; variadic parameter__________________vvvvvvv________
-mathKbd_incrementVariables(p_timeLimit := "", p_vars*){
+mathKbd_incrementVariables(p_timeLimit := "", p_vars*) {
 	;; if undeclared, set timelimit to default increment time value
-	if (p_timeLimit == ""){
-		p_timeLimit := INCREMENT_LIMIT
-		;~ MsgBox, % "Set p_timeLimit from `"`" to INCREMENT_LIMIT = " . INCREMENT_LIMIT . "`p_vars.MaxIndex() = " . p_vars.MaxIndex()
+	if (p_timeLimit == "") {
+		p_timeLimit := g_INCREMENT_LIMIT
+		;~ MsgBox, % "Set p_timeLimit from `"`" to g_INCREMENT_LIMIT = " . g_INCREMENT_LIMIT . "`p_vars.MaxIndex() = " . p_vars.MaxIndex()
 	}
 	;; if within doubleTap limit, set str to params[index] value, send output,
 	;;;; and increment the index value
-	if (doubleTap(p_timeLimit)){
+	if (doubleTap(p_timeLimit)) {
 		
 		;; set the string to the next parameter element
-		str := p_vars[currentRaisedPower]
+		str := p_vars[g_currentRaisedPower]
 		
 		;; delete the last printed element by checking the string length of prev elem
-		previousIndex := currentRaisedPower - 1
+		previousIndex := g_currentRaisedPower - 1
 		if (previousIndex == 0){
 			backspaceAmount := 2
 			previousIndex := 1
@@ -869,17 +882,18 @@ mathKbd_incrementVariables(p_timeLimit := "", p_vars*){
 			backspaceAmount := StrLen(p_vars[previousIndex]) + 1
 		}
 		;; remove last print by backspaceAmount and print new string
-		Send, {Backspace %backspaceAmount%}%str%
+		;; Send, {Backspace %backspaceAmount%}%str%
+		SendInput, {Backspace %backspaceAmount%}%str%
 				
 /* 		After sending output and incrementing +1, if index variable would be higher than 
 ;; 			length of p_vars* object, then cycle back to beginning of elem index [1].
 */		
-		currentRaisedPower += 1 ;intially starts at 1, first run sets to 2
-		if (currentRaisedPower > p_vars.MaxIndex())
-			currentRaisedPower := 1
+		g_currentRaisedPower += 1 ;intially starts at 1, first run sets to 2
+		if (g_currentRaisedPower > p_vars.MaxIndex())
+			g_currentRaisedPower := 1
 	}
 	else
-		currentRaisedPower := 1
+		g_currentRaisedPower := 1
 	
 	;; send the release of any modifier keys to keep them from getting spam-locked
 	Send, {CtrlUp}{ShiftUp}{AltUp}
@@ -895,13 +909,13 @@ mathKbd_incrementVariables(p_timeLimit := "", p_vars*){
 			p_delta :=	FLOAT_STRING
 	Notes:	____How_to_or_when_is_this_used?____
 */
-mathKbd_typeSquareRoot(){
-	if (mathKbd_style_paste == false){
+mathKbd_typeSquareRoot() {
+	if (mathKbd_style_paste == false) {
 		if (mathKbd_style_backSlash == false || mathKbd_style_backSlash == 0)
 			Send, sqrt{Left %mathKbd_style_squareRootLeftAmount%}
 		else if (mathKbd_style_backSlash == true || mathKbd_style_backSlash == 1)
 			Send, \sqrt{Left %mathKbd_style_squareRootLeftAmount%}
-	} else if (mathKbd_style_paste == true){
+	} else if (mathKbd_style_paste == true) {
 		mathKbd_pasteSquareRoot()
 	}
 }
@@ -915,7 +929,7 @@ mathKbd_typeSquareRoot(){
 			p_delta :=	FLOAT_STRING
 	Notes:	____How_to_or_when_is_this_used?____
 */
-mathKbd_pasteSquareRoot(){
+mathKbd_pasteSquareRoot() {
 	archiveClipboard()
 	Clipboard := "√"			; square root, radical  √:(A+251)
 	Send, ^v{Left %mathKbd_style_squareRootLeftAmount%}
@@ -932,9 +946,11 @@ mathKbd_pasteSquareRoot(){
 			p_delta :=	FLOAT_STRING
 	Notes:	____How_to_or_when_is_this_used?____
 */
-mathKbd_paste(str := ""){	
+mathKbd_paste(str := "") {	
 	archiveClipboard()
+	Clipboard :=
 	Clipboard := str
+	ClipWait
 	Send, ^v 
 	restoreClipboard()
 	return

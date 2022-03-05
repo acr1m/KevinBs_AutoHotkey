@@ -1,2 +1,2 @@
-# AutoHotkey
+# Kevin Boykin 's AutoHotkey Library
  

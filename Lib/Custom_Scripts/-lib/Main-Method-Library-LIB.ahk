@@ -1,20 +1,27 @@
+;; Main Method Library
+;;;; this is the main library/collection of functions/methods.
+
+;; This is a flag-setting for the Tillagoto utility
+
+;TillaGoto.ScanFile = %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\Main-AHK.ahk
+		;; E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Main-AHK.ahk
 ;~ UTILITY METHODS
-#Include %A_ScriptDir%\-lib
-#Include Main-Method-Library-LIB.ahk
-#Include Emojis-And-Symbols-LIB.ahk
-#Include repeatKey()-LIB.ahk
-#Include time()-LIB.ahk
-#Include RegEx()-LIB.ahk
+;; #Include %A_ScriptDir%\-lib
+;; #Include Main-Method-Library-LIB.ahk
+;; #Include Emojis-And-Symbols-LIB.ahk
+;; #Include repeatKey()-LIB.ahk
+;; #Include time()-LIB.ahk
+;; #Include RegEx()-LIB.ahk
 ;~ CONSTANTS
-	global SUSPEND_LIMIT := 200 ; n milliseconds
-	global DOUBLE_TAP_LIMIT := 350 ; n milliseconds
-	global INCREMENT_LIMIT := 500 ; n milliseconds
-	global TIME_INTERVAL_RAPIDFIRE := 100 ;n milliseconds
+	global g_SUSPEND_LIMIT := 200 ; n milliseconds
+	global g_DOUBLE_TAP_LIMIT := 350 ; n milliseconds
+	global g_INCREMENT_LIMIT := 500 ; n milliseconds
+	global g_TIME_INTERVAL_RAPIDFIRE := 100 ;n milliseconds
 ;GLOBAL VARIABLES
 	;used to store/restore clipboard in functions
 	global g_archivedClipboard :=
 	;available for use to help with debugging
-	global debugVariable := "null"
+	global g_debugVariable := "null"
 	
 ;==============================================================================
 ;~ CLIPBOARD METHODS
@@ -193,7 +200,7 @@ restoreClipboard() {
 		Checks if user hit the triggered hotkey recently (within a given time
 			limit).
 Returns:	BOOLEAN
-Params:	p_timeLimit :=	INTEGER|FLOAT (default := DOUBLE_TAP_LIMIT | 350)
+Params:	p_timeLimit :=	INTEGER|FLOAT (default := g_DOUBLE_TAP_LIMIT | 350)
 Notes:	Does not prevent a 'triple-tap' evaulating as two 'double-taps'.
 			e.g., if p_timeLimit is 500, and 3 taps are sent 200ms apart,
 				then doubleTap() would return TRUE twice. 
@@ -206,11 +213,11 @@ doubleTap(p_timeLimit := -1) {
 	;; We can't let the p_timeLimit be (0 | false | 1 | true), because 
 	;; it's impracticle and nearly impossible. So we'll re-assign to a global
 	;; default value if it exists. 
-	else if (p_timeLimit == 0) {
-		if (DOUBLE_TAP_LIMIT <= 0)
+	else if (p_timeLimit == 0 || p_timeLimit == -1) {
+		if (g_DOUBLE_TAP_LIMIT <= 0)
 			p_timeLimit := 350
 		else
-			p_timeLimit := DOUBLE_TAP_LIMIT
+			p_timeLimit := g_DOUBLE_TAP_LIMIT
 	}
 	
 	if  (A_PriorHotkey = A_ThisHotkey && A_TimeSincePriorHotkey < p_timeLimit) {
@@ -222,15 +229,67 @@ doubleTap(p_timeLimit := -1) {
 	}
 }
 
+;; #Include SetTimer-Script-Detect-Multiple-Presses.ahk
+
+/*	Downloaded from - https://www.autohotkey.com/docs/commands/SetTimer.htm
+	Detects single, double, and triple-presses of a hotkey. This allows a hotkey to perform a different operation depending on how many times you press it.
+*/
+/**	pressedCount()
+	Descr:	Any amount of hotkey presses, within the g_DOUBLE_TAP_LIMIT (around 350-400 ms). This allows a hotkey to perform a different operation depending on how many times you press it within the g_DOUBLE_TAP_LIMIT.
+	Return:	INTEGER (the number of presses after g_DOUBLE_TAP_LIMIT has expired)
+	Params:	none
+	Notes:	Retrofitted code from - https://www.autohotkey.com/docs/commands/SetTimer.htm
+*/
+pressedCount() {
+	
+	global g_thisKey_presses
+	;; g_thisKey_presses
+	retVal := ""
+	
+	if (g_thisKey_presses > 0 && A_ThisHotkey == A_PriorHotkey) ; SetTimer already started, so we log the keypress instead.
+	{
+		g_thisKey_presses += 1
+		return
+	}
+	
+	; Otherwise, this is the first press of a new series. Set count to 1 and start
+	; the timer:
+	g_thisKey_presses := 1
+	;; SetTimer, func_pressCount, g_DOUBLE_TAP_LIMIT ; Wait for more presses within a 400 millisecond window.
+	
+	
+	
+	return retVal
+}
+
+;; class PressCount() { 
+;; }
+
+func_pressCount() {	
+	local retVal
+	
+	;; this label is activated after the SetTimer's given time-limit has expired. 
+	;; Lbl_KeyCounter: 
+	
+	;; set retVal to the press count of this hotkey
+	retVal := g_thisKey_presses
+	
+	; Regardless of which action above was triggered, reset the count to
+	; prepare for the next series of presses:
+	g_thisKey_presses := 0
+	
+	return retVal
+}
+
 
 rapidFire(p_thisHotkey := "", p_sendKey := "", p_time := 0) {
 	if (p_thisHotkey == "")
 		p_thisHotkey := A_ThisHotkey
 	
-	debugVariable := p_thisHotkey
+	g_debugVariable := p_thisHotkey
 	
 	if (p_time == 0)
-		p_time := TIME_INTERVAL_RAPIDFIRE
+		p_time := g_TIME_INTERVAL_RAPIDFIRE
 	while (GetKeyState(p_thisHotkey, "P")) {
 		;~ MsgBox % GetKeyName(p_sendKey)
 		Send % GetKeyName(p_sendKey)
@@ -356,3 +415,130 @@ mouseEvent(p_clickDelay := 200, p_coordAsPercent*) {
 	MouseMove, v_mouseX, v_mouseY
 }
 ;------------------------------------------------------------------------
+
+/**	main_toggleVar()
+	Descr:	____enter_a_description____
+	Return:	VOID-STRING-BOOLEAN-INTEGER_STRING-FLOAT_STRING
+	Params:	p_alpha :=	STRING	(default := "str")
+			p_beta :=	BOOLEAN
+			p_gamma :=	INTEGER_STRING
+			p_delta :=	FLOAT_STRING
+	Notes:	____How_to_or_when_is_this_used____
+*/
+main_toggleVar(ByRef p_Var, p_showVar := false) {
+	;; if true
+	if (p_Var || !p_Var ) {
+		;; toggle it
+		p_Var := !p_Var
+		
+		;; show it
+		if (p_showVar) {
+			MsgBox, p_Var is %p_Var%
+		}
+	}
+	else {
+		;; if not true or false, then default false
+		p_Var := false
+		;; show it
+		if (p_showVar) {
+			MsgBox, p_Var is %p_Var%
+		}
+	}
+	return
+}
+
+
+
+/**	main_scrollMethod_02()vc
+	Descr:	Starting from the time of first ScrollWheel input, output speed
+				is gradually increased, as long as A_ThisHotkey is 
+				'double-tapped' (i.e., 're-triggered') within a given 
+				time_limit up to a given max_output_speed.
+	Return:	VOID
+	Params:	p_timeLimit := INTEGER (default := 500) 'milliseconds'
+			p_
+	Notes:	utilizes the global variable g_scrollWheel
+*/
+main_scrollMethod_02(p_timeLimit := 500) {
+;{ NOTES...
+;   scrollWheel range  = [1, 100]
+;       I want the mouse to speed up, the longer the wheel has been 'active'.
+;       there'd be a lifetime for the max_delta to be active.
+;       if the lifetime isn't 'restored' before it runs out, 
+;       then it should turn off. 
+;   parameters:
+;       wheelTimeActive - delta of current lifetime
+;       wheelLifeTime - limit of 'admissible' time to elapse 
+;       				to still trigger buildup.
+;       wheelOutputAmount - 
+;       wheelBuildupAmount - amount to build the OutputAmount by.
+;}
+	
+	return
+}
+
+/**	main_scrollMethod_01()
+	Descr:	Utilizes a logarithmic function for scroll input that goes faster
+				when the value of A_TimeSincePriorHotkey is lower. 
+	Return:	INTEGER - 1 if too slow, g_scrollWheel_scrollAmount if fast enough. 
+	Params:	p_elapsedTimeLimit := INTEGER (default := 500)
+	Notes:	
+*/
+main_scrollMethod_01(p_elapsedTimeLimit := 200) {
+	;; int_logFactor := 1.5	; about 80-120 lines per stroke
+	;; int_logFactor := 1.4 ; about 60-80 lines per stroke
+	;; int_logFactor := 1.2	; about 40-50 lines per stroke
+	int_logFactor := 1.1	; about 180-250 lines per stroke
+	
+	int_translate := -15
+	;; int_factorFinal := 1
+	int_factorFinal := 0.9
+	
+	if (doubleTap(p_elapsedTimeLimit)) {
+		if (A_TimeSincePriorHotkey > 10) {
+			g_scrollWheel_deltaTime := A_TimeSincePriorHotkey + !(A_TimeSincePriorHotkey)
+			;; https://www.desmos.com/calculator/ogtxptay3x
+			g_scrollWheel_scrollAmount := Ceil(Abs((Log(g_scrollWheel_deltaTime)/Log(int_logFactor))+int_translate)) 
+			
+			; factor scroll amount faster if less time has passed, factored by int_factorFinal.
+			;; g_scrollWheel_scrollAmount *= (int_factorFinal / g_scrollWheel_deltaTime)
+			;; g_scrollWheel_scrollAmount *= (p_elapsedTimeLimit) / (g_scrollWheel_deltaTime)
+			g_scrollWheel_scrollAmount := (p_elapsedTimeLimit) / (g_scrollWheel_deltaTime)
+			
+			;; set a limit cap for scroll speed amount
+			if (g_scrollWheel_scrollAmount > 30) {
+				g_scrollWheel_scrollAmount := 30
+			}
+			
+			;~ ToolTip % "g_scrollWheel_deltaTime: `t" . g_scrollWheel_deltaTime . "`nint:`t" . int ""
+			
+			;; Send, {A_ThisHotkey %g_scrollWheel_scrollAmount%}
+			
+			;; return the scroll wheel amount
+			return g_scrollWheel_scrollAmount
+		}
+	}
+	;; if scroll wasn't within the double-tap time limit, then return 1 for the scroll speed amount.
+	return 1
+}
+
+
+;; kind of like a default template object, that starts as being 'off'
+/*
+	Base Class for toggling output when a hotkey is triggered.
+	Type: <Class>
+	Properties: - isActive := false
+	Example: class AppWindow_Ctrl_A extends SwitchHandlerForKeys
+*/
+class SwitchHandlerForKeys {
+	
+	; class variable (inherited by all classes which extend this one)
+	;; static isActive := false
+	
+	; instance variable
+	isActive := false
+	
+	toggleState() {
+		this.isActive := !this.isActive
+	}
+}

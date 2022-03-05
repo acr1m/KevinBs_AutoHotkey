@@ -15,27 +15,30 @@
 
 #x::gosub, label_OpenExcel
 
-#Insert::
+#Insert:: ;{ 
 	KeyWait, Insert
 	KeyWait, LWin
 	gosub, label_OpenExcel
 	Sleep, 8000
 	excel_StampTimeCurrent_OnNextLine()
 	return
+;}
 
-label_OpenExcel:
-#Include Excel-filepaths-WIN.ahk
-	;~ Run, % "open" filePathFor_Excel
-	;~ MsgBox,,, % "Msg from `n#IfWinActive NONE `n#x::", % 3
+label_OpenExcel: ;{ 
+	#Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-win\
+	#Include Excel-filepaths-WIN.ahk
 	Run, %filePathFor_Excel% %filePathFor_Excel_doc%
 	return
+;}
 
-#IfWinExist Time_Stamps_Main_v5.xlsm - Excel ahk_class XLMAIN ahk_exe EXCEL.EXE
-#x::
+#IfWinExist ahk_class XLMAIN ahk_exe EXCEL.EXE 
+#x:: ;{ 
 	;~ MsgBox,,, % "Msg from `n#IfWinExist EXCEL`n#x::", % 3
 	WinActivate ; Activates the window found by the above #IfWin directive.
 	return
-#Insert::
+;}
+
+#Insert:: ;{ 
 	;~ MsgBox,,, % "Msg from `n#IfWinExist EXCEL `n#Insert::", % 3
 	KeyWait, Insert
 	KeyWait, LWin
@@ -44,61 +47,60 @@ label_OpenExcel:
 	WinActivate
 	excel_Hotkey_LWinInsert()
 	return
-#IfWinActive Time_Stamps_Main_v5.xlsm - Excel ahk_class XLMAIN ahk_exe EXCEL.EXE
-{
-	;;Scroll Left
-	+WheelUp::
-	{
-		SetScrollLockState, On
-		Send, {Left}
-		SetScrollLockState, Off
-		return	
-	}
-	
-	;;Scroll Right
-	+WheelDown::
-	{
-		SetScrollLockState, On
-		Send, {Right}
-		SetScrollLockState, Off
-		return
-	}
-	
-	;Edit Current Cell Content
-	^Enter::Send, {F2}
-	
-	;Activate Draw Border Tool
-	^w::excel_ActivateDrawBorderTool()
-	
-	;Adds a top border to the first 9 columns in a single row
-	^e::excel_AddTopBorder()
-	
-	;TIME-STAMP FUNCTION
-	Insert::excel_StampTimeCurrent()
-	
-/* 	Description
- * 		This code encapsulates or surrounds a cell's formula 
- * 		with an IFERROR(__,IF(__)) block that will effectively
- * 		hide resulting cell values that result in zero or less
- * 		without having to mess with excel's "conditional formatting".
- * Known Issues
- * 		- Will delete the first character, always. So make sure there's 
- *		an "=" for the first character of the cell's contents.
- * 	
- */
-	^+i::excel_EncapIfErrorIf()
-	
-	#Insert::
-	^+Insert::
-		;~ MsgBox,,, % "Msg from `n#IfWinActive EXCEL `n#Insert::", % 3
-		excel_Hotkey_LWinInsert()
-		return
-	
-}
+;}
+
+#IfWinActive ahk_class XLMAIN ahk_exe EXCEL.EXE 
+
+;;Scroll Left
++WheelUp:: ;{
+	SetScrollLockState, On
+	Send, {Left}
+	SetScrollLockState, Off
+	return	
+;}
+
+;;Scroll Right
++WheelDown:: ;{
+	SetScrollLockState, On
+	Send, {Right}
+	SetScrollLockState, Off
+	return
+;}
+
+;Edit Current Cell Content
+^Enter::Send, {F2}
+
+;Activate Draw Border Tool
+^w::excel_ActivateDrawBorderTool()
+
+;Adds a top border to the first 9 columns in a single row
+^e::excel_AddTopBorder()
+
+;TIME-STAMP FUNCTION
+Insert::excel_StampTimeCurrent()
+
+/* 	This code encapsulates or surrounds a cell's formula 
+* 		with an IFERROR(__,IF(__)) block that will effectively
+* 		hide resulting cell values that result in zero or less
+* 		without having to mess with excel's "conditional formatting".
+* Known Issues
+* 		- Will delete the first character, always. So make sure there's 
+*		an "=" for the first character of the cell's contents.
+* 	
+*/
+^+i::excel_EncapIfErrorIf()
+
+#Insert::
+^+Insert:: ;{
+	;~ MsgBox,,, % "Msg from `n#IfWinActive EXCEL `n#Insert::", % 3
+	excel_Hotkey_LWinInsert()
+	return
+;}
+  
 #IfWinActive
 
 ;LABELS
-excel_ActivateDrawBorderTool(){ 
+excel_ActivateDrawBorderTool() { 
 	;~ Send, {Alt}
 	;~ Send, hbw
 	Send, {Alt}hbw
@@ -107,7 +109,8 @@ excel_ActivateDrawBorderTool(){
 	;~ Send, {Escape}
 	return
 }
-excel_AddTopBorder(){
+
+excel_AddTopBorder() {
 	excel_setBorderColorToAccent1()
 	SetKeyDelay, 50
 	Send, {Home}
@@ -122,7 +125,8 @@ excel_AddTopBorder(){
 	SetKeyDelay, Default
 	return
 }
-excel_EncapIfErrorIf(){
+
+excel_EncapIfErrorIf() {
 	;archive/save the clipboard's contents and clear
 	clipArchive := ClipboardAll
 	Clipboard :=
@@ -155,20 +159,23 @@ excel_EncapIfErrorIf(){
 		Clipboard := clipArchive
 	return
 }
-excel_Hotkey_LWinInsert(){
+
+excel_Hotkey_LWinInsert() {
 	KeyWait, Insert
 	KeyWait, LWin
 	excel_StampTimeCurrent_OnNextLine()
 	return
 }
-excel_NavigateToBottomLeftCell(){
+
+excel_NavigateToBottomLeftCell() {
 	SetKeyDelay, 200
 	Send, ^{Home 2}
 	Send, ^{Down}
 	Send, {Down}
 	return
 }
-excel_StampTimeCurrent(){
+
+excel_StampTimeCurrent() {
 	;; new method
 	;~ FormatTime, Clipboard
 	;~ FormatTime, Clipboard, , yyyy/MM/dd hh:mm:ss tt
@@ -214,7 +221,8 @@ excel_StampTimeCurrent(){
 	SetKeyDelay, 0
 	return
 }
-excel_StampTimeCurrent_OnNextLine(){
+
+excel_StampTimeCurrent_OnNextLine() {
 	excel_NavigateToBottomLeftCell()
 	excel_StampTimeCurrent()
 	Sleep, 200
@@ -223,9 +231,9 @@ excel_StampTimeCurrent_OnNextLine(){
 	SetKeyDelay, 0
 	return
 }
-excel_setBorderColorToAccent1()
-	{
+
+excel_setBorderColorToAccent1()	{
 		SetKeyDelay, 50
 		Send, {Alt}hbi{Right 5}{Enter}
 		return
-	}
+}

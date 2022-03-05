@@ -9,29 +9,269 @@
  */
 ;;##############################################################################
 ;;SYMBOLS FOR CHAT, MESSAGES, COMMUNICATION, FRIENDS, 
-#Hotstring SE
+;; #Include E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Math-Keyboard-AHK.ahk
+
+#Hotstring SE ;; send hotstring functions as SendEvent
+
+global g_emojiIncrementTimer := 2000 ;; 2 seconds
+global g_firstKissCall := 0
+
+
+#Hotstring o0
+::not;::
+::not1;::
+;; ˜ 02dc ; high tilde
+;; ~ 126 ; tilde
+	pasteClipboard("~") ; tilde
+	tempVar := ""
+	Send, %tempVar%
+	return
+::nott;::
+::not;;::
+::not2;::
+;; ¬ 00ac
+	pasteClipboard("¬") ; carriage return symbol, logical NOT symbol
+	return
+::and;::
+::land;:: ; logical and
+::and1;::
+	pasteClipboard("⋀") ; logical AND, conjunction
+	return
+::and;;::
+::land;;:: ; logcal and
+::andd;::
+::and2;::
+;; ∧ 2227
+	pasteClipboard("∧") ; logical AND, conjunction
+	return
+::or;::
+::lor;:: ; logical or
+::or1;::
+	pasteClipboard("⋁") ; logical OR, disconjunction inclusive
+	return
+::or;;::
+::lor;;:: ; logical or
+::orr;::
+::or2;::
+;; ∨ 2228
+	pasteClipboard("∨") ; logical OR, disconjunction inclusive
+	return
+::xor;::
+::xor1;::
+;; ⊕ 2295
+;; ⊻ 22bb
+	pasteClipboard("⊻") ; logical NOT OR, NOR, disconjunction inclusive
+	return
+::xor;;::
+::xorr;::
+::xor2;::
+	pasteClipboard("⊕") ; logical NOT OR, NOR, disconjunction inclusive
+	return
+::nand;::
+::notand;::
+;; ⊼  22bc ; NOT AND, NAND
+	pasteClipboard("⊼")
+	return
+::nor3;::
+::nor;;;::
+::norrr;::
+;; ⊽  22bd ; NOT OR, NOR
+	pasteClipboard("")
+	return
+::then;::
+	pasteClipboard("→") ; logical THEN
+	return
+::iff;::
+::iff1;::
+	pasteClipboard("⟷") ; logical IF AND ONLY IF, IFF
+	return
+::iff;;::
+::ifff;::
+::iff2;::
+	pasteClipboard("⬌") ; logical IF AND ONLY IF, IFF
+	return
+::therefore;::
+	pasteClipboard("∴") ; logical THEREFORE
+	return
+::because;::
+	pasteClipboard("∵") ; logical BECAUSE
+	return
+::equivalence;::
+::equivalent;::
+::isthesameas;::
+::=;::
+::===;::
+;; ≡ 2261
+	pasteClipboard("≡")
+	return
+;; ::;::
+	;; pasteClipboard("")
+	;; return
+;; ::;::
+	;; pasteClipboard("")
+	;; return
+;; ::;::
+	;; pasteClipboard("")
+	;; return
+;; ::;::
+	;; pasteClipboard("")
+	;; return
+;; ⊤ +22A4 ; Tautology; top, verum; propositional logic; Boolean Algebra (True);
+;; T +22A4 ; Tautology; top, verum; propositional logic; Boolean Algebra (True);
+;; 1 +22A4 ; Tautology; top, verum; propositional logic; Boolean Algebra (True);
+;; ⊥ +22A5 ; Contradiction; bottom, falsum; Propositional logic, Boolean Algebra (False);
+;; F      ; Contradiction; bottom, falsum; Propositional logic, Boolean Algebra (False);
+;; 0      ; Contradiction; bottom, falsum; Propositional logic, Boolean Algebra (False);
+;; ∀ +2200 ; universal quantification; for all, for any, for each; first-order logic;
+;; ∃ +2203 ; existential quantification; there exists; first-order logic;
+;; ∃! +2203 +0021 ; uniqueness quantification; there is exactly one; first-order logic;
+;; ≔ +2254 ; Definition; is defined as; everywhere; 
+;; : = +003a +003d  ; Definition; is defined as; everywhere; 
+;; : ⊜ +003a +229c  ; Definition; is defined as; everywhere; 
+;; ( ) +0028 +0029
+;; ⊢ +22a2
+;; ⊨ +22a8
+;; ∴  +2234	
+;; ∵  +2235	
+;; ⊽  +22bd	
+;; ⋄  +22c4	
+;; ⋆  +22c6	
+;; ⊥  +22a5	
+;; ↓ +2193 	
+;; ⌐  +2310	
+;; ⌜  +231c	
+;; ⌝  +231d	
+
+#Hotstring O
 
 
 
 
+::tab;::
+	pasteClipboard("	")
+	return
+::nl;::
+::newline;::
+	;; Send, {asc 013} ; carriage-return ascii key-code
+	Send, {u+013} ; carriage-return ascii key-code
+	
+	
+	;; tempClip := ClipboardAll
+	;; Clipboard := ""
+	;; Clipboard := Asc("
+	;; ClipWait
+	;; Send, ^v
+	;; Clipboard := tempClip
+	
+	return
+	
+/*
+::kiss;::
 
+	;; set global var from (default: 1) to 2,
+	;;; and print out the first string in the list of arguments
+	;; hit enter to cycle through the list
+		
+	pasteClipboard("(⌒▽⌒)♡")
+	
+	;; if first time this function is called...
+	if (g_currentRaisedPower == 1 && g_firstKissCall == 0) {
+		g_currentRaisedPower := 2
+		g_firstKissCall := 1
+	} else if (g_currentRaisedPower == 1) {
+		g_currentRaisedPower := 2
+		g_emojiIncrementTimer
+	}
+	
+	mathKbd_incrementVariables(2000
+	,"(⌒▽⌒)♡"
+	,"(*¯ ³¯*)♡"
+	,"♡ (￣З￣)"
+	,"(≧◡≦) ♡"
+	,"( ´ ∀ `)ノ～ ♡"
+	,"( ´ ▽ ` ).｡ｏ♡")
+	return
+
+;; this label resets the global var 'g_firstKissCall' to 0
+;;;; whenever the 'SetTimer' which activated this Label has
+;;;; expired.
+Lbl_Hotstring_kiss:
+	g_firstKissCall := 0 
+	return
+*/
+
+::kiss1;::
+	pasteClipboard("(*¯ ³¯*)♡")
+	return
+::kiss2;::
+	pasteClipboard("(⌒▽⌒)♡")
+	return
+::kiss3;::
+	pasteClipboard("♡ (￣З￣)")
+	return
+::kiss4;::
+	pasteClipboard("(≧◡≦) ♡")
+	return
+::kiss5;::
+	pasteClipboard("( ´ ∀ `)ノ～ ♡")
+	return
+::kiss6;::
+	pasteClipboard("( ´ ▽ ` ).｡ｏ♡")
+	return
+
+::tableflip;::
+	pasteClipboard("( ╯°□°)╯ ┻━━┻")
+	return
+::happyblush;::
+::blushhappy;::
+	pasteClipboard("(#＾ヮ＾#)")
+	return
+::blush;::
+::shucks;::
+::awwshucks;::
+::itsnothing;::
+::np;::
+::noproblem;::
+	pasteClipboard("(⌒▿⌒*)ゞ")
+	return
+::suss;::
+::suss1;::
+::doubt;::
+	pasteClipboard("(￢_￢)")
+	return
+::susss;::
+::suss2;::
+::doubt2;::
+	pasteClipboard("(¬_¬ )")
+	return
 ::shruggie;::
 	pasteClipboard("¯\_(ツ)_/¯")
 	return
+::shruggie2;::
+	pasteClipboard("￣\_(ツ)_/￣")
+	return
+::gasp;::
+::gasp1;::
 ::shock;::
 ::shock1;::
-	;~ Send, Σ(°ロ°)
 	pasteClipboard("Σ(°ロ°)")
 	return
-::shock2::
+::gasp2;::
 ::shock2;::
-	;~ Send, (￣□￣;)
-	pasteClipboard("(￣□￣;)")
-	return
-::gasp;::
-::gasp;::
-	;~ Send, (°ロ°) !
 	pasteClipboard("(°ロ°) !")
+	return
+::eh...;::
+::ehh...;::
+::srsly;::
+::srsly?;::
+::forreal;::
+::forreal?;::
+::rly;::
+::rly?;::
+::really;::
+::really?;::
+::yurkidding...;::
+	pasteClipboard("(￣□￣;)")
 	return
 ::wow;::
 	pasteClipboard("w(°ｏ°)w")
@@ -43,6 +283,16 @@
 ::larry;::
 ::lenny;::
 	pasteClipboard("( ͡° ͜ʖ ͡°)")
+	return
+::joy;::
+	pasteClipboard("(⁀ᗢ⁀)")
+	return
+::smirk;::
+::happysuss;::
+	pasteClipboard("(￢‿￢ )")
+	return
+::happysuss2;::
+	pasteClipboard("(¬‿¬ )")
 	return
 ::disapproval;::
 ::disapprove;::
