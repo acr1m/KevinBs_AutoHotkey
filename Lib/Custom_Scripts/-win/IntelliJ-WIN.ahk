@@ -196,7 +196,11 @@ class CurrentTheme
 	CurrentTheme_obj.restoreTheme()
 	return
 
-LButton::LButton
+;; $LButton::
+	;; Send, {LButton}
+	;; KeyWait, LButton
+	;; return
+	
 !LButton Up::
 {
 	Send, {LButton Up}

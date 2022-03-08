@@ -82,7 +82,10 @@ Lbl_Color_Mixer: ;{
 	::??colorblend::
 	::??colorMix::
 	::??colorMixer::
-		Run, Firefox.exe "https://www.w3schools.com/colors/colors_mixer.asp"
+	::??colormixer::
+	::??color mixer::
+		Run, Firefox.exe "https://colordesigner.io/gradient-generator"
+		;; Run, Firefox.exe "https://www.w3schools.com/colors/colors_mixer.asp"
 		return
 ;}
 

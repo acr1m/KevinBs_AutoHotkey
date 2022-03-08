@@ -235,9 +235,51 @@ Lbl_Run_NotepadPP:
 #n::Run, "Notepad++"
 ;~ #a::Run, E:\Software\AutoHotKey\SciTE\SciTE.exe
 
-Lbl_Run_SciTE:
-#IfWinActive
+
+#IfWinActive ;; if any window is active 
+
+
+;; [WINDOWS+A] <=> MY_WINDOWS_HOTKEY-SEQUENCE_LISTENER;;
+
+
+class windowsAEventHandler {
+	
+	; this is the constructor method for this class
+	;
+	; Equivalent to... <Java>
+	;	public static void className(p1, p2){this.p1 = p1; this.p2 = p2;}
+	__New(param1, param2) {
+		this.property1 := param1
+		this.property2 := param2 
+	}
+	
+	toMessageBox() {
+		MsgBox, , % "windowsAEventHandler", % "hello from windowsAEventHandler Class `n" . this.Name . "`nend of output-string." ; 
+	}
+	
+}
+
+myWindowsAEventHandler = new windowsAEventHandler ;; instantiate a clone of a class
+
+
 #a::Run, % g_SCITE_4AHK_EXE ;; global variable, defined at top of this script
+
+
+/* #a::	
+ * 	SetTimer, % windowsAEventHandler, 3000 ; 1000 = 1 second
+ * 	KeyWait a ;; wait for a to be released before completely exiting this thread.
+ * 	return
+ * 
+ * 
+ * 
+ * #a up::
+ * 
+ * 	Run, % g_SCITE_4AHK_EXE ;; global variable, defined at top of this script
+ */
+
+
+
+
 
 Lbl_Run_Voicemeeter:
 #s::Run, "C:\Program Files (x86)\VB\Voicemeeter\voicemeeter.exe"
@@ -625,21 +667,4 @@ Lbl_LWin:
 	;; _shift_space(shiftSpaceTapCounter)
 	;; _shift_space()
 	Send, {_}
-	return
-
-
-$9::
-	Send, (
-	return
-
-$+9::
-	Send, 9
-	return
-
-$0::
-	Send, )
-	return
-
-$+0::
-	Send, 0
 	return
