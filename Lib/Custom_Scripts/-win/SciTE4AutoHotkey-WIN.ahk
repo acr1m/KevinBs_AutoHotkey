@@ -7,7 +7,7 @@ Menu, Tray, Icon, % "E:\Assets\Icons\autohotkey-scite\SciTE_500.ico"
 ;; #Include %A_ScriptDir%\..\-lib\Main-Method-Library-LIB.ahk
 
 #Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\Main-Method-Library-LIB.ahk
-#Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\Emojis-And-Symbols-LIB.ahk
+;; #Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\Emojis-And-Symbols-LIB.ahk
 #Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\repeatKey()-LIB.ahk
 #Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\time()-LIB.ahk
 #Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\RegEx()-LIB.ahk

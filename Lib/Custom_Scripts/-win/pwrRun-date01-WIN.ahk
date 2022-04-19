@@ -1,21 +1,42 @@
 
-::??getdate::
+#IfWinActive ahk_exe PowerToys.PowerLauncher.exe
+::??getDate::
 ::??date::
-::??gettoday::
-::??today::
-	Clipboard := time_translateDate(0,, "M/d/yyyy")
-	MsgBox, , % "Today's Date", % "" 
-	. "" ;; "Date: " . time_translateDate(0,, "yyy / M-MMM / dd-ddd") 
-	. "" ;; "`n`n" 
-	. "Today:`t`t" . time_translateDate(0,, "dddd, MMM, d, yyyy")
-	. "`nClipboard:`t" . Clipboard
-	. "`n`n(this window will close after 5 seconds)"
-	, 5 ;; timeout = 5 seconds
+	gosub, Lbl_getDateWithClipboard
 	return
-			
+::??getToday::
+::??today::
+	gosub, Lbl_getToday
+	return
+
+#IfWinActive
+::??getNow;::
+	SetTimer, Lbl_getNow, -250
+	return
+::??getDate;::
+	SetTimer, Lbl_getDateWithClipboard, -250 ;; wait 250 milliseconds and then do sub once
+	return
+::??getToday;::
+	SetTimer, Lbl_getToday, -250 ;; wait 250 milliseconds and then do sub once
+	return
+
+
+Lbl_getDateWithClipboard:
+	Clipboard := timeCalc_getDateWithClipboard(Clipboard, "ddd, M/d/yyyy")
+	return
+
+Lbl_getToday:
+	Clipboard := timeCalc_getToday("ddd, M/d/yyyy")
+	return
+
+Lbl_getNow:
+	Clipboard := timeCalc_getToday("ddd, M/d/yyyy, hh:mm:ss_tt")
+	return
+
 /* Date Formats (case sensitive)
 ;; =============================================================================
 ;; Format 	Description
+;; "ddd, M/d/yyyy" = Fri, 4/8/2022
 ;; -----------------------------------------------------------------------------
 ;; d 		Day of the month without leading zero (1 – 31)
 ;; dd 		Day of the month with leading zero (01 – 31)
@@ -34,6 +55,8 @@
 /* Time Formats (case sensitive)
 ;; =============================================================================
 ;; Format 	Description
+;; "h:m:st" = 4:15P
+;; "hh:mm:ss_tt" = 04:19:14_PM
 ;; -----------------------------------------------------------------------------
 ;; h 		Hours without leading zero; 12-hour format (1 – 12)
 ;; hh 		Hours with leading zero; 12-hour format (01 – 12)

@@ -1,6 +1,9 @@
+#SingleInstance Force
+
 ;; #IfWinActive PowerLauncher ahk_exe PowerLauncher.exe
 #IfWinActive ahk_exe PowerToys.PowerLauncher.exe
-#Include pwrRun-date00-WIN.ahk
+
+;; #Include pwrRun-date00-WIN.ahk
 
 ;; this block is primarily for testing script, main.ahk should already include all of these
 ;; #Include %A_ScriptDir%\..\-lib ;{ 
@@ -12,6 +15,14 @@
 ;; #Include %A_ScriptDir%\..\-utility
 ;; #Include Horizontal-Scrolling-UTILITY.ahk
 ;; #Include Generate-Lorem-Ipsum-UTILITY.ahk  ;}
+
+::??convertCharCode::
+::??ccc::
+::??getCharCode::
+::??gcc::
+	targetScript := A_LineFile . "\..\-utility\Char-Code-UTILITY.ahk"
+	Run, %A_AhkPath% %targetScript%,,,pid_outVar
+	return
 
 ::??apiconvert::
 ::??api convert::
@@ -67,6 +78,15 @@ Lbl_Word_Hippo: ;{
 ::??wordHippo::
 	pwrRun_fireFoxSearch("word")
 	return  ;}
+
+::??amazon::
+	Run, chrome.exe "amazon.com"
+	return
+	
+::??target::
+	Run, chrome.exe "target.com"
+	Run, chrome.exe "https://shoppinglist.google.com/u/0/lists/13332788625507169408"
+	return
 
 ;; opens (https://regexr.com) in Firefox
 Lbl_Open_Regexr: ;{ 

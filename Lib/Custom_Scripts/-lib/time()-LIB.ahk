@@ -6,12 +6,12 @@
 ;; 20171028 == 2017, October, 28, hour-00, min-00, sec-00
 ;; MsgBox, % time_difference(20171028, 20220131, , "yyyy`ndd")
 
+/** 
+ * location of file for custom date calculations
+ * (highlight and press Ctrl+Shift+O)
+ * E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-utility\Time-Calculator-UTILITY.ahk
+ */
 
-v_days := time_difference(20171028,, "Days")
-v_years := Round(time_difference(20171028,, "Days")/365)
-;; v_days := Mod(v_days,(v_years * 365))
-v_days := Mod(v_days, (v_years * 365))
-MsgBox, % "years: " v_years "`ndays: " v_days
 
 /* Date Formats (case sensitive)
 ;; =============================================================================
@@ -131,7 +131,7 @@ time_translateDate(p_timeShift, p_timeUnit := "Days", p_format := "yyyy-MM-dd_hh
 ;; 	[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
 ;; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
-time_sendDate(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt") {
+time_sendDate(p_str_dateFormat := "yyyy_MM_dd-hh_mm_ss_tt") {
 	outVar := time_getDate(p_str_dateFormat)
 	;~ Send, %outVar%
 	Send, % outVar

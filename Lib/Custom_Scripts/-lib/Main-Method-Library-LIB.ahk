@@ -17,6 +17,7 @@
 	global g_DOUBLE_TAP_LIMIT := 350 ; n milliseconds
 	global g_INCREMENT_LIMIT := 500 ; n milliseconds
 	global g_TIME_INTERVAL_RAPIDFIRE := 100 ;n milliseconds
+	global g_currentIncrementVariable := 100 ;n milliseconds
 ;GLOBAL VARIABLES
 	;used to store/restore clipboard in functions
 	global g_archivedClipboard :=
@@ -541,4 +542,49 @@ class SwitchHandlerForKeys {
 	toggleState() {
 		this.isActive := !this.isActive
 	}
+}
+
+/**	main_incrementVariables()
+	Descr:		Variadic method that cycles through the given 'string' variable arguments.
+	Return:		VOID
+	Params:		p_timeLimit :=	INTEGER	(default := g_INCREMENT_LIMIT)
+				p_vars* :=	STRING (default := none, must provide at least one argument)
+				  //Can accept any amount of 'string' variables.
+	Remarks:	Method will loop back to the hotkey's natural output and then continue 
+				  working it's way through the given list of 'string' variables. 
+				Copied from "mathKbd_incrementVariables()"
+*/
+main_incrementVariables(p_shouldThisLoop := true, p_timeLimit := "", p_vars*) {
+	
+	
+	if (p_shouldThisLoop) { ;; if this method should handle its own looping
+		if (p_timeLimit == "") { ;; if undeclared, set timelimit to default increment time value
+			p_timeLimit := g_INCREMENT_LIMIT
+		}
+	}
+	
+	if (doubleTap(p_timeLimit)) {
+		
+		str := p_vars[g_currentIncrementVariable] ;; set the string to the next parameter element
+		previousIndex := g_currentIncrementVariable - 1 ;; delete the last printed element by checking the string length of prev elem
+		
+		if (previousIndex == 0) {
+			backspaceAmount := 2
+			previousIndex := 1
+		} 
+		else { 
+			backspaceAmount := StrLen(p_vars[previousIndex]) + 1
+		}
+		
+		SendInput, {Backspace %backspaceAmount%}%str% ;; remove last print by backspaceAmount and print new string
+		
+		g_currentIncrementVariable += 1 ;; intially starts at 1, first run sets to 2
+		if (g_currentIncrementVariable > p_vars.MaxIndex()) ;; cycle back currentIncrementVariable to 1
+			g_currentIncrementVariable := 1
+	}
+	else
+		g_currentIncrementVariable := 1
+	
+	Send, {CtrlUp}{ShiftUp}{AltUp} ;; release modifier keys to prevent spam-lock
+	return
 }

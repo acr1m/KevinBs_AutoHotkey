@@ -1,4 +1,6 @@
-﻿/* AHK_LIB_Emojis_And_Symbols.ahk
+﻿#SingleInstance Force
+
+/* AHK_LIB_Emojis_And_Symbols.ahk
  * 
  * @description
  * 		This script is a place for hotstrings, hotkeys, and methods for 
@@ -17,66 +19,62 @@ global g_emojiIncrementTimer := 2000 ;; 2 seconds
 global g_firstKissCall := 0
 
 
-#Hotstring o0
-::not;::
-::not1;::
-;; ˜ 02dc ; high tilde
-;; ~ 126 ; tilde
-	pasteClipboard("~") ; tilde
-	tempVar := ""
-	Send, %tempVar%
-	return
-::nott;::
-::not;;::
-::not2;::
-;; ¬ 00ac
-	pasteClipboard("¬") ; carriage return symbol, logical NOT symbol
-	return
-::and;::
-::land;:: ; logical and
-::and1;::
-	pasteClipboard("⋀") ; logical AND, conjunction
-	return
-::and;;::
-::land;;:: ; logcal and
-::andd;::
-::and2;::
-;; ∧ 2227
-	pasteClipboard("∧") ; logical AND, conjunction
-	return
-::or;::
-::lor;:: ; logical or
-::or1;::
-	pasteClipboard("⋁") ; logical OR, disconjunction inclusive
-	return
-::or;;::
-::lor;;:: ; logical or
-::orr;::
-::or2;::
-;; ∨ 2228
-	pasteClipboard("∨") ; logical OR, disconjunction inclusive
-	return
+#Hotstring o0 ? ;; ending character off (o0), allow suffix triggering
+/* 
+ * Discrete Math Symbols
+ * Predicate Logic
+ * junctions::		∧∨⊕
+ * statements::		∵∴≡⋯
+ * 
+ * set theory::		⋂⋃
+ * prepositionals::	⊃⊅⊂⊄⊆⊇⊉⋲⋸
+ * quantifiers::		∀∃∆
+ * ⋀⋁⊼⊽∏∐Σ∑∏∐∓∈∋∣∼∽≔≢⨁⩡
+ * ∩∪∩∪
+ */
+
+;; ˜ U+02dc ; high tilde, superscript tilde
+::symmetricdifference;::
+::symmetricdifference1;::
+::symmdiff;::
+::symmdiff1;::
+::symdiff;::
+::symdiff1;::
+::sdiff;::
+::sdiff1;::
+::exclusiveor;::
 ::xor;::
 ::xor1;::
 ;; ⊕ 2295
 ;; ⊻ 22bb
-	pasteClipboard("⊻") ; logical NOT OR, NOR, disconjunction inclusive
+	pasteClipboard("⊻") ; logical XOR, Exclusive OR
 	return
+::exclusiveor;;::
+::exclusiveorr;::
+::symmetricdifference;;::
+::symmetricdifferencee;::
+::symmetricdifference2;::
+::symmdiff;;::
+::symmdiff2;::
+::symdiff;;::
+::symdiff2;::
+::sdiff;;::
+::sdiff2;::
 ::xor;;::
 ::xorr;::
 ::xor2;::
-	pasteClipboard("⊕") ; logical NOT OR, NOR, disconjunction inclusive
+::circleplus;::
+::oplus;::
+	pasteClipboard("⊕") ; logical XOR, Exclusive OR
 	return
-::nand;::
 ::notand;::
-;; ⊼  22bc ; NOT AND, NAND
-	pasteClipboard("⊼")
+::nand;::
+	pasteClipboard("⊼") ;; ⊼  22bc ; NOT AND, NAND
 	return
 ::nor3;::
 ::nor;;;::
 ::norrr;::
-;; ⊽  22bd ; NOT OR, NOR
-	pasteClipboard("")
+	pasteClipboard("⊽") ;; ⊽  22bd ; NOT OR, NOR
 	return
 ::then;::
 	pasteClipboard("→") ; logical THEN
@@ -91,30 +89,172 @@ global g_firstKissCall := 0
 	pasteClipboard("⬌") ; logical IF AND ONLY IF, IFF
 	return
 ::therefore;::
+::tf;::
 	pasteClipboard("∴") ; logical THEREFORE
 	return
 ::because;::
+::bcuz;::
+::bc;::
 	pasteClipboard("∵") ; logical BECAUSE
 	return
-::equivalence;::
-::equivalent;::
-::isthesameas;::
-::=;::
-::===;::
-;; ≡ 2261
-	pasteClipboard("≡")
+;; ::;::
+	;; pasteClipboard("")
+	;; return
+::subset;::
+::sub;::
+	pasteClipboard("⊂") ;;U+2282 (8834) 		⊂ 	SUBSET OF
 	return
+::superset;::
+::supset;::
+::sup;::
+	pasteClipboard("⊃") ;;U+2283 (8835) 		⊃ 	SUPERSET OF
+	return
+::subseteq;::
+::subset=;::
+::subeq;::
+::sub=;::
+	pasteClipboard("⊆") ;;U+2286 (8838) 		⊆ 	SUBSET OF OR EQUAL TO
+	return
+::supseteq;::
+::supset=;::
+::supeq;::
+::sup=;::
+	pasteClipboard("⊇") ;;U+2287 (8839) 		⊇ 	SUPERSET OF OR EQUAL TO
+	return
+::sigma;::
+::summation;::
+::sum;::
+	pasteClipboard("∑") ;;U+2211 (8721) 		∑	N-ARY SUMMATION
+	return
+::qed;::
+	pasteClipboard("∎") ;;U+220E (8718) 		∎	END OF PROOF
+	return
+::not1;::
+::not;::
+	pasteClipboard("¬") ;; ¬ U+00ac ; carriage return symbol, logical NOT symbol
+	return
+::nott;::
+::not2;::
+::not;;::
+	pasteClipboard("~") ;; ~ A+126 ; tilde
+	return
+::land1;:: ; logical and
+::land;:: ; logical and
+::and1;::
+::and;::
+	pasteClipboard("∧") ;; ∧ U+2227 ; logical AND, conjunction
+	return
+::land;;:: ; logcal and
+::land2;:: ; logcal and
+::and2;::
+::and;;::
+::andd;::
+	pasteClipboard("⋀") ;; ⋀= U+22C0 (8896), ; logical AND, conjunction
+	return
+::lor1;:: ; logical or
+::lor;:: ; logical or
+::or1;::
+::or;::
+	pasteClipboard("∨") ;; ∨ U+2228 ; logical OR, disconjunction inclusive
+	return
+::lor2;:: ; logical or
+::lor;;:: ; logical or
+::or2;::
+::orr;::
+::or;;::
+	pasteClipboard("⋁") ;; ⋁ U+22C1 (8897); logical OR, disconjunction inclusive
+	return
+::is not an element of;::
+::isnotanelementof;::
+::not element of;::
+::notelementof;::
+::not in;::
+::notin;::
+::nin;::
+	pasteClipboard("∉") ;;U+2209 (8713) 		∉ 	NOT AN ELEMENT OF
+	return
+::is an element of;::
+::isanelementof;::
+::element of;::
+::elementof;::
+::in;::
+	pasteClipboard("∈") ;;U+2208 (8712) 		∈ 	ELEMENT OF
+	return
+::emptyset;::
+::0;::
+	pasteClipboard("∅") ;;U+2205 (8709) 		∅ 	EMPTY SET
+	return
+::delta;::
+::increment;::
+	pasteClipboard("∆") ;; U+2206 (8710) 		∆ 	INCREMENT
+	return
+::nabla;::
+	pasteClipboard("∇") ;; U+2207 (8711) 		∇ 	NABLA
+	return
+::equivalence;::
+::isthesameas;::
+::equivalent;::
+::equiv;::
+::=;::
+::=;;::
+::==;::
+::---;::
+	pasteClipboard("≡") ;; ≡ 2261
+	return
+::notequalto;::
+::notequal;::
+::nequal;::
+::neq;::
+	pasteClipboard("≠") ;; ≠ U+2260
+	return
+::theta;::
+	pasteClipboard("Θ") ;; Θ (233)		Θ	theta
+	return
+::pi;::
+	pasteClipboard("π") ;; Θ (227)		π	pi
+	return
+::union;::
+:C:U;::
+	pasteClipboard("∪") ;; U+222A (8746) 		∪ 	UNION
+	return
+::intersect;::
+::intsect;::
+	pasteClipboard("∩") ;; U+2229 (8745) 		∩ 	INTERSECTION
+	return
+
+
+
+
+::not all;::
+::nall;::
+:C:notA;::
+:C:NA;::
+:C:nA;::
+	pasteClipboard("¬∀")
+	return
+::for all;::
+::forall;::
+::fall;::
+::all;::
+:C:A;::
+	pasteClipboard("∀") ;;U+2200 (8704) 		∀ 	FOR ALL
+	return
+::notexists;::
+::notexist;::
+::nexist;::
+:C:notE;::
+:C:NE;::
+:C:nE;::
+	pasteClipboard("¬∃") ;;U+2203 (8707) 		∃ 	THERE EXISTS
+	return
+::exists;::
+::exist;::
+:C:E;::
+	pasteClipboard("∃") ;;U+2203 (8707) 		∃ 	THERE EXISTS
+	return
+
 ;; ::;::
-	;; pasteClipboard("")
-	;; return
-;; ::;::
-	;; pasteClipboard("")
-	;; return
-;; ::;::
-	;; pasteClipboard("")
-	;; return
-;; ::;::
-	;; pasteClipboard("")
+	;; pasteClipboard(" ")
 	;; return
 ;; ⊤ +22A4 ; Tautology; top, verum; propositional logic; Boolean Algebra (True);
 ;; T +22A4 ; Tautology; top, verum; propositional logic; Boolean Algebra (True);
@@ -129,26 +269,37 @@ global g_firstKissCall := 0
 ;; : = +003a +003d  ; Definition; is defined as; everywhere; 
 ;; : ⊜ +003a +229c  ; Definition; is defined as; everywhere; 
 ;; ( ) +0028 +0029
-;; ⊢ +22a2
-;; ⊨ +22a8
-;; ∴  +2234	
-;; ∵  +2235	
-;; ⊽  +22bd	
-;; ⋄  +22c4	
-;; ⋆  +22c6	
-;; ⊥  +22a5	
-;; ↓ +2193 	
-;; ⌐  +2310	
-;; ⌜  +231c	
-;; ⌝  +231d	
+;; ⊢ U+22a2
+;; ⊨ U+22a8
+;; ∴ U+2234	
+;; ∵ U+2235	
+;; ⊽ U+22bd	
+;; ⋄ U+22c4	
+;; ⋆ U+22c6	
+;; ⊥ U+22a5	
+;; ↓ U+2193 	
+;; ⌐ U+2310	
+;; ⌜ U+231c	
+;; ⌝ U+231d	
 
-#Hotstring O
-
-
+#Hotstring O ?0
 
 
-::tab;::
+
+::bell;::
+	pasteClipboard("•")
+	return
+::tab;:: ; pastes a regular horizontal tab character
 	pasteClipboard("	")
+	return
+::tab;;:: ; tab character code identity for html
+	pasteClipboard("&#9;")
+	return
+::space;:: ; no break space named identity for html
+	pasteClipboard("&nbsp;")
+	return
+::space;;:: ; regular space character code identity for html
+	pasteClipboard("&#32;")
 	return
 ::nl;::
 ::newline;::
@@ -199,7 +350,11 @@ Lbl_Hotstring_kiss:
 	g_firstKissCall := 0 
 	return
 */
-
+/** KAOMOJIS 
+ */
+::facepalm;::
+	pasteClipboard("(ノへ￣、)")
+	return
 ::kiss1;::
 	pasteClipboard("(*¯ ³¯*)♡")
 	return
@@ -218,7 +373,6 @@ Lbl_Hotstring_kiss:
 ::kiss6;::
 	pasteClipboard("( ´ ▽ ` ).｡ｏ♡")
 	return
-
 ::tableflip;::
 	pasteClipboard("( ╯°□°)╯ ┻━━┻")
 	return
@@ -226,12 +380,12 @@ Lbl_Hotstring_kiss:
 ::blushhappy;::
 	pasteClipboard("(#＾ヮ＾#)")
 	return
-::blush;::
-::shucks;::
-::awwshucks;::
 ::itsnothing;::
-::np;::
+::awwshucks;::
+::shucks;::
 ::noproblem;::
+::blush;::
+::np;::
 	pasteClipboard("(⌒▿⌒*)ゞ")
 	return
 ::suss;::
@@ -250,28 +404,108 @@ Lbl_Hotstring_kiss:
 ::shruggie2;::
 	pasteClipboard("￣\_(ツ)_/￣")
 	return
-::gasp;::
+::shruggie3;::
+	pasteClipboard("┑(￣Д ￣)┍")
+	return
+::shruggie4;::
+	pasteClipboard("╮(╯▽╰)╭")
+	return
+::shruggie5;::
+	pasteClipboard("╮(╯-╰)╭")
+	return
+::shruggie6;::
+	pasteClipboard("━━(￣ー￣*|||━━")
+	return
+::shruggie7;::
+	pasteClipboard("ㄟ( ▔, ▔ )ㄏ")
+	return
+
+::shruggie_;::
+	shruggieLoop()
+	return
+
+shruggieLoop() {	
+	local loopAgain := true
+	while (loopAgain) {
+		
+		KeyWait, RCtrl, D T2 ;; wait 2 seconds to be pressed
+		if (ErrorLevel == 0) {
+			
+			KeyWait, RCtrl, ;; RCtrl must be released before continuing, else it rapid fires.
+			if (ErrorLevel == 0) { 
+				
+				
+				main_incrementVariables(2000 ;; 2 seconds
+					,"¯\_(ツ)_/¯"
+					,"￣\_(ツ)_/￣"
+					,"┑(￣Д ￣)┍"
+					,"╮(╯▽╰)╭"
+					,"╮(╯-╰)╭"
+					,"━━(￣ー￣*|||━━"
+					,"ㄟ( ▔, ▔ )ㄏ")
+				loopAgain := true
+			} else {
+				loopAgain := false
+			}
+		} else {
+			loopAgain := false
+		}
+	}
+	return
+}
+
 ::gasp1;::
-::shock;::
+::gasp;::
 ::shock1;::
+::shock;::
 	pasteClipboard("Σ(°ロ°)")
 	return
-::gasp2;::
 ::shock2;::
+::gasp2;::
 	pasteClipboard("(°ロ°) !")
 	return
+::speechless1;::
+::speechless;::
+::umm1;::
+::umm;::
 ::eh...;::
-::ehh...;::
-::srsly;::
-::srsly?;::
-::forreal;::
-::forreal?;::
-::rly;::
-::rly?;::
-::really;::
-::really?;::
-::yurkidding...;::
 	pasteClipboard("(￣□￣;)")
+	return
+::speechless2;::
+::speechless;;::
+::umm2;::
+::umm;;::
+	pasteClipboard("(°ー°〃)")
+	return
+::speechless3;::
+::speechless;;;::
+::umm3;::
+::umm;;;::
+	pasteClipboard("(⊙_⊙;)")
+	return
+::speechless4;::
+::speechless;;;;::
+::umm4;::
+::umm;;;;::
+	pasteClipboard("(ˉ▽ˉ；)...")
+	;; (￣_,￣ )
+	;; ←_←
+	;; →_→
+	;; (x_x)
+	;; (。>︿<)_θ
+	;; (☆-ｖ-)
+	;; ( ╯□╰ )
+	;; (￣▽￣)"
+	;; (。・・)ノ
+	;; (ˉ▽￣～)
+	;; ┌( ´_ゝ` )┐
+	;; ,,ԾㅂԾ,,
+	;; ○|￣|_
+	;; ε=ε=ε=┏(゜ロ゜;)┛
+	;; ...( ＿ ＿)ノ｜
+	return
+::drool;::
+	pasteClipboard("(ˉ﹃ˉ)")
 	return
 ::wow;::
 	pasteClipboard("w(°ｏ°)w")
@@ -288,12 +522,16 @@ Lbl_Hotstring_kiss:
 	pasteClipboard("(⁀ᗢ⁀)")
 	return
 ::smirk;::
+::smirk1;::
 ::happysuss;::
 	pasteClipboard("(￢‿￢ )")
 	return
+::smirk2;::
+::smirk;;::
 ::happysuss2;::
 	pasteClipboard("(¬‿¬ )")
 	return
+::lookofdisapproval;::
 ::disapproval;::
 ::disapprove;::
 ::lookofd;::
@@ -345,7 +583,7 @@ Lbl_Hotstring_kiss:
 		return
 #Hotstring O0
 
-::rightarrow::{U+2794} ; ➔
+::rightarrow;::{U+2794} ; ➔
 ;~ ::rr::{U+2794} ;➔	right arrow 					➔
 ::rr::{U+27a4} ;my default favorite arrow 		➤	black rightwards arrowhead 		➤
 ::rrt::{U+27a5} ;my default favorite tab arrow	➥	3d arrow, bottom lighted 		➥

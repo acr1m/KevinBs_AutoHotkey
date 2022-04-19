@@ -57,22 +57,22 @@ uGoForward       := oSciTE.ResolveProp("tillagoto.hk.go.forward")
 uGotoDef         := oSciTE.ResolveProp("tillagoto.hk.goto.def")
 uSummonGUI       := oSciTE.ResolveProp("tillagoto.hk.summon.gui")  ;}
 
-_AhkScriptIsActive(){
+_AhkScriptIsActive() {
 	global oSciTE
 	return _SciTEIsActive() ;&& oSciTE.ResolveProp("Language") = "ahk1" ; Alternate test: FileExt = "ahk"
 }
 
-_GetSciTEHandle(){
+_GetSciTEHandle() {
 	global oSciTE_hwnd
 	return oSciTE_hwnd
 }
 
-_GetSciTEFile(){
+_GetSciTEFile() {
 	global oSciTE
 	return oSciTE.CurrentFile
 }
 
-_SciTEIsActive(){
+_SciTEIsActive() {
 	global oSciTE
 	return WinActive("ahk_id " _GetSciTEHandle())
 }

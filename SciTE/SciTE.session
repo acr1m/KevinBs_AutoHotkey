@@ -1,27 +1,48 @@
 # SciTE session file
 
-position.left=-987
-position.top=250
-position.width=805
-position.height=908
+position.left=248
+position.top=0
+position.width=1010
+position.height=1026
 position.maximize=0
 
-mru.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-utility\90=()-UTILITY.ahk
-mru.2.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\abbrev.properties
-mru.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\IntelliJ-WIN.ahk
-mru.4.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\Styles\HatOfGod_New_v2.style.properties
-mru.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Math-Keyboard-AHK.ahk
-mru.6.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
-mru.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-reference\Objects-And-Classes-REFERENCE.ahk
-mru.8.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\AhkAbbrevs.properties
-mru.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\PowerRun-WIN.ahk
-mru.10.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Main-AHK.ahk
+mru.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\pwrRun-date00-WIN.ahk
+mru.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\time()-LIB.ahk
+mru.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-game\Genshin-Impact-GAME.ahk
+mru.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\PowerRun-WIN.ahk
+mru.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Main-AHK.ahk
+mru.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Math-Keyboard-AHK.ahk
+mru.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\Desmos-WIN.ahk
+mru.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\GenshinImpact-WIN.ahk
+mru.9.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
+mru.10.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
 
 buffer.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\PowerRun-WIN.ahk
-buffer.1.position=701
-buffer.1.scroll=0
+buffer.1.position=2289
+buffer.1.scroll=55
 
 buffer.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Main-AHK.ahk
-buffer.2.position=7873
-buffer.2.scroll=231
-buffer.2.current=1
+buffer.2.position=3965
+buffer.2.scroll=101
+
+buffer.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Math-Keyboard-AHK.ahk
+buffer.3.position=10526
+buffer.3.scroll=331
+buffer.3.bookmarks=160,225
+
+buffer.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\Desmos-WIN.ahk
+buffer.4.position=41
+buffer.4.scroll=0
+
+buffer.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\GenshinImpact-WIN.ahk
+buffer.5.position=775
+buffer.5.scroll=0
+buffer.5.current=1
+
+buffer.6.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
+buffer.6.position=2665
+buffer.6.scroll=0
+
+buffer.7.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
+buffer.7.position=1017
+buffer.7.scroll=0

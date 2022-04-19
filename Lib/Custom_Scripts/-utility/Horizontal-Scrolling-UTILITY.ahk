@@ -1,3 +1,5 @@
+#SingleInstance Force
+
 #IfWinActive
 /* Descr:	This script handles horizontal mouse wheel scrolling when the user hold down the Shift key.
  */

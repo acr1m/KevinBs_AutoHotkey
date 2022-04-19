@@ -1,3 +1,16 @@
+Sleep, Delay <in milliseconds>
+Click [, Options]
+Click [, Options]\n\tCoords: X and Y, example: ;;Click, 100 200
+Click [, Options]\n\tOptions - Zero or more of the folowing components, \n\t\t[Coords, WhichButton, ClickCount, DownOrUp, and/or Relative].\n\t\tSeparate each component from the next with at least one space,\n\t\ttab, and/or comma. The components can appear in any order except \n\t\tClickCount, which must occur somewhere to the right of Coords, if present.\n\t\t\n\t#1: Clicks the left mouse button at the mouse cursor's current position.\n\t\tClick\n\t#2: Clicks the left mouse button at a specific position.\n\t\tClick, 100 200\n\t#3: Moves the mouse cursor to a specific position without clicking.\n\t\tClick, 100 200 0\n\t#4: Clicks the right mouse button at a specific position.\n\t\tClick, 100 200 Right\n\t#5: Performs a double-click at the mouse cursor's current position.\n\t\tClick, 2\n\t#6: Presses down the left mouse button and holds it.\n\t\tClick, Down\n\t#7: Releases the right mouse button.\n\t\tClick, Up Right\n
+WinExist(["WinTitle", "WinText", "ExcludeTitle", "ExcludeText"])\nDesc:\t\tChecks if the specified window exists\nReturns:\tthe unique ID (HWND) of the first matching window.\nExample:\n\tif WinExist("ahk_class Notepad") or WinExist("ahk_class" ClassName)\n\t\tWinActivate ; Use the window found by WinExist.\n\n\tMsgBox % "The active window's ID is " WinExist("A")
+main_incrementVariables(p_timeLimit := "", p_vars*)
+main_incrementVariables(p_timeLimit := "", p_vars*)\n\tDescr:\tVariadic method that cycles through the given 'string' variable arguments.\n\tReturn:\tVOID\n\tParams:\tp_timeLimit :=\tINTEGER\t(default := g_INCREMENT_LIMIT)\n\t\t\tp_vars* :=\tSTRING (default := none, must provide at least one argument)\n\t\t\t\t---> Can accept any amount of 'string' variables.\n\tNotes:\tMethod will loop back to the hotkey's natural output and then continue \n\t\t\t\tworking it's way through the given list of 'string' variables. \n\t\t\tCopied from "mathKbd_incrementVariables()"\n
+Format(FormatStr [, Values...])
+Format(FormatStr [, Values...]) [v1.1.17+]\nFormats a variable number of input values according to a format string.\nString := Format(FormatStr [, Values...])\n  FormatStr === {Index:Format}\n  Format Options [d|i, u, x|X, o, f, e, E, g, G, a, A, p, s, c]\n  Examples\n    - "{2:i} {:i}" formats the second and third input values as decimal integers, separated by a space.\n\t- Format("{:c}", 116) returns t\n    - Format("{:d}", -1.23) returns -1\n    - Format("{:i}", -1.23) returns -1\n    - Format("{:u}", -1.23) returns 18446744073709551615\n\t- Format("{:x}", 255) returns ff\n\t- Format("{:X}", 255) returns FF\n\t- Format("{:p}", 255) returns 000000FF.\n\t- Format("{:o}", 255) returns 377\n\t- Format("{:.2f}", 1) returns 1.00.\n\t- Format("{:e}", 255) returns 2.550000e+002.\n\t- Format("{:a}", 255) returns 0x1.fe0000p+7.
+Ord(String)
+Ord(String)\n\nReturns the ordinal value (numeric character code) \nof the first character in the specified string.\n\tNumber := Ord(String)\nRemarks\n\tApart from the Unicode supplementary character detection, this function is identical to Asc().
+Asc(String)\n\nReturns the numeric value of the first byte or UTF-16 \ncode unit in the specified string.\n\tNumber := Asc(String)
+Chr(Number)\n\nReturns the string (usually a single character) \ncorresponding to the character code indicated by the specified number.\n\tString := Chr(Number)\n
 SwitchHandlerForKeys \nBase Class for toggling output when a hotkey is triggered.\n\tType: <Class>\n\tProperties: - isActive := false\n\tExample: class AppWindow_Ctrl_A extends SwitchHandlerForKeys\n
 horizontalScrollingUtility_setTrayIcon_Suspend()
 horizontalScrollingUtility_setTrayIcon_Suspend()\nUsed to set the Default icon of this script "Horizontal-Scrolling-UTILITY.ahk"\nThis is needed because if the icon is not set before it is suspended, then it will show the default "suspended-icon". (I think... ¯\_(ツ)_/¯)
@@ -670,7 +683,8 @@ JoyY
 JoyZ
 KeyHistory
 KeyWait, KeyName [, Options]
-Label
+KeyWait, KeyName [, D|L|T#] \n\t;;where # is a floating-point decimal
+KeyWait, KeyName [, {Options | {D, L, T#}}]\nOPTIONS: A string of one or more of the following letters \n(in any order, with optional spaces in between).\n\tD: Wait for the key to be pushed down.\n\tL: Check the logical state of the key, which is the state that the OS \n\t\tand the active window believe the key to be in (not necessarily the \n\t\tsame as the physical state). This option is ignored for joystick buttons.\n\tT: Timeout (e.g. T3). The number of seconds to wait before timing out \n\t\tand setting ErrorLevel to 1. If the key or button achieves the specified \n\t\tstate, the command will not wait for the timeout to expire. Instead, it \n\t\twill immediately set ErrorLevel to 0 and the script will continue \n\t\texecuting. The timeout value can be a floating point number such \n\t\tas 2.5, but it should not be a hexadecimal value such as 0x03.
 LAlt
 LastFound
 LastFoundExist
@@ -970,9 +984,9 @@ SetNumLockState, On|Off|AlwaysOn|AlwaysOff
 SetRegView, RegView \nSets the default encoding for FileRead, FileReadLine, Loop Read, FileAppend, and FileOpen.
 SetScrollLockState, On|Off|AlwaysOn|AlwaysOff
 SetStoreCapslockMode, On|Off
-SetTimer [, Label|FunctionName|Func_Object, [Period|On|Off|Delete], Priority]
-SetTimer [, Label|FunctionName|Func_Object, [Period|On|Off|Delete], Priority]\nCauses a subroutine to be launched automatically and repeatedly at a specified time interval until a Return or Exit is encountered.
-SetTimer [, Label|FunctionName|Func_Object, [Period|On|Off|Delete], Priority]\n\tDescription: \n\t\tCauses a subroutine to be launched automatically and repeatedly at a specified time interval until a Return or Exit is encountered.\n\tParameters: \n\t\tLabel\t:= Jumps to this label and repeats it.\n\t\tPeriod\t:= INTEGER (absolute value of integer in milliseconds).\n\t\t\t\t-- If positive, will run and repeat at the given interval.\n\t\t\t\t-- If negative, will wait for given interval and then run only once. \n\tRemarks:\n\t\tPeriod - Default: If this parameter is blank and...\n\t\t\t1) The timer does not exist: it will be created with a period of 250.\n\t\t\t2) The timer already exists: it will be enabled and reset at its former period unless a Priority is specified.
+SetTimer [, Label|FunctionName|Func_Object, [Period <milliseconds>|On|Off|Delete], Priority]
+SetTimer [, Label|FunctionName|Func_Object, [Period <milliseconds>|On|Off|Delete], Priority]\nCauses a subroutine to be launched automatically and repeatedly at a specified time interval until a Return or Exit is encountered.
+SetTimer [, Label|FunctionName|Func_Object, [Period <milliseconds>|On|Off|Delete], Priority]\n\tDescription: \n\t\tCauses a subroutine to be launched automatically and repeatedly at a specified time interval until a Return or Exit is encountered.\n\tParameters: \n\t\tLabel\t:= Jumps to this label and repeats it.\n\t\tPeriod\t:= INTEGER (absolute value of integer in milliseconds).\n\t\t\t\t-- If positive, will run and repeat at the given interval.\n\t\t\t\t-- If negative, will wait for given interval and then run only once. \n\tRemarks:\n\t\tPeriod - Default: If this parameter is blank and...\n\t\t\t1) The timer does not exist: it will be created with a period of 250.\n\t\t\t2) The timer already exists: it will be enabled and reset at its former period unless a Priority is specified.
 SetTitleMatchMode, Fast|Slow|RegEx|1|2|3
 SetWinDelay, Delay
 SetWorkingDir, DirName

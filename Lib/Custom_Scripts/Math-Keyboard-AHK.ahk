@@ -157,15 +157,15 @@ mathKbd_setMathInputStyle()
 		return
 	$Numpad3::
 		SendRaw, 3
-		mathKbd_incrementVariables(,"e","3")
+		mathKbd_incrementVariables(,"e","f","g","h","3")
 		return
 	$Numpad4::
 		SendRaw, 4
-		mathKbd_incrementVariables(,"t","u","v","w","4")
+		mathKbd_incrementVariables(,"i","j","k","l","4")
 		return
 	$Numpad5::
 		SendRaw, 5
-		mathKbd_incrementVariables(,"i","j","k","5")
+		mathKbd_incrementVariables(,"t","u","v","w","5")
 		return
 	$Numpad6::
 		SendRaw, 6
@@ -218,12 +218,20 @@ mathKbd_setMathInputStyle()
 	;~ Backspace & Space
 		Right & NumpadSub::Send, {Backspace}
 		Right & Numpad0::Send, {Space}
-		Right & PGDN::Send, {Tab 8}			; Tab to the end.
+		;; Right & PGDN::Send, {Tab 8}			; Tab to the end.
 	
 ;~ HOTKEY Variables --------------------
 	;~ X Variable
-		Right & Numpad1::Send, {x}	;i.e. Alt+120
-		Right & Numpad9::Send, {t}	;i.e. Alt+
+		Right & Numpad1::
+			Send, {x}	;i.e. Alt+120
+			mathKbd_incrementVariables(,"n","∞","θ","x")
+			return
+		Right & PgDn::
+			SendRaw, f
+			mathKbd_incrementVariables(,"f(x)=","y=","f")
+			return
+		;; Right & Numpad2::Send, {f}	;i.e. Alt+102, Hex: 66
+		Right & Numpad9::Send, {t}	;i.e. Alt+116, Hex: 74
 		Right & Numpad3::Send, {y}	;i.e. Alt+121
 		Down & Numpad3::Send, {e}	;i.e. Alt+101
 ;~ HOTKEY SYMBOLS
@@ -356,7 +364,7 @@ mathKbd_setMathInputStyle()
 			Send, {^}		; superscript, power
 			mathKbd_incrementPower(INCREMENT_LIMIT,1)
 			return
-		+/::
+		;; +/::
 		Right & NumpadDiv::
 			mathKbd_typeSquareRoot()
 			return

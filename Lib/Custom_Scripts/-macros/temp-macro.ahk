@@ -34,7 +34,7 @@ Lbl_Date_Calculator:
 	MsgBox, , % "title", % "message " . time_translateDate(n, d, "MMMM d, yyyy hh:mm:ss")
 	return  ;}
 
-/* _______________     _______________ 
+/**_______________     _______________ 
   || CapsLock    ||   || Tab         ||
   ||_____________|| + ||_____________|| = 4-Spaces
   |/_____________\|   |/_____________\|
@@ -43,18 +43,18 @@ Lbl_Date_Calculator:
 ;; Tab::return
 ;; Tab Up::pasteClipboard("	")
 
-/* _______________     _______________ 
+/**_______________     _______________ 
   || CapsLock    ||   || Tab         ||
   ||_____________|| + ||_____________|| = 4-Spaces
   |/_____________\|   |/_____________\|
 */
-/* _______________     _______________     _______________ 
+/** ______________     _______________     _______________ 
   || Shift       ||   || CapsLock    ||   || Tab         ||
   ||_____________|| + ||_____________|| + ||_____________|| = 4-Backspaces
   |/_____________\|   |/_____________\|   |/_____________\|
 */
 
-/* 	- Allow Tab to function like normal on Down trigger, 
+/** 	- Allow Tab to function like normal on Down trigger, 
 		despite being a custom-combination modifier-key for Tab+Space.
 	- Also, if CapsLock is ON, 
 		- Tab sends 4-Spaces 
@@ -89,7 +89,7 @@ Lbl_Date_Calculator:
 ;; }
 */
 
-/* The hotkey-set below sends 4-spaces when Tab+Space is pressed
+/** The hotkey-set below sends 4-spaces when Tab+Space is pressed
 ;; and sends 4-Backspaces when Tab+Space is pressed while Shift is held down.
 ;; 
                  _______     ____________ 
@@ -127,10 +127,11 @@ Lbl_Date_Calculator:
 } 
 */
 
-;; Macro Buttons on Razer Black Widow Keyboard (M1~M5)
+/**;; Macro Buttons on Razer Black Widow Keyboard (M1~M5)
 ;; ┌──────────┬──────────┬──────────┬──────────┬──────────┐
 ;; │ M1 = F20 │ M2 = F21 │ M3 = F22 │ M4 = F23 │ M5 = F24 │
 ;; └──────────┴──────────┴──────────┴──────────┴──────────┘
+*/
 
 /** parse the whole document
    ______     _____ 
