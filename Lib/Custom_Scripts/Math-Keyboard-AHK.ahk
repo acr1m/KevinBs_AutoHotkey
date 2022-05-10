@@ -7,8 +7,16 @@
 run_AsAdmin()
 
 ;~ TOOLBAR ICON
-;
+;	E:\Assets\Icons\math\f(x)-math-function-graph.ico
+;	E:\Assets\Icons\math\Papirus-Team-Papirus-Apps-Accessories-calculator-math.ico
+;	E:\Assets\Icons\Dakirby309-Windows-8-Metro-Apps-Calculator-Metro.ico
 ;@Ahk2Exe-SetMainIcon E:\Assets\Icons\math\Custom-Icon-Design-Flatastic-7-Tools-2-ruler-pencil-math-offic.ico
+
+;; Menu, Tray, Icon, E:\Assets\Icons\math\f(x)-math-function-graph.ico
+;; Menu, Tray, Icon, E:\Assets\Icons\math\Papirus-Team-Papirus-Apps-Accessories-calculator-math.ico
+;; Menu, Tray, Icon, E:\Assets\Icons\Dakirby309-Windows-8-Metro-Apps-Calculator-Metro.ico
+
+
 Menu, Tray, Icon, E:\Assets\Icons\math\Custom-Icon-Design-Flatastic-7-Tools-2-ruler-pencil-math-offic.ico
 
 ;;
@@ -88,21 +96,59 @@ mathKbd_setMathInputStyle()
 
 ;;██████████████████████████████████████████████████████████████████████████████
 ;~ SCRIPT MANAGEMENT / SUSPENSION CONTROL
-	F4::Suspend, Toggle
-	NumpadDot & Numpad0::Suspend, On 	;hotkeys are suspended
-	NumpadDot & Numpad1::Suspend, Off 	;hotkeys are live
+Lbl.math.SuspendToggle:
+	if (A_IsSuspended)
+		gosub, Lbl_math_SuspendOff
+	else if (!A_IsSuspended)
+		gosub, Lbl_math_Suspend
+	else
+		gosub, Lbl_math_Suspend
+	return
+Lbl_math_Suspend:
+	Menu, Tray, Icon, E:\Library\OneDrive\Documents\Lunacy - Icon Editor\math-01-256-red.ico
+	Suspend, On
+	return
+Lbl_math_SuspendOff:
+	Menu, Tray, Icon, E:\Assets\Icons\math\Custom-Icon-Design-Flatastic-7-Tools-2-ruler-pencil-math-offic.ico
+	Suspend, Off
+	return
 
-	;Captures Numpad0 when Numlock is On or Off
-	^NumpadIns:: 
-	^+NumpadIns:: Suspend, Toggle
 
-	^+PGUP::
-	^+NumpadAdd::
-	^!=::	Suspend, Off 	;~ hotkeys are live
+F4::
+Pause::
+	Suspend, Permit
+	gosub, Lbl.math.SuspendToggle
+	return
+	
+NumpadDot & Numpad0::
+	Suspend, Permit
+	gosub, Lbl_math_Suspend ;; hotkeys are suspended
+	return
+	
+NumpadDot & Numpad1::
+	Suspend, Permit
+	gosub, Lbl_math_SuspendOff ;; hotkeys are live
+	return
+	
+^NumpadIns:: ;; Captures Numpad0 when Numlock is On or Off
+^+NumpadIns::
+	Suspend, Permit
+	gosub, Lbl.math.SuspendToggle
+	return
+	
+^+PGUP::
+^+NumpadAdd::
+^!=::
+	Suspend, Permit
+	gosub, Lbl_math_SuspendOff 	;; hotkeys are live
+	return
 
-	^+NumpadSub::
-	^+PGDN::
-	^!-::	Suspend, On		;~ hotkeys are suspended
+^+NumpadSub::
+^+PGDN::
+^!-::
+	Suspend, Permit
+	gosub, Lbl_math_SuspendOff		;; hotkeys are suspended
+	return
 
 ;{ 	$-::
 ;       	Suspend Permit
@@ -287,30 +333,32 @@ mathKbd_setMathInputStyle()
 	{
 		$^!+[::Send, \left{{}
 		$^!+]::Send, \right{}}
-		$+[::Send, {{}{}}{Left}
-		$+]::
-		{
-			; store the clipboard's contents before utilizing
-			clipTemp := ClipboardAll
-			;highlight the next character
-			Send, {LShift down}{Right 1}{LShift up}
-			; copy the highlighted character to the clipboard to "scan" it
-			Send, ^c
-			Sleep, 30 ; milliseconds
-			; If the copied character is the same and the one we're trying to type...
-			; then leave it alone and exit the highlighted text.
-			; Else, plop down a ")".
-			if (Clipboard == "}") {
-				Send, {Left}{Right}
-			}
-			else
-			{
-				Send, {Left}{}}
-			}
-			; restore the clipboard's contents
-			Clipboard := clipTemp
-			return
-		}
+/* 		
+ * 		$+[::Send, {{}{}}{Left}
+ * 		$+]::
+ * 		{
+ * 			; store the clipboard's contents before utilizing
+ * 			clipTemp := ClipboardAll
+ * 			;highlight the next character
+ * 			Send, {LShift down}{Right 1}{LShift up}
+ * 			; copy the highlighted character to the clipboard to "scan" it
+ * 			Send, ^c
+ * 			Sleep, 30 ; milliseconds
+ * 			; If the copied character is the same and the one we're trying to type...
+ * 			; then leave it alone and exit the highlighted text.
+ * 			; Else, plop down a ")".
+ * 			if (Clipboard == "}") {
+ * 				Send, {Left}{Right}
+ * 			}
+ * 			else
+ * 			{
+ * 				Send, {Left}{}}
+ * 			}
+ * 			; restore the clipboard's contents
+ * 			Clipboard := clipTemp
+ * 			return
+ * 		}
+ */
 	}
 	;~ Square Brackets
 	{
@@ -358,26 +406,14 @@ mathKbd_setMathInputStyle()
 		Down & Numpad5::			Send, {≈}		; approx symbol
 		Right & Numpad6::			Send, {>}		; greater-than
 		Down & Numpad6::			Send, {≥}		; greater-than or equal to
-		Right & Numpad8::			Send, {^}		; superscript, power
-		
-		+2::
-			Send, {^}		; superscript, power
-			mathKbd_incrementPower(INCREMENT_LIMIT,1)
-			return
-		;; +/::
-		Right & NumpadDiv::
-			mathKbd_typeSquareRoot()
-			return
+		Right & Numpad8::			Send, +6		; superscript, power
+		Right & NumpadDiv::			mathKbd_pasteSquareRoot()
 		Right & NumpadMult::		Send, +5		; = %
-		+3::						Send, {+}		; addition, plus, sum, add
-		^p:: 
-		{
-			KeyWait, p ;wait for key to be released to avoid triggering
-					;in combination with {Shift}
-			Send, {+} ;[Shift+=] -> {=}
-			return ;exit method
-		}	
-		+4::						Send, {-}		; subtraction, minus, difference, subtract, negative, 
+		^p::
+			KeyWait, p 	; wait for key to be released to avoid triggering in combination with {Shift}
+			Send, {+} ; [Shift+=] -> {=}
+			return ; exit method
+
 		Right & NumpadAdd::			Send, {-}		; subtraction, minus, difference, subtract, negative, 
 		Down & NumpadAdd::			Send, {±}		; plus or minus ±:(A+241)
 	;~HOTKEYS Functions

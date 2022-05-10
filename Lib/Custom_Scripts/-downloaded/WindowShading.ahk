@@ -12,12 +12,18 @@
 ;; ws_MinHeight = 25
 ws_MinHeight = 10
 
+;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\notepad++_383-up-down-scroll.ico
+Menu, Tray, Icon, % "E:\Assets\Icons\_used-icons\notepad++_383-up-down-scroll.ico"
+strTooltip := A_ScriptName . "`nPress Alt+Z to roll/unroll active window."
+Menu, Tray, Tip, % strTooltip
+	
 ; This line will unroll any rolled up windows if the script exits
 ; for any reason:
 OnExit, ExitSub
-return  ; End of auto-execute section
+return  ; End of auto-execute section ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-#z::  ; Change this line to pick a different hotkey.
+
+!z::  ; Change this line to pick a different hotkey.
 ; Below this point, no changes should be made unless you want to
 ; alter the script's basic functionality.
 ; Uncomment this next line if this subroutine is to be converted

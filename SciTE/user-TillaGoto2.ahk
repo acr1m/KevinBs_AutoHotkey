@@ -55,7 +55,9 @@ iTransparency    := oSciTE.ResolveProp("tillagoto.gui.transparency") + 0
 uGoBack          := oSciTE.ResolveProp("tillagoto.hk.go.back")
 uGoForward       := oSciTE.ResolveProp("tillagoto.hk.go.forward")
 uGotoDef         := oSciTE.ResolveProp("tillagoto.hk.goto.def")
-uSummonGUI       := oSciTE.ResolveProp("tillagoto.hk.summon.gui")  ;}
+uGotoDef2        := oSciTE.ResolveProp("tillagoto.hk.goto.def2")
+uSummonGUI       := oSciTE.ResolveProp("tillagoto.hk.summon.gui")
+uSummonGUI2      := oSciTE.ResolveProp("tillagoto.hk.summon.gui2")  ;}
 
 _AhkScriptIsActive() {
 	global oSciTE
@@ -86,17 +88,17 @@ _SciTEIsActive() {
 	
 	#NoEnv
 	#NoTrayIcon
-	#SingleInstance Ignore
+	#SingleInstance Force ;; changed from Ignore to Force ~acr1m (Thu, 4/21/2022)
 	SetTitleMatchMode, RegEx
 	DetectHiddenWindows, On
 	Menu, Tray, NoStandard
 	;; Menu, Tray, Icon, %A_ScriptDir%\..\toolicon.icl, 16
 	Menu, Tray, Icon, % "E:\Software\AutoHotkey_MyInstallation_v01\SciTE\toolicon.icl", 16
-	Menu, Tray, Tip, TillaGoto for SciTE4AutoHotkey (User copy)
+	Menu, Tray, Tip, user-TillaGoto2.ahk
 	Menu, Tray, Add, Close, TrayClose
-	;; Thu, 4/21/2022 - added by Kevin (Acr1m) Boykin ;{
-	;; Menu, Tray, Add, Reload, TrayReload
-	;; Menu, Tray, Default, Close 
+	;; added by ~acr1m (Thu, 4/21/2022);{
+	Menu, Tray, Add, Reload, TrayReload
+	Menu, Tray, Default, Close 
 	;; ;}
 	
 	;Show tray icon if necessary
@@ -139,6 +141,7 @@ _SciTEIsActive() {
 	;Register summon hotkey before Quick Mode
 	Hotkey, IfWinActive, ahk_id %hGui%
 	Hotkey, %uSummonGUI%, SummonGUI
+	Hotkey, %uSummonGUI2%, SummonGUI
 	
 	;Check if we're in quick mode
 	If bQuickMode
@@ -147,7 +150,9 @@ _SciTEIsActive() {
 	;Register main hotkeys
 	Hotkey, If, _AhkScriptIsActive()
 	Hotkey, %uSummonGUI%, SummonGUI
+	Hotkey, %uSummonGUI2%, SummonGUI
 	Hotkey, %uGotoDef%,   GotoDefinition
+	Hotkey, %uGotoDef2%,   GotoDefinition
 	Hotkey, %uGoBack%,    PreviousView
 	Hotkey, %uGoForward%, NextView
 	

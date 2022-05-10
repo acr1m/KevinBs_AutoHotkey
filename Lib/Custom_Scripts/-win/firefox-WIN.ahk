@@ -1,6 +1,7 @@
 #IfWinActive ahk_exe firefox.exe
 ;;If window is active
 
+
 !q:: ;{
 	KeyWait, Alt
 	KeyWait, Ctrl

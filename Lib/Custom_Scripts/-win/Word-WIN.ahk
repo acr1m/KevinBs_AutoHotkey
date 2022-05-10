@@ -19,13 +19,6 @@
 	return
 
 
-NumpadMult::
-	SendRaw, ⋅
-	return
-
-;; math-input, insert square root and edit inner expression.
-?::Send, \sqrt{Space 2}{Left}
-
 ;;Re-declare any window as an acceptable 
 ;;case-scenario before exit.
 #IfWinActive

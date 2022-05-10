@@ -289,12 +289,12 @@ global g_firstKissCall := 0
 ::bell;::
 	pasteClipboard("•")
 	return
-::tab;:: ; pastes a regular horizontal tab character
-	pasteClipboard("	")
-	return
-::tab;;:: ; tab character code identity for html
-	pasteClipboard("&#9;")
-	return
+;; ::tab;:: ; pastes a regular horizontal tab character
+	;; pasteClipboard("	")
+	;; return
+;; ::tab;;:: ; tab character code identity for html
+	;; pasteClipboard("&#9;")
+	;; return
 ::space;:: ; no break space named identity for html
 	pasteClipboard("&nbsp;")
 	return
@@ -558,6 +558,7 @@ shruggieLoop() {
 ;~##############################################################################
 ;~ SYMBOLS FOR ORGANIZED LISTS
 #Hotstring O
+	::checkmark;::
 	::check;::
 	::chk::
 	::chk;::

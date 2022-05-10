@@ -1,3 +1,5 @@
+
+;@Ahk2Exe-SetMainIcon E:\Assets\Icons\copy-cut-bg-red.ico
 Menu, Tray, Icon, % "E:\Assets\Icons\copy-cut-bg-red.ico"
 
 #IfWinActive

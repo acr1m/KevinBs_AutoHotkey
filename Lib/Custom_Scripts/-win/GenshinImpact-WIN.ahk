@@ -51,7 +51,7 @@ Lbl_clickLockButton:
 	;; clickLockButton(727, 185)
 	return
 	
-clickLockButton(xPos := 1751, yPos := 438, mSpeed := 2) {
+clickLockButton(xPos := 1751, yPos := 438, mSpeed := 0) {
 	
 	MouseGetPos, mX, mY ;; initial mouse position
 	

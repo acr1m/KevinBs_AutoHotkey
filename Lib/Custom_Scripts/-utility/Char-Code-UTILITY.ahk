@@ -1,5 +1,7 @@
 ﻿#SingleInstance Force
 
+;@Ahk2Exe-SetMainIcon E:\Assets\Icons\titlecase-pixel-t_black-bg_white.ico
+
 /** 
  * This program reads the first character in the Clipboard and 
  *  outputs/returns the character code.

@@ -1,5 +1,13 @@
-﻿#HotkeyInterval 1000 ;one second interval
-#Hotstring EndChars -()[]{}: "/\.?!`n
+﻿/* Jump List
+ * ;; Lbl_Global_Constants: ;{
+ * ;; Lbl_Global_Variables: ;{
+ * ;; LIBRARIES ;{
+ * ;; UTITILITIES ;{
+ * ;; WINDOW/APP CONTEXT SENSITIVE SCRIPTS ;{
+ */
+
+#HotkeyInterval 1000 ;one second interval
+#Hotstring EndChars -()[]{}: "/\?!`n
 #InstallKeybdHook
 #KeyHistory 500  ;(Default is 40, Max is 500)
 #MaxHotkeysPerInterval 1000 ;1 thousand keys per above interval
@@ -11,8 +19,8 @@ Menu, Tray, Click, 1
 Menu, Tray, Default, 
 ;; Menu, Tray, Icon, % "E:\Assets\Icons\keyboards\msctf_410.ico"
 ;; the next line is a compiler-directive that assigns the default .exe icon
-;@Ahk2Exe-SetMainIcon E:\Assets\Icons\keyboard_keys\case_upper\A.ico
-Menu, Tray, Icon, % "E:\Assets\Icons\keyboard_keys\case_upper\A.ico"
+;@Ahk2Exe-SetMainIcon E:\Assets\Icons\key_circle_blue_white.ico
+Menu, Tray, Icon, % "E:\Assets\Icons\key_circle_blue_white.ico"
 
 DetectHiddenWindows, On ;; Allows a script's hidden main window to be detected.
 SetTitleMatchMode, 2 ;;- 2 = A window's title can contain WinTitle anywhere inside it to be a match.
@@ -64,26 +72,28 @@ Lbl_Include_Block:
 #Include %A_ScriptDir%\-lib\repeatKey()-LIB.ahk
 #Include %A_ScriptDir%\-lib\time()-LIB.ahk
 #Include %A_ScriptDir%\-lib\RegEx()-LIB.ahk
-;~ #Include oneKey-Copy-Paste-Mode-LIB.ahk  ;}
+;~ #Include oneKey-Copy-Paste-Mode-LIB.ahk  
+;}
 
 ;; UTITILITIES ;{
 #Include %A_ScriptDir%\-utility\ShareX-Hotkeys-ScreenCapturing-UTILITY.ahk
-#Include %A_ScriptDir%\-utility\Generate-Lorem-Ipsum-UTILITY.ahk ;}
+#Include %A_ScriptDir%\-utility\Generate-Lorem-Ipsum-UTILITY.ahk 
+;}
 
 /** 	
- * NOTE: Re-factoring as a run-time script instead of included 
- *  into Main-AHK.ahk
- * JUMP: E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-utility\Horizontal-Scrolling-UTILITY.ahk
- * WHY: It's common for an application to handle it's own 
- *  Shift+Scrolling (horizontal scrolling) so we are going to 
- *  seperate this script so that the status (OFF/ON) of this utility 
- *  (Side-Scrolling a.k.a. Horizontal-Scrolling) is visible in the 
- *  toolbar of the taskbar. 
+ * Note
+ *   Re-factoring as a run-time script instead of included 
+ *   into Main-AHK.ahk
+ * Jump To File
+ *   E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-utility\Horizontal-Scrolling-UTILITY.ahk
+ * Why?
+ *   It's common for an application to handle it's own 
+ *   Shift+Scrolling (horizontal scrolling) so we are going to 
+ *   seperate this script so that the status (OFF/ON) of this utility 
+ *   (Side-Scrolling a.k.a. Horizontal-Scrolling) is visible in the 
+ *   toolbar of the taskbar. 
 */
-main_runHorizScrollingUtility() {	
-	;; #Include %A_ScriptDir%\-utility\Horizontal-Scrolling-UTILITY.ahk
-	;; Run, %A_ScriptDir%\-utility\Horizontal-Scrolling-UTILITY.ahk,,,pid_horizScroll
-	;; targetScript :=  %A_ScriptDir%\-utility\Horizontal-Scrolling-UTILITY.ahk,,,pid_horizScroll
+main_runHorizScrollingUtility() {
 	targetScript :=  A_ScriptDir . "\-utility\Horizontal-Scrolling-UTILITY.ahk",,,pid_horizScroll
 	;; MsgBox, %targetScript%
 	
@@ -95,9 +105,10 @@ main_runHorizScrollingUtility() {
 
 
 ;; GUI's ;{
-#Include %A_ScriptDir%\-gui\Mouse-Control-GUI.ahk 
+;; #Include %A_ScriptDir%\-gui\Mouse-Control-GUI.ahk 
 ;~ #Include AHK-Math-Keyboard-v1-2-7.ahk
-;~ Run, AHK_Math_Keyboard_.exe  ;}
+;~ Run, AHK_Math_Keyboard_.exe  
+;}
 
 ;; WINDOW/APP CONTEXT SENSITIVE SCRIPTS ;{
 #Include %A_ScriptDir%\-win\Windows-Color-Picker-WIN.ahk
@@ -114,6 +125,7 @@ main_runHorizScrollingUtility() {
 #Include %A_ScriptDir%\-win\IntelliJ-WIN.ahk 
 #Include %A_ScriptDir%\-win\Mixcraft9-WIN.ahk
 #Include %A_ScriptDir%\-win\GenshinImpact-WIN.ahk
+#Include %A_ScriptDir%\-win\Notepad-WIN.ahk
 ;}
 
 
@@ -358,7 +370,6 @@ Lbl_Scroll_Wheel_Speed:
 
 
 
-
 ;; _shift_space() - handles the output of the shift+space hotkey
 _shift_space() {
 	;; check for prior-hotkey and handle the current times tapped
@@ -396,7 +407,7 @@ AppsKey & Left::Send, ^#{Left}
 ;; swipe to desktop to the right
 AppsKey & Right::Send, ^#{Right}
 
-;; undo commandv
+;; Redo (alternative command)
 ^+z::Send, ^y
 
 ;; re-map default Windows-Key behavior, [LWin] => WinPaste, [LWin+z] => [LWin]
@@ -501,6 +512,12 @@ main_windowTitleAndClassGrabber() {
 	^l::
 		SendRaw, ⌊
 		return
+	:o:L1::L₁
+	:o:L2::L₂
+	:o:L3::L₃
+	:o:L4::L₄
+	:o:L5::L₅
+	:o:L6::L₆
 	;duplicate line
 	^d::
 		Send, {Home 2}
@@ -646,12 +663,12 @@ Lbl_LWin:
 	return
 
 ;; 2022-02-08_01-00-46_PM - adding new functionality
-;; todo - double-tap windows key to switch languages (like hitting Win+Space)
+;; done - double-tap windows key to switch languages (like hitting Win+Space)
 ;; <#Space::Send, !<#{Space}
 <#Space::Send, {Alt down}{LWin down}{Space}{LWin up}{Alt up}
 
 ;; 2022-02-08_01-02-00_PM
-;; todo - change powerrun launch-hotkey from win+space to win+alt+space 
+;; done - change powerrun launch-hotkey from win+space to win+alt+space 
 !<#Space::Send,  {Alt down}{LWin down}{Space}{LWin up}{Alt up}
 
 ;; pass-through 

@@ -16,6 +16,13 @@
 ;; #Include Horizontal-Scrolling-UTILITY.ahk
 ;; #Include Generate-Lorem-Ipsum-UTILITY.ahk  ;}
 
+
+::??my.brain.fm::
+::??brain.fm::
+::??brain::
+	Run, firefox.exe https://my.brain.fm/
+	return
+	
 ::??convertCharCode::
 ::??ccc::
 ::??getCharCode::

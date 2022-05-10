@@ -1,5 +1,9 @@
 #SingleInstance Force
 
+global horizontalScrollingUtility_icon_Active := "E:\Assets\Icons\side-scroll-horizontal-scrolling-green-2.ico"
+global horizontalScrollingUtility_icon_Suspended := "E:\Assets\Icons\side-scroll-horizontal-scrolling-red-2.ico"
+
+
 #IfWinActive
 /* Descr:	This script handles horizontal mouse wheel scrolling when the user hold down the Shift key.
  */
@@ -12,53 +16,37 @@ Lbl_UpdateIcon:
 	Pause, Off, true
 
 	if (A_IsSuspended) {
-		Menu, Tray, Icon, % "E:\Assets\Icons\side-scroll-horizontal-scrolling-red-2.ico"
+		Menu, Tray, Icon, % horizontalScrollingUtility_icon_Suspended
 	} else if (!A_IsSuspended){
-		Menu, Tray, Icon, % "E:\Assets\Icons\side-scroll-horizontal-scrolling-green-2.ico"
+		Menu, Tray, Icon, % horizontalScrollingUtility_icon_Active
 	}
 	
 	return
 
+/* Toggle Suspension and Icon State
+ * 
+ * What Activates This Sub?
+ *   Hold CapsLock & Double-Tap Left-Shift
+ * Description
+ *   Toggles the state of suspension for this script process. <"Horizontal-Scrolling-UTILITY.ahk">
+ * Remarks
+ *   The built-in variable %A_IsSuspended% contains "1" if the script 
+ *   is suspended and "0" otherwise.
+ */
 CapsLock & LShift::
 	Suspend, Permit
-/*	DESCRIPTION: if double-tap left shift while holding CapsLock down, then toggle 
-	 the suspend state of the Horizontal-Scrolling-UTILITY.ahk 
-	
-	; #Include %A_ScriptDir%\-utility\Horizontal-Scrolling-UTILITY.ahk
-	
-	NOTE: The built-in variable A_IsSuspended contains 1 if the script 
-	 is suspended and 0 otherwise.
-*/
-	/*
-	if (doubleTap()) {
-		;; Sends a Suspend command to another script.
-		
-		DetectHiddenWindows, On
-		ID_FILE_SUSPEND := 65404
-		;; WM_COMMAND := 0x0111 ; already included from "WM-List-LIB.ahk"
-		
-		if (WinExist("ahk_pid" pid_horizScroll)) {
-			horizontalScrollingUtility_setTrayIcon_Suspend()
-			PostMessage, %WM_COMMAND%, %ID_FILE_SUSPEND%,,, ahk_pid %pid_horizScroll%
-		} else {
-			MsgBox, 48, Main-AHK.ahk - CapsLock & LShift::, ERROR: unable to to find WinExist("ahk_pid pid_horizScroll") `npid_horizScroll = %pid_horizScroll%
-		}
-		
-		
-	}
-	*/
 	if (doubleTap()) {
 		;; Set tray icon and toggle suspend
 		
-		; if suspended, activate and set active icon
+		; activate it
 		if (A_IsSuspended) {
-			Menu, Tray, Icon, % "E:\Assets\Icons\side-scroll-horizontal-scrolling-green-2.ico", , 1
+			Menu, Tray, Icon, % horizontalScrollingUtility_icon_Active, , 1
 			Suspend, Off
 		} 
-		; if active, suspend and set suspended icon
+		; suspend it
 		else if (!A_IsSuspended) {
 			Suspend, On
-			Menu, Tray, Icon, % "E:\Assets\Icons\side-scroll-horizontal-scrolling-red-2.ico", , 1
+			Menu, Tray, Icon, % horizontalScrollingUtility_icon_Suspended, , 1
 		}
 		
 	}
@@ -128,7 +116,7 @@ CapsLock & LShift::
  * This is needed because if the icon is not set before it is suspended, then it will show the default "suspended-icon". (I think... ¯\_(ツ)_/¯)
  */
 horizontalScrollingUtility_setTrayIcon_Suspend() {
-	Menu, Tray, Icon, % "E:\Assets\Icons\side-scroll-horizontal-scrolling-red-2.ico"
+	Menu, Tray, Icon, % horizontalScrollingUtility_icon_Suspended
 }
 
 /**
@@ -137,5 +125,5 @@ horizontalScrollingUtility_setTrayIcon_Suspend() {
  * This is needed because if the icon is not set before it is suspended, then it will show the default "suspended-icon". (I think... ¯\_(ツ)_/¯)
  */
 horizontalScrollingUtility_setTrayIcon_Active() {
-	Menu, Tray, Icon, % "E:\Assets\Icons\side-scroll-horizontal-scrolling-green-2.ico"
+	Menu, Tray, Icon, % horizontalScrollingUtility_icon_Active
 }

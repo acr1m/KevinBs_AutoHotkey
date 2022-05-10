@@ -382,6 +382,67 @@ GetClientSize(v_hWnd, ByRef w := "", ByRef h := "")
 ;========================================================================
 ;MOUSE EVENT METHOD
 ;------------------------------------------------------------------------
+/**	mouseClick(xPos, yPos, clicks, mSpeed) 
+	Descr:	Method substitution for the MouseClick command~>
+		~>MouseClick [, WhichButton, X, Y, ClickCount, Speed, DownOrUp, Relative]
+	Return:	VOID
+	Params:	xPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}
+			yPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}
+			clicks := 1 {any integer >= 0; if 0, will move mouse without clicking}
+			mSpeed := 0 {any integer >= 0; zero is instant}
+	Notes:	- To specify mouse button, use mouseClickExplicit() instead.
+			- mouseClick(400, 600, 0) will move mouse and not click.
+			- Shorthand call for mouseClickExplicit() method.
+*/
+mouseClick(xPos := "", yPos := "", clicks := 1, mSpeed := 0) {
+	mouseClickExplicit(xPos, yPos, clicks, mSpeed) 
+	return
+}
+/**	mouseClickRelative(xPos, yPos, clicks, mSpeed) 
+	Descr:	Same as mouseClick(), but calls mouseClickExplicit() 
+			and passes xPos and yPos as Relative coords instead of Absolute coords.
+	Return:	VOID
+	Params:	xPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}
+			yPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}
+			clicks := 1 {any integer >= 0; if 0, will move mouse without clicking}
+			mSpeed := 0 {any integer >= 0; zero is instant}
+	Notes:	- To specify mouse button, use mouseClickExplicit() instead.
+			- mouseClick(400, 600, 0) will move mouse to RELATIVE position and not click.
+			- Shorthand call for mouseClickExplicit() method.
+*/
+mouseClickRelative(xPos := "", yPos := "", clicks := 1, mSpeed := 0) {
+	mouseClickExplicit(xPos, yPos, clicks, mSpeed, , "R") 
+	return
+}
+
+/**	mouseClickExplicit(mBtn, xPos, yPos, clicks, mSpeed, downOrUp, p_coordMode)
+	Descr:	Method substitution for the MouseClick command~>
+		~>MouseClick [, WhichButton, X, Y, ClickCount, Speed, DownOrUp, Relative]
+	Return:	VOID
+	Params:	mBtn := "Left" {"L", "R", "M", "X1", "X2", "WU", "WD", "WL", "WR"}
+			xPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}
+			yPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}
+			clicks := 1 {any integer >= 0; if 0, will move mouse without clicking}
+			mSpeed := 0 {any integer >= 0; zero is instant}
+			downOrUp := "" {"" = Down then Up, "Down" = Down only, "Up" = Up only}
+			p_coordMode := "" {"" = Absolute (default), "R" = Relative}
+	Notes:	mBtn options are... {
+				"Left", "Right", "Middle", 
+				"X1" = M4 or Back_Mouse_Btn, 
+				"X2" = M5 or Forward_Mouse_Btn, 
+				"WheelUp", "WheelDown", "WheelLeft", "WheelRight"}
+*/
+mouseClickExplicit(mBtn := "Left", xPos := "", yPos := "", clicks := 1, mSpeed := 0, downOrUp := "", p_coordMode := "") {
+	
+	MouseGetPos, iX, iY ;; initial mouse position
+	xPos := (xPos == "") ? iX
+	yPos := (yPos == "") ? iY
+	
+	MouseClick, % mBtn, % xPos, % yPos, % clicks, % mSpeed, % downOrUp, % p_coordMode
+	
+	return
+}
+
 mouseEvent(p_clickDelay := 200, p_coordAsPercent*) {
 	;p_coords := {x,y},{x,y},{x,y},{x,y}
 	;CoordMode, ToolTip|Pixel|Mouse|Caret|Menu [, Screen|Window|Client]
@@ -586,5 +647,24 @@ main_incrementVariables(p_shouldThisLoop := true, p_timeLimit := "", p_vars*) {
 		g_currentIncrementVariable := 1
 	
 	Send, {CtrlUp}{ShiftUp}{AltUp} ;; release modifier keys to prevent spam-lock
+	return
+}
+
+/**	loopSend(p_btn := "Space", p_count := 2,  p_interval := 50)
+	Descr:	Sends the indicated string as a keystroke if applicable. 
+	Return:	VOID
+	Params:	p_btn := "Space" ; the button or key to press
+			p_count := 2 ; number of times to send the button press
+			p_interval := 50 ; <milliseconds> interval between each button press
+	Notes:	
+*/
+loopSend(p_btn := "Space", p_count := 2,  p_interval := 50) {
+	Loop, % p_count
+	{
+		Send, {%p_btn%}
+		Sleep, % p_interval
+		;; if (A_Index >= p_count)
+			;; break ; end loop
+	}
 	return
 }

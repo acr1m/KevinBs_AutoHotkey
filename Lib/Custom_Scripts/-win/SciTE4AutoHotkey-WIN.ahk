@@ -1,3 +1,5 @@
+#SingleInstance Force
+
 #IfWinActive
 ;@Ahk2Exe-SetMainIcon E:\Assets\Icons\autohotkey-scite\SciTE_500.ico
 Menu, Tray, Icon, % "E:\Assets\Icons\autohotkey-scite\SciTE_500.ico"
@@ -38,9 +40,8 @@ Menu, Tray, Icon, % "E:\Assets\Icons\autohotkey-scite\SciTE_500.ico"
 ;; Ctrl+Alt+Shift+Right|2393|\
 ^!+Right::Send, ^+\
 
+;; Redo (alternative hotkey)
 ^+z::Send, ^y
-
-;;
 
 ;; open selected filename
 ^+e::PostMessage, 0x0111, 103, 0, , ahk_exe SciTE.exe
@@ -58,21 +59,15 @@ F8::PostMessage, 0x0111, 414, 0, , ahk_exe SciTE.exe
 ;; copy path of current file/tab (Copy Pat&h",  118)
 ^+c::PostMessage, 0x0111, 118, 0, , ahk_exe SciTE.exe
 
-
 ;; "Make &Selection Uppercase\tCtrl+Shift+U",  240
 +CapsLock::PostMessage, 0x0111, 240, 0, , ahk_exe SciTE.exe
 
 ;; "Make Selection &Lowercase\tCtrl+U",  241
 !CapsLock::PostMessage, 0x0111, 241, 0, , ahk_exe SciTE.exe
 
-
-
 ;; "&Join",  248
 
-
 ;; "&Split",  249
-
-;; ^MButton:: ;{
 
 ;; Toggle Current Fold
 ^MButton::WinMenuSelectItem, ahk_exe SciTE.exe,, View, Toggle current fold
@@ -83,7 +78,16 @@ F8::PostMessage, 0x0111, 414, 0, , ahk_exe SciTE.exe
 
 ;; Toggle All Folds
 ^+MButton::WinMenuSelectItem, ahk_exe SciTE.exe,, View, Toggle all folds
-^b::WinMenuSelectItem, ahk_exe SciTE.exe,, Edit, Expand Abbreviation
+
+;; Expand Abbreviation
+^;::WinMenuSelectItem, ahk_exe SciTE.exe,, Edit, Expand Abbreviation
+
+;; Toggle Bookmark
+^b::WinMenuSelectItem, ahk_exe SciTE.exe,, Search, Toggle Bookmark
 
 
 #IfWinActive
+
+
+
+
