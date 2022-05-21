@@ -16,13 +16,35 @@
 ;; #Include Horizontal-Scrolling-UTILITY.ahk
 ;; #Include Generate-Lorem-Ipsum-UTILITY.ahk  ;}
 
+::??ahkapi::
+::??ahk.api::
+::??userahkapi::
+::??user.ahk.api::
+::??open user.ahk.api::
+::??open userahkapi::
+	targetFile := "E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api"
+	Run, %g_SCITE_4AHK_EXE% %targetFile% ;; vars defined in main.ahk
+	return
 
 ::??my.brain.fm::
 ::??brain.fm::
+::??brainfm::
 ::??brain::
-	Run, firefox.exe https://my.brain.fm/
+	Run, firefox.exe
+	;; Sleep, 2000
+	SetTitleMatchMode, 3 ;; 3 = must match exactly
+	WinWait, Mozilla Firefox ahk_class MozillaWindowClass ahk_exe firefox.exe
+	WinActivate
+	;;select address bar
+	Send, ^l
+	;;type !word and then space
+	SendRaw, https://my.brain.fm/
+	Send, {Enter}
+	SetTitleMatchMode, 1 ;; 1 = default, (must match beginning)
 	return
-	
+
+
+#IfWinActive
 ::??convertCharCode::
 ::??ccc::
 ::??getCharCode::
@@ -31,6 +53,7 @@
 	Run, %A_AhkPath% %targetScript%,,,pid_outVar
 	return
 
+#IfWinActive ahk_exe PowerToys.PowerLauncher.exe
 ::??apiconvert::
 ::??api convert::
 ::??convertapi::
@@ -249,7 +272,6 @@ pwrRun_clearText(p_waitTime := 200) {
 	Sleep, % p_waitTime
 	return
 }
-
 
 /*!	Function: pwrRun_fireFoxSearch()
 ;	Descr:	Opens Firefox and puts text caret in the address bar.

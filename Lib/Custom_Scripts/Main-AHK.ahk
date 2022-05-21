@@ -17,10 +17,23 @@
 Menu, Tray, MainWindow
 Menu, Tray, Click, 1
 Menu, Tray, Default, 
-;; Menu, Tray, Icon, % "E:\Assets\Icons\keyboards\msctf_410.ico"
+/* ICONS
+ *    "E:\Assets\Icons\_used-icons\main-ahk-icon-blue.ico"
+ *    "E:\Assets\Icons\_used-icons\main-ahk-icon-blue_1.ico"
+ *    "E:\Assets\Icons\_used-icons\main-ahk-icon-blue_2.ico"
+ *    "E:\Assets\Icons\_used-icons\main-ahk-icon-green.ico"
+ *    "E:\Assets\Icons\_used-icons\main-ahk-icon-green_1.ico"
+ *    "E:\Assets\Icons\_used-icons\main-ahk-icon-green_2.ico"
+ *    "E:\Assets\Icons\_used-icons\main-ahk-icon-red.ico"
+ *    "E:\Assets\Icons\_used-icons\main-ahk-icon-red_1.ico"
+ *    "E:\Assets\Icons\_used-icons\main-ahk-icon-red_2.ico"
+ *    "E:\Assets\Icons\_used-icons\main-ahk-icon-yellow.ico"
+ *    "E:\Assets\Icons\_used-icons\main-ahk-icon-yellow_1.ico"
+ *    "E:\Assets\Icons\_used-icons\main-ahk-icon-yellow_2.ico"
+ */
 ;; the next line is a compiler-directive that assigns the default .exe icon
-;@Ahk2Exe-SetMainIcon E:\Assets\Icons\key_circle_blue_white.ico
-Menu, Tray, Icon, % "E:\Assets\Icons\key_circle_blue_white.ico"
+;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\main-ahk-icon-blue_2.ico
+Menu, Tray, Icon, % "E:\Assets\Icons\_used-icons\main-ahk-icon-blue_2.ico"
 
 DetectHiddenWindows, On ;; Allows a script's hidden main window to be detected.
 SetTitleMatchMode, 2 ;;- 2 = A window's title can contain WinTitle anywhere inside it to be a match.
@@ -77,7 +90,8 @@ Lbl_Include_Block:
 
 ;; UTITILITIES ;{
 #Include %A_ScriptDir%\-utility\ShareX-Hotkeys-ScreenCapturing-UTILITY.ahk
-#Include %A_ScriptDir%\-utility\Generate-Lorem-Ipsum-UTILITY.ahk 
+#Include %A_ScriptDir%\-utility\Generate-Lorem-Ipsum-UTILITY.ahk
+#Include %A_ScriptDir%\-utility\Time-Calculator-UTILITY.ahk
 ;}
 
 /** 	
@@ -118,6 +132,7 @@ main_runHorizScrollingUtility() {
 #Include %A_ScriptDir%\-win\FancyZones-WIN.ahk
 #Include %A_ScriptDir%\-win\Windows-Explorer-WIN.ahk
 #Include %A_ScriptDir%\-win\PowerRun-WIN.ahk
+#Include %A_ScriptDir%\-win\pwrRun-date01-WIN.ahk
 #Include %A_ScriptDir%\-win\Word-WIN.ahk
 #Include %A_ScriptDir%\-win\SmartGUI-WIN.ahk
 #Include %A_ScriptDir%\-win\Sticky-Notes-WIN.ahk 
@@ -126,6 +141,7 @@ main_runHorizScrollingUtility() {
 #Include %A_ScriptDir%\-win\Mixcraft9-WIN.ahk
 #Include %A_ScriptDir%\-win\GenshinImpact-WIN.ahk
 #Include %A_ScriptDir%\-win\Notepad-WIN.ahk
+#Include %A_ScriptDir%\-win\ShareX-WIN.ahk
 ;}
 
 
@@ -143,88 +159,11 @@ Pause:: ;{
 	WinClose, Cut-Copy-Paste-(pause-to-break)-UTILITY.exe
 	return  ;}
 
-
-	
-	
-
 ;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 /*	OPEN / START / RUN  - HOTKEYS
 	WINDOWS-KEY
 	OPEN FILES, OPEN SOFTWARE, OPEN PROGRAMS, OPEN APPLICATIONS, OPEN APPS
 */
-
-;{ !^+Space:: ;{
-;       	global g_hyphenSpacingStatus
-;       	
-;       	;; if g_hyphenSpacingStatus hasn't been initialized yet...
-;       	if (g_hyphenSpacingStatus == "") {
-;       		g_hyphenSpacingStatus := "OFF"
-;       	}
-;       	
-;       	if (g_hyphenSpacingStatus == "ON") {
-;       		
-;       		;; if successfully closed, g_hyphenSpacingStatus := "OFF"
-;       		if (Close_Hyphen_Spacing_UTILITY()) {
-;       			g_hyphenSpacingStatus := "OFF"
-;       		}
-;       		
-;       		MsgBox, , g_hyphenSpacingStatus = %g_hyphenSpacingStatus%, 2
-;       		
-;       	} 
-;       	else if (g_hyphenSpacingStatus == "OFF") {
-;       		
-;       		;; if successfully opened, g_hyphenSpacingStatus := "ON"
-;       		if (Run_Hyphen_Spacing_UTILITY()) {
-;       			g_hyphenSpacingStatus := "ON"
-;       		}
-;       		
-;       		MsgBox, , g_hyphenSpacingStatus = %g_hyphenSpacingStatus%, 2
-;       		
-;       	}
-;       	
-;       	return ;}
-;       	
-;       Close_Hyphen_Spacing_UTILITY() {
-;       	
-;       	;; if it does exist, then close it
-;       	if (WinExist("Hyphen-Spacing-UTILITY.ahk")) {
-;       		WinClose, Hyphen-Spacing-UTILITY.ahk
-;       	}
-;       	
-;       	;; check for success/failure
-;       	if (ErrorLevel == 0) {
-;       		;; success
-;       		retVal := true
-;       	}
-;       	else if (ErrorLevel != 0) {
-;       		;; fail
-;       		retVal := false
-;       	}
-;       	
-;       	return retVal
-;       }
-;       
-;       Run_Hyphen_Spacing_UTILITY() {
-;       	s_file := A_ScriptDir "\-utility\Hyphen-Spacing-UTILITY.ahk"
-;       	
-;       	;; if it doesn't exist, then run it
-;       	if (!WinExist("Hyphen-Spacing-UTILITY.ahk")) {
-;       		Run, autohotkey.exe %s_file%
-;       	}
-;       	
-;       	;; check for success/failure
-;       	if (ErrorLevel == 0) {
-;       		;; success
-;       		retVal := true
-;       	}
-;       	else if (ErrorLevel != 0) {
-;       		;; fail
-;       		retVal := false
-;       	}
-;       	
-;       	return retVal
-;       }
-;}
 
 Lbl_Run_Copy_Paste_Simple:
 ^F23::
@@ -272,77 +211,13 @@ class windowsAEventHandler {
 
 myWindowsAEventHandler = new windowsAEventHandler ;; instantiate a clone of a class
 
-
 #a::Run, % g_SCITE_4AHK_EXE ;; global variable, defined at top of this script
-
-
-/* #a::	
- * 	SetTimer, % windowsAEventHandler, 3000 ; 1000 = 1 second
- * 	KeyWait a ;; wait for a to be released before completely exiting this thread.
- * 	return
- * 
- * 
- * 
- * #a up::
- * 
- * 	Run, % g_SCITE_4AHK_EXE ;; global variable, defined at top of this script
- */
-
-
-
-
 
 Lbl_Run_Voicemeeter:
 #s::Run, "C:\Program Files (x86)\VB\Voicemeeter\voicemeeter.exe"
 
 Lbl_Run_Windows_Sound_Control_Panel: 
 ^#s::Run, "E:\Assets\Scripts\Windows Commands\Sound Control Panel - Playback Tab.bat"
-
-;; currently on-hold
-Lbl_Left_Mouse_Button: ;{
-;{ ~*LButton:: ;{ 
-;        	if (g_PRIMARY_MOUSE == "Right") {
-;        		KeyWait, LButton, t2 ;wait for 2 seconds
-;        		if (ErrorLevel == 1) {
-;        			;~ if (WinExist("Mouse Control Panel"))
-;        			if (WinExist("Mouse Control Panel ahk_class AutoHotkeyGUI"))
-;        				WinActivate
-;        			else
-;        				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-GUI-Mouse-Control.exe
-;        				;~ gosub GUI_Mouse_Control
-;        				gosub GuiShow_Mouse_Control
-;        			return
-;        		}
-;        		else
-;        			return
-;        	}
-;        	return  ;}
-;} ;}
-
-;; currently on-hold
-Lbl_Right_Mouse_Button: ;{
-;{ ~*RButton:: ;{ 
-;        	;start timer
-;        	mouseControlPanelTimer := A_TickCount
-;        	if (g_PRIMARY_MOUSE == "Left") {
-;        		KeyWait, RButton, t2 ;wait for 2 seconds
-;        		if (ErrorLevel == 1) {
-;        			;~ if (WinExist("Mouse Control Panel"))
-;        			if (WinExist("Mouse Control Panel ahk_class AutoHotkeyGUI"))
-;        				WinActivate
-;        			else
-;        				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-GUI-Mouse-Control.exe
-;        				;~ gosub GUI_Mouse_Control
-;        				gosub GuiShow_Mouse_Control
-;        			return
-;        		}
-;        		else
-;        			return
-;        	}
-;        	return  ;}
-;}
-;}
-
 
 ;; shows the amount of scroll-wheel inputs sent as a tooltip following the mouse
 Lbl_Run_Scroll_Speed_Tooltip:
@@ -409,21 +284,6 @@ AppsKey & Right::Send, ^#{Right}
 
 ;; Redo (alternative command)
 ^+z::Send, ^y
-
-;; re-map default Windows-Key behavior, [LWin] => WinPaste, [LWin+z] => [LWin]
-Lbl_WindowsKey_Paste:
-;; LWin Up::MsgBox, , % "LWin", % "LWin: Up`nTickCount = " . A_TickCount . "`nA_Now = " . A_Now, 0
-
-;{ ;; LWin::
-;       	;; return
-;       ;; $LWin Up::Send, #v
-;       
-;       ;; LControl & LWin Up::
-;       ;; $!LWin::
-;       	;; Send, {LWin}
-;       	;; MsgBox, % "Send, {LWin}"
-;       	;; return
-;}
 
 ;HOLD WINDOWS KEY AND DOUBLE TAP CTRL OR ALT TO MOVE DESKTOPS
 ;~ #LCtrl
@@ -561,7 +421,7 @@ Space::F5
 Lbl_Insert_Date: ;{
 ^Insert::
 	;~ time_sendDate("yyyy")
-	time_sendDate()
+	time_sendDate("yyyyMMdd_HHmmss")
 	return  ;}
 
 ;; open ShareX - main window
@@ -662,13 +522,10 @@ Lbl_LWin:
 	lwin_pressCount := 0
 	return
 
-;; 2022-02-08_01-00-46_PM - adding new functionality
-;; done - double-tap windows key to switch languages (like hitting Win+Space)
-;; <#Space::Send, !<#{Space}
+;; double-tap windows key to switch languages (like hitting Win+Space)
 <#Space::Send, {Alt down}{LWin down}{Space}{LWin up}{Alt up}
 
-;; 2022-02-08_01-02-00_PM
-;; done - change powerrun launch-hotkey from win+space to win+alt+space 
+;; change powerrun launch-hotkey from win+space to win+alt+space 
 !<#Space::Send,  {Alt down}{LWin down}{Space}{LWin up}{Alt up}
 
 ;; pass-through 
@@ -683,40 +540,81 @@ Lbl_LWin:
 	return
 
 
-/**
- * This sub handles allows user to press...
- *       9 and 0 (either order)
- *         xor
- *       Numpad7 and Numpad8 (either order)
- *   and sends "()" then places text-cursor inside parentheses. 
- * 
- * Implementation Notes:
- *		- Set g_parenthesisWaitTime to the number of seconds you wish 
- *			to wait for tab-input after entering parentheses. 
- * 
+/*
  * API Notes:	
  *		Hotkey Options/Flags
  *			$ := only trigger on physical key-press
  *			* := allow triggering with extra modifers (ctrl, shift, alt)
- * 
  */
 
 global g_waitingForTabPress ;; as boolean 
-	;; (Note: because this is not in the auto-execute section at the top, this variable can not be assigned a value on this line)
+;; (Note: because this is not in the auto-execute section at the top, 
+;;    this variable can not be assigned a value on this line)
 
-$*9:: 9 ;
-$*0:: 0
-9 & 0:: sendParentheses()
-0 & 9:: sendParentheses()
-$*Numpad7:: Numpad7
-$*Numpad8:: Numpad8
-Numpad7 & Numpad8:: sendParentheses()
-Numpad8 & Numpad7:: sendParentheses()
-$Tab:: sendTab()
-
-sendParentheses(tSeconds := 5) {	
+;; Sends "+" or "()"
+NumpadAdd::
+	numpad0_isDown := GetKeyState("Numpad0", "P")
+	numpad0_isUp := !numpad0_isDown
 	
-	Send, {LShift Down}90{LShift Up}{Left}
+	if (numpad0_isDown)	{
+		Send, {BackSpace}{(}{)}{Left}
+	}
+	else {
+		main_sendIfPressed()
+	}
+	return
+NumpadAdd up::
+	main_sendIfReleased()
+	return
+
+$Tab::
+	sendTab()
+	return
+
+NumpadDot::
+	numpad0_isDown := GetKeyState("Numpad0", "P")
+	numpad0_isUp := !numpad0_isDown
+	
+	if (numpad0_isDown) {
+		Send, {BackSpace}{,}
+	}
+	else {
+		main_sendIfPressed()
+	}
+	return
+NumpadDot up::
+	main_sendIfReleased()
+	return
+
+
+
+
+main_sendIfPressed(p_hotkey := "") {
+	if (p_hotkey == "") {
+		p_hotkey := A_ThisHotkey
+	}
+	keyIsDown := GetKeyState(p_hotkey, "P")
+	if (keyIsDown) {
+		Send, {%p_hotkey% down}
+	}
+	return
+}
+
+main_sendIfReleased(p_hotkey := "") {
+	if (p_hotkey == "") {
+		p_hotkey := A_ThisHotkey
+	}
+	keyIsUp := !GetKeyState(p_hotkey, "P")
+	if (keyIsUp) {
+		Send, {Blind}{%p_hotkey% up}
+	}
+	return
+}
+
+
+sendParentheses(tSeconds := 5) {
+	
+	Send, {(}{)}{Left}
 	
 	g_waitingForTabPress := true
 	
@@ -740,4 +638,25 @@ sendTab() {
 	return
 }
 
+#IfWinActive yEd Live ahk_class MozillaWindowClass ahk_exe firefox.exe
 
+;; select "palette"
+^MButton up::
+{
+	MouseGetPos, x, y
+	MouseClick, Left, 1737, 196, 1
+	MouseMove, % x, % y
+	return
+}
+
+;; select "properties"
+^RButton up::
+{
+	MouseGetPos, x, y
+	MouseClick, Left, 1602, 196, 1
+	MouseMove, % x, % y
+	return
+}
+;;Re-declare any window as an acceptable 
+;;case-scenario before exit.
+#IfWinActive

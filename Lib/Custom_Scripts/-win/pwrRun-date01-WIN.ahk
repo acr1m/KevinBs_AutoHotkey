@@ -1,12 +1,15 @@
 
 #IfWinActive ahk_exe PowerToys.PowerLauncher.exe
+::??getNow::
+	SetTimer, Lbl_getNow, -250
+	return
 ::??getDate::
 ::??date::
-	gosub, Lbl_getDateWithClipboard
+	SetTimer, Lbl_getDateWithClipboard, -250
 	return
 ::??getToday::
 ::??today::
-	gosub, Lbl_getToday
+	SetTimer, Lbl_getToday, -250
 	return
 
 #IfWinActive

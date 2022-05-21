@@ -591,9 +591,17 @@ shruggieLoop() {
 ::rre::{U+2B60} ;⭠ 	left triangle-headed arrow 		⭠
 :O:rrx::{U+274C} ;❌
 
+::doublerightarrow::{U+21D2} ;⇒	double struck right arrow	⇒
+::drr::{U+21D2} ;⇒= Dec: 8658, Hex: 21D2	double struck right arrow	⇒
+::dr1::{U+21FE} ;⇾= Dec: 8702, Hex: 21FE
+::dr2::{U+21E8} ;⇨= Dec: 8680, Hex: 21E8
+::dr3::{U+2192} ;→= Dec: 8594, Hex: 2192
+::dr4::{U+21AA} ;↪= Dec: 8618, Hex: 21AA
+::dr5::{U+21C9} ;⇉= Dec: 8649, Hex: 21C9
+
 ::r1::{U+2794} ;➔	right arrow 					➔
 ::r2::{U+27a2} ;➢	3d arrow, top lighted 			➢
-::r3::{U+27a3} ;➣	3d arrow, bottom lighted 		➣
+::r3::{U+21D2} ;⇒	double struck right arrow	⇒
 ::r4::{U+27a4} ;➤	black rightwards arrowhead 		➤
 ::r5::{U+27a5} ;➥	3d arrow, bottom lighted 		➥
 ::r6::{U+27a6} ;➦	3d arrow, bottom lighted 		➦➜

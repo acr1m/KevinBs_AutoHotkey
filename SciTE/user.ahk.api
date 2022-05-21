@@ -1,3 +1,5 @@
+ObjBindMethod(Obj, Method, Params)
+ObjBindMethod(Obj, Method, Params)\n\tCreates a BoundFunc object which calls a method of a given object.
 loopSend(p_btn, p_count, p_interval)
 loopSend(p_btn, p_count, p_interval)\n\tDescr:\tSends the indicated string as a keystroke if applicable. \n\tReturn:\tVOID\n\tParams:\tp_btn := "Space" ; the button or key to press\n\t\t\tp_count := 2 ; number of times to send the button press\n\t\t\tp_interval := 50 ; <milliseconds> interval between each button press\n\tNotes:\t\n
 mouseClick(xPos, yPos, clicks, mSpeed)
@@ -995,6 +997,7 @@ SetTimer [, Label|FunctionName|Func_Object, [Period <milliseconds>|On|Off|Delete
 SetTimer [, Label|FunctionName|Func_Object, [Period <milliseconds>|On|Off|Delete], Priority]\nCauses a subroutine to be launched automatically and repeatedly at a specified time interval until a Return or Exit is encountered.
 SetTimer [, Label|FunctionName|Func_Object, [Period <milliseconds>|On|Off|Delete], Priority]\n\tDescription: \n\t\tCauses a subroutine to be launched automatically and repeatedly at a specified time interval until a Return or Exit is encountered.\n\tParameters: \n\t\tLabel\t:= Jumps to this label and repeats it.\n\t\tPeriod\t:= INTEGER (absolute value of integer in milliseconds).\n\t\t\t\t-- If positive, will run and repeat at the given interval.\n\t\t\t\t-- If negative, will wait for given interval and then run only once. \n\tRemarks:\n\t\tPeriod - Default: If this parameter is blank and...\n\t\t\t1) The timer does not exist: it will be created with a period of 250.\n\t\t\t2) The timer already exists: it will be enabled and reset at its former period unless a Priority is specified.
 SetTitleMatchMode, Fast|Slow|RegEx|1|2|3
+SetTitleMatchMode, Fast|Slow|RegEx|1|2|3\n\t•1 = A window's title must start with the specified WinTitle to be a match.\n\t•2 = A window's title can contain WinTitle anywhere inside it to be a match.\n\t•3 = A window's title must exactly match WinTitle to be a match.\n\t•RegEx [v1.0.45+] = Changes WinTitle, WinText, ExcludeTitle, and ExcludeText to accept regular expressions. Do not enclose such expressions in quotes when using them with commands. For example: WinActivate Untitled.*Notepad. 
 SetWinDelay, Delay
 SetWorkingDir, DirName
 Shift

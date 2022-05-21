@@ -1,3 +1,5 @@
+#Include %A_LineFile%\..\..\-lib\Main-Method-Library-LIB.ahk
+
 /*!
 	Library: RegEx Library
 		This is a collection of functions and objects that utilitize Regular Expressions  
