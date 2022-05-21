@@ -1,63 +1,24 @@
 #SingleInstance Force
 #Persistent
-/* ICONS
- *    "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-blue_10.ico"
- *    "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-green_10.ico"
- *    "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-red_10.ico"
- *    "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-yellow_10.ico"
- */
-
+;; auto-execute section--------------------------------------------------
 ;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\firefox-01-256-base-02-blue_10.ico
-
-global icon_isActive :=  "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-blue_10.ico"
-global icon_isSuspended :=  "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-red_10.ico"
 Menu, Tray, Tip, % A_ScriptName . "`nPress [s] while over an image to save to last folder."
-;; Menu, MenuName, Add [, MenuItemName, LabelOrSubmenu, Options]
-Menu, Tray, Add, Suspend Hotkeys, Lbl_Suspend
-Menu, Tray, Add, Pause Script, Lbl_Pause
 
-;; instantiate tray icon manager
-
-;; iconManager := new TrayIconManager()
-;; iconManager.icon.ACTIVE := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-blue_10.ico"
-;; iconManager.icon.SUSPENDED := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-green_10.ico"
-;; iconManager.icon.PAUSED := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-yellow_10.ico"
-;; iconManager.icon.INACTIVE := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-red_10.ico"
-
-
-SetTimer, Lbl_UpdateFireFoxIcon, 250
-;; SetTimer, iconManager.updateTrayIcon(), 250
+;; set the icon references
+#Include %A_LineFile%\..\..\-lib\TrayIconManager-LIB.ahk
+trayIM := new TrayIconManager()
+trayIM.iconActive := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-blue_10.ico"
+trayIM.iconSuspended := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-green_10.ico"
+trayIM.iconPaused := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-yellow_10.ico"
+trayIM.iconInactive := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-red_10.ico"
+gosub, Lbl_TrayIconManager_Start
 return
+#Include %A_LineFile%\..\..\-lib\TrayIconManager-Labels-LIB.ahk
 ;; end of auto-execute section--------------------------------------------------
 
-;; #Include E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\TrayIconManager-LIB.ahk
-
-Lbl_Suspend:
-	Suspend, Toggle
-	return
-Lbl_Pause:
-	Pause, Toggle
-	return
-Lbl_UpdateFireFoxIcon:
-	Suspend, Permit
-	Pause, Off
-	
-	if (A_IsSuspended) {
-		Menu, Tray, Icon, % icon_isSuspended
-	} else if (!A_IsSuspended){
-		Menu, Tray, Icon, % icon_isActive
-	}
-	return
-
-
-
-;; #Include %A_LineFile%\..\..\-lib\Main-Method-Library-LIB.ahk
-;; #Include %A_LineFile%\..\..\-lib\run()-LIB.ahk
-;; #Include %A_LineFile%\..\..\-lib\mathKbd()-LIB.ahk
-;; #Include %A_LineFile%\..\..\-lib\Emojis-And-Symbols-LIB.ahk
-;; #Include %A_LineFile%\..\..\-lib\repeatKey()-LIB.ahk
 #Include %A_LineFile%\..\..\-lib\time()-LIB.ahk
 #Include %A_LineFile%\..\..\-lib\RegEx()-LIB.ahk
+
 
 #IfWinActive ahk_exe firefox.exe
 

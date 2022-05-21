@@ -760,7 +760,8 @@ Media_Next
 Media_Play_Pause
 Media_Prev
 Media_Stop
-Menu, MenuName, Cmd [, P3, P4, P5]
+Menu, MenuName|Tray, Add [, MenuItemName, LabelOrSubmenu, Options]\nMenu, MenuName|Tray, Check, MenuItemName\nMenu, MenuName|Tray, Color, ColorValue [, Single]\nMenu, MenuName|Tray, Default [, MenuItemName]\nMenu, MenuName|Tray, Delete [, MenuItemName]\nMenu, MenuName|Tray, DeleteAll\nMenu, MenuName|Tray, Disable, MenuItemName\nMenu, MenuName|Tray, Enable, MenuItemName\nMenu, MenuName|Tray, Insert [, MenuItemName, ItemToInsert, LabelOrSubmenu, Options]\nMenu, MenuName|Tray, NoDefault\nMenu, MenuName|Tray, NoStandard\nMenu, MenuName|Tray, Rename, MenuItemName [, NewName]\nMenu, MenuName|Tray, Show [, X, Y]\nMenu, MenuName|Tray, Standard\nMenu, MenuName|Tray, ToggleCheck, MenuItemName\nMenu, MenuName|Tray, ToggleEnable, MenuItemName\nMenu, MenuName|Tray, Uncheck, MenuItemName\nMenu, MenuName|Tray, UseErrorLevel [, Off]
+Menu, Tray, Click, ClickCount\nMenu, Tray, Icon [, FileName, IconNumber, 1]\nMenu, Tray, MainWindow\nMenu, Tray, NoIcon\nMenu, Tray, NoMainWindow\nMenu, Tray, Tip [, Text]\n
 Minimize
 MinimizeBox
 MinMax

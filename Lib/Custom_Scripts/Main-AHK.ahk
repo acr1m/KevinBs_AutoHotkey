@@ -13,27 +13,16 @@
 #MaxHotkeysPerInterval 1000 ;1 thousand keys per above interval
 #SingleInstance Force
 #Persistent
+#Include %A_ScriptDir%\-lib\TrayIconManager-LIB.ahk
 
-Menu, Tray, MainWindow
-Menu, Tray, Click, 1
-Menu, Tray, Default, 
-/* ICONS
- *    "E:\Assets\Icons\_used-icons\main-ahk-icon-blue.ico"
- *    "E:\Assets\Icons\_used-icons\main-ahk-icon-blue_1.ico"
- *    "E:\Assets\Icons\_used-icons\main-ahk-icon-blue_2.ico"
- *    "E:\Assets\Icons\_used-icons\main-ahk-icon-green.ico"
- *    "E:\Assets\Icons\_used-icons\main-ahk-icon-green_1.ico"
- *    "E:\Assets\Icons\_used-icons\main-ahk-icon-green_2.ico"
- *    "E:\Assets\Icons\_used-icons\main-ahk-icon-red.ico"
- *    "E:\Assets\Icons\_used-icons\main-ahk-icon-red_1.ico"
- *    "E:\Assets\Icons\_used-icons\main-ahk-icon-red_2.ico"
- *    "E:\Assets\Icons\_used-icons\main-ahk-icon-yellow.ico"
- *    "E:\Assets\Icons\_used-icons\main-ahk-icon-yellow_1.ico"
- *    "E:\Assets\Icons\_used-icons\main-ahk-icon-yellow_2.ico"
- */
-;; the next line is a compiler-directive that assigns the default .exe icon
-;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\main-ahk-icon-blue_2.ico
-Menu, Tray, Icon, % "E:\Assets\Icons\_used-icons\main-ahk-icon-blue_2.ico"
+;; set the icon references
+;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\main-ahk-icon-green_2.ico
+trayIM := new TrayIconManager()
+trayIM.iconActive := "E:\Assets\Icons\_used-icons\main-ahk-icon-green_2.ico"
+trayIM.iconSuspended := "E:\Assets\Icons\_used-icons\main-ahk-icon-blue_2.ico"
+trayIM.iconPaused := "E:\Assets\Icons\_used-icons\main-ahk-icon-yellow_2.ico"
+trayIM.iconInactive := "E:\Assets\Icons\_used-icons\main-ahk-icon-red_2.ico"
+trayIM.start()
 
 DetectHiddenWindows, On ;; Allows a script's hidden main window to be detected.
 SetTitleMatchMode, 2 ;;- 2 = A window's title can contain WinTitle anywhere inside it to be a match.
@@ -73,6 +62,13 @@ global pid_horizScroll
 
 
 main_runHorizScrollingUtility()
+
+
+
+return
+;; end of auto-execute section------------------------------------------
+
+
 
 ;; block of #Include libraries and utilities
 Lbl_Include_Block:

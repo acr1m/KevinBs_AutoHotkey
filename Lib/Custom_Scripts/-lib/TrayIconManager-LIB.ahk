@@ -1,17 +1,8 @@
-#SingleInstance Force
-#Persistent
+﻿;; #SingleInstance Force
+;; #Persistent
 
-im := {}
-im.scriptInstanceHandle := A_ScriptHwnd
-im.iconVal := 0
-im.iconActive := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-blue_10.ico"
-im.iconSuspended := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-green_10.ico"
-im.iconPaused := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-yellow_10.ico"
-im.iconInactive := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-red_10.ico"
-;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\firefox-01-256-base-02-blue_10.ico
-Menu, Tray, Icon, % im.iconActive
 
-outStr := im.scriptInstanceHandle
+/* outStr := im.scriptInstanceHandle
 outStr .= "`n" . im.iconVal
 outStr .= "`n" . im.iconActive
 outStr .= "`n" . im.iconSuspended
@@ -32,8 +23,10 @@ return
 	Suspend, Permit
 	gosub, Lbl_updateTrayIcon
 	return
+ */
 
-Lbl_updateTrayIcon: 
+
+/* Lbl_updateTrayIcon: 
 {
 	Suspend, Permit
 	Pause, Off, true
@@ -54,7 +47,7 @@ setTrayIcon(o) {
 	Pause, Off, true
 	
 	MouseGetPos, x, y
-	ToolTip, % o.iconVal, % x+15, % y+15
+	ToolTip, % o.iconVal, % 1700, % 400
 	if (o.iconVal <= 0) {
 		Menu, Tray, Icon, % o.iconActive
 	} else if (o.iconVal == 1) {
@@ -66,17 +59,118 @@ setTrayIcon(o) {
 	}
 	return
 }
+ */
 
-/* 
- * class TrayIconManager {
- * 	
- * 	scriptInstanceHandle := ""
- * 	iconVal := 0
- * 	iconActive := ""
- * 	iconSuspended := ""
- * 	iconPaused := ""
- * 	iconInactive := ""
- * 	
+
+class TrayIconManager {
+	
+	scriptInstanceHandle := ""
+	isSuspended := false
+	isPaused := false
+	iconVal := 0
+	iconActive := ""
+	iconSuspended := ""
+	iconPaused := ""
+	iconInactive := ""
+	
+	start() {
+		Menu, Tray, Icon, % this.iconActive,, 1 ;; 1 indicates to turn off AHK default icon updates
+		Menu, Tray, NoStandard
+		
+		tgt_suspend := ObjBindMethod(this, "toggleSuspend")
+		Menu, Tray, Add, % "Suspend Hotkeys", % tgt_suspend
+		
+		tgt_pause := ObjBindMethod(this, "togglePause")
+		Menu, Tray, Add, % "Pause Script", % tgt_pause
+		
+		tgt_exit := ObjBindMethod(this, "exitScript")
+		Menu, Tray, Add, % "Exit", % tgt_exit
+		
+		tgt_update := ObjBindMethod(this, "updateTrayIcon")
+		SetTimer, % tgt_update, 250
+	}
+	
+	exitScript() {
+		ExitApp
+		return
+	}
+	
+	updateTrayIcon() {
+		this.iconVal := 0
+		if (this.isSuspended) {
+			this.iconVal += 1
+		}
+		if (this.isPaused) {
+			this.iconVal += 2
+		}
+		this.setTrayIcon()
+		return
+	}
+	
+	setTrayIcon() {
+		if (this.iconVal <= 0) {
+			Menu, Tray, Icon, % this.iconACTIVE,,1
+		} else if (this.iconVal == 1) {
+			Menu, Tray, Icon, % this.iconSUSPENDED,,1
+		} else if (this.iconVal == 2) {
+			Menu, Tray, Icon, % this.iconPAUSED,,1
+		} else if (this.iconVal >= 3) {
+			Menu, Tray, Icon, % this.iconINACTIVE,,1
+		}
+		return
+	}
+	
+	togglePause() {
+		this.isPaused := !this.isPaused
+		this.applyIsPaused()
+		return this.iconVal
+	}
+	
+	setIsPaused(p_boolean) {
+		this.isPaused := p_boolean
+		this.applyIsPaused()
+		return this.iconVal
+	}
+	
+	applyIsPaused() {
+		if (this.isPaused) {
+			Menu, Tray, Check, % "Pause Script"
+			this.updateTrayIcon()
+			Pause, On, true
+		} else {
+			Menu, Tray, UnCheck, % "Pause Script"
+			this.updateTrayIcon()
+			Pause, Off, true
+		}
+		return
+	}
+	
+	toggleSuspend() {
+		this.isSuspended := !this.isSuspended
+		this.applyIsSuspended()
+		return this.iconVal
+	}
+	
+	setIsSuspended(p_boolean) {
+		this.isSuspended := p_boolean
+		this.applyIsSuspended()
+		return this.iconVal
+	}
+	
+	applyIsSuspended() {
+		if (this.isSuspended) {
+			Menu, Tray, Check, % "Suspend Hotkeys"
+			this.updateTrayIcon()
+			Suspend, On
+		} else {
+			Menu, Tray, UnCheck, % "Suspend Hotkeys"
+			this.updateTrayIcon()
+			Suspend, Off
+		}
+		return
+	}
+	
+/* 	
  * 	__New() {
  * 		this.scriptInstanceHandle := A_ScriptHwnd
  * 		return
@@ -141,44 +235,6 @@ setTrayIcon(o) {
  * 			return this.icn.INACTIVE := str
  * 		}
  * 	}
- *  */
- * 	
- * 	updateTrayIcon() {
- * 		this.iconVal := 0
- * 		if (A_IsSuspended) {
- * 			this.iconVal += 1
- * 		}
- * 		if (A_IsPaused) {
- * 			this.iconVal += 2
- * 		}
- * 		this.setTrayIcon()
- * 		return
- * 	}
- * 	
- * /* 	setTrayIcon() {
- * 		if (this.icn.val <= 0) {
- * 			Menu, Tray, Icon, % this.icn.ACTIVE
- * 		} else if (this.icn.val == 1) {
- * 			Menu, Tray, Icon, % this.icn.SUSPENDED
- * 		} else if (this.icn.val == 2) {
- * 			Menu, Tray, Icon, % this.icn.PAUSED
- * 		} else if (this.icn.val >= 3) {
- * 			Menu, Tray, Icon, % this.icn.INACTIVE
- * 		}
- * 		return
- * 	}
- *  */
- *  
- * 	setTrayIcon() {
- * 		if (this.iconVal <= 0) {
- * 			Menu, Tray, Icon, % this.iconACTIVE
- * 		} else if (this.iconVal == 1) {
- * 			Menu, Tray, Icon, % this.iconSUSPENDED
- * 		} else if (this.iconVal == 2) {
- * 			Menu, Tray, Icon, % this.iconPAUSED
- * 		} else if (this.iconVal >= 3) {
- * 			Menu, Tray, Icon, % this.iconINACTIVE
- * 		}
- * 		return
- * 	}
- * } */
+ */
+
+}
