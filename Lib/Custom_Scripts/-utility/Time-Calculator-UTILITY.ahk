@@ -6,7 +6,7 @@ global timeCalculator_icon_Suspended := "E:\Assets\Icons\_used-icons\time-01-32-
 
 ;{ AutoHotkey Compiler Directives
 ;; the next line is a compiler-directive that assigns the default ".exe" icon
-	;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\time-01-32-blue.ico
+
 ;}
 
 global g_tC_ShortFormat := "M/d/yyyy" ;; 4/8/2022

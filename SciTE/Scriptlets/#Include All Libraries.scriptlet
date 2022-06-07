@@ -1,7 +1,8 @@
-﻿#Include %A_LineFile%\..\..\-lib\Main-Method-Library-LIB.ahk
-#Include %A_LineFile%\..\..\-lib\run()-LIB.ahk
-#Include %A_LineFile%\..\..\-lib\mathKbd()-LIB.ahk
-#Include %A_LineFile%\..\..\-lib\Emojis-And-Symbols-LIB.ahk
-#Include %A_LineFile%\..\..\-lib\repeatKey()-LIB.ahk
-#Include %A_LineFile%\..\..\-lib\time()-LIB.ahk
-#Include %A_LineFile%\..\..\-lib\RegEx()-LIB.ahk
+﻿#Include %A_LineFile%\..\..\-lib\
+#Include %A_WorkingDir%\Main-Method-Library-LIB.ahk
+#Include %A_WorkingDir%\run()-LIB.ahk
+#Include %A_WorkingDir%\mathKbd()-LIB.ahk
+#Include %A_WorkingDir%\Emojis-And-Symbols-LIB.ahk
+#Include %A_WorkingDir%\repeatKey()-LIB.ahk
+#Include %A_WorkingDir%\time()-LIB.ahk
+#Include %A_WorkingDir%\RegEx()-LIB.ahk

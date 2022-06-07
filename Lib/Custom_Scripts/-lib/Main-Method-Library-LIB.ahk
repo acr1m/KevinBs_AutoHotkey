@@ -671,5 +671,17 @@
 		}
 		return
 	}
-
+	
+	/**	main_getRandomNum(_min := 0, _max := 1)
+		Descr:	Returns a number between _min and _max (inclusive bounds).
+		Return:	INTEGER or FLOAT
+		Params:	_min := 0 INTEGER or FLOAT
+				_max := 1 INTEGER or FLOAT
+		Notes:	Can be either an Integer or Floating-Point Number.
+				If either param is a FLOAT, then output will be a FLOAT.
+	*/
+	main_getRandomNum(_min := 0, _max := 1) {
+		Random, outputVar, % _min, % _max
+		return outputVar
+	}
 ;}

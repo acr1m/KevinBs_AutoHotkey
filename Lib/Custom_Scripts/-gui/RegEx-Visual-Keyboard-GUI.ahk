@@ -2,7 +2,7 @@
 #Include Main-Method-Library-LIB.ahk
 #Include repeatKey()-LIB.ahk
 
-_w   := 120
+_w   := 100
 _h   := 40
 t_w  := _w * 10
 t_h  := _h * 10
@@ -67,7 +67,9 @@ Gui,	Add,	Button,		x560	y94		w120	h40		,	non-capturing group`n(?: )
 Gui,	Show,	w%t_w%	h%t_h%,	Untitled	GUI
 return
 
+; end of auto-execute section---------------------------------------------------
 
+Pause::ExitApp ; breaker switch
 
 GuiClose:
 ExitApp

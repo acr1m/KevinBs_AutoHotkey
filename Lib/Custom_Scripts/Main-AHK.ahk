@@ -13,26 +13,24 @@
 #MaxHotkeysPerInterval 1000 ;1 thousand keys per above interval
 #SingleInstance Force
 #Persistent
-#Include %A_ScriptDir%\-lib\TrayIconManager-LIB.ahk
-
-;; set the icon references
-;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\main-ahk-icon-green_2.ico
-trayIM := new TrayIconManager()
-trayIM.iconActive := "E:\Assets\Icons\_used-icons\main-ahk-icon-green_2.ico"
-trayIM.iconSuspended := "E:\Assets\Icons\_used-icons\main-ahk-icon-blue_2.ico"
-trayIM.iconPaused := "E:\Assets\Icons\_used-icons\main-ahk-icon-yellow_2.ico"
-trayIM.iconInactive := "E:\Assets\Icons\_used-icons\main-ahk-icon-red_2.ico"
-trayIM.start()
-
 DetectHiddenWindows, On ;; Allows a script's hidden main window to be detected.
 SetTitleMatchMode, 2 ;;- 2 = A window's title can contain WinTitle anywhere inside it to be a match.
-CurrentTheme_obj := new CurrentTheme ;;creates a new CurrentTheme-class-object
+
+;; set the icon references
+#Include %A_ScriptDir%\-lib\TrayIconManager-LIB.ahk
+trayIM := new TrayIconManager()
+trayIM.iconActive :=	"E:\Assets\Icons\_used-icons\key-s04-green.ico"
+trayIM.iconSuspended :=	"E:\Assets\Icons\_used-icons\key-s04-blue.ico"
+trayIM.iconPaused :=	"E:\Assets\Icons\_used-icons\key-s04-yellow.ico"
+trayIM.iconInactive :=	"E:\Assets\Icons\_used-icons\key-s04-red.ico"		
+trayIM.start()
 
 /**
  * Rerun this script as admin.
  * Utilizes the included script library "run()-LIB.ahk" method "run_AsAdmin()"
  */
-run_AsAdmin(,false) ; (,true) = show msgbox result
+showRunAsAdminMsgBox := false
+run_AsAdmin(,showRunAsAdminMsgBox) ; (,true) = show msgbox result
 
 Lbl_Global_Constants: ;{
 global g_SCITE_4AHK_EXE := "E:\Software\AutoHotkey_MyInstallation_v01\SciTE\SciTE.exe"
@@ -60,10 +58,7 @@ global g_b_capsLockState := GetKeyState("CapsLock", "T")
 global pid_horizScroll
 ;}
 
-
 main_runHorizScrollingUtility()
-
-
 
 return
 ;; end of auto-execute section------------------------------------------
@@ -417,7 +412,7 @@ Space::F5
 Lbl_Insert_Date: ;{
 ^Insert::
 	;~ time_sendDate("yyyy")
-	time_sendDate("yyyyMMdd_HHmmss")
+	time_sendDate("yyyyMMdd_HHmmss_SS")
 	return  ;}
 
 ;; open ShareX - main window
@@ -581,8 +576,6 @@ NumpadDot::
 NumpadDot up::
 	main_sendIfReleased()
 	return
-
-
 
 
 main_sendIfPressed(p_hotkey := "") {

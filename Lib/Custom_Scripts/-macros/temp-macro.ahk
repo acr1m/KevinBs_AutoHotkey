@@ -23,16 +23,19 @@ global macroSwitch_M5 := false
 Pause::ExitApp
 
 ;; temp start
-Lbl_Temp_Macros:
+
 
 
 Lbl_Date_Calculator:
-^Insert:: ;{ 
+^Insert::hotkey_ctrlInsert()
+
+hotkey_ctrlInsert() { 
 	n := 1000
 	d := "Days"
 	Clipboard := time_translateDate(n, d, "MMMM d, yyyy")
 	MsgBox, , % "title", % "message " . time_translateDate(n, d, "MMMM d, yyyy hh:mm:ss")
-	return  ;}
+	return
+}
 
 /**_______________     _______________ 
   || CapsLock    ||   || Tab         ||

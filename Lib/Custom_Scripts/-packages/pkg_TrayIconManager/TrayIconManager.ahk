@@ -8,7 +8,7 @@
 	iconSuspended := ""
 	iconPaused := ""
 	iconInactive := ""
-	iconExit := "E:\Assets\Icons\_used-icons\x-s01.ico"
+	iconExit := "-resources\x-s01.ico"
 	
 	start() {
 		Menu, Tray, Icon, % this.iconActive,, 1 ;; 1 indicates to turn off AHK default icon updates

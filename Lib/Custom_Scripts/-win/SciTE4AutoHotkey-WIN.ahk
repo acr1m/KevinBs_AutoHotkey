@@ -50,6 +50,9 @@ Menu, Tray, Icon, % "E:\Assets\Icons\autohotkey-scite\SciTE_500.ico"
 ;; open user properties file
 !u::PostMessage, 0x0111, 461, 0, , ahk_exe SciTE.exe
 
+;; open user.ahk.api properties file
+!o::Run, "E:\Software\AutoHotkey_MyInstallation_v01\SciTE\SciTE.exe" "E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api"
+
 ;; open abbreviations file
 !b::PostMessage, 0x0111, 463, 0, , ahk_exe SciTE.exe
 

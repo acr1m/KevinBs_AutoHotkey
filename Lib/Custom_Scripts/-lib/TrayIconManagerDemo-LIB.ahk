@@ -2,10 +2,10 @@
 #Persistent
 #Include %A_LineFile%\..\..\-lib\TrayIconManager-LIB.ahk
 trayIM := new TrayIconManager()
-trayIM.iconActive :=	"E:\Assets\Icons\_used-icons\Key-icon-s4-green.ico"
-trayIM.iconSuspended :=	"E:\Assets\Icons\_used-icons\Key-icon-s4-blue.ico"
-trayIM.iconPaused :=	"E:\Assets\Icons\_used-icons\Key-icon-s4-yellow.ico"
-trayIM.iconInactive :=	"E:\Assets\Icons\_used-icons\Key-icon-s4-red.ico"
+trayIM.iconActive :=	"E:\Assets\Icons\_used-icons\key-s4-green.ico"
+trayIM.iconSuspended :=	"E:\Assets\Icons\_used-icons\key-s4-blue.ico"
+trayIM.iconPaused :=	"E:\Assets\Icons\_used-icons\key-s4-yellow.ico"
+trayIM.iconInactive :=	"E:\Assets\Icons\_used-icons\key-s4-red.ico"
 trayIM.start()
 return
 

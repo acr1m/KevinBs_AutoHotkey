@@ -29,40 +29,10 @@ MButton::
 	Send, !p
 	return
 }
-;copy file address, file path + file name
-;Ctrl
-^+c::
-{
-/* 	KeyWait, Ctrl
- * 	KeyWait, Shift
- * 	Clipboard := 
- * 	Send, +{AppsKey}a
- * 	ClipWait
- * 	Clipboard := SubStr(Clipboard, 2, -1)
- */
-
-	KeyWait, Ctrl
-	KeyWait, Shift
-	Clipboard := 
-	Send, {Alt}hcp
-	ClipWait
-	Clipboard := SubStr(Clipboard, 2, -1)
-	
-	return
-}
-
-
-!l::
-{
-	;;view, List Mode
-	Send, ^+5
-	return
-}
-
 
 global g_fileExplorer_CtrlMButton_Toggle
-
 ^MButton::
+{
 	;; if true
 	if(g_fileExplorer_CtrlMButton_Toggle) {
 		;; show list view
@@ -73,25 +43,56 @@ global g_fileExplorer_CtrlMButton_Toggle
 		;; show details view
 		Send, ^+6
 	}
-	main_toggleVar(g_fileExplorer_CtrlMButton_Toggle, false)
-	
+	main_toggleVar(g_fileExplorer_CtrlMButton_Toggle, false)	
+	return
+}
+
+;;view, List Mode
+!l::
+	Send, ^+5
 	return
 
-/*
-class FileExplorerWin_Ctrl_MButton extends SwitchHandlerForKeys {
-	;; inherits 'isActive' which should be 'false' at initializiation	
-	
-	showCurrentState() {
-		if (isActive == false || isActive == true) {
-			MsgBox, isActive is %isActive%
-		}
-		return retVal
-	}
-}
-*/
+;copy file address, file path + file name
+;Ctrl+Shift+c
+^+c::
+	KeyWait, c
+	fastCopyPath()
+	return
+/* 
+^+c::
+	KeyWait, c
+	slowCopyPath()
+	return
+ */
 
-;; check_ToggleState(p_key_string := "") {
-	;; static s_fileExplorer_CtrlMButton_Toggle := 0
-	;; return
-;; }
+^+v::
+	KeyWait, v
+	pasteShortcut()
+	return
+
+pasteShortcut() {
+	KeyWait, Ctrl
+	KeyWait, Shift
+	Send, {Alt}hps
+	return
+}
+fastCopyPath() {
+	KeyWait, Ctrl
+	KeyWait, Shift
+	Clipboard := 
+	Send, {Alt}5
+	ClipWait
+	Clipboard := SubStr(Clipboard, 2, -1)
+	return
+}
+slowCopyPath() {
+	KeyWait, Ctrl
+	KeyWait, Shift
+	Clipboard := 
+	Send, {Alt}hcp
+	ClipWait
+	Clipboard := SubStr(Clipboard, 2, -1)
+	return
+}
+
 #IfWinActive

@@ -1,19 +1,18 @@
 #SingleInstance Force
 #Persistent
 ;; auto-execute section--------------------------------------------------
-;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\firefox-01-256-base-02-blue_10.ico
+;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\firefox-s10-green.ico
 Menu, Tray, Tip, % A_ScriptName . "`nPress [s] while over an image to save to last folder."
 
 ;; set the icon references
 #Include %A_LineFile%\..\..\-lib\TrayIconManager-LIB.ahk
 trayIM := new TrayIconManager()
-trayIM.iconActive := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-blue_10.ico"
-trayIM.iconSuspended := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-green_10.ico"
-trayIM.iconPaused := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-yellow_10.ico"
-trayIM.iconInactive := "E:\Assets\Icons\_used-icons\firefox-01-256-base-02-red_10.ico"
-gosub, Lbl_TrayIconManager_Start
+trayIM.iconActive := "E:\Assets\Icons\_used-icons\firefox-s10-green.ico"
+trayIM.iconSuspended := "E:\Assets\Icons\_used-icons\firefox-s10-blue.ico"
+trayIM.iconPaused := "E:\Assets\Icons\_used-icons\firefox-s10-yellow.ico"
+trayIM.iconInactive := "E:\Assets\Icons\_used-icons\firefox-s10-red.ico"
+trayIM.start()
 return
-#Include %A_LineFile%\..\..\-lib\TrayIconManager-Labels-LIB.ahk
 ;; end of auto-execute section--------------------------------------------------
 
 #Include %A_LineFile%\..\..\-lib\time()-LIB.ahk
@@ -21,34 +20,37 @@ return
 
 
 #IfWinActive ahk_exe firefox.exe
-
-s::firefox_saveImageMacro()
-
-Lbl_firefox_saveImageMacro:
-	firefox_saveImageMacro(3500)
+$RButton::
+	KeyWait, % "RButton"
+	firefox_saveImageMacro()
 	return
-
-firefox_saveImageMacro(waitTime := 1500) {
+s::firefox_saveImageMacro(true)
+	
+firefox_saveImageMacro(p_sendEsc := false, p_closeTab := false) {
 	MouseClick, Right 
 	Send, v
-	Sleep, % waitTime
+	Sleep, % 3000
 	
 	;; check file name and replace if "unknown" is present
 	if (checkFileName("unknown")) {
 		time_sendDate("yyyyMMdd_HHmmss")
 	}
 	
+	Sleep, % (500)
 	;; save
 	Send, !s
-	Sleep, % (waitTime / 3)
 	
+	Sleep, % (350)
 	;; overwrite?
 	Send, y
-	Sleep, % (waitTime / 3)
 	
+	Sleep, % (2000)
 	;; close tab
-	Send, {Escape}
-	Send, ^w
+	if (p_sendEsc)
+		Send, {Escape}
+	
+	if (p_closeTab)
+		Send, ^w
 }
 
 checkFileName(p_str := "") {

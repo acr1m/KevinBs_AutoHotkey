@@ -352,6 +352,19 @@ Lbl_Hotstring_kiss:
 */
 /** KAOMOJIS 
  */
+	; kyaaa!! ♡ ～('▽^人) (/▽＼*)｡o○♡ \(≧▿≦)/
+::kya;::
+::kya1;::
+	pasteClipboard("♡ ～\(≧▿≦)/")
+	return
+::kyaa;::
+::kya2;::
+	pasteClipboard("♡ ～('▽^人)")
+	return
+::kyaaa;::
+::kya3;::
+	pasteClipboard("(/▽＼*)｡o○♡")
+	return
 ::facepalm;::
 	pasteClipboard("(ノへ￣、)")
 	return
@@ -387,6 +400,11 @@ Lbl_Hotstring_kiss:
 ::blush;::
 ::np;::
 	pasteClipboard("(⌒▿⌒*)ゞ")
+	return
+::blush2;::
+::blushlove;::
+::shylove;::
+	pasteClipboard("(/▽＼*)｡o○♡")
 	return
 ::suss;::
 ::suss1;::

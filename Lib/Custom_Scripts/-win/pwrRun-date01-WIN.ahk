@@ -33,7 +33,7 @@ Lbl_getToday:
 	return
 
 Lbl_getNow:
-	Clipboard := timeCalc_getToday("ddd, M/d/yyyy, hh:mm:ss_tt")
+	Clipboard := timeCalc_getToday("ddd, M/d/yyyy, hh:mm:ss:SS_tt")
 	return
 
 /* Date Formats (case sensitive)
