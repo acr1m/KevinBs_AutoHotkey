@@ -16,6 +16,15 @@
 ;; #Include Horizontal-Scrolling-UTILITY.ahk
 ;; #Include Generate-Lorem-Ipsum-UTILITY.ahk  ;}
 
+::??pcre reference::
+::??pcrereference::
+::??pcre ref::
+::??pcreref::
+::??pcre::
+	Run, firefox.exe "https://www.pcre.org/original/doc/html/pcresyntax.html"
+	Run, firefox.exe "https://www.pcre.org/original/doc/html/pcrepattern.html"
+	return
+
 ::??ahkapi::
 ::??ahk.api::
 ::??userahkapi::
@@ -188,10 +197,17 @@ Lbl_Regex_Sort_Clipboard: ;{
 
 ;; runs regex_parseDocumentForFunctions and assigns it to Clipboard
 Lbl_Regex_Parse_Document_For_Functions: ;{ 
+::??parse api::
+::??parseapi::
+::??getmethods::
+::??getfuncs::
+::??getfunctions::
+::??get functions::
 ::??parse document for functions::
 ::??parse for functions::
 ::??parseDocumentForFunctions::
 ::??parseForFunctions::
+	pwrRun_clearText(500)
 	Clipboard := regex_parseDocumentForFunctions()
 	return  ;}
 

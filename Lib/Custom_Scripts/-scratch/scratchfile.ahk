@@ -1,18 +1,18 @@
 ﻿#SingleInstance Force
 ;run this command
-;; temp_outputMessage()
-;; this->E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-scratch\scratchfile.ahk
-;; SetWorkingDir, %A_ScriptDir%\..\-lib\
-;; MsgBox, , % A_ScriptName, % "address:= " . A_WorkingDir . "\time()-LIB.ahk"
-;; Clipboard := "address:= " . A_WorkingDir . "\time()-LIB.ahk"
-;; #Include E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\time()-LIB.ahk
-;;          E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\time()-LIB.ahk
+;~ temp_outputMessage()
+;~ this->E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-scratch\scratchfile.ahk
+;~ SetWorkingDir, %A_ScriptDir%\..\-lib\
+;~ MsgBox, , % A_ScriptName, % "address:= " . A_WorkingDir . "\time()-LIB.ahk"
+;~ Clipboard := "address:= " . A_WorkingDir . "\time()-LIB.ahk"
+;~ #Include E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\time()-LIB.ahk
+;~          E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\time()-LIB.ahk
 #Include %A_LineFile%\..\..\-lib\
 #Include %A_WorkingDir%\Main-Method-Library-LIB.ahk
-;; #Include %A_WorkingDir%\run()-LIB.ahk
-;; #Include %A_WorkingDir%\mathKbd()-LIB.ahk
-;; #Include %A_WorkingDir%\Emojis-And-Symbols-LIB.ahk
-;; #Include %A_WorkingDir%\repeatKey()-LIB.ahk
+;~ #Include %A_WorkingDir%\run()-LIB.ahk
+;~ #Include %A_WorkingDir%\mathKbd()-LIB.ahk
+;~ #Include %A_WorkingDir%\Emojis-And-Symbols-LIB.ahk
+;~ #Include %A_WorkingDir%\repeatKey()-LIB.ahk
 #Include %A_WorkingDir%\time()-LIB.ahk
 #Include %A_WorkingDir%\RegEx()-LIB.ahk
 
@@ -34,11 +34,12 @@ _msgboxStr .= time_getDate("yyyyMMdd_HHmmss_SS_tt") . "`n"
 */
 
 _msgboxStr := ""
-;; scratchMethod00()
-;; scratchMethod01()
-;; scratchMethod02()
-;; scratchMethod03()
-scratchMethod04()
+;~ scratchMethod00()
+;~ scratchMethod01()
+;~ scratchMethod02()
+scratchMethod03()
+;~ scratchMethod04()
+;~ scratchMethod05()
 ExitApp
 
 ;~ end of auto-execute section~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -48,8 +49,8 @@ scratchMethod00() {
 		Sleep, main_getRandomNum(0, 99)
 		_msgboxStr .= time_getDate("yyyyMMdd_hhmmss_S_tt") . "`n"
 		_msgboxStr .= time_translateDate((-8), "Hours", "yyyyMMdd_hhmmss_S_tt") . "`n`n"
-		;; _msgboxStr .= time_getDate("`t`tS_") . "`n"
-		;; _msgboxStr .= time_getDate("`t`tSS_") . "`n"
+		;~ _msgboxStr .= time_getDate("`t`tS_") . "`n"
+		;~ _msgboxStr .= time_getDate("`t`tSS_") . "`n"
 	} 
 	MsgBox, , % A_ScriptName, % "Loop, 11 _msgboxStr: " . "`n" . _msgboxStr
 	return
@@ -95,101 +96,132 @@ scratchMethod02() {
 	return
 }
 
-;; testing output of time_translateDate() using "S" or "SS" as DATE-FORMAT tag for Milliseconds
+;~ testing output of time_translateDate() using "S" or "SS" as DATE-FORMAT tag for Milliseconds
 scratchMethod03() {
-	_outStr := "time_getDate(""`tM/d/yy,`tdddd,`tS""):`n`t`t"
-	_outStr .= time_getDate("M/d/yy,`tdddd,`tS")	. "`n"
-	_outStr .= "`n"
-	_outStr .= "+1 day shift:`t" 		. time_translateDate(1, "Days", "M/d/yy,`tdddd", true)	. "`n"
-	_outStr .= "+2 day shift:`t" 		. time_translateDate(2, "Days", "M/d/yy,`tdddd", true)	. "`n"
-	_outStr .= "-2 day shift:`t" 		. time_translateDate(-2, "Days", "M/d/yy,`tdddd", true)	. "`n"
-	_outStr .= "`n"
-	_outStr .= "`n"
-	_outStr .= "time_getDate(""`tM/d/yy,`tdddd,`tSS""):`n`t`t"
-	_outStr .= time_getDate("M/d/yy,`tdddd,`tSS")	. "`n"
-	_outStr .= "`n"
-	_outStr .= "+0 day shift:`t" 		. time_translateDate(0, "Days", "M/d/yy,`tdddd", true)	. "`n"
-	_outStr .= "+2 day shift:`t" 		. time_translateDate(2, "Days", "M/d/yy,`tdddd", true)	. "`n"
-	_outStr .= "-2 day shift:`t" 		. time_translateDate(-2, "Days", "M/d/yy,`tdddd", true)	. "`n"
-	_outStr .= "`n"
-	_outStr .= "`n"
-	_outStr .= "+0 second shift:`t`t" 		. time_getDate("HH:mm:ss")	. "`n"
-	_outStr .= "+0 second shift:`t`t" 		. time_translateDate(0, "Seconds", "HH:mm:ss")	. "`n"
-	_outStr .= "+3h seconds shift:`t`t" 		. time_translateDate(648000, "Seconds", "hh:mm:ss")	. "`n"
-	_outStr .= "-3h seconds shift:`t`t" 		. time_translateDate(-648000, "Seconds", "hh:mm:ss")	. "`n"
-	_outStr .= "`n"
+	_outFile := FileOpen("scratchMethod03.txt", "w", "UTF-8")
 	
-	Clipboard := _outStr
-	MsgBox, , % A_ScriptName, % "_outStr: " . "`n" . _outStr
+	_outFile.WriteLine("time_getDate(""`tM/d/yy,`tdddd,`tS""):")
+	_outFile.WriteLine("`t`t" . time_getDate("M/d/yy,`tdddd,`tS"))
+	_outFile.WriteLine()
+	_outFile.WriteLine("time_parseDateFormat(""`tM/d/yy,`tdddd,`tS""):")
+	_outFile.WriteLine("`t`t" . time_parseDateFormat("M/d/yy,`tdddd,`tS"))
+	_outFile.WriteLine()
+	_outFile.WriteLine("A_Now:`n`t" . time_translateDate(0, "Days", "M/d/yy,`tdddd"))
+	_outFile.WriteLine("+1 day shift:`n`t" . time_translateDate(1, "Days", "M/d/yy,`tdddd"))
+	_outFile.WriteLine("+2 day shift:`n`t" . time_translateDate(2, "Days", "M/d/yy,`tdddd"))
+	_outFile.WriteLine("-2 day shift:`n`t" . time_translateDate(-2, "Days", "M/d/yy,`tdddd"))
+	
+	;~ _outFile.WriteLine()
+	;~ _outFile.WriteLine()
+	;~ _outFile.WriteLine("time_getDate(""`tM/d/yy,`tdddd,`tSS""):")
+	;~ _outFile.WriteLine("`t`t" . time_getDate("M/d/yy,`tdddd,`tSS"))
+	;~ _outFile.WriteLine()
+	;~ _outFile.WriteLine("+0 day shift:`t" . time_translateDate(0, "Days", "M/d/yy,`tdddd", true))
+	;~ _outFile.WriteLine("+2 day shift:`t" . time_translateDate(2, "Days", "M/d/yy,`tdddd", true))
+	;~ _outFile.WriteLine("-2 day shift:`t" . time_translateDate(-2, "Days", "M/d/yy,`tdddd", true))
+	;~ _outFile.WriteLine()
+	;~ _outFile.WriteLine()
+	;~ _outFile.WriteLine("+0 second shift:`t`t" . time_getDate("HH:mm:ss"))
+	;~ _outFile.WriteLine("+0 second shift:`t`t" . time_translateDate(0, "Seconds", "HH:mm:ss"))
+	;~ _outFile.WriteLine("+3h seconds shift:`t`t" . time_translateDate(648000, "Seconds", "hh:mm:ss"))
+	;~ _outFile.WriteLine("-3h seconds shift:`t`t" . time_translateDate(-648000, "Seconds", "hh:mm:ss"))
+	;~ _outFile.WriteLine()
+	
+	_outFile.Close()
+	Run, % "scratchMethod03.txt"
+	
 	return
 }
 
-;; testing output of time_parseYear() method
+;~ testing output of time_parseYear() method
 scratchMethod04() {
 	outFile := FileOpen("scratchfile_output.txt", "w") ;opens file in write-mode (overwriting any pre-existing contents) and assigns the object reference as the value for outFile.
 	
-	;; _outStr := ""
-		;; . "time_getDate(""`tyyyyMMddHHmmss_SS,`tdddd""):`n`t`t"
-		;; . time_getDate("yyyyMMddHHmmss_SS,`tdddd")	. "`n`n"
-		;; . "----------------------------------------------------------------------`n"
-		;; . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tddddd""):" 
-		;; . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tddddd") . "`n"
-		;; . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tdddd""):" 
-		;; . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tdddd") . "`n"
-		;; . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tddd""):" 
-		;; . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tddd") . "`n"
-		;; . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tdd""):" 
-		;; . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tdd") . "`n"
-		;; . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tMM`tss`t_SS, `td""):" 
-		;; . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tMM`tss`t_SS, `td") . "`n"
-		;; . "time_parseDateFormat(""`n`t`tyyyy`tMM`td`tHH`tMM`tss`t_SS, `td""):" 
-		;; . "`n`t`t" . time_parseDateFormat("yyyy`tMM`td`tHH`tMM`tss`t_SS, `td") . "`n"
-		;; . "`n----------------------------------------------------------------------`n"
-		;; . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tm~d~mss`t_SS, `td""):" 
-		;; . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tm~d~mss`t_SS, `td") . "`n"
-		;; . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tm~dd~mss`t_SS, `td""):" 
-		;; . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tm~dd~mss`t_SS, `td") . "`n"
-		;; . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tm~ddd~mss`t_SS, `td""):" 
-		;; . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tm~ddd~mss`t_SS, `td") . "`n"
-		;; . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tm~dddd~mss`t_SS, `td""):" 
-		;; . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tm~dddd~mss`t_SS, `td") . "`n"
-		;; . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tm~ddddd~mss`t_SS, `td""):" 
-		;; . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tm~ddddd~mss`t_SS, `td") . "`n"
+	;~ _outStr := ""
+		;~ . "time_getDate(""`tyyyyMMddHHmmss_SS,`tdddd""):`n`t`t"
+		;~ . time_getDate("yyyyMMddHHmmss_SS,`tdddd")	. "`n`n"
+		;~ . "----------------------------------------------------------------------`n"
+		;~ . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tddddd""):" 
+		;~ . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tddddd") . "`n"
+		;~ . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tdddd""):" 
+		;~ . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tdddd") . "`n"
+		;~ . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tddd""):" 
+		;~ . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tddd") . "`n"
+		;~ . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tdd""):" 
+		;~ . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tMM`tss`t_SS, `tdd") . "`n"
+		;~ . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tMM`tss`t_SS, `td""):" 
+		;~ . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tMM`tss`t_SS, `td") . "`n"
+		;~ . "time_parseDateFormat(""`n`t`tyyyy`tMM`td`tHH`tMM`tss`t_SS, `td""):" 
+		;~ . "`n`t`t" . time_parseDateFormat("yyyy`tMM`td`tHH`tMM`tss`t_SS, `td") . "`n"
+		;~ . "`n----------------------------------------------------------------------`n"
+		;~ . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tm~d~mss`t_SS, `td""):" 
+		;~ . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tm~d~mss`t_SS, `td") . "`n"
+		;~ . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tm~dd~mss`t_SS, `td""):" 
+		;~ . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tm~dd~mss`t_SS, `td") . "`n"
+		;~ . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tm~ddd~mss`t_SS, `td""):" 
+		;~ . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tm~ddd~mss`t_SS, `td") . "`n"
+		;~ . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tm~dddd~mss`t_SS, `td""):" 
+		;~ . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tm~dddd~mss`t_SS, `td") . "`n"
+		;~ . "time_parseDateFormat(""`n`t`tyyyy`tMM`tdd`tHH`tm~ddddd~mss`t_SS, `td""):" 
+		;~ . "`n`t`t" . time_parseDateFormat("yyyy`tMM`tdd`tHH`tm~ddddd~mss`t_SS, `td") . "`n"
 	
-	;; _outStr2 := "[""yyyy"", ""yyy"", ""yy"", ""y"""
-		;; . ", ""MMMM"", ""MMM"", ""MM"", ""M"" "
-		;; . ", ""dd"", ""d"""
-		;; . ", ""HH"", ""H"", ""hh"", ""h"""
-		;; . ", ""mm"", ""m"""
-		;; . ", ""ss"", ""s"""
-		;; . ", ""SS"", ""S"""
-		;; . ", ""dddd"", ""ddd""]"
+	;~ _outStr2 := "[""yyyy"", ""yyy"", ""yy"", ""y"""
+		;~ . ", ""MMMM"", ""MMM"", ""MM"", ""M"" "
+		;~ . ", ""dd"", ""d"""
+		;~ . ", ""HH"", ""H"", ""hh"", ""h"""
+		;~ . ", ""mm"", ""m"""
+		;~ . ", ""ss"", ""s"""
+		;~ . ", ""SS"", ""S"""
+		;~ . ", ""dddd"", ""ddd""]"
 	
-	;; _outStr3 := ""
-		;; . "time_parseDateFormat(_outStr2):" . "`n"
-		;; . time_parseDateFormat(_outStr2) . "`n"
+	;~ _outStr3 := ""
+		;~ . "time_parseDateFormat(_outStr2):" . "`n"
+		;~ . time_parseDateFormat(_outStr2) . "`n"
 	
-	;; FormatTime, _formatTimeOutput, , % _outStr2
+	;~ FormatTime, _formatTimeOutput, , % _outStr2
 	
-	;; _outStr4 := ""
-		;; . "FormatTime, _formatTimeOutput, , _outStr2, :" . "`n"
-		;; . _formatTimeOutput . "`n"
+	;~ _outStr4 := ""
+		;~ . "FormatTime, _formatTimeOutput, , _outStr2, :" . "`n"
+		;~ . _formatTimeOutput . "`n"
 	
 	
-	;; _outHLine := "`n----------------------------------------------------------------------`n"
+	;~ _outHLine := "`n----------------------------------------------------------------------`n"
 
 		
-	;; Clipboard := _outStr
-	;; FileAppend, % "_outStr1: " . "`n" . _outStr, % "scratchfile_output.txt"
+	;~ Clipboard := _outStr
+	;~ FileAppend, % "_outStr1: " . "`n" . _outStr, % "scratchfile_output.txt"
 	
 	
-	;; outFile.Write(_outStr)
-	;; outFile.Write(_outHLine . _outStr2 . "`n" . _outStr3 . _outStr4)
+	;~ outFile.Write(_outStr)
+	;~ outFile.Write(_outHLine . _outStr2 . "`n" . _outStr3 . _outStr4)
 	outFile.Write(time_parseDateFormat("MMMM, dddd, yyyy, HH:mm:ss:SS") . "`n")
 	outFile.Write(time_parseDateFormat("yyyyMMdd_HHmm_ssSS") . "`n")
 	outFile.Write(time_parseDateFormat("yyyyMMdd_HHmm_s-S") . "`n")
 	
+	_outFile.Close()
+	
 	return
+}
+
+;~ parse document for method names and parameters for documentation and user.ahk.api
+scratchMethod05() {
+	_inFile := FileOpen("E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\time()-LIB.ahk", "r")
+	_outFile := FileOpen("E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\time()-LIB.ahk.txt", "w", "UTF-8")
+	
+	_rgxNeedle := "(?:([\s\S\.]*?)([\r\n]{1})(?P<methodName>[A-Za-z_\-]+)(?P<methodParams>\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:([\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))"
+	_rgxHaystack := _inFile.Read() ;~ reads/streams all text of file as a single STRING
+	_rgxPos := 1
+	
+	while (_rgxPos < StrLen(_rgxHaystack)) {
+		RegExMatch(_rgxHaystack, "O)" . _rgxNeedle, _rgxMatch, _rgxPos)
+		_outFile.WriteLine(_rgxMatch.methodName . _rgxMatch.methodParams)
+		_rgxPos := _rgxMatch.Pos(0) + _rgxMatch.Len(0)
+	}
+	
+	_inFile.Close()
+	_outFile.Close()
+	
+	Run, "E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\time()-LIB.ahk.txt"	
 }
 
 Pause::ExitApp
@@ -198,7 +230,7 @@ NumpadEnter::ExitApp
 
 
 #IfWinActive ahk_exe Game.exe
-;;If window is active
+;~If window is active
 
 
 BackSpace::Esc ;x
@@ -211,13 +243,13 @@ PgDn::d
 
 
 ;~[;] semicolon key, SC027=scan_code-for-semicolon
-;; SC027::SendPlay, {Down}
+;~ SC027::SendPlay, {Down}
 
 ;~['] apostrphe key
-;; SC028::SendRaw, {Down}
+;~ SC028::SendRaw, {Down}
 
-;;Re-declare any window as an acceptable 
-;;case-scenario before exit.
+;~Re-declare any window as an acceptable 
+;~case-scenario before exit.
 #IfWinActive
 
 ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

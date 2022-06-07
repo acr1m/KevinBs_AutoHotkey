@@ -79,18 +79,21 @@ regex_SwapLineBreaks(rgx_replaceWith := "\n") {
 	Descr:	Selects All, Copies Selection, then replaces Clipboard with a list of functions if any.
 	Returns:	STRING - Returns a string list (not an array) of functions. 
 	Parameters:	p_CRLF - "\r\n"
-			p_TAB - "\t"
+				p_TAB - "\t"
 	Remarks:	Replace text is considered raw. If actuall control characters are desired, use "`" to escape. 
 */
 regex_parseDocumentForFunctions(p_CRLF := "\r\n", p_TAB := "\t") {
 	Send, ^a
 	copySelection()
+	
 	rgx_parser := "(?:([\s\S\.]*?)([\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:([\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))"
 	rgx_replacer := "$3$4" . p_CRLF
 	first_pass := RegExReplace(Clipboard, rgx_parser, rgx_replacer)
+	
 	rgx_parser := "\n\t\t"
 	rgx_replacer := p_CRLF . p_TAB . p_TAB
 	second_pass := RegExReplace(Clipboard, rgx_parser, rgx_replacer)
+	
 	retVal := second_pass
 	return  retVal
 }
@@ -102,7 +105,7 @@ regex_parseDocumentForFunctions(p_CRLF := "\r\n", p_TAB := "\t") {
 				and tabs with "\t" by default.
 	Returns:	STRING
 	Parameters: p_lineBreakSubstitution - 	"\n"
-			p_tabSubstitution 		-	"\t"
+				p_tabSubstitution 		-	"\t"
 	Remarks:	Must have something selected for this method to work. 
 */
 regex_selection_swapLineBreaksAndTabs(p_lineBreakSubstitution := "\n", p_tabSubstitution := "\t") {
@@ -118,7 +121,7 @@ regex_selection_swapLineBreaksAndTabs(p_lineBreakSubstitution := "\n", p_tabSubs
 				and tabs with "\t" by default.
 	Returns:	STRING
 	Parameters: p_lineBreakSubstitution - 	"\n"
-			p_tabSubstitution 		-	"\t"
+				p_tabSubstitution 		-	"\t"
 	Remarks:	This method only operates on pre-existing Clipboard content.
 */
 regex_clipboard_swapLineBreaksAndTabs(p_lineBreakSubstitution := "\n", p_tabSubstitution := "\t") {
@@ -131,8 +134,8 @@ regex_clipboard_swapLineBreaksAndTabs(p_lineBreakSubstitution := "\n", p_tabSubs
 	Descr:	Adds current selection to Clipboard, then modifies the clipboard's contents,
 	Returns:	VOID
 	Parameters:	p_delimiter_begin - "(/\*\*?\s*)"
-			p_delimiter_mid - "(?<=(?:\r|\n|(?:\r\n)))((;;\s)|(;:\s)|(;~\s))"
-			p_delimiter_end := "(?:\*/)"
+				p_delimiter_mid - "(?<=(?:\r|\n|(?:\r\n)))((;;\s)|(;:\s)|(;~\s))"
+				p_delimiter_end := "(?:\*/)"
 	Remarks:	Must have something selected for this method to work. 
 */
 
@@ -154,8 +157,8 @@ regex_selection_removeCommentDelimiters(p_delimiter_begin := "(/\*\*?\s*)"
 	Descr:	Modifies the clipboard's contents,
 	Returns:	VOID
 	Parameters:	p_delimiter_begin - "(/\*\*?\s*)"
-			p_delimiter_mid - "(?<=(?:\r|\n|(?:\r\n)))((;;\s)|(;:\s)|(;~\s))"
-			p_delimiter_end := "(?:\*/)"
+				p_delimiter_mid - "(?<=(?:\r|\n|(?:\r\n)))((;;\s)|(;:\s)|(;~\s))"
+				p_delimiter_end := "(?:\*/)"
 	Remarks:	This method only operates on pre-existing Clipboard content.
 */
 regex_clipboard_removeCommentDelimiters(p_delimiter_begin := "(/\*\*?\s*)"

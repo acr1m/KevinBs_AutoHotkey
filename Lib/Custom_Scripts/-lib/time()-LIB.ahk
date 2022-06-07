@@ -69,62 +69,26 @@ global g_tC_LongFormat := "dddd, MMM d, yyyy" ;; Friday, Apr, 8, 2022
 */
 
 
-/** time_getDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_date := "",  p_showMsg := false)
+/** time_getDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_timeStamp := "",  p_showMsg := false)
 	Descr:	Gets the date in the specified format as a STRING.
 	Return:	STRING
 	Params:	p_dateFormat := STRING 
 				must use only these characters
 				(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")
 				[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
-			p_date := INTEGER-DATE <YYYYMMDDHH24MISS> (default := A_Now)
+			p_timeStamp := INTEGER-DATE <YYYYMMDDHH24MISS> (default := A_Now)
 			p_showMsg := false
 */
-time_getDate(p_dateFormat := "yyyyMMddHHmmss", p_date := "", p_showMsg := false) {
+time_getDate(p_dateFormat := "yyyyMMddHHmmss", p_timeStamp := "", p_showMsg := false) {
 	
-	_outputVar := "" ;; instantiate outputVar scope for return value
+	_retVar := "" ;; instantiate outputVar scope for return value
 	
-	if (p_date == "")
-		p_date := A_Now
+	_retVar := time_parseDateFormat(p_dateFormat, p_timeStamp)
 	
-	;; SS = Milliseconds with leading zero (000 – 999)
-	if (RegExMatch(p_dateFormat, "SS")) {
-		FormatTime, _outputVar, p_date, % p_dateFormat
-		_outputVarBeforeReplace := _outputVar
-		_outputVar := RegExReplace(_outputVar, "SS", A_MSec, _outputVarCount, 1, 1)
-		if (p_showMsg == true) {
-			_outStr := "_outputVar ""SS"":`n"
-			_outStr .= "BEFORE RegExReplace =`t" . _outputVarBeforeReplace . "`n"
-			_outStr .= "AFTER RegExReplace =`t" . _outputVar . "`n"
-			MsgBox, , % A_ScriptName, % _outStr
-		}
-	}
-	
-	;; S  = Milliseconds without leading zero (0 – 999)
-	else if (RegExMatch(p_dateFormat, "S")) {
-		_ms := A_MSec + 0 ;; removes the leading zeros.
-		FormatTime, _outputVar, p_date, % p_dateFormat
-		_outputVarBeforeReplace := _outputVar
-		_outputVar := RegExReplace(_outputVar, "S", _ms, _outputVarCount, 1, 1)
-		if (p_showMsg == true) {
-			_outStr := "_outputVar ""S"":`n"
-			_outStr .= "BEFORE RegExReplace =`t" . _outputVarBeforeReplace . "`n"
-			_outStr .= "AFTER RegExReplace =`t" . _outputVar . "`n"
-			MsgBox, , % A_ScriptName, % _outStr
-		}
-	}
-	
-	;; normal case-scenario (Millisecond tag "S" does not exist)
-	else {
-		FormatTime, _outputVar, % p_date, % p_dateFormat
-		if (p_showMsg == true) {
-			MsgBox, , % A_ScriptName, % "_outputVar ''default'': " . _outputVar
-		}
-	}
-	
-	return % _outputVar
+	return _retVar
 }
 
-/** time_sendDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_date := "")
+/** time_sendDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_timeStamp := "")
 	Descr:	Sends resulting date (STRING) as keyboard strokes, using the specified format.
 	Return:	VOID
 	Params:
@@ -132,12 +96,12 @@ time_getDate(p_dateFormat := "yyyyMMddHHmmss", p_date := "", p_showMsg := false)
 			must use only these characters
 			(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")
 			[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
-		p_date := INTEGER-DATE <YYYYMMDDHH24MISS> (default := A_Now)
+		p_timeStamp := INTEGER-DATE <YYYYMMDDHH24MISS> (default := A_Now)
 */
-time_sendDate(p_dateFormat := "yyyyMMddHHmmss", p_date := "") {
+time_sendDate(p_dateFormat := "yyyyMMddHHmmss", p_timeStamp := "") {
 	
-	if (p_date == "") {
-		p_date := A_Now
+	if (p_timeStamp == "") {
+		p_timeStamp := A_Now
 	}
 	
 	outVar := time_getDate(p_dateFormat, p_date)
@@ -156,51 +120,50 @@ time_sendDate(p_dateFormat := "yyyyMMddHHmmss", p_date := "") {
 			STRING	p_format 	:=	(default := "yyyyMMdd_t_hhmmss_SS")
 	Remarks: Does not currently work with "S" or "SS" millisecond tags. 
 */
-time_translateDate(p_timeShift, p_timeUnit := "Days", p_format := "yyyyMMddHHmmss", p_appendMilliSeconds := false) {
+time_translateDate(p_timeShift, p_timeUnit := "Days", p_format := "yyyyMMddHHmmss") {
 	
 	;; METHOD 1
 	;; The built-in variable [A_Now] contains the current local time in YYYYMMDDHH24MISS format.
-	d0 := A_Now
-	d1 := d0
-	;; EnvAdd, d1, % p_timeShift, % p_timeUnit
-	d1 += p_timeShift, %p_timeUnit%
+	_timeStamp0 := A_Now
+	_timeStamp1 := _timeStamp0
+	;; EnvAdd, _timeStamp1, % p_timeShift, % p_timeUnit
+	_timeStamp1 += p_timeShift, %p_timeUnit%
 	
-	outVar1 := time_getDate(p_format, d1)
-	if (p_appendMilliSeconds) {
-		outVar1 .= "_" . A_MSec
-	}
+	;~ _retVar1 := time_getDate(p_format, _timeStamp1)
+	_retVar1 := "_timeStamp1:`t" . _timeStamp1 . "`n"
+	_retVar1 .= "`t`t`t`t`t" . time_parseDateFormat(p_format, _timeStamp1)
 	
-	;; MsgBox, , % A_ScriptName, % "time_translateDate(), outVar1:== " . outVar1
+	;; MsgBox, , % A_ScriptName, % "time_translateDate(), _retVar1:== " . _retVar1
 	
-	;; outVar1 := time_getDate(p_format, d1, true)
-	;; return time_getDate(p_format, d1)
+	;; _retVar1 := time_getDate(p_format, _timeStamp1)
+	;; return time_getDate(p_format, _timeStamp1)
 	
-	;; FormatTime, outVar1, % d1, % p_format
+	;; FormatTime, _retVar1, % _timeStamp1, % p_format
 	
-	return outVar1
+	return _retVar1
 	
 	/* ;; METHOD 2
 	;; Make it blank so that the below will use the current timestamp instead.
-	;; d2 := ""
-	;; d2 += p_timeShift, %p_timeUnit%
-	;; FormatTime, outVar, % d2, % p_format
-	;; outVar2 := time_getDate(p_format, d2)
+	;; _timeStamp2 := ""
+	;; _timeStamp2 += p_timeShift, %p_timeUnit%
+	;; FormatTime, outVar, % _timeStamp2, % p_format
+	;; _retVar2 := time_getDate(p_format, _timeStamp2)
 	
-	;; MsgBox, %d1%  ; The answer will be the adjustesd date-time from now.
-	outStr := "d1 := " . d1 . "`n"
-	outStr .= "d2 := " . d2 . "`n"
-	outStr .= "outVar1 := " . outVar1 . "`n"
-	outStr .= "outVar2 := " . outVar2 . "`n"
+	;; MsgBox, %_timeStamp1%  ; The answer will be the adjustesd date-time from now.
+	outStr := "_timeStamp1 := " . _timeStamp1 . "`n"
+	outStr .= "_timeStamp2 := " . _timeStamp2 . "`n"
+	outStr .= "_retVar1 := " . _retVar1 . "`n"
+	outStr .= "_retVar2 := " . _retVar2 . "`n"
 	MsgBox, , % A_ScriptName, % outStr
-	;; return outVar2
-	return time_getDate(p_format, d2)
+	;; return _retVar2
+	return time_getDate(p_format, _timeStamp2)
 	 */
 }
 
 /**	time_difference(p_date, p_initialDate := "", p_timeUnit := "Days", p_format := "yyyy-MM-dd_hh-mm-ss_tt")
 	Descr:	Returns the time difference from the 'p_date' to the 'p_initialDate'.
 	Return:	FORMATTED-DATE
-	Params:	INTEGER-DATE	p_date := YYYYMMDDHH24MISS
+	Params:	INTEGER-DATE	p_timeStamp := YYYYMMDDHH24MISS
 			INTEGER-DATE	p_initialDate := (default := A_Now) || YYYYMMDDHH24MISS
 			STRING	p_timeUnit	:=	(default := "Days")
 				this	["Seconds" | "Minutes" | "Hours" | "Days" ]
@@ -297,30 +260,39 @@ time_differenceInSeconds(p_date, p_initialDate := "") {
 	return retVal
 }
 
-/**	time_parseDateFormat(p_dateFormat := "yyyyMMddHHmmss", p_date := "")
+/**	time_parseDateFormat(p_dateFormat := "yyyyMMddHHmmss", p_timeStamp := "")
 	Descr:	Replaces ["yyyy", "yyy", "yy", "y"] tags specified in p_dateFormat
 		with its matching FormatTime representation.
 	Return:	the converted format-sub as a String.
 	Params:	p_dateFormat := "yyyyMMddHHmmss"
-			p_date := ""
+			p_timeStamp := ""
 	Notes:	Used in the parsing process of time_getDate()
 */
-time_parseDateFormat(p_dateFormat := "yyyyMMddHHmmss_SS", p_date := "") {
+time_parseDateFormat(p_dateFormat := "yyyyMMddHHmmss_SS", p_timeStamp := "") {
 	
-	_outVar := ""
-	_outVar2 := ""
+	_retVar := ""
+	_retVar2 := ""
 	_regexHaystack := p_dateFormat
-	(p_date == "") ? p_date := A_Now : ; else, do-nothing
+	(p_timeStamp == "") ? p_timeStamp := A_Now : ; else, do-nothing
 
-	_outVar2 := time_parseLoop(p_dateFormat)
+	_retVar2 := time_parseLoop(p_dateFormat, p_timeStamp)
 	
-	return _outVar2
+	return _retVar2
 }
 
-time_parseLoop(p_haystack, p_needles := "") {
-	_outVar := ""
-	_regexHaystack := p_haystack
-	if (p_needles == "") {
+/**	time_parseLoop(p_formatString, p_formatTags := "", p_timeStamp := "")
+	Descr:	Loops through all 
+	Return:	STRING (formatted time-stamp as STRING)
+	Params:	p_formatString ;;(the STRING text to search through)
+			p_formatTags := "" ;;(STRING-ARRAY, will iterate and search each specified tag)
+				➤ example: p_formatTags := myArray := ["yy", "MM", "dd", "HH", "mm", "ss", "SS"]
+			p_timeStamp := "" ;;(default := A_Now)
+	Notes:	Called from time_parseDateFormat().
+*/
+time_parseLoop(p_formatString, p_formatTags := "", p_timeStamp := "") {
+	_retVar := ""
+	_regexHaystack := p_formatString
+	if (p_formatTags == "") {
 		_regexNeedle := ["yyyy", "yyy", "yy", "y"
 		, "MMMM", "MMM", "MM", "M"
 		, "dddd", "ddd", "dd", "d"
@@ -329,13 +301,15 @@ time_parseLoop(p_haystack, p_needles := "") {
 		, "ss", "s"
 		, "SS", "S"]
 	}
+	(p_timeStamp == "") ? p_timeStamp := A_Now : ; else, do-nothing
+
 	
 	Loop, % _regexNeedle.Length() {
 		
 		_regexCurrentPos := ""
 		_formattedDateNumber := ""
-		_regexResult := RegExMatch(_regexHaystack, "P)" . _regexNeedle[A_Index], _regexCurrentPos) ; the "P)" is an option-flag for RegExMatch Position-Mode, yielding the length, and the position of match under . 
-		_regexCurrentPos := _regexResult
+		RegExMatch(_regexHaystack, "O)" . _regexNeedle[A_Index], _rgxMatch)
+		_regexCurrentPos := _rgxMatch.Pos(0) + _rgxMatch.Len(0)
 		
 		;; MsgBox, , % A_ScriptName, % "_regexNeedle[A_Index] = " . _regexNeedle[A_Index] "`n"
 			;; . "_regexCurrentPos := _regexResult: " . _regexCurrentPos . " := " . _regexResult
@@ -343,220 +317,41 @@ time_parseLoop(p_haystack, p_needles := "") {
 		if (_regexResult) {
 			
 			if (_regexNeedle[A_Index] == "d") {
-				_matchResult := RegExMatch(_regexHaystack, "iP)((day)|(december)|(dd)|(ddd)|(dddd))", , _regexCurrentPos)
-				if (_matchResult) {
+				_matchResult := RegExMatch(_regexHaystack, "iO)((day)|(december)|(dd)|(ddd)|(dddd))", , _regexCurrentPos)
+				if (_matchResult)
 					continue
-				}
-				else if (!_matchResult) {
-					FormatTime, _formattedDateNumber, % p_date, % _regexNeedle[A_Index]
-				}
+				else if (!_matchResult)
+					FormatTime, _formattedDateNumber, % p_timeStamp, % _regexNeedle[A_Index]
 			}
 			else if (_regexNeedle[A_Index] == "m") {
-				_matchResult := RegExMatch(_regexHaystack, "iP)(.*?day\b)|(arch)|(ay)|(ber)|(m)", , _regexCurrentPos)
-				if (_matchResult) {
+				_matchResult := RegExMatch(_regexHaystack, "iO)(.*?day\b)|(arch)|(ay)|(ber)|(m)", , _regexCurrentPos)
+				if (_matchResult)
 					continue
-				}
-				else if (!_matchResult) {
-					FormatTime, _formattedDateNumber, % p_date, % _regexNeedle[A_Index]
-				}
+				else if (!_matchResult)
+					FormatTime, _formattedDateNumber, % p_timeStamp, % _regexNeedle[A_Index]
 			}
 			else if (_regexNeedle[A_Index] == "s") {
-				_matchResult := RegExMatch(_regexHaystack, "iP)(sday)|(?<=(?:augu))|(eptember)", , _regexCurrentPos)
-				if (_matchResult) {
+				_matchResult := RegExMatch(_regexHaystack, "iO)(sday)|(?<=(?:augu))|(eptember)", , _regexCurrentPos)
+				if (_matchResult)
 					continue
-				}
-				else if (!_matchResult) {
-					FormatTime, _formattedDateNumber, % p_date, % _regexNeedle[A_Index]
-				}
+				else if (!_matchResult)
+					FormatTime, _formattedDateNumber, % p_timeStamp, % _regexNeedle[A_Index]
 			}
-			else if (_regexNeedle[A_Index] == "SS") {
+			else if (_regexNeedle[A_Index] == "SS")
 				_formattedDateNumber := A_MSec
-			}
-			else if (_regexNeedle[A_Index] == "S") {
+			else if (_regexNeedle[A_Index] == "S")
 				_formattedDateNumber := A_MSec + 0 ; removes leading zeros from string output of resulting number value
-			}
-			else {
-				FormatTime, _formattedDateNumber, % p_date, % _regexNeedle[A_Index]
-			}
+			else
+				FormatTime, _formattedDateNumber, % p_timeStamp, % _regexNeedle[A_Index]
 		}
 		
 		_regexHaystack := RegExReplace(_regexHaystack, _regexNeedle[A_Index], _formattedDateNumber, , 1, 1)
 	}
 	
-	_outVar := _regexHaystack
-	return _outVar
+	_retVar := _regexHaystack
+	return _retVar
 }
 
-/*
-;;;;
-;;;;/**	time_parseYear(p_dateFormat := "yyyyMMddHHmmss", p_date := "")
-;;;;	Descr:	Replaces ["yyyy", "yyy", "yy", "y"] tags specified in p_dateFormat
-;;;;		with its matching FormatTime representation.
-;;;;	Return:	the converted format-sub as a String.
-;;;;	Params:	p_dateFormat := "yyyyMMddHHmmss"
-;;;;			p_date := ""
-;;;;	Notes:	Used in the parsing process of time_getDate()
-;;;;*/
-;;;;time_parseYear(p_dateFormat := "yyyyMMddHHmmss", p_date := "") {
-;;;;	
-;;;;	_outVar := ""
-;;;;	_regexHaystack := p_dateFormat
-;;;;	_regexNeedle := ["yyyy", "yyy", "yy", "y"]
-;;;;	(p_date == "") ? p_date := A_Now : ; else, do-nothing
-;;;;	
-;;;;	_outVar := time_parseLoop(_regexHaystack, _regexNeedle)
-;;;;	
-;;;;	return _outVar
-;;;;}
-;;;;
-;;;;/**	time_parseMonth(p_dateFormat := "yyyyMMddHHmmss", p_date := "")
-;;;;	Descr:	Replaces ["MMMM", "MMM", "MM", "M"] tags specified in p_dateFormat
-;;;;		with its matching FormatTime representation.
-;;;;	Return:	the converted format-sub as a String.
-;;;;	Params:	p_dateFormat := "yyyyMMddHHmmss"
-;;;;			p_date := ""
-;;;;	Notes:	Used in the parsing process of time_getDate()
-;;;;*/
-;;;;time_parseMonth(p_dateFormat := "yyyyMMddHHmmss", p_date := "") {
-;;;;	_outVar := ""
-;;;;	_regexHaystack := p_dateFormat
-;;;;	_regexNeedle := ["MMMM", "MMM", "MM", "M"]
-;;;;	
-;;;;	(p_date == "") ? p_date := A_Now : ; else, do-nothing
-;;;;	
-;;;;	Loop, % _regexNeedle.Length() {
-;;;;		if (RegExMatch(_regexHaystack, _regexNeedle[A_Index])) {
-;;;;			FormatTime, _formattedDateNumber, % p_date, % _regexNeedle[A_Index]
-;;;;			_outVar := RegExReplace(_regexHaystack, _regexNeedle[A_Index], _formattedDateNumber, , 1, 1)
-;;;;			return _outVar
-;;;;		}
-;;;;	}
-;;;;}
-;;;;
-;;;;/**	time_parseDay(p_dateFormat := "yyyyMMddHHmmss", p_date := "")
-;;;;	Descr:	Replaces ["dddd", "ddd", "dd", "d"] tags specified in p_dateFormat
-;;;;		with its matching FormatTime representation.
-;;;;	Return:	the converted format-sub as a String.
-;;;;	Params:	p_dateFormat := "yyyyMMddHHmmss"
-;;;;			p_date := ""
-;;;;	Notes:	Used in the parsing process of time_getDate()
-;;;;*/
-;;;;time_parseDay(p_dateFormat := "yyyyMMddHHmmss", p_date := "") {
-;;;;	_outVar := ""
-;;;;	_regexHaystack := p_dateFormat
-;;;;	_regexNeedle := ["dddd", "ddd", "dd", "d"]
-;;;;	
-;;;;	(p_date == "") ? p_date := A_Now : ; else, do-nothing
-;;;;	
-;;;;	Loop, % _regexNeedle.Length() {
-;;;;		if (RegExMatch(_regexHaystack, _regexNeedle[A_Index])) {
-;;;;			FormatTime, _formattedDateNumber, % p_date, % _regexNeedle[A_Index]
-;;;;			_outVar := RegExReplace(_regexHaystack, _regexNeedle[A_Index], _formattedDateNumber, , 1, 1)
-;;;;			return _outVar
-;;;;		}
-;;;;	}
-;;;;}
-;;;;
-;;;;/**	time_parseHour(p_dateFormat := "yyyyMMddHHmmss", p_date := "")
-;;;;	Descr:	Replaces ["HH", "H", "hh", "h"] tags specified in p_dateFormat
-;;;;		with its matching FormatTime representation.
-;;;;	Return:	the converted format-sub as a String.
-;;;;	Params:	p_dateFormat := "yyyyMMddHHmmss"
-;;;;			p_date := ""
-;;;;	Notes:	Used in the parsing process of time_getDate()
-;;;;*/
-;;;;time_parseHour(p_dateFormat := "yyyyMMddHHmmss", p_date := "") {
-;;;;	_outVar := ""
-;;;;	_regexHaystack := p_dateFormat
-;;;;	_regexNeedle := ["HH", "H", "hh", "h"]
-;;;;	
-;;;;	(p_date == "") ? p_date := A_Now : ; else, do-nothing
-;;;;	
-;;;;	Loop, % _regexNeedle.Length() {
-;;;;		if (RegExMatch(_regexHaystack, _regexNeedle[A_Index])) {
-;;;;			FormatTime, _formattedDateNumber, % p_date, % _regexNeedle[A_Index]
-;;;;			_outVar := RegExReplace(_regexHaystack, _regexNeedle[A_Index], _formattedDateNumber, , 1, 1)
-;;;;			return _outVar
-;;;;		}
-;;;;	}
-;;;;}
-;;;;
-;;;;/**	time_parseMinute(p_dateFormat := "yyyyMMddHHmmss", p_date := "")
-;;;;	Descr:	Replaces ["mm", "m"] tags specified in p_dateFormat
-;;;;		with its matching FormatTime representation.
-;;;;	Return:	the converted format-sub as a String.
-;;;;	Params:	p_dateFormat := "yyyyMMddHHmmss"
-;;;;			p_date := ""
-;;;;	Notes:	Used in the parsing process of time_getDate()
-;;;;*/
-;;;;time_parseMinute(p_dateFormat := "yyyyMMddHHmmss", p_date := "") {
-;;;;	_outVar := ""
-;;;;	_regexHaystack := p_dateFormat
-;;;;	_regexNeedle := ["mm", "m"]
-;;;;	
-;;;;	(p_date == "") ? p_date := A_Now : ; else, do-nothing
-;;;;	
-;;;;	Loop, % _regexNeedle.Length() {
-;;;;		if (RegExMatch(_regexHaystack, _regexNeedle[A_Index])) {
-;;;;			FormatTime, _formattedDateNumber, % p_date, % _regexNeedle[A_Index]
-;;;;			_outVar := RegExReplace(_regexHaystack, _regexNeedle[A_Index], _formattedDateNumber, , 1, 1)
-;;;;			return _outVar
-;;;;		}
-;;;;	}
-;;;;}
-;;;;
-;;;;/**	time_parseSecond(p_dateFormat := "yyyyMMddHHmmss", p_date := "")
-;;;;	Descr:	Replaces ["ss", "s"] tags specified in p_dateFormat
-;;;;		with its matching FormatTime representation.
-;;;;	Return:	the converted format-sub as a String.
-;;;;	Params:	p_dateFormat := "yyyyMMddHHmmss"
-;;;;			p_date := ""
-;;;;	Notes:	Used in the parsing process of time_getDate()
-;;;;*/
-;;;;time_parseSecond(p_dateFormat := "yyyyMMddHHmmss", p_date := "") {
-;;;;	_outVar := ""
-;;;;	_regexHaystack := p_dateFormat
-;;;;	_regexNeedle := ["ss", "s"]
-;;;;	
-;;;;	(p_date == "") ? p_date := A_Now : ; else, do-nothing
-;;;;	
-;;;;	Loop, % _regexNeedle.Length() {
-;;;;		if (RegExMatch(_regexHaystack, _regexNeedle[A_Index])) {
-;;;;			FormatTime, _formattedDateNumber, % p_date, % _regexNeedle[A_Index]
-;;;;			_outVar := RegExReplace(_regexHaystack, _regexNeedle[A_Index], _formattedDateNumber, , 1, 1)
-;;;;			return _outVar
-;;;;		}
-;;;;	}
-;;;;}
-;;;;
-;;;;/**	time_parseMillisecond(p_dateFormat := "yyyyMMddHHmmss", p_date := "")
-;;;;	Descr:	Replaces ["SS", "S"] tags specified in p_dateFormat
-;;;;		with its matching FormatTime representation.
-;;;;	Return:	the converted format-sub as a String.
-;;;;	Params:	p_dateFormat := "yyyyMMddHHmmss"
-;;;;			p_date := ""
-;;;;	Notes:	Since FormatTime does not include a Millisecond Format-Option, 
-;;;;		this method uses RegExReplace() to swap the "SS" or "S" tag with the 
-;;;;		millisecond value held in the environment variable A_MSec.
-;;;;		Used in the parsing process of time_getDate() .
-;;;;*/
-;;;;time_parseMillisecond(p_dateFormat := "yyyyMMddHHmmss", p_date := "") {
-;;;;	_outVar := ""
-;;;;	_regexHaystack := p_dateFormat
-;;;;	_regexNeedle := ["SS", "S"]
-;;;;	
-;;;;	(p_date == "") ? p_date := A_Now : ; else, do-nothing
-;;;;	
-;;;;	Loop, % _regexNeedle.Length() {
-;;;;		if (RegExMatch(_regexHaystack, _regexNeedle[A_Index])) {
-;;;;			FormatTime, _formattedDateNumber, % p_date, % _regexNeedle[A_Index]
-;;;;			_outVar := RegExReplace(_regexHaystack, _regexNeedle[A_Index], _formattedDateNumber, , 1, 1)
-;;;;			return _outVar
-;;;;		}
-;;;;	}
-;;;;}
-;;;;
-*/
 
 timeCalc_getDateWithClipboard(v_daysFromNow := "", v_format := "M/d/yyyy") {
 	if (v_daysFromNow == "") ;; if arg is empty, then set to default

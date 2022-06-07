@@ -51,6 +51,7 @@
 .IsByRef(index) \n[Func object] Determines whether a parameter is ByRef.
 .IsOptional(index) \n[Func object] Determines whether a parameter is optional.
 .IsVariadic
+.Len(N)\n\t_rgxMatchVar.Len(N): Returns the length of the overall match or a captured subpattern.
 .Length()\n\tLength := Object.Length()
 .Length()\n\tLength := Object.Length()\n\tReturns the length of a linear array beginning at position 1; that is, the highest positive integer key contained by the object, or 0 if there aren't any.
 .MaxIndex() \nIf any integer keys are present, returns the highest. Otherwise an empty string is returned.
@@ -1078,6 +1079,21 @@ Thread, Setting, P2 [, P3]
 throw Expression
 Tile
 time
+time_getDate(p_dateFormat := "yyyyMMddHHmmss", p_timeStamp := "", p_showMsg := false)
+time_sendDate(p_dateFormat := "yyyyMMddHHmmss", p_timeStamp := "")
+time_translateDate(p_timeShift, p_timeUnit := "Days", p_format := "yyyyMMddHHmmss", p_appendMilliSeconds := false)
+time_difference(p_date, p_initialDate := "", p_timeUnit := "Days", p_format := "yyyyMMddHHmmss")
+time_differenceInDays(p_date, p_initialDate := "")
+time_differenceInHours(p_date, p_initialDate := "")
+time_differenceInMinutes(p_date, p_initialDate := "")
+time_differenceInSeconds(p_date, p_initialDate := "")
+time_parseDateFormat(p_dateFormat := "yyyyMMddHHmmss_SS", p_timeStamp := "")
+time_parseLoop(p_formatString, p_formatTags := "", p_timeStamp := "")
+timeCalc_getDateWithClipboard(v_daysFromNow := "", v_format := "M/d/yyyy")
+timeCalc_getToday(v_format := "M/d/yyyy")
+timeCalc_getDate(v_daysFromNow := 0, v_format := "M/d/yyyy")
+timeCalc_difference()
+timeCalc_showDateMessage(v_daysFromNow, v_format, v_clipOutput, v_timeOut := 15)
 time_difference(p_date, p_initialDate := "", p_timeUnit := "Days", p_format := "yyyyMMdd_t_hhmmss_SS")
 time_difference(p_date, p_initialDate := "", p_timeUnit := "Days", p_format := "yyyyMMdd_t_hhmmss_SS")\n\tDescr:\tReturns the time difference from the 'p_date' to the 'p_initialDate'.\n\tReturn:\tFORMATTED-DATE\n\tParams:\tINTEGER-DATE\tp_date := YYYYMMDDHH24MISS\n\t\t\tINTEGER-DATE\tp_initialDate := (default := A_Now) || YYYYMMDDHH24MISS\n\t\t\tSTRING\tp_timeUnit\t:=\t(default := "Days")\n\t\t\t\tthis\t["Seconds" | "Minutes" | "Hours" | "Days" ]\n\t\t\t\tor...\t["s" | "m" | "h" | "d"]\n\t\t\tSTRING\tp_format :=\tFORMATTED-DATE\n\t\t\t[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]\n\tNotes:\t____How_to_or_when_is_this_used____\n\n#ClipboardTimeout Milliseconds \nChanges how long the script keeps trying to access the clipboard when the first attempt fails.
 time_differenceInDays(p_date, p_initialDate := "")
@@ -1086,20 +1102,6 @@ time_differenceInMinutes(p_date, p_initialDate := "")
 time_differenceInSeconds(p_date, p_initialDate := "") 
 time_getDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_date := "", p_showMsg := false)
 time_getDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_date := "", p_showMsg := false)\n\tDescr:\tGets the date in the specified format as a STRING.\n\tReturn:\tSTRING\n\tParams:\tp_dateFormat := STRING \n\t\t\t\tmust use only these characters\n\t\t\t\t(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")\n\t\t\t\t[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]\n\t\t\tp_date := INTEGER-DATE <YYYYMMDDHH24MISS> (default := A_Now)\n\t\t\tp_showMsg := false\n
-time_parseDay(p_dateFormat := "yyyyMMddHHmmss", p_date := "") 
-time_parseDay(p_dateFormat := "yyyyMMddHHmmss", p_date := "")\n\tDescr:\tReplaces ["dddd", "ddd", "dd", "d"] tags specified in p_dateFormat\n\t\twith its matching FormatTime representation.\n\tReturn:\tthe converted format-sub as a String.\n\tParams:\tp_dateFormat := "yyyyMMddHHmmss"\n\t\t\tp_date := ""\n\tNotes:\tUsed in the parsing process of time_getDate()
-time_parseHour(p_dateFormat := "yyyyMMddHHmmss", p_date := "") 
-time_parseHour(p_dateFormat := "yyyyMMddHHmmss", p_date := "")\n\tDescr:\tReplaces ["HH", "H", "hh", "h"] tags specified in p_dateFormat\n\t\twith its matching FormatTime representation.\n\tReturn:\tthe converted format-sub as a String.\n\tParams:\tp_dateFormat := "yyyyMMddHHmmss"\n\t\t\tp_date := ""\n\tNotes:\tUsed in the parsing process of time_getDate()
-time_parseMillisecond(p_dateFormat := "yyyyMMddHHmmss", p_date := "") 
-time_parseMillisecond(p_dateFormat := "yyyyMMddHHmmss", p_date := "")\n\tDescr:\tReplaces ["SS", "S"] tags specified in p_dateFormat\n\t\twith its matching FormatTime representation.\n\tReturn:\tthe converted format-sub as a String.\n\tParams:\tp_dateFormat := "yyyyMMddHHmmss"\n\t\t\tp_date := ""\n\tNotes:\tSince FormatTime does not include a Millisecond Format-Option, \n\t\tthis method uses RegExReplace() to swap the "SS" or "S" tag with the \n\t\tmillisecond value held in the environment variable A_MSec.\n\t\tUsed in the parsing process of time_getDate() .
-time_parseMinute(p_dateFormat := "yyyyMMddHHmmss", p_date := "") 
-time_parseMinute(p_dateFormat := "yyyyMMddHHmmss", p_date := "")\n\tDescr:\tReplaces ["mm", "m"] tags specified in p_dateFormat\n\t\twith its matching FormatTime representation.\n\tReturn:\tthe converted format-sub as a String.\n\tParams:\tp_dateFormat := "yyyyMMddHHmmss"\n\t\t\tp_date := ""\n\tNotes:\tUsed in the parsing process of time_getDate()
-time_parseMonth(p_dateFormat := "yyyyMMddHHmmss", p_date := "") 
-time_parseMonth(p_dateFormat := "yyyyMMddHHmmss", p_date := "")\n\tDescr:\tReplaces ["MMMM", "MMM", "MM", "M"] tags specified in p_dateFormat\n\t\twith its matching FormatTime representation.\n\tReturn:\tthe converted format-sub as a String.\n\tParams:\tp_dateFormat := "yyyyMMddHHmmss"\n\t\t\tp_date := ""\n\tNotes:\tUsed in the parsing process of time_getDate()
-time_parseSecond(p_dateFormat := "yyyyMMddHHmmss", p_date := "") 
-time_parseSecond(p_dateFormat := "yyyyMMddHHmmss", p_date := "")\n\tDescr:\tReplaces ["ss", "s"] tags specified in p_dateFormat\n\t\twith its matching FormatTime representation.\n\tReturn:\tthe converted format-sub as a String.\n\tParams:\tp_dateFormat := "yyyyMMddHHmmss"\n\t\t\tp_date := ""\n\tNotes:\tUsed in the parsing process of time_getDate()
-time_parseYear(p_dateFormat := "yyyyMMddHHmmss", p_date := "") 
-time_parseYear(p_dateFormat := "yyyyMMddHHmmss", p_date := "")\n\tDescr:\tReplaces ["yyyy", "yyy", "yy", "y"] tags specified in p_dateFormat\n\t\twith its matching FormatTime representation.\n\tReturn:\tthe converted format-sub as a String.\n\tParams:\tp_dateFormat := "yyyyMMddHHmmss"\n\t\t\tp_date := ""\n\tNotes:\tUsed in the parsing process of time_getDate()
 time_sendDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_date := "")
 time_sendDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_date := "")\n\tDescr:\tSends resulting date (STRING) as keyboard strokes, using the specified format.\n\tReturn:\tVOID\n\tParams:\n\t\tp_format := STRING (default := "yyyyMMdd_t_hhmmss_SS")\n\t\t\tmust use only these characters\n\t\t\t(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")\n\t\t\t[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]\n\t\tp_date := INTEGER-DATE <YYYYMMDDHH24MISS> (default := A_Now)
 time_translateDate(p_timeShift, p_timeUnit := "Days", p_format := "yyyyMMdd_t_hhmmss", p_appendMilliSeconds := false)\n\t; example := 20220604_P_030837\n
