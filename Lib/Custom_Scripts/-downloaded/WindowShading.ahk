@@ -12,10 +12,10 @@
 ;; ws_MinHeight = 25
 ws_MinHeight = 10
 
-;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\notepad++_383-up-down-scroll.ico
-Menu, Tray, Icon, % "E:\Assets\Icons\_used-icons\notepad++_383-up-down-scroll.ico"
+;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\up-down-scroll.ico
 strTooltip := A_ScriptName . "`nPress Alt+Z to roll/unroll active window."
 Menu, Tray, Tip, % strTooltip
+Menu, Tray, Icon, % "E:\Assets\Icons\_used-icons\up-down-scroll.ico"
 	
 ; This line will unroll any rolled up windows if the script exits
 ; for any reason:

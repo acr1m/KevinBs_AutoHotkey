@@ -10,9 +10,11 @@
 	iconInactive := ""
 	iconExit := "E:\Assets\Icons\_used-icons\x-s01.ico"
 	
-	start() {
+	start(p_showStandardIcons := false) {
 		Menu, Tray, Icon, % this.iconActive,, 1 ;; 1 indicates to turn off AHK default icon updates
-		Menu, Tray, NoStandard
+		if (!p_showStandardIcons) {
+			Menu, Tray, NoStandard ;~ Removes all standard menu items from the menu.
+		}
 		
 		tgt_suspend := ObjBindMethod(this, "toggleSuspend")
 		Menu, Tray, Add, % "Suspend Hotkeys", % tgt_suspend
@@ -113,4 +115,5 @@
 		}
 		return
 	}
+	
 }

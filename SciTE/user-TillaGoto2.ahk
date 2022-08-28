@@ -4,7 +4,23 @@
 ....original file...............................................................
 .......E:\Software\AutoHotkey_MyInstallation_v01\SciTE\tools\TillaGoto.ahk
 */
+;~ THIS SUB ADDED BY USER (acr1m) - 「find and close default TillaGoTo if it exists」
+stored_DetectHiddenWindows := A_DetectHiddenWindows
+DetectHiddenWindows, On
+if (WinExist("TillaGoto.ahk"))
+	WinClose ; use the last found window 「A」 found by WinExist()
+DetectHiddenWindows, %stored_DetectHiddenWindows%
 
+/* 
+TillaGoto.ahk
+ahk_class AutoHotkeyGUI
+ahk_exe InternalAHK.exe
+ahk_pid 48916
+ */
+
+/*
+================================================================================
+*/
 /*! TheGood    
 	TillaGoto - Go to functions and labels in your script
 	Last updated: December 30, 2010

@@ -1,12 +1,4 @@
 ﻿#SingleInstance Force
-;run this command
-;~ temp_outputMessage()
-;~ this->E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-scratch\scratchfile.ahk
-;~ SetWorkingDir, %A_ScriptDir%\..\-lib\
-;~ MsgBox, , % A_ScriptName, % "address:= " . A_WorkingDir . "\time()-LIB.ahk"
-;~ Clipboard := "address:= " . A_WorkingDir . "\time()-LIB.ahk"
-;~ #Include E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\time()-LIB.ahk
-;~          E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\time()-LIB.ahk
 #Include %A_LineFile%\..\..\-lib\
 #Include %A_WorkingDir%\Main-Method-Library-LIB.ahk
 ;~ #Include %A_WorkingDir%\run()-LIB.ahk
@@ -15,34 +7,70 @@
 ;~ #Include %A_WorkingDir%\repeatKey()-LIB.ahk
 #Include %A_WorkingDir%\time()-LIB.ahk
 #Include %A_WorkingDir%\RegEx()-LIB.ahk
+#Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\run()-LIB.ahk
+run_AsAdmin(,false) ; (,true) -> shows a msgbox indicating success/failure of process
+
+
+;;~ set the icon references
+#Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\TrayIconManager-LIB.ahk
+;~ #Include %A_ScriptDir%\..\-lib\TrayIconManager-LIB.ahk
+trayIM := new TrayIconManager()
+trayIM.iconActive :=    "E:\Assets\Icons\_used-icons\key-s05-green.ico"
+trayIM.iconSuspended := "E:\Assets\Icons\_used-icons\key-s05-blue.ico"
+trayIM.iconPaused :=    "E:\Assets\Icons\_used-icons\key-s05-yellow.ico"
+trayIM.iconInactive :=  "E:\Assets\Icons\_used-icons\key-s05-red.ico"		
+trayIM.start()
+
 
 #IfWinActive
-
-/* 
-_msgboxStr := time_getDate("yyyyMMdd_HHmmssS") . "`n"
-Sleep, main_getRandomNum(0, 99)
-_msgboxStr .= time_getDate("yyyyMMdd_HHmmssSS") . "`n"
-Sleep, main_getRandomNum(0, 99)
-_msgboxStr .= time_getDate("yyyyMMdd_HHmmss_S") . "`n"
-Sleep, main_getRandomNum(0, 99)
-_msgboxStr .= time_getDate("yyyyMMdd_HHmmss_SS") . "`n"
-Sleep, main_getRandomNum(0, 99)
-_msgboxStr .= time_getDate("yyyyMMdd_HHmmss_S_tt") . "`n"
-Sleep, main_getRandomNum(0, 99)
-_msgboxStr .= time_getDate("yyyyMMdd_HHmmss_SS_tt") . "`n"
-
-*/
 
 _msgboxStr := ""
 ;~ scratchMethod00()
 ;~ scratchMethod01()
 ;~ scratchMethod02()
-scratchMethod03()
-;~ scratchMethod04()
-;~ scratchMethod05()
-ExitApp
+;~ scratchMethod03() 		;~ testing output of time_translateDate() using "S" or "SS" as DATE-FORMAT tag for Milliseconds
+;~ scratchMethod04() 	;~ testing output of time_parseYear() method
+;~ scratchMethod05() 	;~ parse document for method names and parameters for documentation and user.ahk.api
+return
 
 ;~ end of auto-execute section~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Esc::scratchMethod06()
+F5::scratchMethod07()
+F4::scratchMethod08()
+Left::Send, {WheelUp}
+Right::Send, {Space}
+
+
+scratchMethod06() {
+	;~ mouseClick(-594, 734, 0, 1)
+	;~ Sleep, 1500
+	;~ mouseClick(659, 948, 0, 1)
+	MouseGetPos, mX, mY
+	MouseClick, Left, 90, 1000, 1, 0
+	;~ MouseClick, Left, 500, 500, 1, 0
+	MouseClick, Left, %mX%, %mY%, 1, 0
+	;~ MouseMove, % mX, % mY, 0
+	return
+}
+
+scratchMethod07() {
+	mSpeed := 0
+	MouseClick, Left, 1330, 22, 1, % mSpeed
+	MouseClick, Left, 960, 651, 1, % mSpeed
+	MouseClick, Left, 1057, 1057, 1, % mSpeed
+	;~ Sleep, 800
+	MouseClick, Left, 958, 773, 2, % mSpeed
+	return
+}
+
+scratchMethod08() {
+	mSpeed := 0
+	MouseGetPos, mX, mY
+	MouseClick, Left, 1057, 1057, 1, % mSpeed
+	MouseMove, % mX, % mY, % mSpeed
+	return
+}
 
 scratchMethod00() {
 	Loop, 11 {
@@ -100,16 +128,29 @@ scratchMethod02() {
 scratchMethod03() {
 	_outFile := FileOpen("scratchMethod03.txt", "w", "UTF-8")
 	
-	_outFile.WriteLine("time_getDate(""`tM/d/yy,`tdddd,`tS""):")
-	_outFile.WriteLine("`t`t" . time_getDate("M/d/yy,`tdddd,`tS"))
-	_outFile.WriteLine()
-	_outFile.WriteLine("time_parseDateFormat(""`tM/d/yy,`tdddd,`tS""):")
-	_outFile.WriteLine("`t`t" . time_parseDateFormat("M/d/yy,`tdddd,`tS"))
-	_outFile.WriteLine()
-	_outFile.WriteLine("A_Now:`n`t" . time_translateDate(0, "Days", "M/d/yy,`tdddd"))
-	_outFile.WriteLine("+1 day shift:`n`t" . time_translateDate(1, "Days", "M/d/yy,`tdddd"))
-	_outFile.WriteLine("+2 day shift:`n`t" . time_translateDate(2, "Days", "M/d/yy,`tdddd"))
-	_outFile.WriteLine("-2 day shift:`n`t" . time_translateDate(-2, "Days", "M/d/yy,`tdddd"))
+	_outFile.WriteLine("                                    A_Now:= {" . A_Now . "}")
+	_outFile.WriteLine("                                                            ")
+	
+	_outFile.WriteLine("       time_getDate(""yyyyMMdd_HHmmss_SS""):= {" . time_getDate("yyyyMMdd_HHmmss_SS") . "}")
+	;~ _outFile.WriteLine("       time_sendDate(""M/d/yy,  dddd,  S""):= " . time_sendDate("yyyyMMdd_HHmmss_SS") . "}")
+	
+	_outFile.WriteLine("       time_getDate(""yyyyMMdd_HHmmss_SS""):= {" . time_getDate("yyyyMMdd_HHmmss_SS") . "}")
+	;~ _outFile.WriteLine("      time_sendDate(""yyyyMMdd_HHmmss_SS""):= " . time_sendDate("yyyyMMdd_HHmmss_SS") . "}")
+	
+	_outFile.WriteLine("         time_getDate(""M/d/yy,  dddd, S""):= {" . time_getDate("M/d/yy, dddd, S") . "}")
+	_outFile.WriteLine(" time_parseDateFormat(""M/d/yy,  dddd, S""):= {" . time_parseDateFormat("M/d/yy, dddd, S") . "}")
+	
+	_outFile.WriteLine("")
+	_outFile.WriteLine("                                            {______________}")
+	_outFile.WriteLine("                                            {YYYYMMDDHHmmSS}")
+	_outFile.WriteLine("                                            {______DD______}")
+	_outFile.WriteLine("                                    A_Now:= {" . A_Now . "}")
+	_outFile.WriteLine("                                   +0 day:= {" . time_translateDate(0, "Days", "d") . "}")
+	_outFile.WriteLine("                                   +1 day:= {" . time_translateDate(1, "Days", "d") . "}")
+	_outFile.WriteLine("                                   +2 day:= {" . time_translateDate(2, "Days", "d") . "}")
+	_outFile.WriteLine("                                   -2 day:= {" . time_translateDate(-2, "Days", "d") .  "}")
+	_outFile.WriteLine("                                            {______DD______}")
+	
 	
 	;~ _outFile.WriteLine()
 	;~ _outFile.WriteLine()
@@ -224,6 +265,7 @@ scratchMethod05() {
 	Run, "E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\time()-LIB.ahk.txt"	
 }
 
+
 Pause::ExitApp
 NumpadEnter::ExitApp
 
@@ -260,4 +302,43 @@ temp_outputMessage() {
 	outStr := "v1 := A_SendMode ⇒ " . v1 . "`n"
 	outStr .= "v2 := A_SendMode ⇒ " . v2 . "`n"
 	MsgBox, , % A_ScriptName, % outStr
+}
+
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*~ Alt Code Handler
+	Description: Hooks alt code sequences for characters like Tab, NewLine, etc.
+	Example: If Alt down → Numpad0 → Numpad9 → Alt up ⇒ paste({TAB})
+*/
+~Alt::
+{
+	showKeyStateInfo(A_ThisHotkey)		
+	if (GetKeyState("A_ThisHotkey", "P")) {
+		
+	}
+	Send, {A_ThisHotkey}
+	return
+}
+
+~Alt up::
+{
+	showKeyStateInfo(A_ThisHotkey)	
+	Send, {A_ThisHotkey}
+	return
+}
+
+showKeyStateInfo(p_ThisHotkey) {
+	
+	rgxMatch := "" ; used to hold the matched group of RegExMatch
+	RegExMatch(p_ThisHotkey, "([\!\^\+a-zA-Z0-9]+)", rgxMatch)
+	
+	k := {name: p_ThisHotkey
+		, key: rgxMatch}
+		
+	str := k.name . " (physical):= " . k.key . " := " . GetKeyState(k.key, "P")
+	str .= "`n" . k.name . " (virtual):= " . k.key . " := " . GetKeyState(k.key)
+	;~ str := "k.name := " . k.name . "`nk.key := " . k.key . "`n" . str
+	
+	main_showTooltip(str, 2000)
+	
+	return
 }

@@ -210,6 +210,11 @@ global g_firstKissCall := 0
 ::theta;::
 	pasteClipboard("Θ") ;; Θ (233)		Θ	theta
 	return
+::??boldpi;::
+::??bpi;::
+::bpi;::
+	pasteClipboard("𝛑")
+	return
 ::pi;::
 	pasteClipboard("π") ;; Θ (227)		π	pi
 	return

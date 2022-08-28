@@ -1,18 +1,16 @@
-﻿time_getDate("	M/d/yy,	dddd,	S"):
-		M/d/yy,	dddd,	S
+﻿                                    A_Now:= {20220708124156}
+                                                            
+       time_getDate("yyyyMMdd_HHmmss_SS"):= {20220708_124156_206}
+       time_getDate("yyyyMMdd_HHmmss_SS"):= {20220708_124156_207}
+         time_getDate("M/d/yy,  dddd, S"):= {7/d/22, Friday, 207}
+ time_parseDateFormat("M/d/yy,  dddd, S"):= {7/d/22, Friday, 208}
 
-time_parseDateFormat("	M/d/yy,	dddd,	S"):
-		M/d/yy,	dddd,	S
-
-A_Now:
-	_timeStamp1:	20220609022445
-					M/d/yy,	dddd
-+1 day shift:
-	_timeStamp1:	20220610022445
-					M/d/yy,	dddd
-+2 day shift:
-	_timeStamp1:	20220611022445
-					M/d/yy,	dddd
--2 day shift:
-	_timeStamp1:	20220607022445
-					M/d/yy,	dddd
+                                            {______________}
+                                            {YYYYMMDDHHmmSS}
+                                            {______DD______}
+                                    A_Now:= {20220708124156}
+                                   +0 day:= {8}
+                                   +1 day:= {9}
+                                   +2 day:= {10}
+                                   -2 day:= {6}
+                                            {______DD______}

@@ -37,16 +37,17 @@ regex_convertText_SciTE_API(p_replaceSelection := false, p_useClipboard := false
 		
 		regex_clipboard_removeCommentDelimiters()
 		regex_clipboard_swapLineBreaksAndTabs("\\n", "\\t")
-		retVat := Clipboard
+		retVal := Clipboard
 		
 		if (p_replaceSelection == true) {
 			pasteClipboard()
 		}
 		
+		
 		if (p_useClipboard == false) {
 			restoreClipboard()
 		}
-		else if (p_useClipboard == false) {
+		else if (p_useClipboard == true) {
 			;; do nothing, allowing the clip to retain the modified text for pasting.
 		}
 		
@@ -133,15 +134,15 @@ regex_clipboard_swapLineBreaksAndTabs(p_lineBreakSubstitution := "\n", p_tabSubs
 	Function: regex_selection_removeCommentDelimiters()
 	Descr:	Adds current selection to Clipboard, then modifies the clipboard's contents,
 	Returns:	VOID
-	Parameters:	p_delimiter_begin - "(/\*\*?\s*)"
+	Parameters:	p_delimiter_begin - "(\s*\/\*\*?\!?\s*(Function:)?\s*)"
 				p_delimiter_mid - "(?<=(?:\r|\n|(?:\r\n)))((;;\s)|(;:\s)|(;~\s))"
-				p_delimiter_end := "(?:\*/)"
+				p_delimiter_end := "\s*\*\/\s*"
 	Remarks:	Must have something selected for this method to work. 
 */
 
-regex_selection_removeCommentDelimiters(p_delimiter_begin := "(/\*\*?\s*)"
+regex_selection_removeCommentDelimiters(p_delimiter_begin := "(\s*\/\*\*?\!?\s*(Function:)?\s*)"
 		,	p_delimiter_mid := "((;;\s)|(;:\s)|(;~\s))"
-		,	p_delimiter_end := "(?:\*/)") {
+		,	p_delimiter_end := "\s*\*\/\s*") {
 	copySelection()
 	;: MsgBox, % Clipboard
 	Clipboard := RegExReplace(Clipboard, p_delimiter_begin)
@@ -154,17 +155,17 @@ regex_selection_removeCommentDelimiters(p_delimiter_begin := "(/\*\*?\s*)"
 }
 /*!
 	Function: regex_clipboard_removeCommentDelimiters()
-	Descr:	Modifies the clipboard's contents,
+	Descr:	Modifies the clipboard's contents.
 	Returns:	VOID
-	Parameters:	p_delimiter_begin - "(/\*\*?\s*)"
+	Parameters:	p_delimiter_begin - "(\s*\/\*\*?\!?\s*(Function:)?\s*)"
 				p_delimiter_mid - "(?<=(?:\r|\n|(?:\r\n)))((;;\s)|(;:\s)|(;~\s))"
-				p_delimiter_end := "(?:\*/)"
+				p_delimiter_end := "\s*\*\/\s*"
 	Remarks:	This method only operates on pre-existing Clipboard content.
 */
-regex_clipboard_removeCommentDelimiters(p_delimiter_begin := "(/\*\*?\s*)"
+regex_clipboard_removeCommentDelimiters(p_delimiter_begin := "(\s*\/\*\*?\!?\s*(Function:)?\s*)"
 		;: ,	p_delimiter_mid := "(?<=(?:\r|\n|(?:\r\n)))((;;\s)|(;:\s)|(;~\s))"
 		,	p_delimiter_mid := "(?<=\r|\n|(?:\r\n))((;;\s)|(;:\s)|(;~\s))"
-		,	p_delimiter_end := "(?:\*/)") {
+		,	p_delimiter_end := "\s*\*\/\s*") {
 	Clipboard := RegExReplace(Clipboard, p_delimiter_begin)
 	Clipboard := RegExReplace(Clipboard, p_delimiter_mid)
 	Clipboard := RegExReplace(Clipboard, p_delimiter_end)

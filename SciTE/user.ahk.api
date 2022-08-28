@@ -1,3 +1,14 @@
+main_showTooltip(p_tooltipText, p_timeOut := 5000)
+main_getActiveWin()\n\t\tDescr:\tProcess for retreiving the data of the currently active window.\n\t\tReturn:\tAn Object with the following fields (accessible as such);\n\t\t\taWin.title\n\t\t\taWin.hwnd (unique window handle ID)\n\t\t\taWin.minMax (the Min/Maximized state of window)\n\t\t\taWin.width\n\t\t\taWin.height\n\t\t\taWin.x\n\t\t\taWin.y\n\t\tParams:\t(none)\n\t\tRemarks: ____How_to_or_when_is_this_used____
+copySelection(p_clipWaitTime := 1, p_showMsg := false)\n\t\tSends "Ctrl+c"\n\tReturns:\n\t\tThe copied selection as a string. \n\t\t(Returns as empty string, "" ≡ false, if nothing is selected or failed to copy).\n\tParams:\n\t\tp_clipWaitTime:=\tINTEGER (seconds)\n\t\tp_showMsg := false (set to 'true' to show MsgBox error info)\n\tNotes:\n\t\tMake sure to have something "selected" before calling this \n\t\tmethod for it to work.
+main_tooltipShowVar(p_var*)
+main_tooltipUpdate(p_outText)
+pwrRun_newChromeWindow(p_posObj := "", p_htmlAddress :=  "")
+pwrRun_newChromeWindow(p_posObj := "", p_htmlAddress :=  "")\n\tDescr:\tOpens new chro;@Ahk2Exe-SetMainIcon E:\Assets\Icons\copy-cut-bg-red.ico
+me window, sets position, and naviagtes to target html address.\n\tReturn:\tVOID\n\tParams:\tp_posObj :=\t【OBJECT: Associative-Array】 OR 【OBJECT: ARRAY of INTEGERS】\n\t\t\t\texample1》 【associativeArrayObj := {x: -7, y: 0, w: 958, h: 1040}】\n\t\t\t\texample2》 【simpleArrayObj := [-7, 0, 958, 1040]】\n\t\t\tp_htmlAddress := STRING\n\tRemarks:\Define the p_posObj before, and then pass it in as the argument.
+pwrRun_newFirefoxWindow(p_posObj := "", p_htmlAddress :=  "")
+pwrRun_newFirefoxWindow(p_posObj := "", p_htmlAddress :=  "")\n\tDescr:\tOpens new firefox window, sets position, and naviagtes to target html address.\n\tReturn:\tVOID\n\tParams:\tp_posObj :=\t【OBJECT: Associative-Array】 OR 【OBJECT: ARRAY of INTEGERS】\n\t\t\t\texample1》 【associativeArrayObj := {x: -7, y: 0, w: 958, h: 1040}】\n\t\t\t\texample2》 【simpleArrayObj := [-7, 0, 958, 1040]】\n\t\t\tp_htmlAddress := STRING\n\tRemarks:\Define the p_posObj before, and then pass it in as the argument.
+
 #CommentFlag NewString \nNot recommended
 #ErrorStdOut
 #EscapeChar NewChar \nNot recommended
@@ -36,6 +47,7 @@
 .__Set([params...,] value) \n'Set' meta-function of a class or object.
 ._NewEnum() \nReturns a new enumerator to enumerate this object's key-value pairs.
 .AtEOF
+.Bind() \nBinds parameters to the function and returns a BoundFunc object.\nBoundFunc := Func.Bind(Param1, Param2, ...)
 .Clone() \nReturns a shallow copy of the object.
 .Close() \n[File object] Closes the file, flushes any data in the cache to disk and releases the share locks.
 .Count()\n\tCount := Object.Count()
@@ -396,7 +408,6 @@ ControlSend [, Control, Keys, WinTitle, WinText, ExcludeTitle, ExcludeText]
 ControlSendRaw [, Control, Keys, WinTitle, WinText, ExcludeTitle, ExcludeText]
 ControlSetText, Control, NewText [, WinTitle, WinText, ExcludeTitle, ExcludeText]
 CoordMode, ToolTip|Pixel|Mouse|Caret|Menu [, Screen|Relative|Window|Client]
-copySelection(p_clipWaitTime := 1)\n\tDescr:\tSends "Ctrl+c"\n\tReturn:\tBOOLEAN\n\tParams:\tp_clipWaitTime:= INTEGER (seconds)\n\tNotes:\tMake sure to have something "selected" before calling this method for it to work.
 Cos(Number)
 Count
 Critical [, Off]
@@ -424,7 +435,7 @@ Disable
 Disabled
 DllCall("[DllFile\\]Function" [, Type1, Arg1, Type2, Arg2, ..., "Cdecl ReturnType"])
 doubleTap()
-doubleTap()\nDescr:\tChecks if user hit the triggered hotkey recently (within a given time\n\t\t\tlimit).\nReturn:\tBOOLEAN\nParams:\tp_timeLimit :=\tINTEGER|FLOAT (default := DOUBLE_TAP_LIMIT | 350)\nNotes:\tDoes not prevent a 'triple-tap' evaulating as two 'double-taps'.\n\t\t\te.g., if p_timeLimit is 500, and 3 taps are sent 200ms apart,\n\t\t\t\tthen doubleTap() would return TRUE twice. \nEXAMPLE: if (doubleTap(350)) { commands }\n
+doubleTap()\nDescr:\tChecks if user hit the triggered hotkey recently (within a given time\n\t\t\tlimit).\nReturn:\tBOOLEAN\nParams:\tp_timeLimit :=\tINTEGER|FLOAT (default := DOUBLE_TAP_LIMIT | 350)\nRemarks: Does not prevent a 'triple-tap' evaulating as two 'double-taps'.\n\t\t\te.g., if p_timeLimit is 500, and 3 taps are sent 200ms apart,\n\t\t\t\tthen doubleTap() would return TRUE twice. \nEXAMPLE: if (doubleTap(350)) { commands }\n
 doubleTap(p_timeLimit := -1)
 Down
 DPIScale
@@ -531,14 +542,15 @@ Format(FormatStr [, Values...]) [v1.1.17+]\nFormats a variable number of input v
 FormatTime, OutputVar [, YYYYMMDDHH24MISS, Format]
 FromCodePage
 Func(funcname)
-generate_loremIpsum()\n\tDescr:\tUsing the Clipboard (without affecting most recent clip), Pastes 1 to 10 paragraphs of generated Lorem Ipsum text. Default is 3 paragraphs.\n\tReturn:\tVOID\n\tParams:\tp_paragraphAmount :=\tINTEGER\n\tNotes:\tGenerated text acquired from "https://lipsum.com".\n
+generate_loremIpsum()\n\tDescr:\tUsing the Clipboard (without affecting most recent clip), Pastes 1 to 10 paragraphs of generated Lorem Ipsum text. Default is 3 paragraphs.\n\tReturn:\tVOID\n\tParams:\tp_paragraphAmount :=\tINTEGER\n\tRemarks: Generated text acquired from "https://lipsum.com".\n
 generate_loremIpsum()\ngenerate_loremIpsum(p_paragraphAmount := 3)
 GetClientSize(v_hWnd, \nByRef w := "", \nByRef h := "")
 getClipboard(ByRef p_var)
 getClipboard(outputVar)
-getClipboard(outputVar)\nDescr:\tAssigns Clipboard's content's value to the given argument.\nReturn:\tBOOLEAN - true, if success\n\t\tBOOLEAN - false, if failure\n\t\tINTEGER - -1, if unknown error\nParams:\tByRef p_outputVar := OBJECT\nNotes:\tMust declare a variable object as argument.\n
+getClipboard(outputVar)\nDescr:\tAssigns Clipboard's content's value to the given argument.\nReturn:\tBOOLEAN - true, if success\n\t\tBOOLEAN - false, if failure\n\t\tINTEGER - -1, if unknown error\nParams:\tByRef p_outputVar := OBJECT\nRemarks: Must declare a variable object as argument.\n
 GetKeyName(key)
 GetKeySC(key)
+GetKeySC(key)\nRetrieves the name/text, virtual key code or scan code of a key.
 GetKeyState(KeyName [, "P" or "T"])
 GetKeyState, OutputVar, WhichKey [, Mode (P|T)]
 GetKeyVK(key)
@@ -706,7 +718,7 @@ Log(Number)
 Logoff
 Loop [, Count]\nLoop, FilePattern [, IncludeFolders?, Recurse?]\nLoop, Parse, InputVar [, Delimiters|CSV, OmitChars]\nLoop, Read, InputFile [, OutputFile]\nLoop, HKLM|HKU|HKCU|HKCR|HKCC [, Key, IncludeSubkeys?, Recurse?]\n{\n	commands\n} \nPerforms a repetition/file/file reading/parsing/registry loop.
 loopSend(p_btn, p_count, p_interval)
-loopSend(p_btn, p_count, p_interval)\n\tDescr:\tSends the indicated string as a keystroke if applicable. \n\tReturn:\tVOID\n\tParams:\tp_btn := "Space" ; the button or key to press\n\t\t\tp_count := 2 ; number of times to send the button press\n\t\t\tp_interval := 50 ; <milliseconds> interval between each button press\n\tNotes:\t\n
+loopSend(p_btn, p_count, p_interval)\n\tDescr:\tSends the indicated string as a keystroke if applicable. \n\tReturn:\tVOID\n\tParams:\tp_btn := "Space" ; the button or key to press\n\t\t\tp_count := 2 ; number of times to send the button press\n\t\t\tp_interval := 50 ; <milliseconds> interval between each button press\n\tRemarks: \n
 Low
 lower
 Lowercase
@@ -728,9 +740,9 @@ LWin
 LWinDown
 LWinUp
 main_getRandomNum(_min := 0, _max := 1)
-main_getRandomNum(_min := 0, _max := 1)\n\t\tDescr:\tReturns a number between _min and _max (inclusive bounds).\n\t\tReturn:\tINTEGER or FLOAT\n\t\tParams:\t_min := 0 INTEGER or FLOAT\n\t\t\t\t_max := 1 INTEGER or FLOAT\n\t\tNotes:\tCan be either an Integer or Floating-Point Number.\n\t\t\t\tIf either param is a FLOAT, then output will be a FLOAT.
+main_getRandomNum(_min := 0, _max := 1)\n\t\tDescr:\tReturns a number between _min and _max (inclusive bounds).\n\t\tReturn:\tINTEGER or FLOAT\n\t\tParams:\t_min := 0 INTEGER or FLOAT\n\t\t\t\t_max := 1 INTEGER or FLOAT\n\t\tRemarks: Can be either an Integer or Floating-Point Number.\n\t\t\t\tIf either param is a FLOAT, then output will be a FLOAT.
 main_incrementVariables(p_timeLimit := "", p_vars*)
-main_incrementVariables(p_timeLimit := "", p_vars*)\n\tDescr:\tVariadic method that cycles through the given 'string' variable arguments.\n\tReturn:\tVOID\n\tParams:\tp_timeLimit :=\tINTEGER\t(default := g_INCREMENT_LIMIT)\n\t\t\tp_vars* :=\tSTRING (default := none, must provide at least one argument)\n\t\t\t\t---> Can accept any amount of 'string' variables.\n\tNotes:\tMethod will loop back to the hotkey's natural output and then continue \n\t\t\t\tworking it's way through the given list of 'string' variables. \n\t\t\tCopied from "mathKbd_incrementVariables()"\n
+main_incrementVariables(p_timeLimit := "", p_vars*)\n\tDescr:\tVariadic method that cycles through the given 'string' variable arguments.\n\tReturn:\tVOID\n\tParams:\tp_timeLimit :=\tINTEGER\t(default := g_INCREMENT_LIMIT)\n\t\t\tp_vars* :=\tSTRING (default := none, must provide at least one argument)\n\t\t\t\t---> Can accept any amount of 'string' variables.\n\tRemarks: Method will loop back to the hotkey's natural output and then continue \n\t\t\t\tworking it's way through the given list of 'string' variables. \n\t\t\tCopied from "mathKbd_incrementVariables()"\n
 main_sendIfPressed(p_hotkey := "")
 main_sendIfReleased(p_hotkey := "")
 MainWindow
@@ -763,13 +775,13 @@ Mod(Dividend, Divisor)
 MonthCal
 Mouse
 mouseClick(xPos, yPos, clicks, mSpeed)
-mouseClick(xPos, yPos, clicks, mSpeed)\n\tDescr:\tMethod substitution for the MouseClick command~>\n\t\t~>MouseClick [, WhichButton, X, Y, ClickCount, Speed, DownOrUp, Relative]\n\tReturn:\tVOID\n\tParams:\txPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tyPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tclicks := 1 {any integer >= 0; if 0, will move mouse without clicking}\n\t\t\tmSpeed := 0 {any integer >= 0; zero is instant}\n\tNotes:\t- To specify mouse button, use mouseClickExplicit() instead.\n\t\t\t- mouseClick(400, 600, 0) will move mouse and not click.\n\t\t\t- Shorthand call for mouseClickExplicit() method.\n
+mouseClick(xPos, yPos, clicks, mSpeed)\n\tDescr:\tMethod substitution for the MouseClick command~>\n\t\t~>MouseClick [, WhichButton, X, Y, ClickCount, Speed, DownOrUp, Relative]\n\tReturn:\tVOID\n\tParams:\txPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tyPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tclicks := 1 {any integer >= 0; if 0, will move mouse without clicking}\n\t\t\tmSpeed := 0 {any integer >= 0; zero is instant}\n\tRemarks: - To specify mouse button, use mouseClickExplicit() instead.\n\t\t\t- mouseClick(400, 600, 0) will move mouse and not click.\n\t\t\t- Shorthand call for mouseClickExplicit() method.\n
 MouseClick, WhichButton [, X, Y, ClickCount, Speed, D|U, R]
 MouseClickDrag, WhichButton, X1, Y1, X2, Y2 [, Speed, R]
 mouseClickExplicit(mBtn, xPos, yPos, clicks, mSpeed, downOrUp, p_coordMode)
-mouseClickExplicit(mBtn, xPos, yPos, clicks, mSpeed, downOrUp, p_coordMode)\n\tDescr:\tMethod substitution for the MouseClick command~>\n\t\t~>MouseClick [, WhichButton, X, Y, ClickCount, Speed, DownOrUp, Relative]\n\tReturn:\tVOID\n\tParams:\tmBtn := "Left" {"L", "R", "M", "X1", "X2", "WU", "WD", "WL", "WR"}\n\t\t\txPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tyPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tclicks := 1 {any integer >= 0; if 0, will move mouse without clicking}\n\t\t\tmSpeed := 0 {any integer >= 0; zero is instant}\n\t\t\tdownOrUp := "" {"" = Down then Up, "Down" = Down only, "Up" = Up only}\n\t\t\tp_coordMode := "" {"" = Absolute (default), "R" = Relative}\n\tNotes:\tmBtn options are... {\n\t\t\t\t"Left", "Right", "Middle", \n\t\t\t\t"X1" = M4 or Back_Mouse_Btn, \n\t\t\t\t"X2" = M5 or Forward_Mouse_Btn, \n\t\t\t\t"WheelUp", "WheelDown", "WheelLeft", "WheelRight"}\nSleep, Delay <in milliseconds>
+mouseClickExplicit(mBtn, xPos, yPos, clicks, mSpeed, downOrUp, p_coordMode)\n\tDescr:\tMethod substitution for the MouseClick command~>\n\t\t~>MouseClick [, WhichButton, X, Y, ClickCount, Speed, DownOrUp, Relative]\n\tReturn:\tVOID\n\tParams:\tmBtn := "Left" {"L", "R", "M", "X1", "X2", "WU", "WD", "WL", "WR"}\n\t\t\txPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tyPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tclicks := 1 {any integer >= 0; if 0, will move mouse without clicking}\n\t\t\tmSpeed := 0 {any integer >= 0; zero is instant}\n\t\t\tdownOrUp := "" {"" = Down then Up, "Down" = Down only, "Up" = Up only}\n\t\t\tp_coordMode := "" {"" = Absolute (default), "R" = Relative}\n\tRemarks: mBtn options are... {\n\t\t\t\t"Left", "Right", "Middle", \n\t\t\t\t"X1" = M4 or Back_Mouse_Btn, \n\t\t\t\t"X2" = M5 or Forward_Mouse_Btn, \n\t\t\t\t"WheelUp", "WheelDown", "WheelLeft", "WheelRight"}\nSleep, Delay <in milliseconds>
 mouseClickRelative(xPos, yPos, clicks, mSpeed)
-mouseClickRelative(xPos, yPos, clicks, mSpeed)\n\tDescr:\tSame as mouseClick(), but calls mouseClickExplicit() \n\t\t\tand passes xPos and yPos as Relative coords instead of Absolute coords.\n\tReturn:\tVOID\n\tParams:\txPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tyPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tclicks := 1 {any integer >= 0; if 0, will move mouse without clicking}\n\t\t\tmSpeed := 0 {any integer >= 0; zero is instant}\n\tNotes:\t- To specify mouse button, use mouseClickExplicit() instead.\n\t\t\t- mouseClick(400, 600, 0) will move mouse to RELATIVE position and not click.\n\t\t\t- Shorthand call for mouseClickExplicit() method.\n
+mouseClickRelative(xPos, yPos, clicks, mSpeed)\n\tDescr:\tSame as mouseClick(), but calls mouseClickExplicit() \n\t\t\tand passes xPos and yPos as Relative coords instead of Absolute coords.\n\tReturn:\tVOID\n\tParams:\txPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tyPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tclicks := 1 {any integer >= 0; if 0, will move mouse without clicking}\n\t\t\tmSpeed := 0 {any integer >= 0; zero is instant}\n\tRemarks: - To specify mouse button, use mouseClickExplicit() instead.\n\t\t\t- mouseClick(400, 600, 0) will move mouse to RELATIVE position and not click.\n\t\t\t- Shorthand call for mouseClickExplicit() method.\n
 mouseEvent(p_clickDelay := 200, \np_coordAsPercent*)
 MouseGetPos [, OutputVarX, OutputVarY, OutputVarWin, OutputVarControl, 1|2|3]
 MouseMove, X, Y [, Speed, R]
@@ -861,7 +873,7 @@ OwnDialogs
 Owner
 Parse
 Password
-pasteClipboard()\nDescr:\tHandles the pasting of Clipboard contents, without affecting\n\t\t\tthe current clip.\nReturn:\tBOOLEAN - true, if successful.\n\t\tBOOLEAN - false, if error occurred.\nParams:\tp_str := ""\nNotes:\tIf argument is left blank, then paste current Clipboard contents.\n\t\tIf argument is defined, then paste the argument without \n\t\t\taffecting the current Clipboard.\n
+pasteClipboard()\nDescr:\tHandles the pasting of Clipboard contents, without affecting\n\t\t\tthe current clip.\nReturn:\tBOOLEAN - true, if successful.\n\t\tBOOLEAN - false, if error occurred.\nParams:\tp_str := ""\nRemarks: If argument is left blank, then paste current Clipboard contents.\n\t\tIf argument is defined, then paste the argument without \n\t\t\taffecting the current Clipboard.\n
 pasteClipboard()\npasteClipboard(p_str := "")
 pasteClipboard(p_str := "")
 Pause
@@ -877,7 +889,7 @@ Pos
 PostMessage, Msg [, wParam, lParam, Control, WinTitle, WinText, ExcludeTitle, ExcludeText]
 Pow
 pressedCount()
-pressedCount()\n\tDescr:\tAny amount of hotkey presses, within the g_DOUBLE_TAP_LIMIT (around 350-400 ms). This allows a hotkey to perform a different operation depending on how many times you press it within the g_DOUBLE_TAP_LIMIT.\n\tReturn:\tINTEGER (the number of presses after g_DOUBLE_TAP_LIMIT has expired)\n\tParams:\tnone\n\tNotes:\tRetrofitted code from - https://www.autohotkey.com/docs/commands/SetTimer.htm
+pressedCount()\n\tDescr:\tAny amount of hotkey presses, within the g_DOUBLE_TAP_LIMIT (around 350-400 ms). This allows a hotkey to perform a different operation depending on how many times you press it within the g_DOUBLE_TAP_LIMIT.\n\tReturn:\tINTEGER (the number of presses after g_DOUBLE_TAP_LIMIT has expired)\n\tParams:\tnone\n\tRemarks: Retrofitted code from - https://www.autohotkey.com/docs/commands/SetTimer.htm
 PrintScreen
 Priority
 Process, Cmd, PID-or-Name [, Param3]
@@ -885,7 +897,7 @@ ProcessName
 ProcessPath
 ProgramFiles
 Progress, Param1 [, SubText, MainText, WinTitle, FontName]
-pwrRun_clearText()\n\tDescr:\tSelects all, Delete, Escape, then wait 200 (default) milliseconds.\n\tReturn:\tVOID\n\tParams:\tp_waitTime :=\tINTEGER\n\tNotes:\tThis is particularly used to clear the text typed into the \n\t\t\t\tPowerRun search bar before Escaping the search bar.\n
+pwrRun_clearText()\n\tDescr:\tSelects all, Delete, Escape, then wait 200 (default) milliseconds.\n\tReturn:\tVOID\n\tParams:\tp_waitTime :=\tINTEGER\n\tRemarks: This is particularly used to clear the text typed into the \n\t\t\t\tPowerRun search bar before Escaping the search bar.\n
 pwrRun_clearText()\npwrRun_clearText(p_waitTime := 200)
 pwrRun_fireFoxSearch(str := "", extraSend := "")
 Radio
@@ -913,9 +925,9 @@ regex_clipboard_sort()
 regex_clipboard_sortAndPaste()
 regex_clipboard_swapLineBreaksAndTabs(p_lineBreakSubstitution := "\\n", p_tabSubstitution := "\\t")
 regex_convertText_SciTE_API()
-regex_convertText_SciTE_API()\n\tDescr:\tConverts whitespace for .api files used by SciTE and removes\n\t\t\t\ta limited amount of comment delimiters. \n\tReturn:\tSTRING - returns selected text as a literal-string object. \n\tParams:\p_replaceSelection := BOOLEAN  (default := false)\n\t\t\tp_useClipboard := false\n\tNotes:\t\n
+regex_convertText_SciTE_API()\n\tDescr:\tConverts whitespace for .api files used by SciTE and removes\n\t\t\t\ta limited amount of comment delimiters. \n\tReturn:\tSTRING - returns selected text as a literal-string object. \n\tParams:\p_replaceSelection := BOOLEAN  (default := false)\n\t\t\tp_useClipboard := false\n\tRemarks: \n
 regex_convertText_SciTE_API(p_replaceSelection := false, p_useClipboard := false)
-regex_parseDocumentForFunctions()\n\tDescr:\tSelects All, Copies Selection, then replaces Clipboard with a list of functions if any.\n\tReturn:\tSTRING - Returns a string list (not an array) of functions. \n\tParams:\tp_CRLF := "\\r\\n"\n\tNotes:\tReplace text is considered raw. If actuall control characters are desired, use "`" to escape. 
+regex_parseDocumentForFunctions()\n\tDescr:\tSelects All, Copies Selection, then replaces Clipboard with a list of functions if any.\n\tReturn:\tSTRING - Returns a string list (not an array) of functions. \n\tParams:\tp_CRLF := "\\r\\n"\n\tRemarks: Replace text is considered raw. If actuall control characters are desired, use "`" to escape. 
 regex_parseDocumentForFunctions()\nregex_parseDocumentForFunctions(p_CRLF := "\\r\\n")
 regex_parseDocumentForFunctions(p_CRLF := "\\r\\n")
 regex_parseDocumentForFunctions(p_CRLF := "\\r\\n", p_TAB := "\\t")
@@ -923,12 +935,12 @@ regex_selection_removeCommentDelimiters()\nregex_selection_removeCommentDelimite
 regex_selection_removeCommentDelimiters(p_delimiter_begin := "(/\\*\\*?\\s*)",	p_delimiter_mid := "((;;\\s)|(;:\\s)|(;~\\s))",	p_delimiter_end := "(?:\\*/)")
 regex_selection_sort()
 regex_selection_sortAndPaste()
-regex_selection_swapLineBreaksAndTabs()\n\tDescr:\tAdds current selection to Clipboard, then modifies the clipboard's contents,\n\t\t\t\treplacing line-breaks with "\n" by default,\n\t\t\t\tand tabs with "\t" by default.\n\tReturn:\tSTRING\n\tParams: p_lineBreakSubstitution := \t"\n"\n\t\t\tp_tabSubstitution \t\t:=\t"\t"\n\tNotes:\tMust have something selected for this method to work. \n
+regex_selection_swapLineBreaksAndTabs()\n\tDescr:\tAdds current selection to Clipboard, then modifies the clipboard's contents,\n\t\t\t\treplacing line-breaks with "\n" by default,\n\t\t\t\tand tabs with "\t" by default.\n\tReturn:\tSTRING\n\tParams: p_lineBreakSubstitution := \t"\n"\n\t\t\tp_tabSubstitution \t\t:=\t"\t"\n\tRemarks: Must have something selected for this method to work. \n
 regex_selection_swapLineBreaksAndTabs()\nregex_selection_swapLineBreaksAndTabs(p_lineBreakSubstitution := "\\n", p_tabSubstitution := "\\t")
 regex_selection_swapLineBreaksAndTabs(p_lineBreakSubstitution := "\\n", p_tabSubstitution := "\\t")
 regex_SwapLineBreaks()\nregex_SwapLineBreaks(rgx_replaceWith := "\\n")
 regex_SwapLineBreaks(rgx_replaceWith := "\\n")
-regex_SwapLineBreaks(rgx_replaceWith := "\\n")\n\tDescr:\tReplaces the Clipboard contents. Swaps out line-break characters with the given RegEx string.\n\tReturn:\tSTRING\n\tNotes: Search Expression := "((?:\r\n)|(?:\r)|(?:\n))"\n\t\t- Matches a single token of (CR+LF or CR or LF)
+regex_SwapLineBreaks(rgx_replaceWith := "\\n")\n\tDescr:\tReplaces the Clipboard contents. Swaps out line-break characters with the given RegEx string.\n\tReturn:\tSTRING\n\tRemarks: Search Expression := "((?:\r\n)|(?:\r)|(?:\n))"\n\t\t- Matches a single token of (CR+LF or CR or LF)
 regex_SwapTabs()\nregex_SwapTabs(rgx_replaceWith := "\\t")
 regex_SwapTabs(rgx_replaceWith := "\\t")
 RegExMatch(Haystack, NeedleRegEx [, UnquotedOutputVar := "", StartingPos := 1])
@@ -963,11 +975,11 @@ RTrim(string [, omitchars := " `t"]) \nTrims characters from the end of a string
 Run, Target [, WorkingDir, Max|Min|Hide|UseErrorLevel, OutputVarPID]
 run_AsAdmin()
 run_AsAdmin(p_targetFilePath := "", p_show_MsgBox := false, p_DllCall_arg1 := "GetCommandLine", p_DllCall_arg2 := "str")
-run_AsAdmin(p_targetFilePath := "", p_show_MsgBox := false, p_DllCall_arg1 := "GetCommandLine", p_DllCall_arg2 := "str")\n\tDescr:\tAttempts to restart the current script as admin.\n\tReturn:\tBOOLEAN\n\tParameters:\n\t\t- STRING\tp_targetFilePath := "" (default: A_ScriptFullPath)\n\t\t- BOOLEAN\tp_show_MsgBox := false\n\t\t- STRING\tp_DllCall_arg1 := "GetCommandLine"\n\t\t- STRING\tp_DllCall_arg2 := "str"\n\tNotes:\tFor an executable file, the *RunAs verb is equivalent to selecting\n\t\t\tRun as administrator from the right-click menu of the file. For \n\t\t\texample, the following code attempts to restart the current \n\t\t\tscript as admin.\n
+run_AsAdmin(p_targetFilePath := "", p_show_MsgBox := false, p_DllCall_arg1 := "GetCommandLine", p_DllCall_arg2 := "str")\n\tDescr:\tAttempts to restart the current script as admin.\n\tReturn:\tBOOLEAN\n\tParameters:\n\t\t- STRING\tp_targetFilePath := "" (default: A_ScriptFullPath)\n\t\t- BOOLEAN\tp_show_MsgBox := false\n\t\t- STRING\tp_DllCall_arg1 := "GetCommandLine"\n\t\t- STRING\tp_DllCall_arg2 := "str"\n\tRemarks: For an executable file, the *RunAs verb is equivalent to selecting\n\t\t\tRun as administrator from the right-click menu of the file. For \n\t\t\texample, the following code attempts to restart the current \n\t\t\tscript as admin.\n
 run_AsAdmin_targetFile(p_targetFile)
-run_AsAdmin_targetFile(p_targetFile)\n\tDescr:\tHandles 'Run As Administrator' for the target file.\n\tReturn:\tBOOLEAN\n\tParameters:\t\n\t\t- STRING\tp_targetFile\n\tNotes:\tSub-script for run_AsAdmin().\n\t\t- (must target a '.exe' in order to retrieve the PID)
+run_AsAdmin_targetFile(p_targetFile)\n\tDescr:\tHandles 'Run As Administrator' for the target file.\n\tReturn:\tBOOLEAN\n\tParameters:\t\n\t\t- STRING\tp_targetFile\n\tRemarks: Sub-script for run_AsAdmin().\n\t\t- (must target a '.exe' in order to retrieve the PID)
 run_AsAdmin_thisScript(p_targetFilePath, p_DllCall_arg1, p_DllCall_arg2)
-run_AsAdmin_thisScript(p_targetFilePath, p_DllCall_arg1, p_DllCall_arg2)\n\tDescr:\tHandles 'Run As Administrator' for the calling script.\n\tReturn:\tBOOLEAN\n\tParameters:\t\n\tNotes:\tSub-script for run_AsAdmin().
+run_AsAdmin_thisScript(p_targetFilePath, p_DllCall_arg1, p_DllCall_arg2)\n\tDescr:\tHandles 'Run As Administrator' for the calling script.\n\tReturn:\tBOOLEAN\n\tParameters:\t\n\tRemarks: Sub-script for run_AsAdmin().
 RunAs [, User, Password, Domain] 
 RunWait, Target [, WorkingDir, Max|Min|Hide|UseErrorLevel, OutputVarPID]
 RWin
@@ -991,7 +1003,7 @@ SendRaw, Keys
 Serial
 SetBatchLines, -1 | 20ms | LineCount
 SetCapsLockState, On|Off|AlwaysOn|AlwaysOff
-setClipboard()\nDescr:\tAttempts to set the passed arguement's value to the Clipboard.\nReturn:\tBOOLEAN - true, if successful.\n\t\tBOOLEAN - false, if error occurred.\nParams:\tp_clipWaitTime := 1\n\t\tp_str := ""\n\t\tp_str := a string (object) stored to and pasted from the built-in\n\t\t\tClipboard.\nNotes:\tAt end of method process, restores Clipboard back to what \n\t\t\tit was prior to calling this method.\n 
+setClipboard()\nDescr:\tAttempts to set the passed arguement's value to the Clipboard.\nReturn:\tBOOLEAN - true, if successful.\n\t\tBOOLEAN - false, if error occurred.\nParams:\tp_clipWaitTime := 1\n\t\tp_str := ""\n\t\tp_str := a string (object) stored to and pasted from the built-in\n\t\t\tClipboard.\nRemarks: At end of method process, restores Clipboard back to what \n\t\t\tit was prior to calling this method.\n 
 setClipboard(p_clipWaitTime := 1, \np_str := "")
 setClipboard(p_clipWaitTime := 1, p_str := "")
 SetControlDelay, Delay
@@ -1095,7 +1107,7 @@ timeCalc_getDate(v_daysFromNow := 0, v_format := "M/d/yyyy")
 timeCalc_difference()
 timeCalc_showDateMessage(v_daysFromNow, v_format, v_clipOutput, v_timeOut := 15)
 time_difference(p_date, p_initialDate := "", p_timeUnit := "Days", p_format := "yyyyMMdd_t_hhmmss_SS")
-time_difference(p_date, p_initialDate := "", p_timeUnit := "Days", p_format := "yyyyMMdd_t_hhmmss_SS")\n\tDescr:\tReturns the time difference from the 'p_date' to the 'p_initialDate'.\n\tReturn:\tFORMATTED-DATE\n\tParams:\tINTEGER-DATE\tp_date := YYYYMMDDHH24MISS\n\t\t\tINTEGER-DATE\tp_initialDate := (default := A_Now) || YYYYMMDDHH24MISS\n\t\t\tSTRING\tp_timeUnit\t:=\t(default := "Days")\n\t\t\t\tthis\t["Seconds" | "Minutes" | "Hours" | "Days" ]\n\t\t\t\tor...\t["s" | "m" | "h" | "d"]\n\t\t\tSTRING\tp_format :=\tFORMATTED-DATE\n\t\t\t[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]\n\tNotes:\t____How_to_or_when_is_this_used____\n\n#ClipboardTimeout Milliseconds \nChanges how long the script keeps trying to access the clipboard when the first attempt fails.
+time_difference(p_date, p_initialDate := "", p_timeUnit := "Days", p_format := "yyyyMMdd_t_hhmmss_SS")\n\tDescr:\tReturns the time difference from the 'p_date' to the 'p_initialDate'.\n\tReturn:\tFORMATTED-DATE\n\tParams:\tINTEGER-DATE\tp_date := YYYYMMDDHH24MISS\n\t\t\tINTEGER-DATE\tp_initialDate := (default := A_Now) || YYYYMMDDHH24MISS\n\t\t\tSTRING\tp_timeUnit\t:=\t(default := "Days")\n\t\t\t\tthis\t["Seconds" | "Minutes" | "Hours" | "Days" ]\n\t\t\t\tor...\t["s" | "m" | "h" | "d"]\n\t\t\tSTRING\tp_format :=\tFORMATTED-DATE\n\t\t\t[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]\n\tRemarks: ____How_to_or_when_is_this_used____\n\n#ClipboardTimeout Milliseconds \nChanges how long the script keeps trying to access the clipboard when the first attempt fails.
 time_differenceInDays(p_date, p_initialDate := "")
 time_differenceInHours(p_date, p_initialDate := "")
 time_differenceInMinutes(p_date, p_initialDate := "")

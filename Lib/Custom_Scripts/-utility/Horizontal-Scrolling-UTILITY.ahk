@@ -1,13 +1,28 @@
 #SingleInstance Force
 
+
+;;~ set the icon references
+;@Ahk2Exe-SetMainIcon E:\Assets\Icons\side-scroll-horizontal-scrolling-green-2.ico
+
+#Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\TrayIconManager-LIB.ahk
+;~ #Include %A_ScriptDir%\..\-lib\TrayIconManager-LIB.ahk
+trayIM := new TrayIconManager()
+trayIM.iconActive :=    "E:\Assets\Icons\side-scroll-horizontal-scrolling-green-2.ico"
+trayIM.iconSuspended := "E:\Assets\Icons\side-scroll-horizontal-scrolling-blue-2.ico"
+trayIM.iconPaused :=    "E:\Assets\Icons\side-scroll-horizontal-scrolling-yellow-2.ico"
+trayIM.iconInactive :=  "E:\Assets\Icons\side-scroll-horizontal-scrolling-red-2.ico"
+trayIM.start()
+
+/*
 global horizontalScrollingUtility_icon_Active := "E:\Assets\Icons\side-scroll-horizontal-scrolling-green-2.ico"
 global horizontalScrollingUtility_icon_Suspended := "E:\Assets\Icons\side-scroll-horizontal-scrolling-red-2.ico"
-
+*/
 
 #IfWinActive
 /* Descr:	This script handles horizontal mouse wheel scrolling when the user hold down the Shift key.
  */
 
+/*
 SetTimer, Lbl_UpdateIcon, 250
 	return
 
@@ -22,6 +37,8 @@ Lbl_UpdateIcon:
 	}
 	
 	return
+*/
+
 
 /* Toggle Suspension and Icon State
  * 
@@ -40,13 +57,13 @@ CapsLock & LShift::
 		
 		; activate it
 		if (A_IsSuspended) {
-			Menu, Tray, Icon, % horizontalScrollingUtility_icon_Active, , 1
+			;~ Menu, Tray, Icon, % horizontalScrollingUtility_icon_Active, , 1
 			Suspend, Off
 		} 
 		; suspend it
 		else if (!A_IsSuspended) {
 			Suspend, On
-			Menu, Tray, Icon, % horizontalScrollingUtility_icon_Suspended, , 1
+			;~ Menu, Tray, Icon, % horizontalScrollingUtility_icon_Suspended, , 1
 		}
 		
 	}
@@ -115,15 +132,21 @@ CapsLock & LShift::
  * 
  * This is needed because if the icon is not set before it is suspended, then it will show the default "suspended-icon". (I think... ¯\_(ツ)_/¯)
  */
+
+/*
 horizontalScrollingUtility_setTrayIcon_Suspend() {
 	Menu, Tray, Icon, % horizontalScrollingUtility_icon_Suspended
 }
+
 
 /**
  * Used to set the Default icon of this script "Horizontal-Scrolling-UTILITY.ahk"
  * 
  * This is needed because if the icon is not set before it is suspended, then it will show the default "suspended-icon". (I think... ¯\_(ツ)_/¯)
  */
+
+/*
 horizontalScrollingUtility_setTrayIcon_Active() {
 	Menu, Tray, Icon, % horizontalScrollingUtility_icon_Active
 }
+*/

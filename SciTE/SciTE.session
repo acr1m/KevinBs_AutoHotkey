@@ -1,51 +1,46 @@
 # SciTE session file
 
-position.left=926
-position.top=0
-position.width=1001
-position.height=1047
-position.maximize=0
+position.left=453
+position.top=39
+position.width=974
+position.height=1048
+position.maximize=1
 
-mru.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\pwrRun-date01-WIN.ahk
-mru.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-gui\RegEx-Visual-Keyboard-GUI.ahk
-mru.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\Windows-Explorer-WIN.ahk
-mru.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Main-AHK.ahk
-mru.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-scratch\scratchfile.ahk
-mru.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\time()-LIB.ahk
-mru.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\RegEx()-LIB.ahk
-mru.8.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
+mru.1.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\AhkAbbrevs.properties
+mru.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\Emojis-And-Symbols-LIB.ahk
+mru.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\PowerRun-WIN.ahk
+mru.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\WM-List-LIB.ahk
+mru.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Main-AHK.ahk
+mru.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\Main-Method-Library-LIB.ahk
+mru.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-scratch\scratchfile.ahk
+mru.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-scratch\gui-01-popup-window.ahk
 mru.9.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
-mru.10.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.keywords.properties
+mru.10.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\SciTE4AutoHotkey-WIN.ahk
 
 buffer.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Main-AHK.ahk
-buffer.1.position=10917
-buffer.1.scroll=335
-buffer.1.bookmarks=583
-buffer.1.folds=28
+buffer.1.position=392
+buffer.1.scroll=0
+buffer.1.current=1
+buffer.1.bookmarks=5
 
-buffer.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-scratch\scratchfile.ahk
-buffer.2.position=4532
-buffer.2.scroll=40
-buffer.2.folds=47,59,74,137
+buffer.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\Main-Method-Library-LIB.ahk
+buffer.2.position=4886
+buffer.2.scroll=129
+buffer.2.bookmarks=100,150
 
-buffer.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\time()-LIB.ahk
-buffer.3.position=12274
-buffer.3.scroll=282
-buffer.3.current=1
-buffer.3.folds=12,18,36,54,72,91,101,112,163,175,191,200,209,218,227,236,245,254,263,283,356,363,368,374,382,394
+buffer.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-scratch\scratchfile.ahk
+buffer.3.position=12924
+buffer.3.scroll=297
+buffer.3.folds=45,57,67,75,87,102,128,178,248
 
-buffer.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\RegEx()-LIB.ahk
-buffer.4.position=1990
-buffer.4.scroll=64
+buffer.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-scratch\gui-01-popup-window.ahk
+buffer.4.position=354
+buffer.4.scroll=0
 
-buffer.5.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
-buffer.5.position=3165
-buffer.5.scroll=12
+buffer.5.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
+buffer.5.position=23867
+buffer.5.scroll=540
 
-buffer.6.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
-buffer.6.position=3113
-buffer.6.scroll=37
-
-buffer.7.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.keywords.properties
-buffer.7.position=12753
-buffer.7.scroll=207
+buffer.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\SciTE4AutoHotkey-WIN.ahk
+buffer.6.position=2369
+buffer.6.scroll=68
