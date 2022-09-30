@@ -2,7 +2,7 @@
 #Persistent
 ;; auto-execute section--------------------------------------------------
 ;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\firefox-s10-green.ico
-Menu, Tray, Tip, % A_ScriptName . "`nPress [s] while over an image to save to last folder."
+Menu, Tray, Tip, % A_ScriptName . "`nPress [s]  while over an image to save to last folder then navigates to next tab."
 
 ;; set the icon references
 #Include %A_LineFile%\..\..\-lib\TrayIconManager-LIB.ahk
@@ -20,11 +20,19 @@ return
 
 
 #IfWinActive ahk_exe firefox.exe
-$RButton::
-	KeyWait, % "RButton"
-	firefox_saveImageMacro()
+;~ $RButton::
+	;~ KeyWait, % "RButton"
+	;~ firefox_saveImageMacro()
+	;~ return
+s::
+	Loop, 1
+	{
+		main_showTooltip(A_Index)
+		firefox_saveImageMacro(true)
+		Send, ^{Tab}
+		Sleep, 1000
+	}
 	return
-s::firefox_saveImageMacro(true)
 	
 firefox_saveImageMacro(p_sendEsc := false, p_closeTab := false) {
 	MouseClick, Right 

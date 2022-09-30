@@ -251,6 +251,34 @@ time_parseDateFormat(p_dateFormat := "yyyyMMddHHmmss_SS", p_timeStamp := "") {
 	Notes:	Called from time_parseDateFormat().
 */
 time_parseLoop(p_formatString, p_timeStamp := "", p_formatTags := "") {
+	
+	/* Here's how the below algorithm works...
+	 * Vocabulary:
+	 *			_underscorePrefix	==	Intended as a private local variable (hopefully with a descriptive enough name).
+	 *			_rgxMatch			==	The main object that holds the regex match results.
+	 *			_regexCurrentPos	==	Used to control the position of an imaginary text-cursor to step through 
+	 *									and parse each character/tag/flag present in parameter variable <p_formatTags: Array.String>.
+	 *			_outVar 			==	Functions as the "replace text" for RegExReplace().
+	 * 									(FormatTime command is used to set the value of this during each loop).
+	 *			_varName			 ==	Description (Remark).
+	 * Process:
+	 * 			Loops through an array of strings that function as format 'tags', defined in the p_formatTags method parameter.
+	 *
+	 * 			Each loop-iteration, the current A_Index iteration of the loop is used to access a corresponding key:value pair of the <p_formatTags> array.
+	 *
+	 *			Then, RegExMatch() is used to see if the "tag" identity/value is present within the parameter <p_formatString>. 
+	 *				RegExMatch() returns an object, _rgxMatch, that contains position and length values of the overall matching group (if any).
+	 *
+	 *			An if-block algorithm is used to short-circuit the current loop-iteration if the <_currentTag> in question is part of any known conflicting words or formatting options.
+	 * 
+	 *			Finally, if no issues were found with the location and identity of the tag and its surrounding characters, 
+	 *				then the tag is formatted and saved as a temporary String, _formattedTxt, which is used to replace the tag itself from the 
+	 *				text and into its corresponding date-style text and is used to replace
+	 *			
+	 *				=> _regexHaystack := RegExReplace(_regexHaystack, _currentTag, _formattedTxt, , 1, 1)
+	 *			
+	 */
+	 
 	_retVar := ""
 	_regexHaystack := p_formatString
 	_regexNeedle := []
@@ -262,8 +290,11 @@ time_parseLoop(p_formatString, p_timeStamp := "", p_formatTags := "") {
 		, "ss", "s"
 		, "SS", "S"
 		, "MMMM", "MMM", "MM", "M"
-		, "dddd", "ddd", "dd", "d"]
-	} else {
+		, "dddd", "ddd", "dd", "d"
+		, "tt", "t"]
+	}
+	; if argument for format tags exist, then copy the tag list into an array
+	else {
 		for k, v in p_formatTags {
 			_regexNeedle[k] := v
 			;; _regexNeedle.Push(v) ;~ alternative style, same outcome
@@ -275,58 +306,71 @@ time_parseLoop(p_formatString, p_timeStamp := "", p_formatTags := "") {
 	Loop, % _regexNeedle.Length() {
 		
 		_regexCurrentPos := ""
-		_formattedDateNumber := ""
-		RegExMatch(_regexHaystack, "O)" . _regexNeedle[A_Index], _rgxMatch) ;~returns <Object.Match> as _rgxMatch
-		_regexCurrentPos := _rgxMatch.Pos(0) + _rgxMatch.Len(0)
+		_outVar := ""
+		_formattedTxt := ""
+		_rgxMatch := ""
+		_currentTag := _regexNeedle[A_Index]
 		
-		;~ MsgBox, , % A_ScriptName, % "_regexNeedle[A_Index] = " . _regexNeedle[A_Index] "`n"
-			;~ . "_regexCurrentPos := _regexResult: " . _regexCurrentPos . " := " . _regexResult
+		/* Description of Match Object methods
+			* _rgxMatch.Pos(0) => returns the position of match group \0 (which is the overall match group)
+			* _rgxMatch.Len(0) => returns the length of match group \0 (which is the overall match group)
+		*/
 		
-		;~ MsgBox, , % A_ScriptName, % "_rgxMatch.Value:= " . _rgxMatch.Value
-		;~ MsgBox, , % A_ScriptName, % "_rgxMatch.Value():= " . _rgxMatch.Value()
-		;~ MsgBox, , % A_ScriptName, % "_rgxMatch.Count:= " . _rgxMatch.Count
-		;~ MsgBox, , % A_ScriptName, % "_rgxMatch.Count():= " . _rgxMatch.Count()
+		RegExMatch(_regexHaystack, "O)" . _currentTag, _rgxMatch) ; returns variable, _rgxMatch, as type <Object.RegexMatch>, with information on where the _currentTag was found (if anywhere).
+		_regexCurrentPos := _rgxMatch.Pos(0) + _rgxMatch.Len(0) ; returns the position and character length of the overall match 
 		
 		if (_rgxMatch.Value) { ;~ if _rgxMatch has any hits
-			
-			if (_regexNeedle[A_Index] == "d") {
-				;~ _matchResult := RegExMatch(_regexHaystack, "i)(([\s\S]?day)|(december)|(dd)|(ddd)|(dddd))", 1)
-				_cancelIfTrueResult := RegExMatch(_regexHaystack, "i)((day)|(december)|(dd)|(ddd)|(dddd))", _regexCurrentPos - 1)
-				if (_cancelIfTrueResult)
-					continue
-				else if (!_cancelIfTrueResult)
-					FormatTime, _formattedDateNumber, % p_timeStamp, % _regexNeedle[A_Index]
+			if (_currentTag == "d") {
+				_matchPos := RegExMatch(_regexHaystack, "i)((day)|(december)|(dd)|(ddd)|(dddd))", _regexCurrentPos - 1)
+				if (_matchPos)
+					continue ; short-circuit to next iteration of this loop
+				else if (!_matchPos)
+					FormatTime, _outVar, % p_timeStamp, % _currentTag ; converts the current tag into formatted date-style text
 			}
-			else if (_regexNeedle[A_Index] == "m") {
-				_matchResult := RegExMatch(_regexHaystack, "i)(.*?day\b)|(arch)|(ay)|(ber)|(m)", , _regexCurrentPos)
-				if (_matchResult)
+			else if (_currentTag == "m") {
+				_matchPos := RegExMatch(_regexHaystack, "i)(.*?day\b)|(arch)|(ay)|(ber)|(m)", , _regexCurrentPos)
+				if (_matchPos)
 					continue
-				else if (!_matchResult)
-					FormatTime, _formattedDateNumber, % p_timeStamp, % _regexNeedle[A_Index]
+				else if (!_matchPos)
+					FormatTime, _outVar, % p_timeStamp, % _currentTag
 			}
-			else if (_regexNeedle[A_Index] == "s") {
-				_matchResult := RegExMatch(_regexHaystack, "i)(.*?sday)|(?<=(?:augu))|(eptember)", , _regexCurrentPos - 1)
-				if (_matchResult)
+			else if (_currentTag == "s") {
+				_matchPos := RegExMatch(_regexHaystack, "i)(.*?sday)|(?<=(?:augu))|(eptember)", , _regexCurrentPos - 1)
+				if (_matchPos)
 					continue
-				else if (!_matchResult)
-					FormatTime, _formattedDateNumber, % p_timeStamp, % _regexNeedle[A_Index]
+				else if (!_matchPos)
+					FormatTime, _outVar, % p_timeStamp, % _currentTag
 			}
-			else if (_regexNeedle[A_Index] == "h") {
-				_matchResult := RegExMatch(_regexHaystack, "i)(.*?sday)|(?<=(?:augu))|(eptember)", , _regexCurrentPos)
-				if (_matchResult)
+			else if (_currentTag == "h") {
+				_matchPos := RegExMatch(_regexHaystack, "i)(.*?sday)|(?<=(?:augu))|(eptember)", , _regexCurrentPos)
+				if (_matchPos)
 					continue
-				else if (!_matchResult)
-					FormatTime, _formattedDateNumber, % p_timeStamp, % _regexNeedle[A_Index]
+				else if (!_matchPos)
+					FormatTime, _outVar, % p_timeStamp, % _currentTag
 			}
-			else if (_regexNeedle[A_Index] == "SS")
-				_formattedDateNumber := A_MSec
-			else if (_regexNeedle[A_Index] == "S")
-				_formattedDateNumber := A_MSec + 0 ; removes leading zeros from string output of resulting number value
+			else if (_currentTag == "SS")
+				_outVar := A_MSec
+			else if (_currentTag == "S")
+				_outVar := A_MSec + 0 ; removes leading zeros from output String
 			else
-				FormatTime, _formattedDateNumber, % p_timeStamp, % _regexNeedle[A_Index]
+				FormatTime, _outVar, % p_timeStamp, % _currentTag ; converts the current tag into formatted date-style text
 		}
 		
-		_regexHaystack := RegExReplace(_regexHaystack, _regexNeedle[A_Index], _formattedDateNumber, , 1, 1)
+		_formattedTxt := _outVar
+		
+		/* RegExReplace( in the current iteration of our haystack
+		 *		, the current tag
+		 *		, with the formatted text
+		 *		, (don't worry about counting the times replaced)
+		 *		, start looking from position <1>
+		 *		, and replace <1> time(s))
+		 */
+		_regexHaystack := RegExReplace(_regexHaystack
+					, _currentTag
+					, _formattedTxt
+					, 
+					, 1
+					, 1)
 	}
 	
 	return _retVar := _regexHaystack

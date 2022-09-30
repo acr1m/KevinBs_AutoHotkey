@@ -29,6 +29,7 @@ DetectHiddenWindows, On ;~ Allows a script's hidden main window to be detected.
 SetTitleMatchMode, 2 ;~- 2 = A window's title can contain WinTitle anywhere inside it to be a match.
 
 ;~ set the icon references
+;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\key-s04-green.ico
 #Include %A_ScriptDir%\-lib\TrayIconManager-LIB.ahk
 trayIM := new TrayIconManager()
 trayIM.iconActive :=	"E:\Assets\Icons\_used-icons\key-s04-green.ico"
@@ -248,7 +249,31 @@ myWindowsAEventHandler = new windowsAEventHandler ;~ instantiate a clone of a cl
 	return
 
 ;~ run Voicemeeter
-#s::Run, "C:\Program Files (x86)\VB\Voicemeeter\voicemeeter.exe"
+#s::
+	if (doubleTap()) {
+		
+		storedTitleMatchMode := A_TitleMatchMode
+		SetTitleMatchMode, 1
+		
+		; opens Volume Mixer and moves it to a location on the main window
+		Run, % "sndvol"
+		o := {title:"Volume Mixer ahk_class #32770 ahk_exe sndvol.exe", x:10, y:160, w:1200, h: 350}
+		WinWait, % o.title, , 2 ; wait for 2 seconds max
+		WinMove, % o.title, , o.x, o.y, o.w, o.h
+		
+		; opens Sound control panel and moves it to a location on the main window
+		Run, % "rundll32.exe Shell32.dll,Control_RunDLL Mmsys.cpl,,0"
+		o := {title:"Sound ahk_class #32770 ahk_exe rundll32.exe", x:10, y:520, w:414, h:462} ; KeyA can be a variable reference (KeyA_Var) or encapped with quotes as a string "KeyA_CharName"
+		WinWait, % o.title, , 2 ; wait for 2 seconds max
+		WinMove, % o.title, , o.x, o.y, o.w, o.h
+		SetTitleMatchMode, % storedTitleMatchMode
+		
+	} else {
+		Run, "C:\Program Files (x86)\VB\Voicemeeter\voicemeeter.exe"
+	}
+	
+	return
+
 
 ;~ run Windows Sound Control Panel
 ^#s::Run, "E:\Assets\Scripts\Windows Commands\Sound Control Panel - Playback Tab.bat"
@@ -744,7 +769,7 @@ sendTab() {
 	_file := FileOpen(_fileAddress, "r")
 	if (IsObject(_file) == false) {
 		;~ MsgBox, , % A_ScriptName, % "!IsObject(_file): " . !IsObject(_file)
-		ToolTip, % A_ScriptName . "  IsObject(_file): " . IsObject(_file)
+		main_showTooltip(A_ScriptName . "  IsObject(_file): " . IsObject(_file))
 	}
 	_str := _file.Read()
 	Clipboard := _str
@@ -831,3 +856,53 @@ NumpadMult::
 NumpadMult up::
 	main_sendIfReleased()
 	return
+
+
+;;██████████████████████████████████████████████████████████████████████████████
+;~ Greek Letters
+;;██████████████████████████████████████████████████████████████████████████████
+{
+;~ #Hotstring C ;~ [C] case sensitive
+;~ letters are automatically replaced/matched with Capitalization of replaced string.
+#Hotstring ?	;~ turns on "if-suffix" trigger
+::alpha;::α
+::beta;::β
+::gamma;::γ
+::delta;::δ
+::epsilon;::ε
+::zeta;::ζ
+::eta;::η
+::theta;::θ
+::iota;::ι
+::kappa;::κ
+::lambda;::λ
+::mu;::μ
+::nu;::ν
+::xi;::ξ
+::omicron;::ο
+::pi;::π
+::rho;::ρ
+::sigma;::σ
+::fsigma;::ς
+::sigmaf;::ς
+::tau;::τ
+::upsilon;::υ
+::phi;::φ
+::chi;::χ
+::psi;::ψ
+::omega;::ω
+::+-;::±
+::^3;::³
+::^2;::²
+::^1;::¹
+::half;::½
+::1/2;::½
+::quarter;::¼
+::1/4;::¼
+::3/4;::¾
+;~ #Hotstring C0 ;~ [C0] turn off case sensitive
+#Hotstring ?0	;~ turns off "if-suffix" trigger
+
+#Hotstring C0 O0 ?0 *0		;~ Reset Hotstring directives
+}
+;;██████████████████████████████████████████████████████████████████████████████

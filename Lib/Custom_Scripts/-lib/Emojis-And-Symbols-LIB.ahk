@@ -121,7 +121,7 @@ global g_firstKissCall := 0
 ::sup=;::
 	pasteClipboard("⊇") ;;U+2287 (8839) 		⊇ 	SUPERSET OF OR EQUAL TO
 	return
-::sigma;::
+:C:Sigma;::
 ::summation;::
 ::sum;::
 	pasteClipboard("∑") ;;U+2211 (8721) 		∑	N-ARY SUMMATION
@@ -215,9 +215,10 @@ global g_firstKissCall := 0
 ::bpi;::
 	pasteClipboard("𝛑")
 	return
-::pi;::
-	pasteClipboard("π") ;; Θ (227)		π	pi
-	return
+/* ::pi;::
+ * 	pasteClipboard("π") ;; π (227)		π	pi
+ * 	return
+ */
 ::union;::
 :C:U;::
 	pasteClipboard("∪") ;; U+222A (8746) 		∪ 	UNION

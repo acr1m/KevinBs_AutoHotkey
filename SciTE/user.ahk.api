@@ -1091,8 +1091,8 @@ Thread, Setting, P2 [, P3]
 throw Expression
 Tile
 time
-time_getDate(p_dateFormat := "yyyyMMddHHmmss", p_timeStamp := "", p_showMsg := false)
-time_sendDate(p_dateFormat := "yyyyMMddHHmmss", p_timeStamp := "")
+time_getDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_timeStamp := "", p_showMsg := false)
+time_sendDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_timeStamp := "")
 time_translateDate(p_timeShift, p_timeUnit := "Days", p_format := "yyyyMMddHHmmss", p_appendMilliSeconds := false)
 time_difference(p_date, p_initialDate := "", p_timeUnit := "Days", p_format := "yyyyMMddHHmmss")
 time_differenceInDays(p_date, p_initialDate := "")

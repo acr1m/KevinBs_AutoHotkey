@@ -15,7 +15,7 @@
 
 #x::gosub, label_OpenExcel
 
-#Insert:: ;{ 
+#!Insert:: ;{ 
 	KeyWait, Insert
 	KeyWait, LWin
 	gosub, label_OpenExcel
@@ -38,7 +38,12 @@ label_OpenExcel: ;{
 	return
 ;}
 
-#Insert:: ;{ 
+/* Win+Insert
+ *	-	Finds and activates Excel client and writes a time stamp onto the cell at 
+ *		the bottom of the first and leftmost blocks of cell data by using the
+ *		[Ctrl+Down] shortcut.
+ */
+#!Insert:: ;{ 
 	;~ MsgBox,,, % "Msg from `n#IfWinExist EXCEL `n#Insert::", % 3
 	KeyWait, Insert
 	KeyWait, LWin
@@ -179,7 +184,9 @@ excel_StampTimeCurrent() {
 	;; new method
 	;~ FormatTime, Clipboard
 	;~ FormatTime, Clipboard, , yyyy/MM/dd hh:mm:ss tt
-	FormatTime, outputVar, , yyyy/MM/dd hh:mm:ss tt
+	;~ FormatTime, outputVar, , yyyy/MM/dd hh:mm:ss tt
+	;~ outputVar := time_getDate("yyyy/MM/dd hh:mm:ss SS t tt")
+	outputVar := time_getDate("yyyy/MM/dd hh:mm:ss tt")
 	;~ MsgBox, % outputVar
 	SetKeyDelay, -1
 	Send, %outputVar%{Tab}{Left}
