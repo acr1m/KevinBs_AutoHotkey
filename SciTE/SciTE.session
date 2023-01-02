@@ -1,26 +1,25 @@
 # SciTE session file
 
-position.left=-994
-position.top=247
+position.left=697
+position.top=155
 position.width=974
 position.height=803
-position.maximize=0
+position.maximize=1
 
 mru.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-scratch\scratchfile.ahk
 mru.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-scratch\gui-01-popup-window.ahk
 mru.3.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\SciTE4AutoHotkey-WIN.ahk
 mru.4.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\TrayIconManager-LIB.ahk
-mru.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\firefox-WIN.ahk
-mru.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-macros\firefox-rightclick-save-macro.ahk
-mru.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\Excel-WIN.ahk
-mru.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\Emojis-And-Symbols-LIB.ahk
-mru.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Math-Keyboard-AHK.ahk
-mru.10.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-macros\photoshop-macros.ahk
+mru.5.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-utility\Unicode-Cursive-UTILITY.ahk
+mru.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Copied_Scripts\inputHook-example1.ahk
+mru.7.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\AhkAbbrevs.properties
+mru.8.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
+mru.9.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
+mru.10.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-scratch\Char-code-list.ahk
 
 buffer.1.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Main-AHK.ahk
-buffer.1.position=24160
+buffer.1.position=24209
 buffer.1.scroll=863
-buffer.1.current=1
 buffer.1.bookmarks=830
 
 buffer.2.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\Main-Method-Library-LIB.ahk
@@ -45,28 +44,28 @@ buffer.6.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\T
 buffer.6.position=1271
 buffer.6.scroll=25
 
-buffer.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\firefox-WIN.ahk
-buffer.7.position=60
-buffer.7.scroll=0
+buffer.7.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-utility\Unicode-Cursive-UTILITY.ahk
+buffer.7.position=2125
+buffer.7.scroll=70
 
-buffer.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-macros\firefox-rightclick-save-macro.ahk
-buffer.8.position=1071
+buffer.8.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Copied_Scripts\inputHook-example1.ahk
+buffer.8.position=141
 buffer.8.scroll=0
+buffer.8.current=1
 
-buffer.9.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-win\Excel-WIN.ahk
-buffer.9.position=4254
-buffer.9.scroll=159
-buffer.9.bookmarks=188
+buffer.9.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\AhkAbbrevs.properties
+buffer.9.position=1
+buffer.9.scroll=0
 
-buffer.10.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\Emojis-And-Symbols-LIB.ahk
-buffer.10.position=4830
-buffer.10.scroll=186
+buffer.10.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\SciTEUser.properties
+buffer.10.position=1704
+buffer.10.scroll=15
 
-buffer.11.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Math-Keyboard-AHK.ahk
-buffer.11.position=21407
-buffer.11.scroll=760
+buffer.11.path=E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api
+buffer.11.position=27045
+buffer.11.scroll=623
+buffer.11.bookmarks=632
 
-buffer.12.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-macros\photoshop-macros.ahk
-buffer.12.position=4884
-buffer.12.scroll=103
-buffer.12.folds=35,99,104
+buffer.12.path=E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-scratch\Char-code-list.ahk
+buffer.12.position=56
+buffer.12.scroll=0
