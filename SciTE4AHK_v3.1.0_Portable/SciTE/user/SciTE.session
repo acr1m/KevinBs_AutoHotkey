@@ -1,0 +1,26 @@
+# SciTE session file
+
+position.left=364
+position.top=188
+position.width=1440
+position.height=739
+position.maximize=0
+
+mru.1.path=C:\Users\kevin\OneDrive\Documents\AutoHotkey\SciTE4AHK_v3.1.0_Portable\SciTE\SciTEGlobal.properties
+mru.2.path=C:\Users\kevin\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Main-AHK.ahk
+mru.3.path=C:\Users\kevin\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\Main-Method-Library-LIB.ahk
+mru.4.path=C:\Users\kevin\OneDrive\Documents\AutoHotkey\SciTE4AHK_v3.1.0_Portable\SciTE\ahk.properties
+
+buffer.1.path=C:\Users\kevin\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Main-AHK.ahk
+buffer.1.position=10422
+buffer.1.scroll=282
+
+buffer.2.path=C:\Users\kevin\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\Main-Method-Library-LIB.ahk
+buffer.2.position=18292
+buffer.2.scroll=591
+buffer.2.bookmarks=591
+
+buffer.3.path=C:\Users\kevin\OneDrive\Documents\AutoHotkey\SciTE4AHK_v3.1.0_Portable\SciTE\ahk.properties
+buffer.3.position=240
+buffer.3.scroll=0
+buffer.3.current=1
