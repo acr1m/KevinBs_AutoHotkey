@@ -630,6 +630,7 @@ IniDelete, Filename, Section [, Key]
 IniRead, OutputVar, Filename [, Section, Key, Default]
 IniWrite, Value, Filename, Section [, Key]
 Input [, OutputVar, Options, EndKeys, MatchList]
+InputHook() [v1.1.31+]\n\nCreates an object which can be used to collect or intercept keyboard input.\n\nInputHook := InputHook(Options, EndKeys, MatchList)
 InputBox, OutputVar [, Title, Prompt, HIDE, Width, Height, X, Y, Font, Timeout, Default]
 Ins
 Insert
