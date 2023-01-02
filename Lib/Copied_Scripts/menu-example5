@@ -1,0 +1,21 @@
+;~ #5: Demonstrates the usage of BoundFunc objects to pass additional parameters when using a function instead of a subroutine.
+
+; Bind parameters to the function and return BoundFunc objects:
+BoundGivePar := Func("GivePar").Bind("First", "Test one")
+BoundGivePar2 := Func("GivePar").Bind("Second", "Test two")
+
+; Create the menu and show it:
+Menu MyMenu, Add, Give parameters, % BoundGivePar
+Menu MyMenu, Add, Give parameters2, % BoundGivePar2
+Menu MyMenu, Show
+
+; Definition of custom function GivePar:
+GivePar(a, b, ItemName, ItemPos, MenuName)
+{
+    MsgBox % "a:`t`t" a "`n"
+           . "b:`t`t" b "`n"
+           . "ItemName:`t" ItemName "`n"
+           . "ItemPos:`t`t" ItemPos "`n"
+           . "MenuName:`t" MenuName
+}
+

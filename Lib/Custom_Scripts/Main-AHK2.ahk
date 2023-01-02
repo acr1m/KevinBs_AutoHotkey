@@ -35,18 +35,25 @@ SetTitleMatchMode, 2 ;~- 2 = A window's title can contain WinTitle anywhere insi
 ;~ Tray Icons and Commands ;{
 ;##########################################################################
 ;~ set the icon references
-;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\key-s04-green.ico
-#Include %A_ScriptDir%\-lib\TrayIconManager-LIB.ahk
-trayIM := new TrayIconManager()
-trayIM.iconActive :=	"E:\Assets\Icons\_used-icons\key-s04-green.ico"
-trayIM.iconSuspended :=	"E:\Assets\Icons\_used-icons\key-s04-blue.ico"
-trayIM.iconPaused :=	"E:\Assets\Icons\_used-icons\key-s04-yellow.ico"
-trayIM.iconInactive :=	"E:\Assets\Icons\_used-icons\key-s04-red.ico"
-;~ trayIM.start(true) ; shows standard tray-icon menu items
-trayIM.start()
+/* ;~ ;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\key-s04-green.ico
+ * #Include %A_ScriptDir%\-lib\TrayIconManager-LIB.ahk
+ * trayIM := new TrayIconManager()
+ * trayIM.iconActive :=	"E:\Assets\Icons\_used-icons\key-s04-green.ico"
+ * trayIM.iconSuspended :=	"E:\Assets\Icons\_used-icons\key-s04-blue.ico"
+ * trayIM.iconPaused :=	"E:\Assets\Icons\_used-icons\key-s04-yellow.ico"
+ * trayIM.iconInactive :=	"E:\Assets\Icons\_used-icons\key-s04-red.ico"
+ * ;~ trayIM.start(true) ; shows standard tray-icon menu items
+ * trayIM.start()
+ */
+
+
+;~ Menu, Tray, Delete , % "Exit"
+;~ Menu, Tray, Delete, Exit
 
 global g_MenuItemName_ScrollWheelToggle := "Scroll Wheel"
-Menu, Tray, Add, % g_MenuItemName_ScrollWheelToggle, % Func("toggleScrollWheelListener")
+ref := Func("toggleScrollWheelListener")
+Menu, Tray, Add, % g_MenuItemName_ScrollWheelToggle, % ref
+Menu, Tray, Check, % g_MenuItemName_ScrollWheelToggle
 
 ; change the target function for the menu item "Exit"
 tgtFunc_menuExit := Func("exitScript")
@@ -89,6 +96,7 @@ global g_scrollWheel_startTime
 global g_genericTapperCount := 0
 global g_b_capsLockState := GetKeyState("CapsLock", "T")
 global g_b_ScrollWheelListener := true
+global g_b_ScrollWheelTooltip := false
 ;}
 
 main_runHorizScrollingUtility()
@@ -311,18 +319,37 @@ Lbl_Run_Scroll_Speed_Tooltip:
 	;~ "E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts\-gui\GUI-Scroll-Speed-Monitoring.ahk"
 	;~ Run, autohotkey.exe %A_ScriptDir%\-gui\Scroll-Speed-Monitoring-GUI.ahk
 	*/
+/*
+	if	 	swl		tooltip		toggle tooltip ??
+			0		0			no
+			0		1			no
+			1		0			yes, tt:=1
+			1		1			yes, tt:=0
+*/
+	; if listener is ON, then toggle the tooltip and output str
+	outStr := ""
+	if (g_b_ScrollWheelListener) {
+		g_b_ScrollWheelTooltip := !g_b_ScrollWheelTooltip
+		outStr := (g_b_ScrollWheelTooltip ? "Scroll Wheel: ON,`tTooltip: ON" : "Scroll Wheel: ON,`tTooltip: OFF")
+	}
+	else {
+		outStr := (g_b_ScrollWheelTooltip ? "Scroll Wheel: OFF,`tTooltip: ON" : "Scroll Wheel: OFF,`tTooltip: OFF")
+	}
+	main_ShowTooltip(outStr)
 
-	; toggle the global variable "g_b_ScrollWheelListener", which is referenced by ⌈~$WheelUp⌋ and ⌈~$WheelDown⌋ hotkey methods
-	g_b_ScrollWheelListener := !g_b_ScrollWheelListener
-	main_ShowTooltip(g_b_ScrollWheelListener)
 	return  ;}
 ;~ this section handles the method of scroll-wheel input-output speed
 Lbl_Scroll_Wheel_Speed:
 
 ~$WheelUp:: ;{
 	if (g_b_ScrollWheelListener){
+
 		i := main_scrollMethod_01() - 1
-		main_showToolTip(i)
+
+		if(g_b_ScrollWheelTooltip) {
+			main_showToolTip(i)
+		}
+
 		Send, {Blind}{WheelUp %i%}
 	}
 	return
@@ -330,9 +357,13 @@ Lbl_Scroll_Wheel_Speed:
 
 ~$WheelDown:: ;{
 	if (g_b_ScrollWheelListener){
+
 		i := main_scrollMethod_01() - 1
-		;~ main_scrollMethod_01()
-		main_showToolTip(i)
+
+		if(g_b_ScrollWheelTooltip) {
+			main_showToolTip(i)
+		}
+
 		Send, {Blind}{WheelDown %i%}
 	}
 	return

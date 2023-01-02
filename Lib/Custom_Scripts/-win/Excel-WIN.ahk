@@ -15,7 +15,7 @@
 
 #x::gosub, label_OpenExcel
 
-#!Insert:: ;{ 
+#!Insert:: ;{
 	KeyWait, Insert
 	KeyWait, LWin
 	gosub, label_OpenExcel
@@ -24,26 +24,27 @@
 	return
 ;}
 
-label_OpenExcel: ;{ 
-	#Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-win\
-	#Include Excel-filepaths-WIN.ahk
+label_OpenExcel: ;{
+	;~ #Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-win\
+	;~ #Include %OneDrive%\Documents\AutoHotkey\Lib\Custom_Scripts\-win\
+	#Include %A_LineFile%\..\Excel-filepaths-WIN.ahk
 	Run, %filePathFor_Excel% %filePathFor_Excel_doc%
 	return
 ;}
 
-#IfWinExist ahk_class XLMAIN ahk_exe EXCEL.EXE 
-#x:: ;{ 
+#IfWinExist ahk_class XLMAIN ahk_exe EXCEL.EXE
+#x:: ;{
 	;~ MsgBox,,, % "Msg from `n#IfWinExist EXCEL`n#x::", % 3
 	WinActivate ; Activates the window found by the above #IfWin directive.
 	return
 ;}
 
 /* Win+Insert
- *	-	Finds and activates Excel client and writes a time stamp onto the cell at 
+ *	-	Finds and activates Excel client and writes a time stamp onto the cell at
  *		the bottom of the first and leftmost blocks of cell data by using the
  *		[Ctrl+Down] shortcut.
  */
-#!Insert:: ;{ 
+#!Insert:: ;{
 	;~ MsgBox,,, % "Msg from `n#IfWinExist EXCEL `n#Insert::", % 3
 	KeyWait, Insert
 	KeyWait, LWin
@@ -54,14 +55,14 @@ label_OpenExcel: ;{
 	return
 ;}
 
-#IfWinActive ahk_class XLMAIN ahk_exe EXCEL.EXE 
+#IfWinActive ahk_class XLMAIN ahk_exe EXCEL.EXE
 
 ;;Scroll Left
 +WheelUp:: ;{
 	SetScrollLockState, On
 	Send, {Left}
 	SetScrollLockState, Off
-	return	
+	return
 ;}
 
 ;;Scroll Right
@@ -84,14 +85,14 @@ label_OpenExcel: ;{
 ;TIME-STAMP FUNCTION
 Insert::excel_StampTimeCurrent()
 
-/* 	This code encapsulates or surrounds a cell's formula 
+/* 	This code encapsulates or surrounds a cell's formula
 * 		with an IFERROR(__,IF(__)) block that will effectively
 * 		hide resulting cell values that result in zero or less
 * 		without having to mess with excel's "conditional formatting".
 * Known Issues
-* 		- Will delete the first character, always. So make sure there's 
+* 		- Will delete the first character, always. So make sure there's
 *		an "=" for the first character of the cell's contents.
-* 	
+*
 */
 ^+i::excel_EncapIfErrorIf()
 
@@ -101,11 +102,11 @@ Insert::excel_StampTimeCurrent()
 	excel_Hotkey_LWinInsert()
 	return
 ;}
-  
+
 #IfWinActive
 
 ;LABELS
-excel_ActivateDrawBorderTool() { 
+excel_ActivateDrawBorderTool() {
 	;~ Send, {Alt}
 	;~ Send, hbw
 	Send, {Alt}hbw
@@ -136,14 +137,14 @@ excel_EncapIfErrorIf() {
 	clipArchive := ClipboardAll
 	Clipboard :=
 	;edit cell contents
-		Send, {F2} 
+		Send, {F2}
 	;select all except the beginning "=" sign
-		Send, ^{Home}{Right}{ShiftDown}^{End}{ShiftUp} 
+		Send, ^{Home}{Right}{ShiftDown}^{End}{ShiftUp}
 	;cut
-		Send, ^x 
+		Send, ^x
 	;wait for clipboard to have content before proceeding
 		ClipWait, 1 ;wait for 1 second
-		if ErrorLevel 
+		if ErrorLevel
 		{
 			MsgBox, The attempt to copy text onto the clipboard failed.
 			return
@@ -156,7 +157,7 @@ excel_EncapIfErrorIf() {
 	;past cell's contents as inner formula, again
 		Send, ^v
 	;closing statement parentheses and empty string values
-	;for output in case false or error 
+	;for output in case false or error
 		Send, ),`"`"),`"`")
 	;confirm new cell contents by hitting enter
 		Send, {Enter}
@@ -196,19 +197,19 @@ excel_StampTimeCurrent() {
 	;~ SendRaw, % timeStamp
 	;~ Send, {Enter}
 	;~ SetKeyDelay, Default
-	
+
 	;; old method
 /*	SetKeyDelay, 100
- * 	
+ *
  * 	clipHolder := ClipboardAll
  * 	Clipboard := "=now()"
- * 	
+ *
  * 	Send, ^v
  * 	KeyWait, Ctrl
- * 	
+ *
  * 	Send, ^c
- * 	KeyWait, Ctrl		
- * 	
+ * 	KeyWait, Ctrl
+ *
  * 	Send, {Alt}
  * 	KeyWait, Alt
  * 	Send, h
@@ -220,9 +221,9 @@ excel_StampTimeCurrent() {
  * 	Send, {Escape}
  * 	KeyWait, Escape
  * 	Send, {Escape}
- * 	
+ *
  * 	;~ Clipboard := clipHolder
- * 	
+ *
  * 	SetKeyDelay, Default
  */
 	SetKeyDelay, 0
