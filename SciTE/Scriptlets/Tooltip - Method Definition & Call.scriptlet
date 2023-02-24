@@ -1,0 +1,18 @@
+﻿
+showToolTip("____someText____", 5000)
+
+showToolTip(p_tooltipText, p_timeOut := 5000) {
+
+	MouseGetPos, mX, mY
+	ToolTip, % p_tooltipText, % mX + 10, % mY - 60
+
+	; wait for p_timeOut run once (if resulting value is negative)
+	;~ timeOut := -1 * p_timeOut
+	SetTimer, Lbl_HideToolTip, % -1 * (p_timeOut)
+	return
+
+	; wait for time and runs once (if SetTimer value is negative)
+	Lbl_HideToolTip:
+		ToolTip, % ""
+		return
+}

@@ -1,0 +1,4 @@
+﻿;~ Menu, MenuName, Delete [, MenuItemName]
+menuName := "____someName____"
+menuItemName := "____someName____"
+Menu, % menuName, Delete, % menuItemName

@@ -1,0 +1,3 @@
+﻿p_tooltipText := "____someText____"
+p_timeOut := 5000 ; milliseconds
+main_showToolTip(p_tooltipText, p_timeOut)
