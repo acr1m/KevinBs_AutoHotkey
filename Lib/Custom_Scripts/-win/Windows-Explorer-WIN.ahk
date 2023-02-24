@@ -22,8 +22,21 @@ MButton::
 		; listener key to false for the next occurence.
 		; g_DOUBLE_TAP_LIMIT approximately 350 milliseconds atm
 	if (A_ThisHotkey = A_PriorHotkey && A_TimeSincePriorHotkey < g_DOUBLE_TAP_LIMIT) {
+		
+/* 		Remark: - default SendMode == SendEvent
+ *				- default KeyDelay for SendEvent == 10 milliseconds 
+ */
+		; store current key delay 
+		v := A_KeyDelay
+		
+		SetKeyDelay, 20 ; in milliseconds
+		
 		; Toggle Left Folder Navigation Panel
-		Send, !vn{Enter}
+		Send, {Alt}vn{Enter}
+		
+		; restore key delay
+		SetKeyDelay, % v ; in milliseconds
+		
 	}
 	; Toggle Right Preview Panel
 	Send, !p

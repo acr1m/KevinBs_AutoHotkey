@@ -14,13 +14,16 @@
 
 #IfWinActive
 ::??getNow;::
+::??now;::
 	SetTimer, Lbl_getNow, -250
 	return
 ::??getDate;::
-	SetTimer, Lbl_getDateWithClipboard, -250 ;; wait 250 milliseconds and then do sub once
+::??date;::
+	SetTimer, Lbl_getDateWithClipboard, -250 ; wait 250 milliseconds and then do sub once
 	return
 ::??getToday;::
-	SetTimer, Lbl_getToday, -250 ;; wait 250 milliseconds and then do sub once
+::??today;::
+	SetTimer, Lbl_getToday, -250 ; wait 250 milliseconds and then do sub once
 	return
 
 

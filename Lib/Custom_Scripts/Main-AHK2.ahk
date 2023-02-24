@@ -66,10 +66,10 @@ Menu, Tray, Add, % "Exit", % tgtFunc_menuExit
  * Utilizes the included script library "run()-LIB.ahk" method "run_AsAdmin()"
  */
 
-/*
+
 showRunAsAdminMsgBox := false
 run_AsAdmin(,showRunAsAdminMsgBox) ; (,true) = show msgbox result
-*/
+
 
 
 Lbl_Global_Constants: ;{

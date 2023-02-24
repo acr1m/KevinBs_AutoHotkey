@@ -27,42 +27,42 @@
 ;; #Include Horizontal-Scrolling-UTILITY.ahk
 ;; #Include Generate-Lorem-Ipsum-UTILITY.ahk  ;}
 
-::??todo::
+::??todo;::
 	;;TODO (20220725_171752_318): finish this todo hotstring
 	return
 
-::??!genshin::
+::??!genshin;::
 	;~ do nothing (uses firefox custom bang addon to handle custom Genshin Impact wiki search requests)	
 	return
 
-::??math input::
-::??latex::
+::??math_input;::
+::??latex;::
 	Run, firefox.exe "https://csdn.codecogs.com/eqneditor/editor.php"
 	return
 
-::??pcre reference::
-::??pcrereference::
-::??pcre ref::
-::??pcreref::
-::??pcre::
+::??pcre reference;::
+::??pcrereference;::
+::??pcre_ref;::
+::??pcreRef;::
+::??pcre;::
 	Run, firefox.exe "https://www.pcre.org/original/doc/html/pcresyntax.html"
 	Run, firefox.exe "https://www.pcre.org/original/doc/html/pcrepattern.html"
 	return
 
-::??ahkapi::
-::??ahk.api::
-::??userahkapi::
-::??user.ahk.api::
-::??open user.ahk.api::
-::??open userahkapi::
+::??ahkapi;::
+::??ahk.api;::
+::??userahkapi;::
+::??user.ahk.api;::
+::??open user.ahk.api;::
+::??open userahkapi;::
 	targetFile := "E:\Library\OneDrive\Documents\AutoHotkey\SciTE\user.ahk.api"
 	Run, %g_SCITE_4AHK_EXE% %targetFile% ;; vars defined in main.ahk
 	return
 
-::??my.brain.fm::
-::??brain.fm::
-::??brainfm::
-::??brain::
+::??my.brain.fm;::
+::??brain.fm;::
+::??brainfm;::
+::??brain;::
 	;~ pwrRun_newFirefoxWindow("https://my.brain.fm/")
 	;~ pwrRun_newChromeWindow("https://my.brain.fm/")
 	outputVarPID := ""
@@ -89,19 +89,23 @@
 	return
 
 #IfWinActive
-::??convertCharCode::
-::??ccc::
-::??getCharCode::
-::??gcc::
+::??getUnicode;::
+::??getAltCode;::
+::??getCharVal;::
+::??getChar;::
+::??convertCharCode;::
+::??ccc;::
+::??getCharCode;::
+::??gcc;::
 	targetScript := A_LineFile . "\..\-utility\Char-Code-UTILITY.ahk" 
 	Run, %A_AhkPath% %targetScript%,,,pid_outVar
 	return
 
 #IfWinActive ahk_exe PowerToys.PowerLauncher.exe
-::??apiconvert::
-::??convertapi::
-::??convertahkapi::
-::??capi:: ;{
+::??apiconvert;::
+::??convertapi;::
+::??convertahkapi;::
+::??capi;:: ;{
 	pwrRun_clearText()
 	;regex_convertText_SciTE_API(p_replaceSelection, p_useClipboard)
 	regex_convertText_SciTE_API(false, true)
@@ -109,7 +113,7 @@
 ;}
 
 ;; Runs the Optical Character Recognition (OCR) tool from ShareX ;{
-::??ocr::
+::??ocr;::
 	pwrRun_clearText()
 	
 	;; WinClose, ahk_exe PowerToys.PowerLauncher.exe
@@ -125,30 +129,30 @@
 ;; AHK DOCUMENTS----------------------------------------------------------------
 
 ;; opens "Emojis-And-Symbols-LIB.ahk"
-::??emoji::
-::??emojiahk::
-::??emoji.ahk:: 
-::??symbols::
-::??symbolsahk::
-::??symbols.ahk::
-::??emojisymbols::
-::??emojisymbolsahk::
-::??emojisymbols.ahk:: ;{
+::??emoji;::
+::??emojiahk;::
+::??emoji.ahk;:: 
+::??symbols;::
+::??symbolsahk;::
+::??symbols.ahk;::
+::??emojisymbols;::
+::??emojisymbolsahk;::
+::??emojisymbols.ahk;:: ;{
 	Run, %g_SCITE_4AHK_EXE% %g_EMOJI_AHK_FILE% ;; vars defined in main.ahk
 	return
 ;}
 
 ;; opens "Main-AHK.ahk"
-::??mainahk::
-::??main.ahk:: ;{
+::??mainahk;::
+::??main.ahk;:: ;{
 	Run, %g_SCITE_4AHK_EXE% %g_MAIN_AHK_FILE% ;; vars defined in main.ahk
 	return
 ;}
 
 ;; opens "PowerRun-WIN.ahk"
-::??pwrrun::
-::??pwrrunahk::
-::??pwrrun.ahk:: ;{
+::??pwrrun;::
+::??pwrrunahk;::
+::??pwrrun.ahk;:: ;{
 	Run, %g_SCITE_4AHK_EXE% %g_PWRRUN_AHK_FILE% ;; vars defined in main.ahk
 	return
 ;}
@@ -158,31 +162,31 @@
 
 
 ;; opens a new tab in Firefox and activates the address bar for typing
-::??firefoxsearch::
-::??ffsearch::
-::??ff:: ;{ 
+::??firefoxsearch;::
+::??ffsearch;::
+::??ff;:: ;{ 
 	pwrRun_fireFoxSearch()
 	return
 ;}
 
 ;; opens firefox and sets the address bar to the shortcut for WordHippo's search bar
-::??!w::
-::??word::
-::??wordHippo:: ;{
+::??!w;::
+::??word;::
+::??wordHippo;:: ;{
 	pwrRun_fireFoxSearch("!wordhippo") ;~ !wordhippo is the 'bang' command for DuckDuckGo search engine
 	return 
 ;}
 
 
-::??amazonorders::
-::??amazon::
-::??orders:: ;{
+::??amazonorders;::
+::??amazon;::
+::??orders;:: ;{
 	pwrRun_newChromeWindow("https://www.amazon.com/gp/css/order-history?ref_=nav_orders_first")
 	return
 ;}
 	
-::??target::
-::??groceries:: ;{
+::??target;::
+::??groceries;:: ;{
 	lW := {x: -7, y: 0, w: 974, h: 1048} ;~ left window dimensions
 	rW := {x: 953, y: 0, w: 974, h: 1048} ;~ right window dimensions
 	pwrRun_newChromeWindow("target.com", lW)
@@ -191,20 +195,20 @@
 ;}
 
 ;; opens (https://regexr.com) in Firefox
-::??regexr:: ;{ 
+::??regexr;:: ;{ 
 	Run, Firefox.exe "https://regexr.com/"
 	return 
 ;}
 
 ;; opens a color-mixer
-::??blend::
-::??color Mix::
-::??color Mixer::
-::??colorblend::
-::??colorMix::
-::??colorMixer::
-::??colormixer::
-::??color mixer:: ;{
+::??blend;::
+::??color Mix;::
+::??color Mixer;::
+::??colorblend;::
+::??colorMix;::
+::??colorMixer;::
+::??colormixer;::
+::??color mixer;:: ;{
 	Run, Firefox.exe "https://colordesigner.io/gradient-generator"
 	;; Run, Firefox.exe "https://www.w3schools.com/colors/colors_mixer.asp"
 	return
@@ -212,24 +216,24 @@
 
 ;; opens a color-picker
 Lbl_Color_Picker:
-::??color Pick::
-::??color Picker::
-::??colorPick:: ;{
+::??color Pick;::
+::??color Picker;::
+::??colorPick;:: ;{
 	Run, Firefox.exe "https://www.w3schools.com/colors/colors_picker.asp"
 	return  ;}
 
 ;; opens color-name website
-::??color name::
-::??color names::
-::??colorName::
-::??colorNames:: ;{
+::??color name;::
+::??color names;::
+::??colorName;::
+::??colorNames;:: ;{
 	Run, Firefox.exe "https://www.w3schools.com/colors/colors_names.asp"
 	return  ;}
 
 ;; opens anime schedule shortcut (livechart.me/timetable)
-::??anime::
-::??liveChart.me::
-::??liveChart:: ;{
+::??anime;::
+::??liveChart.me;::
+::??liveChart;:: ;{
 	v_domain := "https://www.livechart.me/timetable?date="
 	v_date := time_translateDate(-3, ,"yyyy-MM-dd")
 	v_target := v_domain . v_date
@@ -240,16 +244,16 @@ Lbl_Color_Picker:
 
 ;; sorts selection and replaces it
 Lbl_Regex_Sort_Selection: ;{
-::??sortLines::
-::??sortSelection::
+::??sortLines;::
+::??sortSelection;::
 	regex_selection_sortAndPaste()
 	return  ;}
 
 ;; sorts most recent clipboard content
 Lbl_Regex_Sort_Clipboard: ;{
-::??sort::
-::??sortclip::
-::??sortclipboard::
+::??sort;::
+::??sortclip;::
+::??sortclipboard;::
 	regex_clipboard_sort()
 	MsgBox, 0, Clipboard Sorted, Clipboard sorted`, ready to paste. , 3
 	return  ;}
@@ -258,82 +262,82 @@ Lbl_Regex_Sort_Clipboard: ;{
 
 ;; runs regex_parseDocumentForFunctions and assigns it to Clipboard
 Lbl_Regex_Parse_Document_For_Functions: ;{ 
-::??parse api::
-::??parseapi::
-::??papi::
-::??getmethods::
-::??getfuncs::
-::??getfunctions::
-::??get functions::
-::??parse document for functions::
-::??parse for functions::
-::??parseDocumentForFunctions::
-::??parseForFunctions::
+::??parse api;::
+::??parseapi;::
+::??papi;::
+::??getmethods;::
+::??getfuncs;::
+::??getfunctions;::
+::??get functions;::
+::??parse document for functions;::
+::??parse for functions;::
+::??parseDocumentForFunctions;::
+::??parseForFunctions;::
 	pwrRun_clearText(500)
 	Clipboard := regex_parseDocumentForFunctions()
 	return  ;}
 
 ;; runs the lorem-ipsum text method
 Lbl_Generate_Lorem_Ipsum: ;{ 
-::??ipsum::
-::??lipsum::
-::??loremipsum::
+::??ipsum;::
+::??lipsum;::
+::??loremipsum;::
 	pwrRun_loremIpsumTextMethod()
 	return
-::??ipsum1::
-::??lipsum1::
-::??loremipsum1::
+::??ipsum1;::
+::??lipsum1;::
+::??loremipsum1;::
 	pwrRun_loremIpsumTextMethod(1)
 	return
-::??ipsum2::
-::??lipsum2::
-::??loremipsum2::
+::??ipsum2;::
+::??lipsum2;::
+::??loremipsum2;::
 	pwrRun_loremIpsumTextMethod(2)
 	return
-::??ipsum3::
-::??lipsum3::
-::??loremipsum3::
+::??ipsum3;::
+::??lipsum3;::
+::??loremipsum3;::
 	pwrRun_loremIpsumTextMethod(3)
 	return
-::??ipsum4::
-::??lipsum4::
-::??loremipsum4::
+::??ipsum4;::
+::??lipsum4;::
+::??loremipsum4;::
 	pwrRun_loremIpsumTextMethod(4)
 	return
-::??ipsum5::
-::??lipsum5::
-::??loremipsum5::
+::??ipsum5;::
+::??lipsum5;::
+::??loremipsum5;::
 	pwrRun_loremIpsumTextMethod(5)
 	return
-::??ipsum6::
-::??lipsum6::
-::??loremipsum6::
+::??ipsum6;::
+::??lipsum6;::
+::??loremipsum6;::
 	pwrRun_loremIpsumTextMethod(6)
 	return
-::??ipsum7::
-::??lipsum7::
-::??loremipsum7::
+::??ipsum7;::
+::??lipsum7;::
+::??loremipsum7;::
 	pwrRun_loremIpsumTextMethod(7)
 	return
-::??ipsum8::
-::??lipsum8::
-::??loremipsum8::
+::??ipsum8;::
+::??lipsum8;::
+::??loremipsum8;::
 	pwrRun_loremIpsumTextMethod(8)
 	return
-::??ipsum9::
-::??lipsum9::
-::??loremipsum9::
+::??ipsum9;::
+::??lipsum9;::
+::??loremipsum9;::
 	pwrRun_loremIpsumTextMethod(9)
 	return
-::??ipsum10::
-::??lipsum10::
-::??loremipsum10::
+::??ipsum10;::
+::??lipsum10;::
+::??loremipsum10;::
 	pwrRun_loremIpsumTextMethod(10)
 	return  ;}
 
 ;; opens the WindowSpy.ahk GUI
 Lbl_Window_Spy: ;{ 
-::??windowspy::
+::??windowspy;::
 	Run, autohotkey.exe %A_AhkPath%\..\WindowSpy.ahk
 	return  ;}
 	
