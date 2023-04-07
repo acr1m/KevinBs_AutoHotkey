@@ -1,3 +1,10 @@
+/*
+This program is for the purpose of iterating through the creation of 
+multiple overlapping snap-regions (window-frames) for the FancyZones utility
+which is a tool that is part of Microsoft PowerToys.
+*/
+
+
 ;~ #Include %A_ScriptDir%\..\LIB\LIB_Main_Method_Library.ahk
 ;~ #Include %A_ScriptDir%\..\LIB\LIB_repeatKey().ahk
 #IfWinActive ahk_exe FancyZonesEditor.exe
