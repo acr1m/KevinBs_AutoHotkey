@@ -3,6 +3,7 @@
 ;-------------------------------------------------------------------------------
 ; Easy Window Dragging -- KDE style (requires XP/2k/NT) -- by Jonny
 ; https://www.autohotkey.com
+;
 ; This script makes it much easier to move or resize a window: 1) Hold down
 ; the ALT key and LEFT-click anywhere inside a window to drag it to a new
 ; location; 2) Hold down ALT and RIGHT-click-drag anywhere inside a window
@@ -13,24 +14,75 @@
 ; This script was inspired by and built on many like it
 ; in the forum. Thanks go out to ck, thinkstorm, Chris,
 ; and aurelian for a job well done.
-
+;-------------------------------------------------------------------------------
 ; Change history:
 ; November 07, 2006: Optimized resizing code in !RButton, courtesy of bluedawn.
 ; February 05, 2006: Fixed double-alt (the ~Alt hotkey) to work with latest versions of AHK.
-
-; The Double-Alt modifier is activated by pressing
-; Alt twice, much like a double-click. Hold the second
-; press down until you click.
+;-------------------------------------------------------------------------------
+; Instructions:
+;  The Double-Alt modifier is activated by pressing
+;  Alt twice, much like a double-click. Hold the second
+;  press down until you click.
 ;
 ; The shortcuts:
-;  Alt + Left Button  : Drag to move a window.
-;  Alt + Right Button : Drag to resize a window.
-;  Double-Alt + Left Button   : Minimize a window.
-;  Double-Alt + Right Button  : Maximize/Restore a window.
-;  Double-Alt + Middle Button : Close a window.
+;  Alt + Left Mouse Button  : Drag to move a window.
+;  Alt + Right Mouse Button : Drag to resize a window.
+;  Double-Alt + Left Mouse Button   : Minimize a window.
+;  Double-Alt + Right Mouse Button  : Maximize/Restore a window.
+;  Double-Alt + Middle Mouse Button : Close a window.
 ;
 ; You can optionally release Alt after the first
-; click rather than holding it down the whole time.
+;  click rather than holding it down the whole time.
+
+;-----------------------------------
+; Beginning of Kevin Boykin's Sub
+
+;;~ set the icon references
+;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\up-down-scroll.ico
+
+; TrayIconManager-LIB.ahk provides a <TrayIconManager> class object
+#Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\TrayIconManager-LIB.ahk
+;~ #Include %A_ScriptDir%\..\-lib\TrayIconManager-LIB.ahk
+trayIM := new TrayIconManager()
+trayIM.iconActive :=    "..\-icons\key-s05-green.ico"
+trayIM.iconSuspended := "..\-icons\key-s05-blue.ico"
+trayIM.iconPaused :=    "..\-icons\key-s05-yellow.ico"
+trayIM.iconInactive :=  "..\-icons\key-s05-red.ico"		
+trayIM.start() 
+
+formatRegion1 := 24
+formatRegion2 := 32
+tipString := Format("{1:-" 	    . formatRegion1 . "}   {2:-" 
+								. formatRegion2 . "}", "The shortcuts", "")
+tipString .= Format("`r`n{1:" 	. formatRegion1 . "} : {2:-" 
+								. formatRegion2 . "}", "Alt + L_Mouse", "Drag to move a window.")
+tipString .= Format("`r`n{1:" 	. formatRegion1 . "} : {2:-" 
+								. formatRegion2 . "}", "Alt + R_Mouse", "Drag to resize a window.")
+tipString .= Format("`r`n{1:" 	. formatRegion1 . "} : {2:-" 
+								. formatRegion2 . "}", "Double-Alt + L_Mouse", "Minimize a window.")
+tipString .= Format("`r`n{1:" 	. formatRegion1 . "} : {2:-" 
+								. formatRegion2 . "}", "Double-Alt + R_Mouse", "Maximize/Restore a window.")
+tipString .= Format("`r`n{1:" 	. formatRegion1 . "} : {2:-" 
+								. formatRegion2 . "}", "Double-Alt + M_Mouse", "Close a window.")
+
+
+;~ Menu, Tray, Tip, %tipString%
+Menu, Tray, Add, % "Show Hotkey Controls", Lbl_Show_Hotkey_Controls
+
+; script will cascade and run through this label during the auto-execute portion
+Lbl_Show_Hotkey_Controls:
+
+    MsgBox, %tipString%
+    
+    ;~ ListVars  ; Use AutoHotkey's main window to display monospaced text.
+    ;~ WinWaitActive ahk_class AutoHotkey
+    ;~ WinSet, Region, W200 H250, ahk_class AutoHotkey
+    ;~ ControlSetText Edit1, %tipString%
+    
+return
+
+; End of Kevin Boykin's Sub
+;-------------------------------------
 
 If (A_AhkVersion < "1.0.39.00")
 {
@@ -146,6 +198,8 @@ return
 
 ; This detects "double-clicks" of the alt key.
 ~Alt::
+; DoubleAlt will be assigned TRUE only if this 
+;  hotkey is triggered again within 400 milliseconds.
 DoubleAlt := A_PriorHotkey = "~Alt" AND A_TimeSincePriorHotkey < 400
 Sleep 0
 KeyWait Alt  ; This prevents the keyboard's auto-repeat feature from interfering.
