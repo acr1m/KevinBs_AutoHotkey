@@ -1,8 +1,29 @@
+/*
+This program is for the purpose of iterating through the creation of 
+multiple overlapping snap-regions (window-frames) for the FancyZones utility
+which is a tool that is part of Microsoft PowerToys.
+*/
+
+
+
 #SingleInstance
 
 #Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\Main-Method-Library-LIB.ahk
 #Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\repeatKey()-LIB.ahk
 #Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\run()-LIB.ahk
+;;~ set the icon references
+;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\up-down-scroll.ico
+
+#Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\TrayIconManager-LIB.ahk
+;~ #Include %A_ScriptDir%\..\-lib\TrayIconManager-LIB.ahk
+trayIM := new TrayIconManager()
+
+trayIM.iconActive :=    A_MyDocuments . "\AutoHotkey\Lib\Custom_Scripts\-icons\key-s05-green.ico"
+trayIM.iconSuspended := A_MyDocuments . "\AutoHotkey\Lib\Custom_Scripts\-icons\key-s05-blue.ico"
+trayIM.iconPaused :=    A_MyDocuments . "\AutoHotkey\Lib\Custom_Scripts\-icons\key-s05-yellow.ico"
+trayIM.iconInactive :=  A_MyDocuments . "\AutoHotkey\Lib\Custom_Scripts\-icons\key-s05-red.ico"	
+trayIM.start()
+
 ;~ #Include % A_MyDocuments . "\AutoHotkey\Lib\Custom_Scripts\-lib\Main-Method-Library-LIB.ahk"
 ;~ #Include % A_MyDocuments . "\AutoHotkey\Lib\Custom_Scripts\-lib\repeatKey()-LIB.ahk"
 ;~ #Include % A_MyDocuments . "\AutoHotkey\Lib\Custom_Scripts\-lib\run()-LIB.ahk"
