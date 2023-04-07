@@ -1,0 +1,4 @@
+﻿;~ Menu, MenuName, Add [, MenuItemName, LabelOrSubmenu, Options]
+menuItemName := "____someName____"
+tgtFunc := Func("____someFunc____")
+Menu, Tray, Add, % menuItemName, % tgtFunc

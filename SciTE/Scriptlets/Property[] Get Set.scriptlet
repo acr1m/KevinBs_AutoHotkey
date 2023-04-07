@@ -1,0 +1,8 @@
+﻿_property[_param] {
+		get {
+			return this._property
+		}
+		set {
+			return this._property := [_param]
+		}
+	}

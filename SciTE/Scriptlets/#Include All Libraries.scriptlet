@@ -1,0 +1,8 @@
+﻿#Include %A_LineFile%\..\..\
+#Include %A_WorkingDir%\-lib\Main-Method-Library-LIB.ahk
+#Include %A_WorkingDir%\-lib\run()-LIB.ahk
+#Include %A_WorkingDir%\-lib\mathKbd()-LIB.ahk
+#Include %A_WorkingDir%\-lib\Emojis-And-Symbols-LIB.ahk
+#Include %A_WorkingDir%\-lib\repeatKey()-LIB.ahk
+#Include %A_WorkingDir%\-lib\time()-LIB.ahk
+#Include %A_WorkingDir%\-lib\RegEx()-LIB.ahk

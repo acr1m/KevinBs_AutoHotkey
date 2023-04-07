@@ -1,0 +1,4 @@
+﻿Lbl_menuMsgBox:
+	;~ MsgBox You selected %A_ThisMenuItem% from the menu %A_ThisMenu%.
+	MsgBox, % "You selected 「" . A_ThisMenuItem . "」 from the menu 【" . A_ThisMenu . "】."
+	return

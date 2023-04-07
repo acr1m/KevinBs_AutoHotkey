@@ -1,0 +1,6228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Findings Exportmodule="FindingsXmlFileWriter" Exportversion="1">
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>GUI_Mouse_Control.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-gui</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;~ #Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-Main-Method-Library.ahk
+#Include %A_ScriptDir%-lib
+#Include Main-Method-Library-LIB.ahk
+#Include Mouse-Swap-Primary-Button-LIB.ahk
+#InstallKeybdHook
+#InstallMouseHook
+#SingleInstance
+#Persistent
+
+GUI_Mouse_Control:
+;====================================================================
+Gui, MouseControlPanel:Default
+;~ Gui, Font, s10 cDefault, Consolas
+;~ Gui, Font, s10 cSilver, Consolas
+;~ Gui, Font, s10 cc0c0c0
+;~ Gui, Font, s10 c2f1d31 ;dark maroon-purple
+;~ Gui, Font, s10 c533357 ;light maroon-purple
+;~ Gui, Font, s10 c68586a ;lighter desaturated maroon-purple
+;~ Gui, Font, s10 ca290a5 ;lightest desaturated maroon-purple
+Gui, Font, s10 ca290a5, Consolas ;lightest desaturated maroon-purple
+Gui, Add, GroupBox,	x005 y015 w260  h90	+Center, Mouse Buttons
+;~ Gui, Font, s14 c6f6372, Franklin Gothic Medium
+;~ Gui, Font, s14 c6f6372, Lucida Sans Unicode
+Gui, Font, s14 c6f6372, Lucida Sans
+Gui, Add, Text,		x015 y038 w240  h20 +Center, Primary Mouse
+;~ Gui, Font, s16 c2f1d31 ;dark maroon-purple
+;~ Gui, Font, s18 c8a9a7d norm underline, Consolas
+Gui, Font, s18 c9a9a9a norm,
+if (PRIMARY_MOUSE == "Left"){
+	leftRadioSwitch := 1
+	rightRadioSwitch := 0
+}
+else if (PRIMARY_MOUSE == "Right"){
+	leftRadioSwitch := 0
+	rightRadioSwitch := 1
+}
+Gui, Add, Radio, 	x030 y065 w100  h30 gRadioLeft Checked%leftRadioSwitch% +Right, Left
+Gui, Add, Radio, 	x150 y065 w100  h30 gRadioRight Checked%rightRadioSwitch%, Right
+
+Gui, Font, s10 ca290a5 norm, Consolas ;lightest desaturated maroon-purple
+Gui, Add, GroupBox, x005 y105 w260 h135 c +Center, Keyboard Buttons
+
+Gui, Font, s10 ca290a5 norm, Lucida Sans ;lightest desaturated maroon-purple
+Gui, Add, Button, 	x015 y130 w70  h30 , Esc
+Gui, Add, Button, 	x095 y130 w70  h30 , F5
+Gui, Add, Button, 	x175 y130 w70  h30 , Enter
+
+Gui, Add, Button, 	x015 y165 w70  h30 , F11
+Gui, Add, Button, 	x095 y165 w70  h30 , Spacebar
+Gui, Add, Button, 	x175 y165 w70  h30 , Mixer
+
+Gui, Add, Button, 	x015 y200 w70  h30 , Keyboard
+Gui, Add, Button, 	x095 y200 w70  h30 , Sound
+Gui, Add, Button, 	x175 y200 w70  h30 , Voice-`nmeeter
+Gui, Font, s10 ca290a5, Consolas ;lightest desaturated maroon-purple
+Gui, Add, GroupBox, x005 y250 w260 h80 +Center, Scroll Speed Acceleration
+Gui, Font, s12 c533357, Gadugi ;light maroon-purple
+Gui, Add, Slider, 	x020 y270 w230 h30 , v
+Gui, Add, Text, 	x020 y305 w70  h20 , None
+Gui, Add, Text, 	x180 y305 w70  h20 +Right, Max
+; Generated using SmartGUI Creator for SciTE
+;~ gosub, GuiShow
+;~ SetTimer, GuiSubmitControllerVariables, 100
+return
+
+GuiShow_Mouse_Control:
+Gui, MouseControlPanel:Show, w270 h335, Mouse Control Panel
+return
+
+GuiSubmitControllerVariables:
+Gui, MouseControlPanel:Submit, NoHide
+return
+
+GuiEscape:
+Gui, MouseControlPanel:Submit
+Gui, MouseControlPanel:Hide
+return
+
+MouseControlPanelGuiClose:
+Gui, MouseControlPanel:Submit
+Gui, MouseControlPanel:Hide
+return
+
+RadioLeft:
+SetKeyDelay, 50
+Send, {LWin}mouse and touch{Enter}
+Sleep, 100
+Send, {Up}
+Sleep, 600
+#IfWinExist Settings
+WinClose
+SetKeyDelay, -1
+;~ assignPrimaryMouseButton("Left")
+;~ Gui, Submit, NoHide
+return
+
+RadioRight:
+SetKeyDelay, 50
+Send, {LWin}mouse and touch{Enter}
+Sleep, 100
+Send, {Down}
+Sleep, 600
+#IfWinExist Settings
+WinClose
+SetKeyDelay, -1
+;~ assignPrimaryMouseButton("Right")
+;~ Gui, Submit, NoHide
+return
+
+ButtonEsc:
+Send, !{Tab}
+Sleep, 100
+Send, {Escape}
+Send, !{Tab}
+return
+
+ButtonF5:
+Send, !{Tab}
+Sleep, 100
+Send, {F5}
+Send, !{Tab}
+return
+
+ButtonEnter:
+Send, !{Tab}
+Sleep, 100
+Send, {Enter}
+Send, !{Tab}
+return
+
+ButtonSpace:
+ButtonSpacebar:
+Send, !{Tab}
+Sleep, 100
+Send, {Space}
+Send, !{Tab}
+return
+
+ButtonKeyboard:
+Send, #^o
+return
+
+ButtonSound:
+Run, "E:\Assets\Scripts\Windows Commands\Sound Control Panel - Playback Tab.bat"
+return
+
+ButtonMixer:
+Send, #r
+Sleep, 200
+Send, sndvol{Enter}
+return
+
+ButtonVoice-meeter:
+ButtonVoicemeeter:
+if (WinExist("VoiceMeeter ahk_class VBCABLE0Voicemeeter0MainWindow0 ahk_exe voicemeeter.exe"))
+	WinActivate
+else
+	Run, "C:\Users\Kevin B - (Acr1m)\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\VB Audio\Voicemeeter\Voicemeeter.LNK"
+return
+
+ButtonF11:
+Send, !{Tab}
+Sleep, 100
+Send, {F11}
+Send, !{Tab}
+return</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>GUI_Mouse_Position_As_Percentage_Tooltip.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-gui</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-Main-Method-Library.ahk
+#Persistent
+
+;GET MOUSE POS AS PERCENTAGE - TOOLTIP
+CoordMode, Mouse, Client
+;~ CoordMode, Mouse, Screen
+
+global v_winWidth
+global v_winHeight
+
+;~ MouseGetPos, v_xpos, v_ypos 
+;~ MsgBox, The cursor is at X%v_xpos% Y%v_ypos%. 
+
+; This example allows you to move the mouse around to see
+; the title of the window currently under the cursor:
+SetTimer, WatchCursor, 100
+return
+
+WatchCursor:
+v_curWin := WinExist("A")
+MouseGetPos, v_mX, v_mY, v_windowID, v_control
+WinGetPos, v_winX, v_winY, v_winWidth, v_winHeight, A
+WinGetTitle, v_title, ahk_id %v_windowID%
+WinGetClass, v_class, ahk_id %v_windowID%
+WinGetActiveStats, v_title2, v_winWidth2, v_winHeight2, v_winX2, v_winY2
+
+;getClientSize(window, ByRef width, ByRef height)
+getClientSize(v_curWin, v_clientWidth, v_clientHeight)
+
+v_mXPercentage := (v_mX / v_winWidth)
+v_mYPercentage := (v_mY / v_winHeight)
+
+
+;~ str_mousePos := 
+
+
+;~ ToolTip, `nmousePos`(%v_mXPercentage%`%`, %v_mYPercentage%`%`)`nahk_id %v_windowID%`nahk_class %v_class%`n%v_title%`nControl: %v_control%
+;~ ToolTip, `nmousePos = `(X: %v_mX%`, %v_mXPercentage% `%`, Y: %v_mY%`, %v_mYPercentage% `%`)`nw`, h = %v_winWidth%`, %v_winHeight%`nahk_class %v_class%`n%v_title%`, %v_title2%`nControl: %v_control%
+;~ ToolTip, `nmousePos:`tX: %v_mX%`t`tY: %v_mY%`nmouse`%:`tX: %v_mXPercentage%`%`tY: %v_mYPercentage%`%`nclient size:`tw: %v_clientWidth%`t`th: %v_clientHeight%`nwindow size:`tw: %v_winWidth%`t`th: %v_winHeight%`nahk_class %v_class%`n%v_title%`nControl: %v_control%
+;~ ToolTip % "`nmousePos:`tX: " . v_mX . "`t`tY: " . v_mY . "`nmouse`%:`tX: " . v_mXPercentage . "`%`tY: " . v_mYPercentage . "`%`nclient size:`tw: " . v_clientWidth . "`t`th: " . v_clientHeight . "`nwindow size:`tw: " . v_winWidth . "`t`th: " . v_winHeight . "`nahk_class " . v_class . "`n" . v_title . "`nControl: " . v_control . ""
+ToolTip % "`nmousePos:`tX: " . v_mX . "`t`tY: " . v_mY 
+	. "`nmouse`%:`tX: " . v_mXPercentage . "`%`tY: " . v_mYPercentage . "`%" 
+	. "`nclient size:`tw: " . v_clientWidth . "`t`th: " . v_clientHeight 
+	. "`nwindow size:`tw: " . v_winWidth . "`t`th: " . v_winHeight 
+	. "`nahk_class " . v_class . "`n" . v_title 
+	. "`nControl: " . v_control . ""
+return
+
+
+;COPY ALL TOOLTIP TEXT TO CLIPBOARD
+^c::
+	Clipboard = `nmousePos:`t`tX: %v_mX%`t`tY: %v_mY%`nmousePercent:`tX: %v_mXPercentage%`%`tY: %v_mYPercentage%`%`nClient size:`tw: %v_clientWidth%`t`th: %v_clientHeight%`nWindow size:`tw: %v_winWidth%`t`th: %v_winHeight%`nahk_class %v_class%`nTitle: %v_title%`nControl: %v_control%
+	return
+
+
+
+
+Pause::ExitApp
+;~ Escape::ExitApp
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>AHK_Main.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#KeyHistory 500  ;(Default is 40, Max is 500)
+#SingleInstance Force
+#InstallKeybdHook
+;~ #InstallMouseHook
+#HotkeyInterval 1000 ;one second interval
+#MaxHotkeysPerInterval 1000 ;1 thousand keys per above interval
+#Hotstring EndChars -()[]{}: "/\.?!`n
+
+Menu, Tray, Icon, E:\Software\iconsext-1.47\icons\Keyboards\msctf_410.ico
+
+;~ global isAdmin := A_IsAdmin
+isAdmin := A_IsAdmin
+;~ global isCompiled := A_IsCompiled
+isCompiled := A_IsCompiled
+;;;;CONSTANTS
+global PRIMARY_MOUSE := "Left"
+global SWAP_RETVAL := 
+global DOUBLE_TAP_LIMIT:= 350 ; n milliseconds
+global oneKey_HasItBeenSet := false
+;###############################################################################
+#Include %A_ScriptDir%-lib
+#Include Main-Method-Library-LIB.ahk
+#Include Emojis-And-Symbols-LIB.ahk
+#Include repeatKey()-LIB.ahk
+#Include time()-LIB.ahk
+#Include RegEx()-LIB.ahk
+;~ #Include oneKey-Copy-Paste-Mode-LIB.ahk
+
+;;UTITILITIES
+#Include %A_ScriptDir%-utility
+
+#Include %A_ScriptDir%
+;~ #Include AHK-Math-Keyboard-v1-2-7.ahk
+;~ Run, AHK_Math_Keyboard_.exe
+#Include -gui\GUI-Mouse-Control.ahk
+
+;WINDOW/APP CONTEXT SENSITIVE SCRIPTS
+#Include %A_ScriptDir%-win
+#Include Windows-Color-Picker-WIN.ahk
+#Include Excel-WIN.ahk
+#Include Outlook-WIN.ahk
+#Include SciTE4AutoHotkey-WIN.ahk
+#Include FancyZones-WIN.ahk
+#Include Windows-Explorer-WIN.ahk
+#Include PowerRun-WIN.ahk
+#Include Word-WIN.ahk
+;==============================================================================
+
+;==============================================================================
+;WINDOWS KEY SHORTCUTS &amp;&amp;
+;SOFTWARE OPEN/START/RUN SHORTCUTS
+;OPEN FILES, OPEN SOFTWARE, OPEN PROGRAMS, OPEN APPLICATIONS, OPEN APPS
+;===============================================================================
+^#AppsKey::Run, "AHK_Utility_Mouse_Position_As_Percentage_Tooltip.exe"
+#n::Run, "Notepad++"
+;~ #a::Run, E:\Software\AutoHotKey\SciTE\SciTE.exe
+
+#IfWinActive
+#a::Run, "E:\Software\AutoHotkey_MyInstallation_v01\SciTE\SciTE.exe"
+;Voicemeeter 
+;Windows Key + S
+#s::Run, "C:\Program Files (x86)\VB\Voicemeeter\voicemeeter.exe"
+;Sound Control Panel
+^#s::Run, "E:\Assets\Scripts\Windows Commands\Sound Control Panel - Playback Tab.bat"
+;Windows Excel (#a)
+;###############################################################################
+;~ HOTSTRING END CHARACTERS
+	;~ #Hotstring EndChars -()[]{}:;'"/\,.?!`n 
+	
+	;~ `n=[enter], `t=[tab]
+	;~ ? (question mark): The hotstring will be triggered even when it is 
+		;~ inside another word; that is, when the character typed immediately
+		;~ before it is alphanumeric. For example, if :?:al::airline is a 
+		;~ hotstring, typing "practical " would produce "practicairline ". 
+		;~ Use ?0 to turn this option back off.
+;===============================================================================
+;~ HOTSTRING OPTIONS 
+	;~ #Hotstring SE ; •SE stands for SendEvent, which is the default in versions older than 1.0.43.
+	;~ #Hotstring SI 
+			; •SI stands for SendInput, which typically has superior speed and 
+			;reliability than the other modes. Another benefit is that like 
+			;SendPlay below, SendInput postpones anything you type during a 
+			;hotstring's auto-replacement text. This prevents your keystrokes 
+			;from being interspersed with those of the replacement. When 
+			;SendInput is u
+	;~ #Hotstring SP ; •SP stands for SendPlay, which may allow hotstrings to work in a broader variety of games.
+	;~ #Hotstring O  ; omit ending character (for all hotstrings in document underneath this rule)
+	;~ #Hotstring O0  ; turn off "omit ending character" (for all hotstrings in document underneath this rule)
+	;~ #Hotstring Kn ; key delay (n = milliseconds) between each sent keystroke
+	;~ #Hotstring *  ; turn on No Ending Character Required
+	;~ #Hotstring *0 ; turn off No Ending Character Required
+	;~ #Hotstring R  ; sends output as raw
+	;~ #Hotstring C  ; case sensitive
+	;~ #Hotstring C0 ; turn off case sensitive
+;===============================================================================
+;~ HOTKEY PREFIXES
+	;~ [$] prefix keeps the hotkey from triggering itself in a loop
+	;~ [~] When the hotkey fires, its key's native function will not 
+			;be blocked (hidden from the system). 
+	;~ [*] Wildcard: Fire the hotkey even if extra modifiers are being held down. This is often used in conjunction with remapping keys or buttons.
+;===============================================================================
+
+;MOUSE - SWITCH PRIMARY MOUSE
+;MOUSE CONTROL PANEL (HOLD-RIGHT-CLICK)
+;~ ~MButton::
+	;~ ;if left or right mouse button down, wait for 2 seconds, 
+	;~ ;if 2 seconds passed, then set primary mouse to matching button.
+	;~ if (GetMouseState("LButton") == true){
+		;~ KeyWait, LButton, t2
+		;~ if (ErrorLevel == 1){
+			;~ PRIMARY_MOUSE := "Left"
+			;~ MsgBox, , Primary Mouse, Primary Mouse has been set to LEFT, 2 ;closes in 2 seconds
+		;~ }
+	;~ }
+	;~ else if (GetKeyState("RButton") == true){
+		;~ KeyWait, RButton, t2
+		;~ if (ErrorLevel == 1){
+			;~ PRIMARY_MOUSE := "Right"
+			;~ MsgBox, , Primary Mouse, Primary Mouse has been set to RIGHT, 2 ;closes in 2 seconds
+		;~ }
+	;~ }
+	;~ return
+^!m::
+	;~ assignPrimaryMouseButton()
+	;~ swapPrimaryMouseButton()
+	return
+
+~*LButton::
+/* 
+	Suspend, Permit
+	if (PRIMARY_MOUSE == "Left"){
+		Click, Left Down
+		;~ MouseClick, Left,,,,,D
+	}
+	else if (PRIMARY_MOUSE == "Right"){
+		Click, Right Down
+		;~ MouseClick, Right,,,,,D
+	}
+	else{
+		Click, Left Down
+		;~ MouseClick, Left,,,,,D
+	}
+*/
+	if (PRIMARY_MOUSE == "Right"){
+		KeyWait, LButton, t2 ;wait for 2 seconds
+		if (ErrorLevel == 1){
+			;~ if (WinExist("Mouse Control Panel"))
+			if (WinExist("Mouse Control Panel ahk_class AutoHotkeyGUI"))
+				WinActivate
+			else
+				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_GUI_Mouse_Control.exe
+				;~ gosub GUI_Mouse_Control
+				gosub GuiShow_Mouse_Control
+			return
+		}
+		else
+			return
+	}
+	return
+	
+/* 
+~*LButton Up::
+	Suspend, Permit
+	if (PRIMARY_MOUSE == "Left"){
+		Click, Left Up
+		;~ MouseClick, Left
+	}
+	else if (PRIMARY_MOUSE == "Right"){
+		Click, Right Up
+		;~ MouseClick, Right
+	}
+	else{
+		Click, Left Up
+		;~ MouseClick, Left
+	}
+	return
+ */
+~*RButton::
+/* 
+	Suspend, Permit
+	if (PRIMARY_MOUSE == "Right"){
+		Click, Left Down
+		;~ MouseClick, Left,,,,,D
+	}
+	else if (PRIMARY_MOUSE == "Left"){
+		Click, Right Down
+		;~ MouseClick, Right,,,,,D
+	}
+	else{
+		Click, Right Down
+		;~ MouseClick, Right,,,,,D
+	} 
+*/
+	;start timer
+	mouseControlPanelTimer := A_TickCount
+	if (PRIMARY_MOUSE == "Left"){
+		KeyWait, RButton, t2 ;wait for 2 seconds
+		if (ErrorLevel == 1){
+			;~ if (WinExist("Mouse Control Panel"))
+			if (WinExist("Mouse Control Panel ahk_class AutoHotkeyGUI"))
+				WinActivate
+			else
+				;~ Run, E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK_GUI_Mouse_Control.exe
+				;~ gosub GUI_Mouse_Control
+				gosub GuiShow_Mouse_Control
+			return
+		}
+		else
+			return
+	}
+	return
+
+/* 
+~*RButton Up::
+	Suspend, Permit
+	if (PRIMARY_MOUSE == "Right")
+		Click, Left Up
+		;~ MouseClick, Left,,,,,U
+	else if (PRIMARY_MOUSE == "Left")
+		Click, Right Up
+		;~ MouseClick, Right,,,,,U
+	else
+		Click, Right Up
+		;~ MouseClick, Right,,,,,U
+	return
+ */
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;MOUSE WHEEL
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;===============================================================================
+/* ;SCROLL SPEED MONITORING (AS TOOLTIP)
+ * ;===============================================================================
+ * #Persistent
+ * SetTimer, ScrollSpeedMonitor, 50
+ * return
+ * ;-------------------------------------------------------------------------------
+ * ScrollSpeedMonitor:
+ * ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . scrollAmount ""
+ * return
+ */
+;===============================================================================
+~$WheelUp::
+	if (A_PriorHotkey == A_ThisHotkey &amp;&amp; A_TimeSincePriorHotkey &lt; 500){
+		if (A_TimeSincePriorHotkey &lt; 10)
+			return
+		else if (A_TimeSincePriorHotkey &gt; 10){
+			deltaTime := A_TimeSincePriorHotkey + !(A_TimeSincePriorHotkey)
+			
+			;basically, the closer the delta time is to 0, the higher the number is
+			;use a graphing calculator to visualize the control curve
+			;https://www.desmos.com/calculator/a688c7bdoi
+			;https://www.desmos.com/calculator/730lsilbdz
+			;https://www.desmos.com/calculator/ogtxptay3x
+			scrollAmount := Ceil(Abs((Log(deltaTime)/Log(1.5))-15))
+					
+			;~ ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . int ""
+			Send, {WheelUp %scrollAmount%}
+		}
+	}
+	return
+~$WheelDown::
+	if (A_PriorHotkey == A_ThisHotkey &amp;&amp; A_TimeSincePriorHotkey &lt; 500){
+		if (A_TimeSincePriorHotkey &lt; 10)
+			return
+		else if (A_TimeSincePriorHotkey &gt; 10){
+			deltaTime := A_TimeSincePriorHotkey + !(A_TimeSincePriorHotkey)
+			
+			;basically, the closer the delta time is to 0, the higher the number is
+			;use a graphing calculator to visualize the control curve
+			scrollAmount := Ceil(Abs((Log(deltaTime)/Log(1.5))-15))
+			
+			;~ ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . int ""
+			Send, {WheelDown %scrollAmount%}
+		}
+	}
+	return
+;==============================================================================
+;HOTKEYS
+;==============================================================================
+~AppsKey::AppsKey
+; Shift+Space = Underscore _
++Space:: Send, {_}
++NumpadSub:: Send, {_}
+AppsKey &amp; Left::Send, ^#{Left}
+AppsKey &amp; Right::Send, ^#{Right}
+;~ $s::
+	;~ Send, s
+	;~ ; wait for "a" key to be pressed down
+	;~ KeyWait, a, D
+	
+	;~ return
+
+;~ ~s &amp; a::Send, ^#{Left}
+^+z::Send, ^y
+Click, 
+
+
+;HOLD WINDOWS KEY AND DOUBLE TAP CTRL OR ALT TO MOVE DESKTOPS
+~#LCtrl::
+	;~ #LCtrl
+	if (doubleTap()){
+		Send, #^{Left}
+	}
+	return
+~#LAlt::
+	;~ #LAlt
+	if (doubleTap()){
+		Send, #^{Right}
+	}
+	return
+
+;Window Title &amp; Class Grabber
+;this gets the active window Title name and the Class and stores it into the clipboard.
+#AppsKey::
+{
+	myTitle := 
+		WinGetTitle, myTitle, A
+		WinGetClass, class, A
+	tWindow	:= "Active Window Params are as follows.`n"
+	tTitle := "• Title:[" myTitle "].`n"
+	tClass := "• Class:[" class "].`n"
+	Clipboard := "• Title: [" myTitle "]`n• Class: [" class "]`n"
+	tContents := "The contents of the clipboard are as follows:`n"
+
+	;thin horizontal line
+	hl1 := "────────────────────────`n"
+	;thick horizontal line
+	hl2 := "========================`n"
+	MsgBox,  %tWindow% %hl1% %tTitle% %tClass% %hl2% %tContents% %hl1% %clipboard%
+	return
+}
+;===============================================================================
+;===============================================================================
+
+
+
+
+;===============================================================================
+;SCREENSHOT HOTKEYS
+;===============================================================================
+;if double tap, take active window screenshot, else, send ScrollLock
+ScrollLock::
+	if (doubleTap()){
+		SetScrollLockState, Off
+		;[Alt+PrtSc] used for ShareX, captures active window region as image.
+		Send, !{PrintScreen}
+	} else {
+		Send, {ScrollLock}
+	}
+	return
+;-------------------------------------------------------------------------------
+
+
+
+;===============================================================================
+;NOTEPAD++ =====================================================================
+#IfWinActive ahk_class Notepad++
+{
+	; [Middle Mouse Button Click]
+	MButton::
+	{
+/*		If hotkey was triggered within DOUBLE_TAP_LIMIT,
+ *		then activate the doubleTap process and reset the 
+ *		listener key to false for the next occurence.
+ *		DOUBLE_TAP_LIMIT approximately 350 milliseconds atm 
+ */
+		if (A_ThisHotkey = A_PriorHotkey &amp;&amp; A_TimeSincePriorHotkey &lt; DOUBLE_TAP_LIMIT) 
+		{
+			; Toggle - Viewing of "Document Map", Panel
+			Send, !v
+		}
+		
+	;this is the custom hotkey *in-editor* that directly targets the Toggle Workspace Folder: View, commmand
+		Send, !b
+		return
+	}
+}
+
+;~ #IfWinActive TI Connect™ CE ahk_class GlassWndClass-GlassWindowClass-4 ahk_exe TI Connect CE.exe
+#IfWinActive ahk_exe TI Connect CE.exe
+{
+	:O?:sto::{→}
+	$/::
+		SendRaw, 
+		return
+	^/::
+		KeyWait, Ctrl
+		Send, /
+		return
+	^l::
+		SendRaw, ⌊
+		return
+	;duplicate line
+	^d::
+		Send, {Home 2}
+		Send, +{End}
+		Send, ^c
+		Send, {End}
+		Send, {Enter}
+		Send, ^v
+		return
+}
+
+#IfWinActive ahk_class Qt5153QWindowOwnDCIcon ahk_exe HD-Player.exe
+;~ $RButton::LButton
+;~ $LButton::RButton
+
+#IfWinActive ahk_exe audacity.exe
+$+Space::+Space
+
+#IfWinActive Sticky Notes ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe
+Tab::
+	Send, {Space 4}
+	return
++Tab::
+	Send, {BackSpace 4}
+	return
+^+Up:: moveCurrentLineUp()
+^+Down:: moveCurrentLineDown()
+
+
+#IfWinActive ahk_exe mixcraft9.exe
+^Left::Home
+^Right::End
+
+#IfWinActive
+
+;; ctrl+insert - types out the date in a pre-defined format that is changeable
+^Insert::
+	;~ time_sendDate("yyyy")
+	time_sendDate()
+	return</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>AHK_Math_Keyboard_.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#Include %A-ScriptDir%\LIB\LIB-Main-Method-Library.ahk
+#SingleInstance Force
+#InstallKeybdHook
+
+;~ TOOLBAR ICON
+	Menu, Tray, Icon, E:\Assets\Icons\math_ruler_.bmp
+;===============================================================================
+;~ ;CONSTANTS
+	;~ global SUSPEND_LIMIT := 200 ; n milliseconds
+	;~ global DOUBLE_TAP_LIMIT := 350 ; n milliseconds
+	;~ global INCREMENT_LIMIT := 500 ; n milliseconds
+;~ STARTING VARIABLES
+	global g_windowSentinelIsOn := true ; default = true
+	global currentRaisedPower := 1 ;used for incrementing n. Ex:  a^n
+
+;~ MATH-INPUT-STYLE SWITCHES FOR EDITOR/BROWSER/ENVIRONMENT COMPATABILITY 
+	;~ used for mathKbd_typeSquareRoot() function
+	global mathKbd_style_paste := false ;~ default value = false
+	global mathKbd_style_backSlash := true ;~ default value = true
+	global mathKbd_style_squareRootLeftAmount := 0 ;~ default value = 0
+	
+;run the Active Window Sentinel method
+mathKbd_activeWindowSentinel()
+
+
+;~ SET STYLE FUNCTION
+mathKbd_setMathInputStyle(p_1 := false, p_2 := true, p_3 := 3, p_4 := 0)</Match>
+        <Match Id="2">mathKbd_activeWindowSentinel</Match>
+        <Match Id="3">()
+
+
+;~ SET STYLE FUNCTION
+mathKbd_setMathInputStyle(p_1 := false, p_2 := true, p_3 := 3, p_4 := 0)</Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">{
+	mathKbd_style_paste := p_1
+	mathKbd_style_backSlash := p_2
+	mathKbd_style_squareRootBackspaceAmount := p_3
+	mathKbd_style_squareRootLeftAmount := p_4
+}
+
+mathKbd_activeWindowSentinel()</Match>
+        <Match Id="2">mathKbd_activeWindowSentinel</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="3">
+        <Match Id="1">{
+	while(g_windowSentinelIsOn){
+		Sleep, 3000
+		if (WinActive("Desmos")){
+			mathKbd_setMathInputStyle(false, false, 2, 0)
+		} else if (WinActive("Mathway")){
+			mathKbd_setMathInputStyle(true, false, 3, 1)
+		} else {
+			mathKbd_setMathInputStyle(false, true, 3, 0)
+		}
+	}
+}
+
+;===============================================================================
+
+
+;===============================================================================
+;~ DIRECTIVES 
+	SendMode, Event				;~ sets all hotkeys below to use SendEvent
+	SetKeyDelay, 30				;~ set all hotkeys below to have a delay of n milliseconds, 0.00n seconds
+	#Hotstring SE 			;~ sets all hotstrings below to use SendEvent (instead of SendInput)
+	#Hotstring K30			;~ which will allow a key delay of n milliseconds, 0.00n seconds
+	#Hotstring B			;~ activate automatic backspacing (the default)
+	#Hotstring O 			;~ [O] omit ending-character trail space
+	#Hotstring EndChars -()[]{}: "/\,.?!`n
+;===============================================================================
+;~ AUTORUN COMMANDS
+;===============================================================================
+#IfWinActive
+mathKbd_debugFunction()
+
+mathKbd_debugFunction()</Match>
+        <Match Id="2">mathKbd_debugFunction</Match>
+        <Match Id="3">()
+
+mathKbd_debugFunction()</Match>
+      </MatchCollection>
+      <MatchCollection Id="4">
+        <Match Id="1">
+{
+	MsgBox, function called at TOP of script.
+	return
+}
+
+mathKbd_setMathInputStyle()
+
+;===============================================================================
+;~ SCRIPT MANAGEMENT / SUSPENSION CONTROL
+	F4::Suspend, Toggle
+	NumpadDot &amp; Numpad0::Suspend, On 	;hotkeys are suspended
+	NumpadDot &amp; Numpad1::Suspend, Off 	;hotkeys are live
+
+	;Captures Numpad0 when Numlock is On or Off
+	^NumpadIns:: 
+	^+NumpadIns:: Suspend, Toggle
+
+	^+PGUP::
+	^+NumpadAdd::
+	^!=::	Suspend, Off 	;~ hotkeys are live
+
+	^+NumpadSub::
+	^+PGDN::
+	^!-::	Suspend, On		;~ hotkeys are suspended
+
+	$-::
+	Suspend Permit
+	SendRaw, -
+	if (doubleTap(SUSPEND_LIMIT))</Match>
+        <Match Id="2">mathKbd_setMathInputStyle</Match>
+        <Match Id="3">()
+
+;===============================================================================
+;~ SCRIPT MANAGEMENT / SUSPENSION CONTROL
+	F4::Suspend, Toggle
+	NumpadDot &amp; Numpad0::Suspend, On 	;hotkeys are suspended
+	NumpadDot &amp; Numpad1::Suspend, Off 	;hotkeys are live
+
+	;Captures Numpad0 when Numlock is On or Off
+	^NumpadIns:: 
+	^+NumpadIns:: Suspend, Toggle
+
+	^+PGUP::
+	^+NumpadAdd::
+	^!=::	Suspend, Off 	;~ hotkeys are live
+
+	^+NumpadSub::
+	^+PGDN::
+	^!-::	Suspend, On		;~ hotkeys are suspended
+
+	$-::
+	Suspend Permit
+	SendRaw, -
+	if (doubleTap(SUSPEND_LIMIT))</Match>
+      </MatchCollection>
+      <MatchCollection Id="5">
+        <Match Id="1">{
+		Send, {BackSpace 2}
+		Suspend On
+	}
+	return
+
+	$=::
+	Suspend Permit
+	SendRaw, =
+	if (doubleTap(SUSPEND_LIMIT)){
+		Send, {BackSpace 2}
+		Suspend Off
+	}
+	return
+;===============================================================================
+
+
+
+
+
+	;~ 	HOTKEY enable "modifier" key to still function by outputting {default value} upon release 
+	;	of the key without successfully triggering another declared hotkey.
+	Right::Right
+	Down::Down
+
+	;this function is a double-tap that turns a decimal "." into a comma ","
+	$NumpadDot::
+		Suspend, Permit
+	{
+		SendRaw, .
+		if (doubleTap()){
+			Send, {BackSpace 2}{,}
+		}
+		return
+	}
+	Numpad0::Numpad0
+	
+	;this function is a double-tap that turns a plus "+" into a minus "-"
+	$Numpad1::
+		SendRaw, 1
+		mathKbd_incrementVariables(,"x","y","z","1")
+		return
+	$Numpad2::
+		SendRaw, 2
+		mathKbd_incrementVariables(,"pi","\theta","r","2")
+		return
+	$Numpad3::
+		SendRaw, 3
+		mathKbd_incrementVariables(,"e","3")
+		return
+	$Numpad4::
+		SendRaw, 4
+		mathKbd_incrementVariables(,"t","u","v","w","4")
+		return
+	$Numpad5::
+		SendRaw, 5
+		mathKbd_incrementVariables(,"i","j","k","5")
+		return
+	$Numpad6::
+		SendRaw, 6
+		;~ incrementTrigFunctions(,"sin","cos","tan","csc","sec","cot")
+		return
+	$Numpad7::
+		SendRaw, 7
+		mathKbd_incrementVariables(350,"(",")")
+		return
+	$Numpad8::
+		SendRaw, 8
+		mathKbd_incrementPower()
+		return
+	$Numpad9::
+		SendRaw, 9
+		; negative incrementation, i.e. decrement by 1 at a time
+		mathKbd_incrementPower(,-1)
+		return
+	~x::
+		Send, x
+		if (doubleTap()){
+			Send, {BackSpace, 2}^2{Tab}
+		}
+		return
+	
+	;this function is a double-tap that turns a plus "+" into a minus "-"
+	$NumpadAdd:: 
+		SendRaw, +
+		mathKbd_incrementVariables(,"-","+")
+		return
+	NumpadSub::
+		Send, {Backspace}
+		return
+	NumpadMult:: ; superscript, power, multiply, squared, increment, iteration
+		Send, {*}
+		mathKbd_incrementPower()
+		return
+	NumpadDiv:: ; square root, 
+		Send, {/}
+		if (doubleTap()){
+			Send, {Backspace %mathKbd_style_squareRootBackspaceAmount%}
+			mathKbd_typeSquareRoot()
+		}
+		return
+
+;~ HOTKEY Navigation
+	;~ Backspace &amp; Space
+		Right &amp; NumpadSub::Send, {Backspace}
+		Right &amp; Numpad0::Send, {Space}
+		Right &amp; PGDN::Send, {Tab 8}			; Tab to the end.
+	
+;~ HOTKEY Variables --------------------
+	;~ X Variable
+		Right &amp; Numpad1::Send, {x}	;i.e. Alt+120
+		Right &amp; Numpad9::Send, {t}	;i.e. Alt+
+		Right &amp; Numpad3::Send, {y}	;i.e. Alt+121
+		Down &amp; Numpad3::Send, {e}	;i.e. Alt+101
+;~ HOTKEY SYMBOLS
+	;~ Constants &amp; Variables
+		Down &amp; Numpad1::	Send, -\inf 	; "-∞ "
+		Down &amp; Numpad2::	Send, \inf 		;  "∞ " 
+;~ HOTKEY Parentheses, Brackets, Commas, Semicolons, Colons --------------
+	;~ Comma
+		Right &amp; NumpadDot::	Send, {,}
+		
+	;~ Ordered Pair, Comma inside of Parentheses
+		Down &amp; Numpad7::	Send, (-\inf{,}\inf){Left 2}
+	
+	;~ Parentheses ; 
+	{
+		$^!9::Send, \left(
+		$^!0::Send, \right)
+		
+		$+9::				Send, (){Left}
+		Right &amp; Numpad7::	Send, (){Left}
+		; ")" Right Paranthesis
+		$+0::
+			; store the clipboard's contents before utilizing
+			clipTemp := ClipboardAll
+			
+			;highlight the next character
+			Send, {LShift down}{Right 1}{LShift up}
+			
+			; copy the highlighted character to the clipboard to "scan" it
+			Send, ^c
+			Sleep, 30 ; milliseconds
+			
+			; If the copied character is the same and the one we're trying to type...
+			; then leave it alone and exit the highlighted text.
+			; Else, plop down a ")".
+			if (Clipboard == ")"){
+				Send, {Left}{Right}
+			}
+			else
+			{
+				Send, {Left}{)}
+			}
+			
+			; restore the clipboard's contents
+			Clipboard := clipTemp
+			return
+	}
+	
+	;~ Curly Brace, Curly Brackets
+	{
+		$^!+[::Send, \left{{}
+		$^!+]::Send, \right{}}
+		$+[::Send, {{}{}}{Left}
+		$+]::
+		{
+			; store the clipboard's contents before utilizing
+			clipTemp := ClipboardAll
+			;highlight the next character
+			Send, {LShift down}{Right 1}{LShift up}
+			; copy the highlighted character to the clipboard to "scan" it
+			Send, ^c
+			Sleep, 30 ; milliseconds
+			; If the copied character is the same and the one we're trying to type...
+			; then leave it alone and exit the highlighted text.
+			; Else, plop down a ")".
+			if (Clipboard == "}"){
+				Send, {Left}{Right}
+			}
+			else
+			{
+				Send, {Left}{}}
+			}
+			; restore the clipboard's contents
+			Clipboard := clipTemp
+			return
+		}
+	}
+	;~ Square Brackets
+	{
+		$^![::Send, \left[
+		$^!]::Send, \right]
+		$[::Send, []{Left}
+		$]::
+		{
+			; store the clipboard's contents before utilizing
+			clipTemp := ClipboardAll
+			
+			;highlight the next character
+			Send, {LShift down}{Right 1}{LShift up}
+			
+			; copy the highlighted character to the clipboard to "scan" it
+			Send, ^c
+			Sleep, 30 ; milliseconds
+			
+			; If the copied character is the same and the one we're trying to type...
+			; then leave it alone and exit the highlighted text.
+			; Else, plop down a ")".
+			if (Clipboard == "]"){
+				Send, {Left}{Right}
+			}
+			else
+			{
+				Send, {Left}{]}
+			}
+			
+			; restore the clipboard's contents
+			Clipboard := clipTemp
+			return
+		}
+	}
+;~ HOTKEY Operators
+{
+	;~ Subscripts, Superscripts, Exponents, Radicals, Powers, Roots, Relationals
+	{
+		Right &amp; Numpad2::			Send, {_}		; subscript, underscore
+		Right &amp; Numpad4::			Send, {&lt;}		; less-than
+		Down &amp; Numpad4::			Send, {≤}		; less-than or equal to
+		Right &amp; Numpad5::			Send, {=}		; equals
+		Down &amp; Numpad5::			Send, {≈}		; approx symbol
+		Right &amp; Numpad6::			Send, {&gt;}		; greater-than
+		Down &amp; Numpad6::			Send, {≥}		; greater-than or equal to
+		Right &amp; Numpad8::			Send, {^}		; superscript, power
+		
+		+2::
+			Send, {^}		; superscript, power
+			mathKbd_incrementPower(INCREMENT_LIMIT,1)
+			return
+		+/::
+		Right &amp; NumpadDiv::
+			mathKbd_typeSquareRoot()
+			return
+		Right &amp; NumpadMult::		Send, +5		; = %
+		+3::						Send, {+}		; addition, plus, sum, add
+		^p:: 
+		{
+			KeyWait, p ;wait for key to be released to avoid triggering
+					;in combination with {Shift}
+			Send, {+} ;[Shift+=] -&gt; {=}
+			return ;exit method
+		}	
+		+4::						Send, {-}		; subtraction, minus, difference, subtract, negative, 
+		Right &amp; NumpadAdd::			Send, {-}		; subtraction, minus, difference, subtract, negative, 
+		Down &amp; NumpadAdd::			Send, {±}		; plus or minus ±:(A+241)
+	;~HOTKEYS Functions
+		;~Trigonometric Functions
+		^Insert::					Send, sin(){Left}
+		^Delete::					Send, csc(){Left}
+		^Home::						Send, cos(){Left}
+		^End::						Send, sec(){Left}
+		^PGUP::						Send, tan(){Left}
+		^PGDN::						Send, cot(){Left}
+	}
+}
+
+;~ HOTSTRING Brackets and Separators============================================
+	;~ Angled Brackets
+		::leftanglebracket::⟨
+		::langbk::⟨
+		::rightanglebracket::⟩ 
+		::rangbk::⟩ 
+		::angle::∠
+	;~ Comma
+			;DEPRECATED, keyboard periods no longer trigger commas, only a 
+			;timed-double-tap NumpadDot triggers a comma replacement
+		;~ :*?:..::{,}
+	;~ Therefore
+		::therefore::∴
+		::tf::∴
+	;~ Because
+		::because::∵
+		::bc::∵
+	;~ Ellipses
+		::'''::⋯
+		;~ ::...::… 
+;~ HOTSTRING Superscripts, Exponents, Radicals, Powers, Roots==================
+{
+	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
+		::ss::
+			Send, {^}{2}{Right}
+			return
+		::sq::{^}2{Right}			; squared, power of 2, exponent 2
+		::srd::{^}2{Right}			; squared, power of 2, exponent 2
+		::sqrd::{^}2{Right}			; squared, power of 2, exponent 2
+		::squared::{^}2{Right}		; squared, power of 2, exponent 2
+		::root::\sqrt				; square root, radical  √:(A+251)
+		::srt::\sqrt				; square root, radical  √:(A+251)
+		::sqrtt::√					; square root, radical  √:(A+251)
+		::radical::√    			; square root, radical  √:(A+251)
+		::ex::e{^}x{Right}			; exponential constant to the power of x
+	#Hotstring ?0			;~ [?0] turn off "if-suffix" trigger
+		::crt::∛ 
+		::frt::∜
+		::3rt::∛ 
+		::4rt::∜
+}
+; HOTSTRING NUMBERS============================================================
+{
+	;~ #Hotstring *			;~ [*] turn on No Ending-Character Required
+	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
+		;~ :?:root::√
+		::zero::0
+		::one::1
+		:T:two::2			;~ [T] send as raw text, no keystrokes
+		::three::3
+		::four::4
+		::five::5
+		::six::6
+		::seven::7
+		::eight::8
+		::nine::9
+		::ten::10
+		::eleven::11
+		::twelve::12
+		::thirteen::13
+		::fourteen::14
+		::fifteen::15
+		::sixteen::16
+		::seventeen::17
+		::eighteen::18
+		::nineteen::19
+		::twenty::20
+		::thirty::30
+		::fourty::40
+		::fifty::50
+		::sixty::60
+		::seventy::70
+		::eighty::80
+		::ninety::90
+		::hundred::100
+		::onehundred::100
+	#Hotstring ?0			;~ [?0] turn off "if-suffix" trigger
+	#Hotstring *0 			;~ [*0] turn off No Ending-Character Required
+}
+
+;~ HOTSTRINGS UNICODE &amp; ASCII SYMBOLS 
+{
+	;~ [O] omits the ending character from outputting in the replaced hotstring
+	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
+		:R:plus::+ 		;~ [R] sends output as raw, without translating as keywords
+		:R:add::+
+		:R*:pp::+	;plus
+		:R*:nn::-	;minus
+		:R*:mm::-	;minus
+		:R*:tt::*	;times
+		:R*:dd::/	;divided
+		::min::-
+		::minus::-
+}
+;~ #IfWinActive Topic: Discussion: Mixed Derivatives ; target specific window
+{
+		;~ ::min::
+			;~ Send, {Backspace}{-}
+		;~ ::minus::
+			;~ Send, {Backspace 3}{-}
+}
+;~ #IfWinActive ; re-declare targeting of any window
+{
+		::neg::-
+		::negative::-
+		::times::{*}
+		::multiplied::{*}
+		::dot::{*} 			;~ For browser math input * *
+		::realdot::· 		;~ For generic text field input
+		::divided::{/}
+		::plusminus::±
+		::minusplus::∓
+		;~ ::inf::∞
+		;~ ::inf::\inf 
+		:C:union::∪		;~ [C] caps sensitive hotstring
+		:C:U::
+		::sumseq::∑
+		::elementof::∈
+		;~ ::in::∈
+		;~ ::f(::ƒ(
+		::equals::=
+		::approx::≈
+		::approximately::≈
+		::notequal::≠
+		::notequals::≠
+		::deg::°
+		::degg::
+		{
+			Clipboard:= "\deg"
+			Send, ^v 
+			return
+		}
+		;~ :T:deggg::\deg			; Doesn't work in Mathway browser, the back-slash and forward-slash 
+									; are captured as ratio dividers before getting a chance to finish
+									; the character command.
+		
+		;integrals 
+		:?0:int::\int
+		:?0:integral::\int
+		::dint::\dint
+		::defint::\dint
+		::definite integral::\dint
+		
+		
+	#Hotstring ?0	;~ turns off "if-suffix" trigger
+}
+;~ Superscripts================================================================
+{
+	#Hotstring ?	;~ turns on "if-suffix" trigger
+	;~ ⁰ⁱ¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ
+	;~ [O] omit ending character trail space
+	;~ [?] if-suffix, still triggers
+	::supi'::ⁱ
+	::supn'::ⁿ
+	::sup1'::¹
+	::sup2'::²
+	::sup3'::³
+	::sup1'::¹
+	::sup2'::²
+	::sup3'::³
+	;---------------------------------
+	::sup::
+	::pow::
+	::pwr::
+	::power::{^}
+	::sup1::
+	::pow1::
+	::pwr1::
+	::power1::{^}1{Right}
+	::sup2::
+	::pow2::
+	::pwr2::
+	::power2::{^}2{Right}
+	::sup3::
+	::pow3::
+	::pwr3::
+	::power3::{^}3{Right}
+	::sup4::
+	::pow4::
+	::pwr4::
+	::power4::{^}4{Right}
+	::sup5::
+	::pow5::
+	::pwr5::
+	::power5::{^}5{Right}
+	::sup6::
+	::pow6::
+	::pwr6::
+	::power6::{^}6{Right}
+	::sup7::
+	::pow7::
+	::pwr7::
+	::power7::{^}7{Right}
+	::sup8::
+	::pow8::
+	::pwr8::
+	::power8::{^}8{Right}
+	::sup9::
+	::pow9::
+	::pwr9::
+	::power9::{^}9{Right}
+	::sup0::
+	::pow0::
+	::pwr0::
+	::power0::{^}0{Right}
+	::supx::
+	::powx::
+	::pwrx::
+	::powerx::{^}x{Right}
+	::supn::
+	::pown::
+	::pwrn::
+	::powern::{^}n{Right}
+	::supone::
+	::powone::
+	::pwrone::
+	::powerone::{^}1{Right}
+	::suptwo::
+	::powtwo::
+	::pwrtwo::
+	::powertwo::{^}2{Right}
+	::supthree::
+	::powthree::
+	::pwrthree::
+	::powerthree::{^}3{Right}
+	::supfour::
+	::powfour::
+	::pwrfour::
+	::powerfour::{^}4{Right}
+	::supfive::
+	::powfive::
+	::pwrfive::
+	::powerfive::{^}5{Right}
+	::supsix::
+	::powsix::
+	::pwrsix::
+	::powersix::{^}6{Right}
+	::supseven::
+	::powseven::
+	::pwrseven::
+	::powerseven::{^}7{Right}
+	::supeight::
+	::poweight::
+	::pwreight::
+	::powereight::{^}8{Right}
+	::supnine::
+	::pownine::
+	::pwrnine::
+	::powernine::{^}9{Right}
+	::supzero::
+	::powzero::
+	::pwrzero::
+	::powerzero::{^}0{Right}
+	;---------------------------------
+}
+;~ Subscripts==================================================================
+{
+	;~ ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎
+	;~ ₐ ₑ ₒ ₓ ₔ ₕ ₖ ₗ ₘ ₙ ₚ ₛ ₜ
+	::suba'::ₐ
+	::subn'::ₙ
+	::subx'::ₓ
+	::sub1'::₁
+	::sub2'::₂
+	::sub3'::₃
+	;---------------------------------
+	::base::{_}
+	::base1::{_}1{Right}
+	::base2::{_}2{Right}
+	::base3::{_}3{Right}
+	::base4::{_}4{Right}
+	::base5::{_}5{Right}
+	::base6::{_}6{Right}
+	::base7::{_}7{Right}
+	::base8::{_}8{Right}
+	::base9::{_}9{Right}
+	::base0::{_}0{Right}
+	::basex::{_}x{Right}
+	::basen::{_}n{Right}
+	;---------------------------------
+	::sub::{_}
+	::sub1::{_}1{Right}
+	::sub2::{_}2{Right}
+	::sub3::{_}3{Right}
+	::sub4::{_}4{Right}
+	::sub5::{_}5{Right}
+	::sub6::{_}6{Right}
+	::sub7::{_}7{Right}
+	::sub8::{_}8{Right}
+	::sub9::{_}9{Right}
+	::sub0::{_}0{Right}
+	::subx::{_}x{Right}
+	::subn::{_}n{Right}
+	;---------------------------------
+	#Hotstring ?0	;~ turns off "if-suffix" trigger
+}
+;~ Fractions===================================================================
+{
+	::onehalf::½
+	::onethird::⅓
+	::onefourth::¼
+	::onefifth::⅕
+	::onesixth::⅙
+	::oneseventh::⅐
+	::oneeighth::⅛
+	::oneninth::⅑
+	::threefourths::¾
+}
+;~ Greek Letters===============================================================
+{
+	;~ #Hotstring C ;~ [C] case sensitive
+	;~ letters are automatically replaced/matched with Capitalization of replaced string.
+	#Hotstring ?	;~ turns on "if-suffix" trigger
+	::alpha%::α
+	::alpha;::α
+	::alpha::\alpha
+	::beta%::β
+	::beta;::β
+	::beta::\beta
+	::gamma%::γ
+	::gamma;::γ
+	::gamma::\gamma
+	::delta%::δ
+	::delta;::δ
+	::delta::\delta
+	::epsilon%::ε
+	::epsilon;::ε
+	::epsilon::\eplison
+	::theta%::θ
+	::theta;::θ
+	::theta::\theta
+	::phi%::φ
+	::phi;::φ
+	::phi::\phi
+	::pi%::π
+	::pi;::π
+	;~ ::pi::\pi
+	::omega%::ω
+	::omega;::ω
+	::omega::\omega
+	;~ #Hotstring C0 ;~ [C0] turn off case sensitive
+	#Hotstring ?0	;~ turns off "if-suffix" trigger
+	
+	#Hotstring C0 O0 ?0 *0		;~ Reset Hotstring directives
+}
+;==============================================================================
+
+
+#IfWinActive Mathway 
+{
+	NumpadMult:: ; superscript, power, multiply, squared, increment, iteration
+		Send, {*}
+		mathKbd_incrementPowerNoCarrotWithExtraBackspacing()
+		return
+
+	+Tab::Left
+
+	;~ +/::
+	;~ Right &amp; NumpadDiv::
+		;~ pasteSquareRoot(1)
+		;~ return
+	
+	;~ NumpadDiv::
+		;~ Send, {/}
+		;~ if (doubleTap()){
+			;~ Send, {Backspace 2}
+			;~ ;pasteSquareRoot(1)
+		;~ }
+		;~ return
+
+;HOTSTRINGS===========================================
+	#Hotstring ?			;~ [?] if-suffix, hotstring will still fire
+	;~ ::srt::
+	;~ ::root::
+	;~ ::sqrt::
+	;~ ::sqrtt::
+	;~ ::radical::
+		;~ pasteSquareRoot(1)
+		;~ return
+	::theta::
+		mathKbd_paste("θ")
+		return
+	::inf::
+	::infinity::
+		mathKbd_paste("∞")
+		return
+#Hotstring C0 O0 ?0 *0		;~ Turn off Hotstring directives
+}
+
+#IfWinActive Desmos
+
+
+#IfWinActive ;end specific window targeting
+
+
+
+;==============================================================================
+;==============================================================================
+;==============================================================================
+;~ OTHER METHODS
+;==============================================================================
+
+mathKbd_incrementPowerNoCarrotWithExtraBackspacing()</Match>
+        <Match Id="2">mathKbd_incrementPowerNoCarrotWithExtraBackspacing</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="6">
+        <Match Id="1">
+{
+	mathKbd_incrementPower(,,,,,false,true)
+}
+
+mathKbd_incrementPowerNoCarrot()</Match>
+        <Match Id="2">mathKbd_incrementPowerNoCarrot</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="7">
+        <Match Id="1">
+{
+	mathKbd_incrementPower(,,,,false)
+}
+
+mathKbd_incrementPower( p_timeLimit := -1, p_incrementAmount := 1, p_initialBackspaceAmount := 2, p_subsequentBackspaceAmount :=3, p_rightAmount := 1, p_sendCarrot := true, p_extraBackspacing := false)</Match>
+        <Match Id="2">mathKbd_incrementPower</Match>
+        <Match Id="3">( p_timeLimit := -1, p_incrementAmount := 1, p_initialBackspaceAmount := 2, p_subsequentBackspaceAmount :=3, p_rightAmount := 1, p_sendCarrot := true, p_extraBackspacing := false)</Match>
+      </MatchCollection>
+      <MatchCollection Id="8">
+        <Match Id="1">{
+	if (doubleTap(p_timeLimit)){
+		currentRaisedPower += p_incrementAmount
+		if (currentRaisedPower = 2)
+			Send, {Backspace %p_initialBackspaceAmount%} ;2
+		else if (p_extraBackspacing == true &amp;&amp; currentRaisedPower &gt;= 11){
+			extraBackspaceAmount := p_subsequentBackspaceAmount + 1
+			Send, {Backspace %extraBackspaceAmount%}
+		} 
+		else
+			Send, {Backspace %p_subsequentBackspaceAmount%} ;3
+		
+		if (p_sendCarrot == true)
+			Send, {^}%currentRaisedPower%{Right %p_rightAmount%} ;1
+		else if (p_sendCarrot == false &amp;&amp; currentRaisedPower = 2)
+			Send, {^}%currentRaisedPower%{Right %p_rightAmount%} ;1
+		else
+			Send, %currentRaisedPower%{Right %p_rightAmount%} ;1
+	}
+	else
+		currentRaisedPower := 1
+}
+
+; variadic parameter__________________vvvvvvv________
+mathKbd_incrementVariables(p_timeLimit := "", p_vars*)</Match>
+        <Match Id="2">mathKbd_incrementVariables</Match>
+        <Match Id="3">(p_timeLimit := "", p_vars*)</Match>
+      </MatchCollection>
+      <MatchCollection Id="9">
+        <Match Id="1">{
+	; if undeclared, set timelimit to default increment time value
+	if (p_timeLimit == ""){
+		p_timeLimit := INCREMENT_LIMIT
+		;~ MsgBox, % "Set p_timeLimit from `"`" to INCREMENT_LIMIT = " . INCREMENT_LIMIT . "`p_vars.MaxIndex() = " . p_vars.MaxIndex()
+	}
+	; if within doubleTap limit, set str to params[index] value, send output,
+	; and increment the index value
+	if (doubleTap(p_timeLimit)){
+		
+		; set the string to the next parameter element
+		str := p_vars[currentRaisedPower]
+		
+		; delete the last printed element by checking the string length of prev elem
+		previousIndex := currentRaisedPower - 1
+		if (previousIndex == 0){
+			backspaceAmount := 2
+			previousIndex := 1
+		} else { 
+			backspaceAmount := StrLen(p_vars[previousIndex]) + 1
+		}
+		; remove last print by backspaceAmount and print new string
+		Send, {Backspace %backspaceAmount%}%str%
+		
+		; after sending output and incrementing +1, if index variable would be higher than 
+		; length of p_vars* object, then cycle back to beginning of elem index [1].
+		currentRaisedPower += 1 ;intially starts at 1, first run sets to 2
+		if (currentRaisedPower &gt; p_vars.MaxIndex())
+			currentRaisedPower := 1
+	}
+	else
+		currentRaisedPower := 1
+	
+	;send the release of any modifier keys to keep them from getting spam-locked
+	Send, {CtrlUp}{ShiftUp}{AltUp}
+}
+
+mathKbd_typeSquareRoot()</Match>
+        <Match Id="2">mathKbd_typeSquareRoot</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="10">
+        <Match Id="1">{
+	if (mathKbd_style_paste == false){
+		if (mathKbd_style_backSlash == false || mathKbd_style_backSlash == 0)
+			Send, sqrt{Left %mathKbd_style_squareRootLeftAmount%}
+		else if (mathKbd_style_backSlash == true || mathKbd_style_backSlash == 1)
+			Send, \sqrt{Left %mathKbd_style_squareRootLeftAmount%}
+	} else if (mathKbd_style_paste == true){
+		mathKbd_pasteSquareRoot()
+	}
+}
+
+mathKbd_pasteSquareRoot()</Match>
+        <Match Id="2">mathKbd_pasteSquareRoot</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="11">
+        <Match Id="1">{
+	archiveClipboard()
+	Clipboard := "√"			; square root, radical  √:(A+251)
+	Send, ^v{Left %mathKbd_style_squareRootLeftAmount%}
+	restoreClipboard()
+	return
+}
+
+mathKbd_paste(str := "")</Match>
+        <Match Id="2">mathKbd_paste</Match>
+        <Match Id="3">(str := "")</Match>
+      </MatchCollection>
+      <MatchCollection Id="12">
+        <Match Id="1">{	
+	archiveClipboard()
+	Clipboard := str
+	Send, ^v 
+	restoreClipboard()
+	return
+}
+;==============================================================================
+;==============================================================================
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="13">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>GUI_RegEx_Visual_Keyboard.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-gui</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#Include %A_ScriptDir%\..-lib
+#Include Main-Method-Library-LIB.ahk
+#Include repeatKey()-LIB.ahk
+
+
+#NoTrayIcon
+
+Gui, Add, Text, x182 y136 w88 h31 +Center, word character `n[A-Za-z0-9_]
+Gui, Add, Text, x486 y19 w125 h44 +Center, Reserved Characters`n+*?^$\.[]{}()|/
+Gui, Add, Button, x17 y64 w100 h40 , whitespace char`n\s
+Gui, Add, Button, x117 y64 w120 h40 , non-whitespace char`n\S
+Gui, Add, Button, x17 y131 w80 h40 , word char`n\w
+Gui, Add, Button, x97 y131 w80 h40 , non-word char`n\W
+Gui, Add, Button, x417 y54 w120 h40 , char-set`n[ ]
+Gui, Add, Button, x17 y195 w80 h40 , digit char`n\d
+Gui, Add, Button, x557 y54 w120 h40 , negated-set`n[^ ]
+Gui, Add, Button, x97 y195 w80 h40 , non-digit char`n\D
+Gui, Add, Button, x272 y9 w130 h50 , match any`n[\s\S]
+Gui, Add, Button, x417 y94 w120 h40 , capture-group`n( )
+Gui, Add, Button, x557 y94 w120 h40 , non-capturing group`n(?: )
+Gui, Add, Button, x417 y154 w120 h40 , positive lookbehind`n(?&lt;= )
+Gui, Add, Button, x557 y154 w120 h40 , positive lookahead`n(?= )
+Gui, Add, Button, x557 y194 w120 h40 , negative lookahead`n(?! )
+Gui, Add, Button, x467 y254 w160 h40 , named capturing group`n(?&lt;name&gt; )
+Gui, Add, Button, x17 y24 w60 h40 , TAB`n\t
+Gui, Add, Button, x77 y24 w80 h40 , line break`n\r\n
+Gui, Add, Button, x17 y247 w80 h40 , Hex char`n\xFF
+Gui, Add, Button, x417 y194 w120 h40 , negative lookbehind`n(?&lt;! )
+Gui, Add, GroupBox, x12 y7 w234 h103 , Whitespace
+Gui, Add, GroupBox, x404 y-33 w0 h309 , GroupBox
+Gui, Add, GroupBox, x11 y115 w259 h63 , Word Characters
+Gui, Add, GroupBox, x11 y180 w177 h62 , Numbers
+Gui, Add, GroupBox, x412 y8 w274 h293 , 
+Gui, Add, Button, x292 y219 w100 h60 , make optional or lazy`n?
+Gui, Add, GroupBox, x283 y79 w116 h205 , Quantifiers
+Gui, Add, Button, x292 y99 w100 h30 , 0`, or more`n*
+Gui, Add, Button, x292 y129 w100 h30 , at least 1`, or more`n+
+Gui, Add, Button, x292 y159 w100 h60 , {4} - exactly 4`n{4`,} - 4 or more`n{1`,4} - 1 to 4`n{ }
+; Generated using SmartGUI Creator for SciTE
+Gui, Show, w700 h312, Untitled GUI
+return
+
+GuiClose:
+ExitApp</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>GUI_RegEx_Visual_Keyboard_generated_gui3.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-gui</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#NoTrayIcon
+
+Gui, Add, Text, x182 y136 w88 h31 +Center, word character `n[A-Za-z0-9_]
+Gui, Add, Text, x486 y19 w125 h44 +Center, Reserved Characters`n+*?^$\.[]{}()|/
+Gui, Add, Button, x17 y64 w100 h40 , whitespace char`n\s
+Gui, Add, Button, x117 y64 w120 h40 , non-whitespace char`n\S
+Gui, Add, Button, x17 y131 w80 h40 , word char`n\w
+Gui, Add, Button, x97 y131 w80 h40 , non-word char`n\W
+Gui, Add, Button, x417 y54 w120 h40 , char-set`n[ ]
+Gui, Add, Button, x17 y195 w80 h40 , digit char`n\d
+Gui, Add, Button, x557 y54 w120 h40 , negated-set`n[^ ]
+Gui, Add, Button, x97 y195 w80 h40 , non-digit char`n\D
+Gui, Add, Button, x272 y9 w130 h50 , match any`n[\s\S]
+Gui, Add, Button, x417 y94 w120 h40 , capture-group`n( )
+Gui, Add, Button, x557 y94 w120 h40 , non-capturing group`n(?: )
+Gui, Add, Button, x417 y154 w120 h40 , positive lookbehind`n(?&lt;= )
+Gui, Add, Button, x557 y154 w120 h40 , positive lookahead`n(?= )
+Gui, Add, Button, x557 y194 w120 h40 , negative lookahead`n(?! )
+Gui, Add, Button, x467 y254 w160 h40 , named capturing group`n(?&lt;name&gt; )
+Gui, Add, Button, x17 y24 w60 h40 , TAB`n\t
+Gui, Add, Button, x77 y24 w80 h40 , line break`n\r\n
+Gui, Add, Button, x17 y247 w80 h40 , Hex char`n\xFF
+Gui, Add, Button, x417 y194 w120 h40 , negative lookbehind`n(?&lt;! )
+Gui, Add, GroupBox, x12 y7 w234 h103 , Whitespace
+Gui, Add, GroupBox, x404 y-33 w0 h309 , GroupBox
+Gui, Add, GroupBox, x11 y115 w259 h63 , Word Characters
+Gui, Add, GroupBox, x11 y180 w177 h62 , Numbers
+Gui, Add, GroupBox, x412 y8 w274 h293 , 
+Gui, Add, Button, x292 y219 w100 h60 , make optional or lazy`n?
+Gui, Add, GroupBox, x283 y79 w116 h205 , Quantifiers
+Gui, Add, Button, x292 y99 w100 h30 , 0`, or more`n*
+Gui, Add, Button, x292 y129 w100 h30 , at least 1`, or more`n+
+Gui, Add, Button, x292 y159 w100 h60 , {4} - exactly 4`n{4`,} - 4 or more`n{1`,4} - 1 to 4`n{ }
+; Generated using SmartGUI Creator for SciTE
+Gui, Show, w700 h312, Untitled GUI
+return
+
+GuiClose:
+ExitApp</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>GUI_RegEx_Visual_Keyboard_generated_gui2.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-gui</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#NoTrayIcon
+
+Gui, Add, Text, x173 y141 w109 h49 +Center, word character `n[A-Za-z0-9_]
+Gui, Add, Text, x486 y21 w125 h44 +Center, Reserved Characters`n+*?^$\.[]{}()|/
+Gui, Add, Button, x22 y69 w100 h40 , whitespace char`n\s
+Gui, Add, Button, x122 y69 w120 h40 , non-whitespace char`n\S
+Gui, Add, Button, x22 y136 w80 h40 , word char`n\w
+Gui, Add, Button, x102 y136 w80 h40 , non-word char`n\W
+Gui, Add, Button, x422 y59 w120 h40 , char-set`n[ ]
+Gui, Add, Button, x22 y200 w80 h40 , digit char`n\d
+Gui, Add, Button, x562 y59 w120 h40 , negated-set`n[^ ]
+Gui, Add, Button, x102 y200 w80 h40 , non-digit char`n\D
+Gui, Add, Button, x283 y24 w104 h44 , match any`n[\s\S]
+Gui, Add, Button, x422 y99 w120 h40 , capture-group`n( )
+Gui, Add, Button, x562 y99 w120 h40 , non-capturing group`n(?: )
+Gui, Add, Button, x422 y159 w120 h40 , positive lookbehind`n(?&lt;= )
+Gui, Add, Button, x562 y159 w120 h40 , positive lookahead`n(?= )
+Gui, Add, Button, x562 y199 w120 h40 , negative lookahead`n(?! )
+Gui, Add, Button, x472 y259 w160 h40 , named capturing group`n(?&lt;name&gt; )
+Gui, Add, Button, x22 y29 w60 h40 , TAB`n\t
+Gui, Add, Button, x82 y29 w80 h40 , line break`n\r\n
+Gui, Add, Button, x22 y252 w80 h40 , Hex char`n\xFF
+Gui, Add, Button, x422 y199 w120 h40 , negative lookbehind`n(?&lt;! )
+Gui, Add, GroupBox, x17 y12 w234 h103 , Whitespace
+Gui, Add, GroupBox, x409 y-28 w-80 h309 , GroupBox
+Gui, Add, GroupBox, x16 y120 w259 h63 , Word Characters
+Gui, Add, GroupBox, x16 y185 w177 h62 , Numbers
+Gui, Add, GroupBox, x417 y13 w274 h293 , 
+; Generated using SmartGUI Creator for SciTE
+Gui, Show, w706 h318, Untitled GUI
+return
+
+GuiClose:
+ExitApp</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>GUI_RegEx_Visual_Keyboard_generated_gui.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-gui</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#NoTrayIcon
+
+Gui, Font, S8 CDefault, JetBrains Mono
+Gui, Add, Text, x22 y89 w110 h30 , word character `n[A-Za-z0-9_]
+Gui, Add, Text, x22 y9 w110 h50 , whitespace `n(spaces`, tabs`,`nline breaks)
+Gui, Add, Text, x22 y149 w110 h30 , character set`n      negated
+Gui, Add, Text, x132 y39 w90 h20 +Center, Match Any
+Gui, Add, Text, x302 y19 w160 h40 +Center, Reserved Characters`n+*?^$\.[]{}()|/
+
+
+Gui, Font, S10 CDefault, JetBrains Mono
+Gui, Add, Button, x22 y59 w40 h30 , \s
+Gui, Add, Button, x62 y59 w40 h30 , \S
+Gui, Add, Button, x22 y119 w40 h30 , \w
+Gui, Add, Button, x62 y119 w40 h30 , \W
+Gui, Add, Button, x22 y179 w40 h30 , [⋯]
+Gui, Add, Button, x22 y239 w40 h30 , \d
+Gui, Add, Button, x22 y299 w40 h30 , \S
+Gui, Add, Button, x62 y179 w40 h30 , [^⋯]
+Gui, Add, Button, x62 y239 w40 h30 , \D
+Gui, Add, Button, x142 y59 w60 h30 , [\s\S]
+Gui, Add, Button, x132 y179 w60 h30 , ( )
+Gui, Add, Button, x192 y179 w60 h30 , (?: )
+
+Gui, Add, Button, x132 y209 w60 h30 , (?&lt;= )
+Gui, Add, Button, x192 y209 w60 h30 , (?= )
+
+
+Gui, Add, Button, x132 y239 w60 h30 , (?&lt;! )
+Gui, Add, Button, x192 y239 w60 h30 , (?! )
+Gui, Add, Button, x132 y269 w120 h30 , (?&lt;name&gt; )
+Gui, Add, Button, x132 y119 w60 h30 , \t
+Gui, Add, Button, x192 y119 w60 h30 , \r\n
+Gui, Add, Button, x162 y149 w60 h30 , [\r\n]
+Gui, Add, Button, x252 y119 w90 h30 , Hex char`n\xFF
+; Generated using SmartGUI Creator for SciTE
+Gui, Show, w479 h379, Untitled GUI
+return
+
+GuiClose:
+ExitApp
+
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>LIB_colorHandler.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#Include Main-Method-Library-LIB.ahk
+
+
+#IfWinActive Color ahk_class #32770 ahk_exe notepad++.exe
+;;If window is active
+
+^v::
+{
+	txt := Clipboard
+	StringSplit, colorArray[]
+	Send, 
+	return
+}
+;;Re-declare any window as an acceptable 
+;;case-scenario before exit.
+#IfWinActive</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>GUI_Scroll_Speed_Monitoring.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-gui</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">/* ;SCROLL SPEED MONITORING (AS TOOLTIP)
+ * ;===============================================================================
+ * #Persistent
+ * SetTimer, ScrollSpeedMonitor, 50
+ * return
+ * ;-------------------------------------------------------------------------------
+ * ScrollSpeedMonitor:
+ * ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . scrollAmount ""
+ * return
+ */
+
+/* lines
+ * 	of 
+ * 	test
+ * text 
+ * 	to 
+ * 	un-block-comment
+ * 	
+ */
+
+
+
+
+#PersistenT 
+
+;SCROLL SPEED MONITORING (AS TOOLTIP)
+;===============================================================================
+;auto-execute section===========================================================
+;	cmd,      label,              time interval in milliseconds
+ SetTimer, ScrollSpeedMonitor, 50
+ return
+;end of auto-execute section;---------------------------------------------------
+;-------------------------------------------------------------------------------
+
+;	label
+	ScrollSpeedMonitor:
+;	statement, 
+	ToolTip % "deltaTime: `t" . deltaTime . "`nint:`t" . scrollAmount ""
+	return</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>LIB_Emojis_And_Symbols.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">/* AHK_LIB_Emojis_And_Symbols.ahk
+ * 
+ * @description
+ * 		This script is a place for hotstrings, hotkeys, and methods for 
+ * 		handling the output of and conversion of text into unicode emojis and 
+ * 		other symbols. 
+ * 
+ * 
+ */
+;;##############################################################################
+;;SYMBOLS FOR CHAT, MESSAGES, COMMUNICATION, FRIENDS, 
+#Hotstring SE
+
+
+
+
+
+::shruggie;::
+	pasteClipboard("¯\_(ツ)_/¯")
+	return
+::shock;::
+::shock1;::
+	;~ Send, Σ(°ロ°)
+	pasteClipboard("Σ(°ロ°)")
+	return
+::shock2::
+::shock2;::
+	;~ Send, (￣□￣;)
+	pasteClipboard("(￣□￣;)")
+	return
+::gasp;::
+::gasp;::
+	;~ Send, (°ロ°) !
+	pasteClipboard("(°ロ°) !")
+	return
+::wow;::
+	pasteClipboard("w(°ｏ°)w")
+	return
+::bliss;::
+	pasteClipboard("(¯▿¯)")
+	return
+::smug;::
+::larry;::
+::lenny;::
+	pasteClipboard("( ͡° ͜ʖ ͡°)")
+	return
+::disapproval;::
+::disapprove;::
+::lookofd;::
+::lookod;::
+::lkofd;::
+::lod;::
+::notamused;::
+::notfunny;::
+	;~ Send, ಠ__ಠ
+	pasteClipboard("ಠ__ಠ")
+	return
+;;SYMBOLS FOR BASIC EMOJIS
+::`:);::{U+1F642} ;;
+::`:P;::{U+1F61B} ;;
+::`;);::{U+1F609} ;;
+::`;P;::{U+1f61c} ;;
+::beer;::{U+1F37A} ;;
+::cheers;::cheers {U+1F37A} ;;
+::lol;::lol {U+1F602} ;;
+::heart;::{U+2764} ;;❤
+::rofl;::rofl {U+1F923} ;藍
+;~ ::`;P:: Send {AltDown}{NumpadAdd}1F61C{AltUp}
+;~ ::`:P:: Send {AltDown}{NumpadAdd}1F61B{AltUp}
+;~##############################################################################
+;~ SYMBOLS FOR ORGANIZED LISTS
+#Hotstring O
+	::check;::
+	::chk::
+	::chk;::
+		Send, {U+2714} ;✔ 
+		return
+	::chkx::
+	::xmark::
+	::xmark;::
+	::xmrk::
+	::xmrk;::
+	::x;::
+	::x;::
+	::rx::
+	::rx;::
+		Send, {U+274C} ;❌
+		return
+	::checkbox;::
+	::chkbx::
+	::chkbx;::
+	::chkbox::
+	::chkbox;::
+		Send, {U+2705} ;✅
+		return
+#Hotstring O0
+
+::rightarrow::{U+2794} ; ➔
+;~ ::rr::{U+2794} ;➔	right arrow 					➔
+::rr::{U+27a4} ;my default favorite arrow 		➤	black rightwards arrowhead 		➤
+::rrt::{U+27a5} ;my default favorite tab arrow	➥	3d arrow, bottom lighted 		➥
+::rre::{U+2B60} ;⭠ 	left triangle-headed arrow 		⭠
+:O:rrx::{U+274C} ;❌
+
+::r1::{U+2794} ;➔	right arrow 					➔
+::r2::{U+27a2} ;➢	3d arrow, top lighted 			➢
+::r3::{U+27a3} ;➣	3d arrow, bottom lighted 		➣
+::r4::{U+27a4} ;➤	black rightwards arrowhead 		➤
+::r5::{U+27a5} ;➥	3d arrow, bottom lighted 		➥
+::r6::{U+27a6} ;➦	3d arrow, bottom lighted 		➦➜
+::r7::{U+2B95} ;⮕ 	rightwards black arrow			⮕
+::r0::{U+2B62} ;⭢ 	right triangle-headed arrow 	⭢
+
+ 
+::sup,A;::
+::supA;::
+	Send, {U+1D2C} ;ᴬ
+	return
+::sup,AE;::
+::supAE;::
+	Send, {U+1D2D} ;ᴭ
+	return
+::supB;::
+::sup,B;::
+	Send, {U+1D2E} ;ᴮ
+	return
+::supᴯ;::
+::sup,ᴯ;::
+	Send, {U+1D2F} ;ᴯ
+	return
+::sup,D;::
+::supD;::
+	Send, {U+1D30} ;ᴰ
+	return
+::sup,E;::
+::supE;::
+	Send, {U+1D31} ;ᴱ
+	return
+::sup,E&lt;;::
+::sup,Eback;::
+::sup,Ebackwards;::
+::sup,Eleft;::
+::sup,Erev;::
+::supE&lt;;::
+::supEback;::
+::supEbackwards;::
+::supEleft;::
+::supErev;::
+	Send, {U+1D32} ;ᴲ
+	return
+::sup,G;::
+::supG;::
+	Send, {U+1D33} ;ᴳ
+	return
+::sup,H;::
+::supH;::
+	Send, {U+1D34} ;ᴴ
+	return
+::sup,I;::
+::supI;::
+	Send, {U+1D35} ;ᴵ
+	return
+::sup,J;::
+::supJ;::
+	Send, {U+1D36} ;ᴶ
+	return
+::sup,K;::
+::supK;::
+	Send, {U+1D37} ;ᴷ
+	return
+::sup,L;::
+::supL;::
+	Send, {U+1D38} ;ᴸ
+	return
+::sup,M;::
+::supM;::
+	Send, {U+1D39} ;ᴹ
+	return
+::sup,N;::
+::supN;::
+	Send, {U+1D3A} ;ᴺ
+	return
+::sup,N&lt;;::
+::supN&lt;;::
+	Send, {U+1D3B} ;ᴻ
+	return
+::sup,O;::
+::supO;::
+	Send, {U+1D3C} ;ᴼ
+	return
+::sup,OU;::
+::supOU;::
+	Send, {U+1D3D} ;ᴽ
+	return
+::sup,P;::
+::supP;::
+	Send, {U+1D3E} ;ᴾ
+	return
+::sup,R;::
+::supR;::
+	Send, {U+1D3F} ;ᴿ
+	return
+::sup,T;::
+::supT;::
+	Send, {U+1D40} ;ᵀ
+	return
+::sup,U;::
+::supU;::
+	Send, {U+1D41} ;ᵁ
+	return
+::sup,W;::
+::supW;::
+	Send, {U+1D42} ;ᵂ
+	return
+::sup,a;::
+::supa;::
+	Send, {U+1D43} ;ᵃ
+	return
+::sup,adown;::
+::supadown;::
+	Send, {U+1D44} ;ᵄ
+	return
+::sup,alpha;::
+::supalpha;::
+	Send, {U+1D45} ;ᵅ
+	return
+::sup,ae;::
+::supae;::
+	Send, {U+1D46} ;ᵆ
+	return
+::sup,b;::
+::supb;::
+	Send, {U+1D47} ;ᵇ
+	return
+::sup,d;::
+::supd;::
+	Send, {U+1D48} ;ᵈ
+	return
+::sup,e;::
+::supe;::
+	Send, {U+1D49} ;ᵉ
+	return
+::sup,edown;::
+::sup,eturned;::
+::sup,eupsidedown;::
+::supedown;::
+::supeturned;::
+::supeupsidedown;::
+	Send, {U+1D4A} ;ᵊ
+	return
+::sup,eopen;::
+::sup,eopen;::
+::sup,epsilon;::
+::sup,epsilon;::
+::sup,opene;::
+::sup,opene;::
+::supeopen;::
+::supepsilon;::
+::supopene;::
+	Send, {U+1D4B} ;ᵋ
+	return
+::sup,eopen,turned;::
+::sup,eopenturned;::
+::sup,epsilon,turned;::
+::sup,epsilonturned;::
+::sup,opene,turned;::
+::sup,openeturned;::
+::sup,turned,eopen;::
+::sup,turned,epsilon;::
+::sup,turned,opene;::
+::sup,turnedeopen;::
+::sup,turnedepsilon;::
+::sup,turnedopene;::
+::supeopenturned;::
+::supepsilonturned;::
+::supopeneturned;::
+::supturnedeopen;::
+::supturnedepsilon;::
+::supturnedopene;::
+	Send, {U+1D4C} ;ᵌ
+	return
+::sup,g;::
+::supg;::
+	Send, {U+1D4D} ;ᵍ
+	return
+::sup!;::
+::sup,!;::
+	Send, {U+1D4E} ;ᵎ
+	return
+::sup,k;::
+::supk;::
+	Send, {U+1D4F} ;ᵏ
+	return
+::sup,m;::
+::supm;::
+	Send, {U+1D50} ;ᵐ
+	return
+::supᵑ;::
+::sup,ᵑ;::
+::sup,eng;::
+::sup,nj;::
+::supeng;::
+::supnj;::
+	Send, {U+1D51} ;ᵑ
+	return
+::sup,o;::
+::supo;::
+	Send, {U+1D52} ;ᵒ
+	return
+::sup,cflipped;::
+::sup,cturned;::
+::sup,flippedc;::
+::sup,o,open;::
+::sup,oopen;::
+::sup,open,o;::
+::sup,openo;::
+::sup,turnedc;::
+::supcflipped;::
+::supcturned;::
+::supflippedc;::
+::supoopen;::
+::supopeno;::
+::supturnedc;::
+	Send, {U+1D53} ;ᵓ
+	return
+::sup,o,tophalf;::
+::sup,otop;::
+::sup,otop;::
+::sup,otophalf;::
+::sup,top,o;::
+::sup,tophalf,o;::
+::sup,tophalfo;::
+::sup,topo;::
+::supotop;::
+::supotophalf;::
+::suptophalfo;::
+::suptopo;::
+	Send, {U+1D54} ;ᵔ
+	return
+::sup,bottom,o;::
+::sup,bottomhalf,o;::
+::sup,bottomhalfo;::
+::sup,bottomo;::
+::sup,o,bottomhalf;::
+::sup,obottom;::
+::sup,obottom;::
+::sup,obottomhalf;::
+::supbottomhalfo;::
+::supbottomo;::
+::supobottom;::
+::supobottomhalf;::
+	Send, {U+1D55} ;ᵕ
+	return
+::sup,p;::
+::supp;::
+	Send, {U+1D56} ;ᵖ
+	return
+::sup,t;::
+::supt;::
+	Send, {U+1D57} ;ᵗ
+	return
+::sup,u;::
+::sup,u;::
+::supu;::
+	Send, {U+1D58} ;ᵘ
+	return
+::sup,&lt;,n;::
+::sup,&lt;n;::
+::sup,left,n;::
+::sup,leftn;::
+::sup,n,&lt;;::
+::sup,n,left;::
+::sup,n,side;::
+::sup,n,sideways;::
+::sup,n&lt;;::
+::sup,nleft;::
+::sup,nside;::
+::sup,nsideways;::
+::sup,side,n;::
+::sup,siden;::
+::sup,sideways,n;::
+::sup,sidewaysn;::
+::sup&lt;n;::
+::supleftn;::
+::supn&lt;;::
+::supnleft;::
+::supnside;::
+::supnsideways;::
+::supsiden;::
+::supsidewaysn;::
+	Send, {U+1D59} ;ᵙ
+	return
+::sup,downm;::
+::sup,flippedm;::
+::sup,mdown;::
+::sup,mflipped;::
+::sup,mturned;::
+::sup,mupsidedown;::
+::sup,turnedm;::
+::sup,upsidedownm;::
+::supdownm;::
+::supflippedm;::
+::supmdown;::
+::supmflipped;::
+::supmturned;::
+::supmupsidedown;::
+::supturnedm;::
+::supupsidedownm;::
+	Send, {U+1D5A} ;ᵚ
+	return
+::sup,v;::
+::supv;::
+	Send, {U+1D5B} ;ᵛ
+	return
+::sup,ain;::
+::supain;::
+	Send, {U+1D5C} ;ᵜ
+	return</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>LIB_Main_Method_Library.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;~ UTILITY METHODS
+
+;~ CONSTANTS
+	global SUSPEND_LIMIT := 200 ; n milliseconds
+	global DOUBLE_TAP_LIMIT := 350 ; n milliseconds
+	global INCREMENT_LIMIT := 500 ; n milliseconds
+	global TIME_INTERVAL_RAPIDFIRE := 100 ;n milliseconds
+;GLOBAL VARIABLES
+	;used to store/restore clipboard in functions
+	global g_archivedClipboard :=
+	;available for use to help with debugging
+	global debugVariable := "null"
+	
+;==============================================================================
+;~ CLIPBOARD METHODS
+;==============================================================================
+
+/**	copySelection(p_clipWaitTime := 1)
+;;	Descr:	Sends "Ctrl+c"
+;;	Return:	BOOLEAN
+;;	Params:	p_clipWaitTime:=	INTEGER (seconds)
+;;	Notes:	Make sure to have something "selected" before calling this method for it to work.
+*/
+copySelection(p_clipWaitTime := 1)</Match>
+        <Match Id="2">copySelection</Match>
+        <Match Id="3">(p_clipWaitTime := 1)</Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">{
+	;copy command
+	Send, ^c	
+	;make sure not to proceed without the clipboard being filled
+	ClipWait, p_clipWaitTime ;wait for n seconds
+	if ErrorLevel {
+		;~ MsgBox, The attempt to copy text onto the clipboard failed. Returning.
+		return false
+	}
+	return true
+}
+
+/* setClipboard(Number: Integer, Object: String)
+ * @params	
+		p_str := a string (object) stored to and pasted from the built-in
+ * 				Clipboard.
+ * @return	true if successful.
+ * 			false if error occurred.
+ * @remark	at end of method process, restores Clipboard back to what 
+			it was prior to calling this method.
+ */
+setClipboard(p_clipWaitTime := 1, p_str := "")</Match>
+        <Match Id="2">setClipboard</Match>
+        <Match Id="3">(p_clipWaitTime := 1, p_str := "")</Match>
+      </MatchCollection>
+      <MatchCollection Id="3">
+        <Match Id="1">
+{
+	;archive Clipboard contents
+	archiveClipboard()
+	;set Clipboard
+	Clipboard := p_str
+	;make sure not to proceed without the clipboard being filled
+	ClipWait, p_clipWaitTime ;wait for n seconds
+	if ErrorLevel {
+		MsgBox, The attempt to copy text onto the clipboard failed. Returning.
+		return false
+	}
+	return true
+}
+
+getClipboard(ByRef p_var)</Match>
+        <Match Id="2">getClipboard</Match>
+        <Match Id="3">(ByRef p_var)</Match>
+      </MatchCollection>
+      <MatchCollection Id="4">
+        <Match Id="1">{
+	p_var := Clipboard
+	return 
+}
+
+/* pasteClipboard(Object: String)
+ * @params	p_str := a string (object) stored to and pasted from the built-in
+ * 				Clipboard.
+ * @return	true if successful.
+ * 			false if error occurred.
+ * @note	At end of method process, restores Clipboard back to what 
+ *			it was prior to calling this method.
+ */
+pasteClipboard(p_str := "")</Match>
+        <Match Id="2">pasteClipboard</Match>
+        <Match Id="3">(p_str := "")</Match>
+      </MatchCollection>
+      <MatchCollection Id="5">
+        <Match Id="1">{
+	testBool := setClipboard(1, p_str)
+	Sleep, 200
+	if (testBool == true){
+		Send, ^v
+		retVal := true
+	}
+	else {
+		retVal := false
+	}
+	restoreClipboard()
+	return retVal
+}
+
+;[DEPRECATED], use setClipboard() isntead
+archiveThenCopy(p_clipWaitTime := 0)</Match>
+        <Match Id="2">archiveThenCopy</Match>
+        <Match Id="3">(p_clipWaitTime := 0)</Match>
+      </MatchCollection>
+      <MatchCollection Id="6">
+        <Match Id="1">
+{
+	;save and wipe the clipboard
+	archiveClipboard()
+	copySelection(p_clipWaitTime)
+	return
+}
+
+;used in setClipboard() method
+archClip()</Match>
+        <Match Id="2">archClip</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="7">
+        <Match Id="1">
+{
+	return archiveClipboard()
+}
+;used in setClipboard() method
+archiveClipboard()</Match>
+        <Match Id="2">archiveClipboard</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="8">
+        <Match Id="1">
+{
+	;if archivedClipboard is not equal to ClipboardAll
+	if g_archivedClipboard &lt;&gt; ClipboardAll 
+	{
+		;clips are different, so overwrite archive with current clipAll
+		g_archivedClipboard := ClipboardAll
+		
+		;wipe clipboard
+		Clipboard :=
+		
+		;proccess completed
+		return true
+	} 
+	else if g_archivedClipboard == ClipboardAll 
+	{ 
+		;"==" case-sensitive is-equal-to operator
+		;both clips are the same, process failed
+		return false
+	} 
+	else 
+	{
+		;clips relationship is undetermined, process failed
+		return false
+	}
+}
+
+;used in setClipboard() method
+rstrClip()</Match>
+        <Match Id="2">rstrClip</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="9">
+        <Match Id="1">
+{
+	return restoreClipboard()
+}
+;used in setClipboard() method
+restoreClipboard()</Match>
+        <Match Id="2">restoreClipboard</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="10">
+        <Match Id="1">
+{
+	if g_archivedClipboard &lt;&gt; ClipboardAll
+	{
+		;clips are different, so overwrite clipboard with current archive
+		Clipboard := g_archivedClipboard
+		
+		;proccess completed
+		return true
+	}
+	;"==" case-sensitive is-equal-to operator
+	else if g_archivedClipboard == ClipboardAll
+	{
+		;both clips are the same, process failed
+		return false
+	} 
+	else 
+	{
+		;clips relationship is undetermined, process failed
+		return false
+	}
+}
+;==============================================================================
+;==============================================================================
+
+;==============================================================================
+;~ OTHER METHODS
+;==============================================================================
+
+; parameter_timeLimit is optional (will default to DOUBLE_TAP_LIMIT if undeclared)
+; EXAMPLE
+/* 
+ * if (doubleTap(150)){
+ * 		Send, {BackSpace 2}
+ * 	}
+ * 	return
+ */
+	
+doubleTap(p_timeLimit := -1)</Match>
+        <Match Id="2">doubleTap</Match>
+        <Match Id="3">(p_timeLimit := -1)</Match>
+      </MatchCollection>
+      <MatchCollection Id="11">
+        <Match Id="1">
+{
+	if(p_timeLimit != -1){
+		;~ outText := "double tap time limit = p_timeLimit: " . p_timeLimit
+	}
+	if (p_timeLimit == -1){
+		p_timeLimit := DOUBLE_TAP_LIMIT
+		;~ outText := "double tap time limit = DOUBLE_TAP_LIMIT: " . DOUBLE_TAP_LIMIT
+	}
+	if  (A_PriorHotkey = A_ThisHotkey &amp;&amp; A_TimeSincePriorHotkey &lt; p_timeLimit){
+		;~ MsgBox, %outText% ; for debugging
+		return true
+	} 
+	else {
+		return false
+	}
+}
+
+
+rapidFire(p_thisHotkey := "", p_sendKey := "", p_time := 0)</Match>
+        <Match Id="2">rapidFire</Match>
+        <Match Id="3">(p_thisHotkey := "", p_sendKey := "", p_time := 0)</Match>
+      </MatchCollection>
+      <MatchCollection Id="12">
+        <Match Id="1">{
+	if (p_thisHotkey == "")
+		p_thisHotkey := A_ThisHotkey
+	
+	debugVariable := p_thisHotkey
+	
+	if (p_time == 0)
+		p_time := TIME_INTERVAL_RAPIDFIRE
+	while (GetKeyState(p_thisHotkey, "P")){
+		;~ MsgBox % GetKeyName(p_sendKey)
+		Send % GetKeyName(p_sendKey)
+		Sleep, p_time
+	}
+	return
+}
+
+
+moveCurrentLineDown(p_moveAmount := 1)</Match>
+        <Match Id="2">moveCurrentLineDown</Match>
+        <Match Id="3">(p_moveAmount := 1)</Match>
+      </MatchCollection>
+      <MatchCollection Id="13">
+        <Match Id="1">
+{
+	SetKeyDelay, 30
+	
+	;wait for Shift and Ctrl to be released by user
+	KeyWait Shift
+	KeyWait Ctrl
+	
+	;archive before use, exit if failure
+	if(!archiveClipboard()) {
+		return
+	}
+	
+	;select line (from beginning to end)
+	Send, {Home}{ShiftDown}{End}{ShiftUp}
+	
+	;cut
+	copySelection()
+	Send, {Delete}
+	
+	;move caret down n times
+	Send, {Down %p_moveAmount%}
+	
+	;paste
+	Send, ^v
+	
+	;move caret to end of line
+	Send, {Left}
+	
+	;since we're done with it...
+	Sleep, 100 ;milliseconds
+	restoreClipboard()
+	return
+}
+
+moveCurrentLineUp(p_moveAmount := 1)</Match>
+        <Match Id="2">moveCurrentLineUp</Match>
+        <Match Id="3">(p_moveAmount := 1)</Match>
+      </MatchCollection>
+      <MatchCollection Id="14">
+        <Match Id="1">
+{
+	SetKeyDelay, 30
+	
+	;wait for Shift and Ctrl to be released by user
+	KeyWait Shift
+	KeyWait Ctrl
+	
+	;~ ;archive before use, exit if failure
+	;~ if(!archiveClipboard()) {
+		;~ return
+	;~ }
+	
+	;select line (from beginning to end)
+	Send, {Home}{ShiftDown}{End}{ShiftUp}
+	
+	;cut
+	copySelection()
+	Send, {Delete}
+	
+	;move caret up n times
+	Send, {Up %p_moveAmount%}
+	
+	;paste
+	Send, ^v
+	
+	;move caret to end of line
+	Send, {Left}
+	
+	;~ ;since we're done with it...
+	;~ Sleep, 100 ;milliseconds
+	;~ restoreClipboard()
+	
+	return
+}
+
+GetClientSize(v_hWnd, ByRef w := "", ByRef h := "")</Match>
+        <Match Id="2">GetClientSize</Match>
+        <Match Id="3">(v_hWnd, ByRef w := "", ByRef h := "")</Match>
+      </MatchCollection>
+      <MatchCollection Id="15">
+        <Match Id="1">
+{
+	VarSetCapacity(rect, 16)
+	DllCall("GetClientRect", "ptr", v_hWnd, "ptr", &amp;rect)
+	w := NumGet(rect, 8, "int")
+	h := NumGet(rect, 12, "int")
+}
+
+
+
+
+
+
+;========================================================================
+;MOUSE EVENT METHOD
+;------------------------------------------------------------------------
+mouseEvent(p_clickDelay := 200, p_coordAsPercent*)</Match>
+        <Match Id="2">mouseEvent</Match>
+        <Match Id="3">(p_clickDelay := 200, p_coordAsPercent*)</Match>
+      </MatchCollection>
+      <MatchCollection Id="16">
+        <Match Id="1">{
+	;p_coords := {x,y},{x,y},{x,y},{x,y}
+	;CoordMode, ToolTip|Pixel|Mouse|Caret|Menu [, Screen|Window|Client]
+	;MouseGetPos [, OutputVarX, OutputVarY, OutputVarWin, OutputVarControl, 1|2|3]
+	;WinGetPos [, X, Y, Width, Height, WinTitle, WinText, ExcludeTitle, ExcludeText]
+	;~ WinGetPos, winX, winY, winWidth, winHeight, A
+	;getClientSize(window, ByRef width, ByRef height)
+	
+	
+	
+	
+	;set coord mode to be relative to client's dimensions
+	CoordMode, Mouse, Client
+	
+	;get mouse pos, client size
+	MouseGetPos, v_mouseX, v_mmouseY, v_mmouseW
+	getClientSize(v_curWin, v_clientWidth, v_clientHeight)
+	
+	;for each coordinate argument of parameter, perform a click
+		;event at the pos relative to dimensions of active client
+	for, i, i_elem in p_coordAsPercent {
+		MsgBox, %i_elem%`, %p_coordAsPercent% `, %i_elem% 
+		
+		xPercentToPos := i_elem.x * v_clientWidth
+		yPercentToPos := i_elem.y * v_clientHeight
+		MsgBox, %xPercentToPos%`, %yPercentToPos%
+		Click, %xPercentToPos%, %yPercentToPos%
+		Sleep, %p_clickDelay%
+	}
+	
+	;return mouse to original position
+	MouseMove, v_mouseX, v_mouseY
+}
+;------------------------------------------------------------------------</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>LIB_RegEx_Editing_HotStrings.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#Include Main-Method-Library-LIB.ahk
+#Include LIB_
+
+MsgBox "test1"
+MsgBox % "test1", "test2"
+
+
++9::Send, ()</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>LIB_RegEx().ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;; Library of functions that utilitize Regular Expressions for string parsing and substitution.
+
+/**	RegEx_SwapTabs(rgx_replaceWith := "\\t")
+	Descr:	Replaces the Clipboard contents. Swaps out tab characters with the given RegEx string.
+	Return:	STRING
+	Notes: Search Expression := "(?:\t)"
+*/
+RegEx_SwapTabs(rgx_replaceWith := "\t")</Match>
+        <Match Id="2">RegEx_SwapTabs</Match>
+        <Match Id="3">(rgx_replaceWith := "\t")</Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">{
+	rgx_findTabs := "(?:\t)"
+	return RegExReplace(Clipboard, rgx_findTabs, rgx_replaceWith)
+}
+/**	RegEx_SwapLineBreaks(rgx_replaceWith := "\\n")
+	Descr:	Replaces the Clipboard contents. Swaps out line-break characters with the given RegEx string.
+	Return:	STRING
+	Notes: Search Expression := "((?:\r\n)|(?:\r)|(?:\n))"
+		- Matches a single token of (CR+LF or CR or LF)
+*/
+RegEx_SwapLineBreaks(rgx_replaceWith := "\n")</Match>
+        <Match Id="2">RegEx_SwapLineBreaks</Match>
+        <Match Id="3">(rgx_replaceWith := "\n")</Match>
+      </MatchCollection>
+      <MatchCollection Id="3">
+        <Match Id="1">{
+	rgx_findLineBreaks := "((?:\r\n)|(?:\r)|(?:\n))"
+	return RegExReplace(Clipboard, rgx_findLineBreaks, rgx_replaceWith)
+}
+/**	RegEx_parseDocumentForFunctions()
+	Descr:	Selects All, Copies Selection, then replaces Clipboard with a list of functions if any.
+	Return:	STRING-BOOLEAN-INTEGER_STRING-FLOAT_STRING
+	Params:	p_alpha :=	STRING
+			p_beta :=	BOOLEAN
+			p_gamma :=	INTEGER_STRING
+			p_delta :=	FLOAT_STRING
+	Notes:	____Insert_notes_here____
+*/
+RegEx_parseDocumentForFunctions()</Match>
+        <Match Id="2">RegEx_parseDocumentForFunctions</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="4">
+        <Match Id="1">{
+	Send, ^a
+	copySelection()
+	rgx_parser := "(?:([\s\S\.]*?)([\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:([\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))"
+	rgx_replacer := "$3$4\r\n"
+	return RegExReplace(Clipboard, rgx_parser, rgx_replacer)
+}</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>LIB_Mouse_Swap_Primary_Button.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;@description: This file script is a testing ground for DLL files and functions.
+;@reference: 
+
+;~ Swap left and right mouse buttons
+
+;~WINDOWS RUN COMMAND:&gt; rundll32.exe User32.dll,SwapMouseButton
+
+;~ DllFile may be omitted when calling a function that resides in User32.dll, 
+	;~ Kernel32.dll, ComCtl32.dll, or Gdi32.dll. For example, 
+	;~ "User32\IsWindowVisible" produces the same result as "IsWindowVisible".
+
+
+;IF TRUE, MOUSE IS SWAPPED,  (Left = Right)
+;IF FALSE, MOUSE IS DEFAULT, (Left = Left)
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+GuiContent:
+gosub, GuiListA
+;~ gosub, GuiToolTipA
+SetTimer, UpdateGui, 2000
+return
+
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+GuiListA:
+Gui, MouseSwapVariables:Add, ListView, r5 w250 vNone gLabelFoobar, Global Variable|Value
+Gui, MouseSwapVariables:Default
+LV_Add("", "PRIMARY_MOUSE", (PRIMARY_MOUSE))
+LV_ModifyCol()
+LV_ModifyCol(2)
+return
+
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+GuiToolTipA:
+ToolTip % "PRIMARY_MOUSE = " . PRIMARY_MOUSE
+return
+
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+UpdateGui:
+;~ Gui, MouseSwapVariables:Show, w263 h282, Mouse Swap Variables
+return
+
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+LabelFoobar:
+return
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+MouseSwapVariablesGuiClose:
+ExitApp
+
+#IfWinActive Mouse Swap Variables
+Pause::
+;~ Gui, MouseSwapVariables:Destroy
+ExitApp
+#IfWinActive
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+/* assignPrimaryMouseButton()
+ * @descr - This function sets the primary mouse button to either Left or Right by using
+ *				windows rundll32.exe➔User32.dll\SwapMouseButton function.
+ * @default - Will default to Left Mouse Button if parameter is undefined. 
+ * @params - p_str must be either "Left" or "Right".
+ * @errors - stored in variable (ErrorLevel).
+ * 		0	- no error
+ * 		-1	- 
+ * 		1	- 
+ * 		2	- 
+ * 		3	- 
+ */
+assignPrimaryMouseButton(p_str := "Left")</Match>
+        <Match Id="2">LV_Add</Match>
+        <Match Id="3">("", "PRIMARY_MOUSE", (PRIMARY_MOUSE))
+LV_ModifyCol()
+LV_ModifyCol(2)
+return
+
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+GuiToolTipA:
+ToolTip % "PRIMARY_MOUSE = " . PRIMARY_MOUSE
+return
+
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+UpdateGui:
+;~ Gui, MouseSwapVariables:Show, w263 h282, Mouse Swap Variables
+return
+
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+LabelFoobar:
+return
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+MouseSwapVariablesGuiClose:
+ExitApp
+
+#IfWinActive Mouse Swap Variables
+Pause::
+;~ Gui, MouseSwapVariables:Destroy
+ExitApp
+#IfWinActive
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+/* assignPrimaryMouseButton()
+ * @descr - This function sets the primary mouse button to either Left or Right by using
+ *				windows rundll32.exe➔User32.dll\SwapMouseButton function.
+ * @default - Will default to Left Mouse Button if parameter is undefined. 
+ * @params - p_str must be either "Left" or "Right".
+ * @errors - stored in variable (ErrorLevel).
+ * 		0	- no error
+ * 		-1	- 
+ * 		1	- 
+ * 		2	- 
+ * 		3	- 
+ */
+assignPrimaryMouseButton(p_str := "Left")</Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">{
+	;set global var for monitoring state of mouse
+	global PRIMARY_MOUSE := p_str
+	mouseStateIsRight := swapPrimaryMouseButton()
+	
+	Loop {
+		;if mouseStateIsRight and param is "Right", then do nothing and return
+		if (mouseStateIsRight == true &amp;&amp; p_str == "Right"){
+			;success
+			ErrorLevel := 0
+			return true
+		}
+		;if mouseStateIsRight is false and param is "Left", then do nothing and return
+		else if (!mouseStateIsRight == false &amp;&amp; p_str == "Left"){
+			;success
+			ErrorLevel := 0
+			return true
+		}
+		;if mouseStateIsRight, but trying to set as "Left", then swap again and repeat
+		else if (mouseStateIsRight == true &amp;&amp; p_str == "Left"){
+			;error 1, swap and repeat loop
+			ErrorLevel := 1
+			mouseStateIsRight := swapPrimaryMouseButton()
+			continue
+		}
+		;if mouseStateIsRight == false, then primary mouse is left button
+		else if (!mouseStateIsRight == false &amp;&amp; p_str == "Right"){
+			;error 1, swap and repeat loop
+			ErrorLevel := 1
+			mouseStateIsRight := swapPrimaryMouseButton()
+			continue
+		}
+		else if (!p_str){
+			;error 2
+			ErrorLevel := 2
+			retVal := "p_str is undefined"
+			return retVal
+		}
+		else if (p_str != "Left" || p_str != "Right"){
+			;error 3
+			ErrorLevel := 3
+			retVal := "Error: passed value must be equal to [Left] or [Right]"
+			return retVal
+		}
+		else{
+			;error, all attempts failed
+			ErrorLevel := -1
+			return false
+		}
+	}
+}
+swapPrimaryMouseButton()</Match>
+        <Match Id="2">swapPrimaryMouseButton</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="3">
+        <Match Id="1">{
+	boolVal := DllCall("User32\SwapMouseButton")
+	/*
+	;returns
+		- true: if mouse is swapped (Right Click = Left Click)
+		- false: if mouse is not swapped (Left Click = Left Click)
+	*/
+	
+	;set global var for monitoring state of mouse
+	if (boolVal == false){
+		;~ ErrorLevel := 0
+		PRIMARY_MOUSE := "Left"
+	}
+	else if (boolVal == true){
+		;~ ErrorLevel := 0
+		PRIMARY_MOUSE := "Right"
+	}
+	else {
+		;~ ErrorLevel := 1
+	}
+	retVal := boolVal
+	
+	return retVal
+}
+
+;Open the Mouse Properties dialog window
+
+;WINDOWS RUN COMMAND:&gt; rundll32.exe Shell32.dll,Control_RunDLL main.cpl @0,0
+;~ DllCall("User32", </Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>LIB_oneKey_Copy_Paste_Mode.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;; This is a utility script which, when active, injects {Ctrl} on key-down of
+;; x, c, and v, to cut, copy, and paste.
+
+;~ #IfWinActive PowerLauncher ahk_class HwndWrapper[PowerLauncher;;300ce19b-7b4c-49eb-a764-0a730ee71419] ahk_exe PowerLauncher.exe
+;~ c::c
+;~ v::v
+;~ x::x
+
+#IfWinActive
+c::Send, ^c
+v::Send, ^v
+x::Send, ^x
+
+
+/* 
+ * 
+ * ;; copy
+ * c::
+ * {
+ * 	if (oneKey_){
+ * 		Send, ^c
+ * 	}
+ * 	return
+ * }
+ * ;; paste
+ * v::
+ * {
+ * 	Send, ^v
+ * 	return
+ * }
+ * ;; cut
+ * x::
+ * {
+ * 	Send, ^x
+ * 	return
+ * }
+ * 
+ * ;; ctrl v
+ * oneKey_setState_Paste(param_bool){
+ * 	param_bool
+ * 	return
+ * }
+ * oneKey_getState_Paste(param_bool){
+ * 	param_bool
+ * 	return
+ * }
+ * ;; ctrl c
+ * oneKey_setState_Copy(param_bool){
+ * 	
+ * 	return
+ * }
+ * oneKey_getState_Copy(param_bool){
+ * 	
+ * 	return
+ * }
+ * ;; ctrl x
+ * oneKey_setState_Cut(param_bool){
+ * 	
+ * 	return
+ * }
+ * oneKey_getState_Cut(param_bool){
+ * 	
+ * 	return
+ * }
+ */
+
+/* atm, not sure if I want to go this route... ~~KevinB @6:56pm 2022/1/4
+ * 		~~ with all these oneKey_assumed_Modifiers... 
+ * 
+ * 
+ * oneKey_assumed_Alt(){
+ * 	
+ * 	return
+ * }
+ * oneKey_assumed_Ctrl(){
+ * 	
+ * 	return
+ * }
+ * oneKey_assumed_Shift(){
+ * 	
+ * 	return
+ * }
+ * oneKey_assumed_Ctrl_Shift(){
+ * 	
+ * 	return
+ * }
+ * oneKey_assumed_Alt_Ctrl(){
+ * 	
+ * 	return
+ * }
+ * oneKey_assumed_Alt_Ctrl_Shift(){
+ * 	
+ * 	return
+ * } */
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>LIB_RegEx_Expression_Editing_Shortcuts.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#Include Main-Method-Library-LIB.ahk
+#Include repeatKey()-LIB.ahk
+
+
++9::Send, +9+0{Left}
+
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>LIB_repeatKey().ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">/* METHOD LIST
+ * 
+ * repeatShiftKey()
+ * repeatCtrlKey()
+ * repeatAltKey()
+ * repeatCtrlShiftKey()
+ * repeatAltShiftKey()
+ * repeatCtrlAltShiftKey()
+ * 
+ * Parameters
+ * 		p_key := "K"
+ * 		p_keyPressAmount := 1
+ * 		p_delayAmount := -1
+ * 		p_pressDuration := -1
+ * 
+ * Description
+ * 	repeatKeyepeat command method does a bunch of one 
+ * 		thing over and over again
+ */
+repeatKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)</Match>
+        <Match Id="2">repeatKey</Match>
+        <Match Id="3">(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)</Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">{
+	SetKeyDelay, %p_delayAmount%, %p_pressDuration%
+	;~ MsgBox, % p_key
+	;~ Send, {p_key p_keyPressAmount}
+	Send, {%p_key% %p_keyPressAmount%}
+	return
+}
+repeatShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)</Match>
+        <Match Id="2">repeatShiftKey</Match>
+        <Match Id="3">(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)</Match>
+      </MatchCollection>
+      <MatchCollection Id="3">
+        <Match Id="1">{
+	SetKeyDelay, %p_delayAmount%, %p_pressDuration%
+	;~ MsgBox, % p_key
+	;~ Send, +{p_key p_keyPressAmount}
+	Send, +{%p_key% %p_keyPressAmount%}
+	return
+}
+repeatCtrlKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)</Match>
+        <Match Id="2">repeatCtrlKey</Match>
+        <Match Id="3">(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)</Match>
+      </MatchCollection>
+      <MatchCollection Id="4">
+        <Match Id="1">{
+	SetKeyDelay, %p_delayAmount%, %p_pressDuration%
+	;~ MsgBox, % p_key
+	;~ Send, +{p_key p_keyPressAmount}
+	Send, ^{%p_key% %p_keyPressAmount%}
+	return
+}
+repeatAltKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)</Match>
+        <Match Id="2">repeatAltKey</Match>
+        <Match Id="3">(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)</Match>
+      </MatchCollection>
+      <MatchCollection Id="5">
+        <Match Id="1">{
+	SetKeyDelay, %p_delayAmount%, %p_pressDuration%
+	;~ MsgBox, % p_key
+	;~ Send, +{p_key p_keyPressAmount}
+	Send, !{%p_key% %p_keyPressAmount%}
+	return
+}
+repeatCtrlShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)</Match>
+        <Match Id="2">repeatCtrlShiftKey</Match>
+        <Match Id="3">(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)</Match>
+      </MatchCollection>
+      <MatchCollection Id="6">
+        <Match Id="1">{
+	SetKeyDelay, %p_delayAmount%, %p_pressDuration%
+	;~ MsgBox, % p_key
+	;~ Send, +{p_key p_keyPressAmount}
+	Send, ^+{%p_key% %p_keyPressAmount%}
+	return
+}
+repeatAltShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)</Match>
+        <Match Id="2">repeatAltShiftKey</Match>
+        <Match Id="3">(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)</Match>
+      </MatchCollection>
+      <MatchCollection Id="7">
+        <Match Id="1">{
+	SetKeyDelay, %p_delayAmount%, %p_pressDuration%
+	;~ MsgBox, % p_key
+	;~ Send, +{p_key p_keyPressAmount}
+	Send, !+{%p_key% %p_keyPressAmount%}
+	return
+}
+repeatCtrlAltShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)</Match>
+        <Match Id="2">repeatCtrlAltShiftKey</Match>
+        <Match Id="3">(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)</Match>
+      </MatchCollection>
+      <MatchCollection Id="8">
+        <Match Id="1">{
+	SetKeyDelay, %p_delayAmount%, %p_pressDuration%
+	;~ MsgBox, % p_key
+	;~ Send, +{p_key p_keyPressAmount}
+	Send, ^!+{%p_key% %p_keyPressAmount%}
+	return
+}</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>LIB_time().ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;; function library for time operations
+;; -----examples of date formatting (FormatTime) are at the bottom.
+#IfWinActive
+
+ 
+/* time_getDate(STRING:= dateFormat)
+;; Descr:	Gets the date in the specified format.
+;; Return:	STRING
+;; Params:
+;;	p_dateFormat: STRING 
+;;	must use only these characters
+;; 	(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")
+;; 	[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
+;; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+/* Date Formats (case sensitive)
+;; =============================================================================
+;; Format 	Description
+;; -----------------------------------------------------------------------------
+;; d 		Day of the month without leading zero (1 – 31)
+;; dd 		Day of the month with leading zero (01 – 31)
+;; ddd 		Abbreviated name for the day of the week (e.g. Mon) in the current user's language
+;; dddd 	Full name for the day of the week (e.g. Monday) in the current user's language
+;; M 		Month without leading zero (1 – 12)
+;; MM 		Month with leading zero (01 – 12)
+;; MMM 		Abbreviated month name (e.g. Jan) in the current user's language
+;; MMMM 	Full month name (e.g. January) in the current user's language
+;; y 		Year without century, without leading zero (0 – 99)
+;; yy 		Year without century, with leading zero (00 – 99)
+;; yyyy 	Year with century. For example: 2005
+;; gg 		Period/era string for the current user's locale (blank if none)
+;; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+/* Time Formats (case sensitive)
+;; =============================================================================
+;; Format 	Description
+;; -----------------------------------------------------------------------------
+;; h 		Hours without leading zero; 12-hour format (1 – 12)
+;; hh 		Hours with leading zero; 12-hour format (01 – 12)
+;; H 		Hours without leading zero; 24-hour format (0 – 23)
+;; HH 		Hours with leading zero; 24-hour format (00 – 23)
+;; m 		Minutes without leading zero (0 – 59)
+;; mm 		Minutes with leading zero (00 – 59)
+;; s 		Seconds without leading zero (0 – 59)
+;; ss 		Seconds with leading zero (00 – 59)
+;; t 		Single character time marker, such as A or P (depends on locale)
+;; tt 		Multi-character time marker, such as AM or PM (depends on locale)
+;; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+/* Standalone Formats
+;; The following formats must be used alone; that is, with no other formats or text present in the Format parameter. These formats are not case sensitive.
+;; =============================================================================
+;; Format 		Description
+;; -----------------------------------------------------------------------------
+;; (Blank) 		4:55 PM Saturday, November 27, 2004
+;; Time 		5:26 PM
+;; ShortDate 	02/29/04
+;; LongDate 	Friday, April 23, 2004
+;; YearMonth 	February, 2004
+;; YDay 		Day of the year without leading zeros (1 – 366)
+;; YDay0 		Day of the year with leading zeros (001 – 366)
+;; WDay 		Day of the week (1 – 7). Sunday is 1.
+;; YWeek 		The ISO 8601 full year and week number. For example: 200453. If the week containing January 1st has four or more days in the new year, it is considered week 1. Otherwise, it is the last week of the previous year, and the next week is week 1. Consequently, both January 4th and the first Thursday of January are always in week 1.
+;; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+time_getDate(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")</Match>
+        <Match Id="2">time_getDate</Match>
+        <Match Id="3">(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")</Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">{
+	FormatTime, outputVar, , % p_str_dateFormat
+	return % outputVar
+}
+
+/* time_translateDate_day(p_days := -3, p_dateUnit := "Days", p_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")
+;; Descr:	Uses [EnvAdd,] command to shift the current date by a given number and unit.
+	Return:	STRING
+	Params:	p_days :=		STRING
+			p_dateUnit :=	["Seconds" | "Minutes" | "Hours" | "Days" ]
+						or	["s" | "m" | "h" | "d"]
+			p_dateFormat :=	STRING
+*/
+time_translateDate(p_timeShift := 0, p_timeUnit := "Days", p_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")</Match>
+        <Match Id="2">time_translateDate</Match>
+        <Match Id="3">(p_timeShift := 0, p_timeUnit := "Days", p_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")</Match>
+      </MatchCollection>
+      <MatchCollection Id="3">
+        <Match Id="1">{
+	;; TODO - setup a method to subtract the current date by a given number and output as STRING.
+	;; FormatTime, 
+	;; v_date := time_getDate("yyyyMMdd")
+	;; FormatTime, v_date, % (v_date)
+	
+	;; The built-in variable [A_Now] contains the current local time in YYYYMMDDHH24MISS format.
+	var1 := A_Now
+	EnvAdd, var1, %p_timeShift%, %p_timeUnit%
+	
+	;; Make it blank so that the below will use the current timestamp instead.
+	var2 := ""
+	var2 += p_timeShift, %p_timeUnit%
+	
+	MsgBox, %var1%  ; The answer will be the date 31 days from now.
+	MsgBox, % "var1 := " . var1 . "`nvar2 := " . var2 . "`n"
+	
+	FormatTime, outVar, %var2%, %p_dateFormat%
+	return outVar
+}
+
+/* time_sendDate(STRING:= dateFormat)
+;; Descr:	Gets the date in the specified format.
+;; Return:	STRING
+;; Params:
+;;	p_dateFormat: STRING 
+;;	must use only these characters
+;; 	(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")
+;; 	[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]
+;; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+time_sendDate(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")</Match>
+        <Match Id="2">time_sendDate</Match>
+        <Match Id="3">(p_str_dateFormat := "yyyy-MM-dd_hh-mm-ss_tt")</Match>
+      </MatchCollection>
+      <MatchCollection Id="4">
+        <Match Id="1">{
+	outVar := time_getDate(p_str_dateFormat)
+	;~ Send, %outVar%
+	Send, % outVar
+}
+
+/* ;;EXAMPLES
+;; FormatTime, TimeString
+;; MsgBox, , "FormatTime`, TimeString", The current time and date (time first) is %TimeString%.
+;; 
+;; FormatTime, TimeString, R
+;; MsgBox, , "FormatTime`, TimeString`, R", The current time and date (date first) is %TimeString%.
+;; 
+;; FormatTime, TimeString,, Time
+;; MsgBox, , "FormatTime`, TimeString`,`, Time", The current time is %TimeString%.
+;; 
+;; FormatTime, TimeString, T12, Time
+;; MsgBox, , "FormatTime`, TimeString`, T12`, Time", The current 24-hour time is %TimeString%.
+;; 
+;; FormatTime, TimeString,, LongDate
+;; MsgBox, , "FormatTime`, TimeString`,`, LongDate", The current date (long format) is %TimeString%.
+;; 
+;; FormatTime, TimeString, 20050423220133, dddd MMMM d, yyyy hh:mm:ss tt
+;; MsgBox, , "FormatTime`, TimeString`, 20050423220133`, dddd MMMM d`, yyyy hh:mm:ss tt", The specified date and time, when formatted, is %TimeString%.
+;; 
+;; FormatTime, TimeString, 200504, 'Month Name': MMMM`n'Day Name': dddd
+;; MsgBox, , "FormatTime`, TimeString`, 200504`, 'Month Name': MMMM`n'Day Name': dddd", %TimeString%
+;; 
+;; FormatTime, YearWeek, 20050101, YWeek
+;; MsgBox, , "FormatTime`, YearWeek`, 20050101`, YWeek", January 1st of 2005 is in the following ISO year and week number: %YearWeek%
+*/
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="5">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>My_Custom_AHK_API_Function_List.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;~ MY CUSTOM .AHK.API COMMANDS
+archClip()
+archiveClipboard()
+archiveThenCopy(p_clipWaitTime := 0)
+ctrlC(p_clipWaitTime := 1)
+doubleTap(p_timeLimit := -1)
+GetClientSize(v_hWnd, ByRef w := "", ByRef h := "")
+getClipboard(ByRef p_var)
+mouseEvent(p_clickDelay := 200, p_coordAsPercent*)
+moveCurrentLineDown(p_moveAmount := 1)
+moveCurrentLineUp(p_moveAmount := 1)
+pasteClipboard(p_str := "")
+rapidFire(p_thisHotkey := "", p_sendKey := "", p_time := 0)
+repeatAltKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
+repeatAltShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
+repeatCtrlAltShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
+repeatCtrlKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
+repeatCtrlShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
+repeatKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
+repeatShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
+restoreClipboard()
+rstrClip()
+setClipboard(p_clipWaitTime := 1, p_str := "")
+;------------------------------------------------------------------------
+;------------------------------------------------------------------------
+archClip
+archiveClipboard
+archiveThenCopy
+ctrlC
+doubleTap
+GetClientSize
+getClipboard
+mouseEvent
+moveCurrentLineDown
+moveCurrentLineUp
+pasteClipboard
+rapidFire
+repeatAltKey
+repeatAltShiftKey
+repeatCtrlAltShiftKey
+repeatCtrlKey
+repeatCtrlShiftKey
+repeatKey
+repeatShiftKey
+restoreClipboard
+rstrClip
+setClipboard
+;------------------------------------------------------------------------
+;------------------------------------------------------------------------
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>wiki_macro_typefaceFamilys.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-macros</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">1::Send, Serif
+2::Send, Sans Serif
+3::Send, Monospace
+4::Send, Display
+q::Send, Proportional
+w::Send, Uniform</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>UTILITY_RegEx_Expression_Editing_Shortcuts.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#Include Main-Method-Library-LIB.ahk
+#Include repeatKey()-LIB.ahk
+
+
++9::Send, +9+0{Left}
+
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>temp_macro.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-macros</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#Include %A_ScriptDir%\..-lib
+#Include Main-Method-Library-LIB.ahk
+#Include Emojis-And-Symbols-LIB.ahk
+#Include repeatKey()-LIB.ahk
+#Include time()-LIB.ahk
+#Include RegEx()-LIB.ahk
+
+Pause::ExitApp
+
+;; macro buttons on Razer Black Widow Keyboard (M1~M5)
+;; M1 - F20
+;; M2 - F21
+;; M3 - F22
+;; M4 - F23
+;; M5 - F24
+
+;; M1 (keyboard)
+;; F20::
+
+;; M2 (keyboard)
+F20::
+	copySelection()
+	Clipboard := RegEx_SwapLineBreaks()
+    Clipboard := RegEx_SwapTabs()
+	Clipboard := RegExReplace(Clipboard, "(?:/\*\*)|(?:\*/)")
+	Clipboard := RegExReplace(Clipboard, "(?:;; ?)")
+	return
+F21::
+	;; outVar := RegExReplace(RegEx_parseDocumentForFunctions(), "\\", "line`")
+	;; MsgBox, % "Clipboard Contents on the next line...`n" . outVar
+	RegEx_parseDocumentForFunctions()
+	return
+
+
+
+;; ahk v1 syntax
+/* NumpadSub::
+ * {
+ * 	SetKeyDelay, 200
+ * 	Click, Left 3
+ * 	Send, ^c
+ * 	Sleep, 200
+ * 	Send, !{Tab}
+ * 	Sleep, 300
+ * 	Send, ^v{Home}
+ * 	Send, ^{Right 2}+{End}
+ * 	;~ Send, [
+ * 	Send, {End}
+ * 	Send, {Enter}
+ * 	return
+ * }
+ * 
+ * NumpadAdd::
+ * {
+ * 	SetKeyDelay, 200
+ * 	Click, Left 3
+ * 	Send, ^c
+ * 	Sleep, 200
+ * 	Send, !{Tab}
+ * 	Sleep, 300
+ * 	Send, ^v{Home}
+ * 	Send, ^{Right 2}+{End}
+ * 	Send, [
+ * 	Send, {End}
+ * 	Send, {Enter}
+ * 	return
+ * }
+ */
+
+
+/* NumpadSub::
+ * 	SetKeyDelay, 200
+ * 	Send, !m
+ * 	Sleep, 500
+ * 	Send, !u!d{Right}{Enter}
+ * 	return
+ * 	
+ * NumpadSub::
+ * 	SetKeyDelay, 10
+ * 	Send, !1
+ * 	Send, !s
+ * 	return
+ */
+ 
+;; ahk v2 syntax
+/* NumpadSub::
+ * {
+ * 	SetKeyDelay "200"
+ * 	Click "Left 3"
+ * 	Send "^c"
+ * 	Sleep "200"
+ * 	Send "!{Tab}"
+ * 	Sleep "300"
+ * 	Send "^v^+{Left}[{End}{Enter}"
+ * 	;;Click "Right"
+ * 	;;Send "{Click 3}"
+ * 	return
+ * }
+ */
+
+
+
+
+
+
+
+
+
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>Test_BlockComments.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-lib</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">
+
+
+
+MsgBox, % "There is a `"`/`*`" right here --&gt;" 
+/* . "&lt;-- ."
+
+*/
+
+
+MsgBox, There is a `"`/`*`" right here --&gt; 
+/* . "&lt;-- ."
+
+*/
+
+;;There is a ";" right here --&gt;
+;;#######################################______________
+str := "There is a "";"" right here --&gt;" ; . "&lt;-- ." */
+Clipboard := str
+MsgBox, , Title, %str%
+
+;;There is a 
+;;####################____________________________________
+str := "There is a `" ; `/ `* `" right here --&gt;" . "&lt;-- ."
+Clipboard := str
+MsgBox, , Title, %str%
+
+;;There is a "/*" right here --&gt;&lt;-- .
+;;#################################################
+str := "There is a ""/*"" right here --&gt;" . "&lt;-- ."
+Clipboard := str
+MsgBox, , Title, %str%
+
+
+;;If &lt;/*&gt; is the first 2 characters on a new line, then
+;;	it will comment EVERY line underneath it. 
+;;_____________________________________________________
+/*
+str := "There is a ""/*"" right here --&gt;" /*
+Clipboard := str
+MsgBox, , Title, %str%
+*/
+
+;;If there is ONLY whitespace before &lt;/*&gt; on a new line,
+;;	is anywhere first 2 characters on a new line, then
+;;	it will comment EVERY line underneath it. 
+;;_____________________________________________________
+				 /*
+				 */
+s1 := "1`n" 
+s2 := "2`n" /*
+s3 := "3`n" */
+s4 := "4`n" /* */
+
+MsgBox,% 0x40 , % "Title", % s1 . s2 . s3 . s4
+*/
+
+;;NULL
+;;_____________________________________________________
+str := "There is a ""/*"" right here --&gt;" /* */
+Clipboard := str
+MsgBox, , Title, %str%
+
+;;NULL
+;;_____________________________________________________
+str := "There is a ""/*"" right here --&gt;" /* "&lt;-- ." */
+Clipboard := str
+MsgBox, , Title, %str%
+
+;;NULL
+;;_______________________________________________________
+str := "There is a ""/*"" right here --&gt;" /* . "&lt;-- ." */
+Clipboard := str
+MsgBox, , Title, %str%
+;;
+;;#################################################
+str := "There is a ""/*"" right here --&gt;" ; /* . "&lt;-- ." */
+Clipboard := str
+MsgBox, , Title, %str%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>REFERENCE__While-Script.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-reference</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">CoordMode, Mouse, Screen
+
+~LButton::
+    MouseGetPos, begin_x, begin_y
+    while GetKeyState("LButton")
+    {
+        MouseGetPos, x, y
+        ToolTip, % begin_x ", " begin_y "`n" Abs(begin_x-x) " x " Abs(begin_y-y)
+        Sleep, 10
+    }
+    ToolTip
+return</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>UTILITY_Cut_Copy_Paste_(pause_to_break).ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">
+;; one clipboard
+;~ Menu, Tray, Icon, E:\Assets\Icons\cut_copy_paste_00.ico
+
+;; two clipboards
+;~ Menu, Tray, Icon, E:\Assets\Icons\cut_copy_paste_01.ico
+
+;; two clipboards - sliced
+Menu, Tray, Icon, E:\Assets\Icons\cut_copy_paste_02.ico
+
+#IfWinActive
+;; select all
+a::Send, {Click, Left, 1}^a
+;; select word
+s::Send, {Click, Left, 2}
+;; select line
+d::Send, {Click, Left, 3}
+;; copy
+c::Send, ^c
+;; paste
+v::Send, ^v
+;; cut
+x::Send, ^x
+;; new line
+b::Send, {Enter}
+
+Pause::ExitApp
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>REFERENCE_Mouse_Event_Tester.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-reference</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#InstallKeybdHook
+#InstallMouseHook
+#Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-Main-Method-Library.ahk
+
+
+
+;========================================================================
+;MOUSE EVENT GUI MANAGER
+;------------------------------------------------------------------------
+
+
+
+
+\::
+mouseEvent(,{x: 0.40, y: 0.60})
+mouseEvent(,{x: 0.60, y: 0.40})
+return
+
+
+Pause::ExitApp
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>REFERENCE_AutoHotkey.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-reference</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;===============================================================================
+;~ HOTSTRING END CHARACTERS
+	;~ #Hotstring EndChars -()[]{}:;'"/\,.?!`n 
+	
+	;~ `n=[enter], `t=[tab]
+	;~ ? (question mark): The hotstring will be triggered even when it is 
+		;~ inside another word; that is, when the character typed immediately
+		;~ before it is alphanumeric. For example, if :?:al::airline is a 
+		;~ hotstring, typing "practical " would produce "practicairline ". 
+		;~ Use ?0 to turn this option back off.
+;===============================================================================
+;~ HOTSTRING OPTIONS 
+	;~ #Hotstring SE ; •SE stands for SendEvent, which is the default in versions older than 1.0.43.
+	;~ #Hotstring SI 
+			; •SI stands for SendInput, which typically has superior speed and 
+			;reliability than the other modes. Another benefit is that like 
+			;SendPlay below, SendInput postpones anything you type during a 
+			;hotstring's auto-replacement text. This prevents your keystrokes 
+			;from being interspersed with those of the replacement. When 
+			;SendInput is u
+	;~ #Hotstring SP ; •SP stands for SendPlay, which may allow hotstrings to work in a broader variety of games.
+	;~ #Hotstring O  ; omit ending character (for all hotstrings in document underneath this rule)
+	;~ #Hotstring O0  ; turn off "omit ending character" (for all hotstrings in document underneath this rule)
+	;~ #Hotstring Kn ; key delay (n = milliseconds) between each sent keystroke
+	;~ #Hotstring *  ; turn on No Ending Character Required
+	;~ #Hotstring *0 ; turn off No Ending Character Required
+	;~ #Hotstring R  ; sends output as raw
+	;~ #Hotstring C  ; case sensitive
+	;~ #Hotstring C0 ; turn off case sensitive
+;===============================================================================
+;~ HOTKEY PREFIXES
+	;~ [$] prefix keeps the hotkey from triggering itself in a loop
+	;~ [~] When the hotkey fires, its key's native function will not 
+			;be blocked (hidden from the system). 
+;===============================================================================
+;===============================================================================
+;~ DIRECTIVES 
+	SendMode, Event				;~ sets all hotkeys below to use SendEvent
+	;~ SendMode, Input				;~ sets all hotkeys below to use SendInput
+	SetKeyDelay, 30				;~ set all hotkeys below to have a delay of n milliseconds, 0.00n seconds
+	;~ SetKeyDelay, 200				;~ set all hotkeys below to have a delay of n milliseconds, 0.00n seconds
+	;~ #Hotstring SE K200			;~ sets all hotstrings below to use SendEvent (instead of SendInput)
+	;~ #Hotstring SE K50			;~ sets all hotstrings below to use SendEvent (instead of SendInput)
+	;~ #Hotstring SI 			;~ sets all hotstrings below to use SendInput (the default)
+	#Hotstring SE 			;~ sets all hotstrings below to use SendEvent (instead of SendInput)
+	;~ #Hotstring SP 			;~ sets all hotstrings below to use SendPlay (instead of SendInput)
+	#Hotstring K30			;~ which will allow a key delay of n milliseconds, 0.00n seconds
+	#Hotstring B			;~ activate automatic backspacing (the default)
+	#Hotstring O 			;~ [O] omit ending-character trail space
+	;~ #Hotstring EndChars -()[]{}:;'"/\,.?!`n 
+		;the [;] has been removed from the hotstring ending characters
+		;the ['] has been removed from the hotstring ending characters
+	#Hotstring EndChars -()[]{}: "/\,.?!`n
+;===============================================================================
+;~ Menu, Tray, Icon, C:\WINDOWS\system32\msctf.dll, 410
+;~ C:\Program Files\Microsoft Office\root\Office16\MSACCESS.EXE
+
+;~ Menu, Tray, Icon, C:\Program Files\Microsoft Office\root\Office16\OMICAUT.DLL, 203
+;~ Menu, Tray, Icon, E:\Software\iconsext-1.47\icons\Microsoft Office Icons\OMICAUT_203.ico
+
+;~ Menu, Tray, Icon, 
+;~ Menu, Tray, Icon, E:\Software\iconsext-1.47\icons\Microsoft Office Icons\MSACCESS_289.ico
+;~ Menu, Tray, Icon, E:\Software\iconsext-1.47\icons\Microsoft Office Icons\misc_902.ico
+
+;~ Menu, Tray, Icon, E:\Software\iconsext-1.47\icons\Microsoft Office Icons\MSACCESS_677.ico
+Menu, Tray, Icon, E:\Assets\Icons\math_ruler_.bmp
+
+;sqrt(a)
+;~ C:\Program Files\Microsoft Office\root\Office16\misc.exe, 902
+
+;circle(fx)
+;~ C:\Program Files\Microsoft Office\root\Office16\MSACCESS.EXE, 677
+
+;===============================================================================</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>UTILITY_M1+M2=M3.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">lbutton::send % getkeystate("rbutton","p") ? "{mbutton down}" : "{lbutton down}"
+lbutton up::send % getkeystate("lbutton") ? "{lbutton up}" : "{mbutton up}"
+ 
+rbutton::send % getkeystate("lbutton","p") ? "{mbutton down}" : "{rbutton down}"
+rbutton up::send % getkeystate("rbutton") ? "{rbutton up}" : "{mbutton up}"</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>UTILITY_Mouse_Swap_Primary_Button.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;@description: This file script is a testing ground for DLL files and functions.
+;@reference: 
+
+;~ Swap left and right mouse buttons
+
+;~WINDOWS RUN COMMAND:&gt; rundll32.exe User32.dll,SwapMouseButton
+
+;~ DllFile may be omitted when calling a function that resides in User32.dll, 
+	;~ Kernel32.dll, ComCtl32.dll, or Gdi32.dll. For example, 
+	;~ "User32\IsWindowVisible" produces the same result as "IsWindowVisible".
+
+;IF TRUE, MOUSE IS SWAPPED,  (Left = Right)
+;IF FALSE, MOUSE IS DEFAULT, (Left = Left)
+
+DllCall("User32\SwapMouseButton")
+assignPrimaryMouseButton(primaryButton := "Left")</Match>
+        <Match Id="2">DllCall</Match>
+        <Match Id="3">("User32\SwapMouseButton")
+assignPrimaryMouseButton(primaryButton := "Left")</Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">{
+	if (DllCall("User32\SwapMouseButton")){
+		
+	}
+	else if (){
+		
+	}
+	else{
+		
+	}
+}
+
+
+;Open the Mouse Properties dialog window
+
+;WINDOWS RUN COMMAND:&gt; rundll32.exe Shell32.dll,Control_RunDLL main.cpl @0,0
+;~ DllCall("User32", </Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>UTILITY_Horizontal_Scrolling.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">/* Descr:	This script handles horizontal mouse wheel scrolling when the user hold down the Shift key.
+ */
+
+#IfWinActive
+;; Scroll left.
++WheelUp::
+	Send, {Left}
+/* 	horiz_scrollWheel_controlVal := 0x114
+ * 	ControlGetFocus, outputVar_control, A
+ * 	Loop 4  ; &lt;-- Increase this value to scroll faster.
+ * 	{
+ * 		;; 0x114 is WM_HSCROLL and the 0 after it is SB_LINELEFT.
+ * 		;~ SendMessage, 0x114, 0, 0, %outputVar_control%, A  
+ * 		
+ * 		;~ SendMessage, %horiz_scrollWheel_controlVal%, SB_LINELEFT, 0, %outputVar_control%, A
+ * 		SendMessage, %horiz_scrollWheel_controlVal%, 0, 0, %outputVar_control%, A
+ * 	}
+ */
+	return
+	
+;; Scroll right.
++WheelDown::  
+	Send, {Right}
+/* 	horiz_scrollWheel_controlVal := 0x114
+ * 	ControlGetFocus, outputVar_control, A
+ * 	Loop 4 ;; &lt;-- Increase this value to scroll faster.
+ * 	{	
+ * 		;; 0x114 is WM_HSCROLL and the 1 after it is SB_LINERIGHT.
+ * 		;~ SendMessage, 0x114, 1, 0, %outputVar_control%, A  
+ * 		
+ * 		;~ SendMessage, %horiz_scrollWheel_controlVal%, SB_LINERIGHT, 0, %outputVar_control%, A
+ * 		SendMessage, %horiz_scrollWheel_controlVal%, 1, 0, %outputVar_control%, A
+ * 	}
+ */
+	return</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>UTILITY_Spacebar=Left_Click.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;~ Scripted by Kevin A Boykin
+;~ July 4th, 2021
+
+
+#InstallKeybdHook
+#InstallMouseHook
+
+;~ This script is considered "active" on start
+isActive := true
+
+
+;~ Suspend ;~ toggles the hotkeys for the entire script, unless "suspend" command is listed in the first line of the hotkey/hotstring subroutine.
+
+
+^Space::
+Suspend Permit ;~ makes this hotkey exempt from suspension.
+if isActive
+{
+	Suspend On	;~ turn off hotkeys so spacebar can be used to close the msgbox.
+	isActive := false
+	;~ MsgBox, Turned OFF Space = Left Click`nOFF`nisActive: %isActive%
+	MsgBox, , Space = Left Click,Turned OFF
+}
+else
+{
+	isActive := true
+	;~ MsgBox, Turned ON Space = Left Click`nON`nisActive: %isActive%
+	MsgBox, , Space = Left Click,Turned ON
+	Suspend Off	;~ delayed suspend so that the spacebar can be used to close the msgbox before it turns into mouseclicks.
+}
+return
+
+
+
+;~ Space::LButton
+Space::
+Send {Click, Down}
+KeyWait Space
+return
+
+;~ Space Up::
+Space Up::Send {Click, Up}
+
+
+
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>UTILITY_Spacebar=M1_Toggle.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
+    <MatchCollections />
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>UTILITY_Tab_To_4_Spaces.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;INCLUDES/IMPORTS/INSTALLS==========================================
+
+
+;INITIAL DIRECTIVES=================================================
+	
+	; n milliseconds delay
+	;~ SendMode, Event	
+	SendMode, Input	
+	;~ SetKeyDelay, 05
+
+
+;SCRIPT CONTROLLERS=================================================
+	
+	; [Ctrl+Alt+Shift+Space]
+	^!+Space::
+		Suspend, Toggle
+		if (A_IsSuspended)
+			MsgBox, Tab Mode = Tab
+		else
+			MsgBox, Tab Mode = 4 Spaces
+		return
+
+
+;MAIN PROCESSES======================================================
+	
+	; [Tab]
+	Tab::Send, {Space 4}
+	; [Shift+Tab]
+	+Tab::Send, {Home}{Del 4}{End}
+
+
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>UTILITY_Spacebar=Left_Click_v1.2_.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;~ Scripted by Kevin A Boykin
+;~ July 4th, 2021
+
+
+#InstallKeybdHook
+#InstallMouseHook
+
+;~ This script is considered "active" on start
+	; [A_IsSuspended] is a built in variable that could possibly
+	; be used as an alternative to custom variables to save a tiny
+	; bit of memory space. 
+	isActive := true
+
+
+; Suspend: toggles the hotkeys for the entire script, 
+; 	unless "suspend" command is listed in the first line 
+; 	of the hotkey/hotstring subroutine.
+
+; TOGGLE (SPACEBAR = CLICK) MODE
+; Ctrl+Shift+Space
+	^Space::
+	Suspend Permit ; makes this hotkey exempt from suspension.
+	if isActive
+	{
+		Suspend On	; turn off hotkeys so spacebar can be used to 
+					; close the msgbox.
+		isActive := false
+		MsgBox, , Space = Left Click,Turned OFF
+	}
+	else
+	{
+		isActive := true
+		MsgBox, , Space = Left Click,Turned ON
+		Suspend Off	; delayed suspend so that the spacebar can be used 
+					; to close the msgbox before it turns into mouseclicks.
+	}
+	return
+
+
+
+;Space = Press Primary Mouse Button
+	Space::
+		Send {Click, Down}
+		KeyWait Space
+	return
+
+;Space Up = Release Primary Mouse Button
+	Space Up::	Send {Click, Up}
+
+
+
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>UTILITY_Sticky_Keys.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">
+;; one clipboard
+;~ Menu, Tray, Icon, E:\Assets\Icons\cut_copy_paste_00.ico
+
+;; two clipboards
+;~ Menu, Tray, Icon, E:\Assets\Icons\cut_copy_paste_01.ico
+
+;; two clipboards - sliced
+Menu, Tray, Icon, E:\Assets\Icons\cut_copy_paste_02.ico
+
+#IfWinActive
+
+global isCtrlDown := false
+
+Ctrl::
+	toggle_ctrl()
+	return
+
+
+Pause::ExitApp
+
+toggle_ctrl()</Match>
+        <Match Id="2">toggle_ctrl</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">{
+	if (isCtrlDown){
+		;; yes
+		isCtrlDown := !isCtrlDown
+		Menu, Tray, Icon, E:\Assets\Icons\cut_copy_paste_01.ico
+		Send, {A_ThisHotkey Up}
+		}
+	else{
+		;; not-yes, probably no
+		isCtrlDown := !isCtrlDown
+		Menu, Tray, Icon, E:\Assets\Icons\cut_copy_paste_00.ico
+		Send, {A_ThisHotkey Down}
+	}
+	return
+}
+
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="3">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>UTILITY_Toggle_-_Taskbar_-_Copy.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#b:: HideShowTaskbar(hide := !hide)
+
+HideShowTaskbar(action)</Match>
+        <Match Id="2">HideShowTaskbar</Match>
+        <Match Id="3">(action)</Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1"> {
+   static ABM_SETSTATE := 0xA, ABS_AUTOHIDE := 0x1, ABS_ALWAYSONTOP := 0x2
+   VarSetCapacity(APPBARDATA, size := 2*A_PtrSize + 2*4 + 16 + A_PtrSize, 0)
+   NumPut(size, APPBARDATA), NumPut(WinExist("ahk_class Shell_TrayWnd"), APPBARDATA, A_PtrSize)
+   NumPut(action ? ABS_AUTOHIDE : ABS_ALWAYSONTOP, APPBARDATA, size - A_PtrSize)
+   DllCall("Shell32\SHAppBarMessage", UInt, ABM_SETSTATE, Ptr, &amp;APPBARDATA)
+}</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>UTILITY_temp_scriptlet_tester.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">
+
+;~ Progress, m2 b zh0, Text here
+;~ Sleep, 4000
+
+
+/* Progress, b w200, My SubText, My MainText, My Title
+ * Progress, 50 ; Set the position of the bar to 50%.
+ * Sleep, 4000
+ * Progress, Off 
+ */
+
+
+;~ Gui, +AlwaysOnTop +Disabled -SysMenu +Owner  ; +Owner avoids a taskbar button.
+;~ Gui, -SysMenu +Owner +OwnDialogs  ; +Owner avoids a taskbar button.
+Gui, -SysMenu +Owner  ; +Owner avoids a taskbar button.
+Gui, Add, Text,, Some text to display.
+Gui, Add, Text, cgreen gMySubRoutine, Click here to run sub-routine.
+Gui, Add, Text, cgreen gMovingProgressBar, Click here to run MovingProgressBar.
+;~ Gui, Show, NoActivate, Title of Window  ; NoActivate avoids deactivating the currently active window.
+Gui, Show,, Untitled
+Sleep, 5000
+return ; End of auto-execute section. The script is idle until the user does something.
+
+
+
+MySubRoutine:
+MsgBox, msgbox from sub-routine.
+return
+
+
+
+MovingProgressBar:
+Gui, 
+Gui, Color, White
+Gui, Add, Picture, x0 y0 h350 w450, %A_WinDir%\system32\ntimage.gif
+Gui, Add, Button, Default xp+20 yp+250, Start the Bar Moving
+Gui, Add, Progress, vMyProgress w416
+Gui, Add, Text, vMyText wp  ; wp means "use width of previous".
+Gui, Show
+return
+
+ButtonStartTheBarMoving:
+Loop, %A_WinDir%\*.*
+{
+    if (A_Index &gt; 100)
+        break
+    GuiControl,, MyProgress, %A_Index%
+    GuiControl,, MyText, %A_LoopFileName%
+    Sleep 50
+}
+GuiControl,, MyText, Bar finished.
+return
+
+GuiEscape:
+GuiClose:
+;~ Gui, Hide 
+ExitApp</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>UTILITY_Screen_Magnifier_-_Made_by_holomind_-_No_GUI_V1.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility\Magnifier</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;~ Screen Magnifier - Made by "holomind"
+;~ https://autohotkey.com/board/topic/10660-screenmagnifier/
+;~ less gui version
+
+#NoEnv
+SetBatchLines -1
+
+CoordMode Mouse, Screen
+OnExit GuiClose
+zoom = 2                ; initial magnification, 1..32
+;~ antialize = 0
+;~ Rx = 128                ; half vertical/horizontal side of magnifier window
+;~ Ry = 128
+antialize = 1			; boolean value (true/false = 1/0)
+Rx = 256                ; half vertical/horizontal side of magnifier window
+Ry = 64
+Zx := Rx/zoom           ; frame x/y size
+Zy := Ry/zoom
+                        ; GUI to show the magnified image
+Gui +AlwaysOnTop +Resize +ToolWindow
+Gui Show, % "w" 2*Rx " h" 2*Ry " x0 y0", Magnifier
+WinGet MagnifierID, id,  Magnifier
+WinSet Transparent, 255, Magnifier ; makes the window invisible to magnification
+WinGet PrintSourceID, ID
+
+hdd_frame := DllCall("GetDC", UInt, PrintSourceID)
+hdc_frame := DllCall("GetDC", UInt, MagnifierID)
+
+SetTimer Repaint, 15    ; flow through (refresh rate in milli-seconds, i think)
+
+Repaint:
+   MouseGetPos x, y
+   xz := In(x-Zx-6,0,A_ScreenWidth-2*Zx) ; keep the frame on screen
+   yz := In(y-Zy-6,0,A_ScreenHeight-2*Zy)
+  ; WinMove Frame,,%xz%, %yz%, % 2*Zx, % 2*Zy
+   DllCall("gdi32.dll\StretchBlt", UInt,hdc_frame, Int,0, Int,0, Int,2*Rx, Int,2*Ry
+   , UInt,hdd_frame, UInt,xz, UInt,yz, Int,2*Zx, Int,2*Zy, UInt,0xCC0020) ; SRCCOPY
+Return
+
+
+GuiSize:
+   Rx := A_GuiWidth/2
+   Ry := A_GuiHeight/2
+   Zx := Rx/zoom
+   Zy := Ry/zoom
+   TrayTip,,% "Frame  =  " Round(2*Zx) " × " Round(2*Zy) "`nMagnified to = " A_GuiWidth "×" A_GuiHeight
+Return
+
+#a::
+  antialize := !antialize
+  DllCall( "gdi32.dll\SetStretchBltMode", "uint", hdc_frame, "int", 4*antialize )  ; Antializing ?
+Return 
+
+#x::
+GuiClose:
+   DllCall("gdi32.dll\DeleteDC", UInt,hdc_frame )
+   DllCall("gdi32.dll\DeleteDC", UInt,hdd_frame )
+ExitApp
+
+#p::
+MButton::
+   if paused = 
+   {
+        Gui, 2:Hide 
+        Gui, Hide 
+        SetTimer, Repaint, Off
+        paused = 1
+   }
+   else
+   {
+        Gui, 2:Show 
+        Gui, Show 
+        SetTimer, Repaint, 50
+        paused =
+   }
+Return
+
+
+^+Up::
+^+Down::
+^+WheelUp::                      ; Ctrl+Shift+WheelUp to zoom in
+^+WheelDown::                    ; Ctrl+Shift+WheelUp to zoom out
+   If (zoom &lt; 31 and ( A_ThisHotKey = "^+WheelUp" or A_ThisHotKey = "^+Up" ))
+      zoom *= 1.189207115         ; sqrt(sqrt(2))
+   If (zoom &gt;  1 and ( A_ThisHotKey = "^+WheelDown" or A_ThisHotKey = "^+Down" ))
+      zoom /= 1.189207115
+   Zx := Rx/zoom
+   Zy := Ry/zoom
+   TrayTip,,% "Zoom = " Round(100*zoom) "%"
+Return
+
+In(x,a,b)</Match>
+        <Match Id="2">In</Match>
+        <Match Id="3">(x,a,b)</Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1"> {                      ; closest number to x in [a,b]
+   IfLess x,%a%, Return a
+   IfLess b,%x%, Return b
+   Return x
+}</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>UTILITY_Screen_Magnifier_-_Made_by_holomind_-_GUI_V2.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-utility\Magnifier</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;~ Screen Magnifier - Made by "holomind"
+;~ https://autohotkey.com/board/topic/10660-screenmagnifier/
+;~ this is the second code-section. 
+
+
+;~ Quick Reference
+;~ #  Windows Key
+;~ ^  Ctrl
+;~ !  Alt
+;~ +  Shift
+;~ &lt;^ LCtrl
+;~ &gt;^ RCtrl
+
+ 
+
+OnExit handle_exit
+
+  Gui,  +AlwaysOnTop  +Owner +Resize +ToolWindow ; window for the dock
+  Gui, Show, NoActivate w400 h400 x300 y50 , PrintScreen
+  Gui, Add, DDL, vzoom   , 0.5|1|2||4|8|16 
+  Gui, Add, Checkbox, y12 x150 vantialize, Antialize ?
+  Gui, Add, Slider, vdelay x220 y0  Range15-200
+  Gui, Add, Text, x340 y12 w80  vdelay2
+
+  WinGet PrintScreenID, id  ,PrintScreen  ; 
+  WinSet, Transparent , 254, PrintScreen
+
+  ;retrieve the unique ID number (HWND/handle) of that window
+  WinGet, PrintSourceID, id 
+
+  ;~  (doesn't function atm)
+  ;~ hotkey , ^+$LButton   , toggle_follow ;~ (WindowsKey + x)
+  hotkey , +$LButton    , click_through ;~ (Shift+LeftMouseButton)
+
+  toolbar_def:=35
+  toolbar := toolbar_def
+  follow :=0 ;~ 1=Active on Startup (doesn't function atm)
+
+  hdd_frame := DllCall( "GetDC", UInt, PrintSourceID )
+  hdc_frame := DllCall( "GetDC", UInt, PrintScreenID )
+
+  hdc_buffer := DllCall("gdi32.dll\CreateCompatibleDC", UInt,  hdc_frame)  ; buffer
+  hbm_buffer := DllCall("gdi32.dll\CreateCompatibleBitmap", UInt,hdc_frame, Int,A_ScreenWidth, Int,A_ScreenHeight)
+  
+  Gosub, Repaint
+return 
+
+toggle_follow: 
+    follow := 1 - follow
+  
+    if follow = 1 
+    {
+        WinSet Region, 0-0  W%ww% H%wh% E  , PrintScreen
+        toolbar := -32 ; height of window title
+        GuiControl, Hide, zoom
+    }
+    else
+    {
+        WinSet Region,, PrintScreen
+        toolbar :=toolbar_def
+        GuiControl, Show, zoom
+    }
+Return
+
+click_through:
+    if follow = 1
+    {
+      Gui, Hide
+      Send, {Click}
+      SetTimer, Repaint , Off
+      Sleep, 100
+      Gui, Show
+      SetTimer, Repaint, %delay%
+    }
+Return
+
+Repaint: 
+
+   CoordMode, Mouse, Screen                
+   MouseGetPos, start_x, start_y             ;  position of mouse
+   Gui, Submit, NoHide                       ; needed to read the dropdown and slidervalue
+   GuiControl,, delay2 , delay %delay% ms
+   WinGetPos, wx, wy, ww, wh , PrintScreen
+
+   wh2 := wh - toolbar
+
+    DllCall( "gdi32.dll\SetStretchBltMode", "uint", hdc_frame, "int", 4 * antialize )  ; Halftone better quality with stretch
+   
+    DllCall("gdi32.dll\StretchBlt", UInt,hdc_frame, Int,0, Int,toolbar, Int,ww, Int,wh - toolbar
+          , UInt,hdd_frame, Int
+          , start_x-(ww / 2 / zoom)
+          , Int,start_y -( wh2 / 2/zoom), Int,ww / zoom, Int,wh2 / zoom ,UInt,0xCC0020) ; SRCCOPY
+
+   if follow = 1
+     WinMove, PrintScreen, ,start_x -ww/2 , start_y-wh/2 
+   
+  SetTimer, Repaint , %delay% 
+Return
+
+GuiClose:
+handle_exit:
+   DllCall("gdi32.dll\DeleteObject", UInt,hbm_buffer)
+   DllCall("gdi32.dll\DeleteDC", UInt,hdc_frame )
+   DllCall("gdi32.dll\DeleteDC", UInt,hdd_frame )
+   DllCall("gdi32.dll\DeleteDC", UInt,hdc_buffer)
+ExitApp </Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>WIN_Minecraft_Hotkeys.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#InstallKeybdHook
+#KeyHistory
+
+
+
+
+
+;~ Variables
+;~ =====================================
+;~ this is the initial state
+isShiftDown:= 0
+;~ shiftOutput:= {ShiftUp}
+
+
+;~ =====================================
+;~ active window information
+;~ • Title: [Minecraft]
+;~ • Class: [ApplicationFrameWindow]
+
+
+
+;~ F2::Suspend On
+;~ F3::Suspend Off
+;~ Pause::Pause ; Assigns the Pause/Break button to execute the Pause() method.
+
+#IfWinActive, Minecraft
+F2::Suspend, Toggle		;Hotkeys are toggled
+#IfWinActive, Minecraft
+r:: Send, {w down}
+#IfWinActive, Minecraft
+c:: Send, {LShift down}
+#IfWinActive, Minecraft
+x:: Send, {w down}{LCtrl down}
+
+
+;~ $LShift::
+
+	;~ isShiftDown := Abs(isShiftDown - 1) ; this expression will "toggle" the boolean value from 0 &lt;=&gt; 1 and vice versa.
+
+	;~ to simulate holding down the Left Shift key
+	;~ while (isShiftDown) {
+		;~ Send, {LShift Down} ; to simulate holding down the key
+		;~ Sleep, 100 ; wait for (10 = 0.01 seconds)
+	;~ }
+	;~ if (isShiftDown!) {
+		;~ Send, {LShift Up}
+	;~ }
+;~ return
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>WIN_Excel_filepaths.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">
+
+;Define your file path locations here inside of quotation marks "like\this.file"
+filePathFor_Excel := "C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE"
+;~ filePathFor_Excel_doc := "https://d.docs.live.net/72d27cf0d2cf4c8e/Documents/Time_Stamps_Main_v5.xlsm"
+filePathFor_Excel_doc := "E:\Library\OneDrive\Documents\Spreadsheets\Time_Stamps_Main_v5.xlsm"
+
+/* 
+FILEPATHS
+
+filePathFor_Excel
+	This should be the address location of the .exe for Excel.
+		Example:= "C:\...\Excel.exe"  
+		
+filePathFor_Excel_doc
+	This should point to the document that you want to open.
+		Example:= "C:\Users\Mr Foo Bar\Documents\Spreadsheet_01.xlsx"
+	This can even be a file path to a network or online location.
+		Example:= "https://d.docs.live.net/123abc/Documents/myfile.xlsm"
+*/
+
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>WIN_FancyZones.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;~ #Include %A-ScriptDir%\..\LIB\LIB-Main-Method-Library.ahk
+;~ #Include %A-ScriptDir%\..\LIB\LIB-repeatKey().ahk
+#IfWinActive ahk_exe FancyZonesEditor.exe
+;;If window is active
+
+
+NumpadSub::
+	;;reduce window to minimin size possible 64x 72y
+	
+	;; 1r 2c
+	
+	wndWidth := 960
+	wndHeight := 1040
+	fancyZones_setSize(wndWidth, wndHeight)
+	fancyZones_setPos(wndWidth, wndHeight)
+	
+	;;Create a new floating-window-zone and select it.
+	Send, ^{Tab}{Space}^{Tab}+{Tab}
+
+	;; 2r 2c
+	Loop, 4
+	{
+		fancyZones_setSize(960, 520)
+		Send, ^{Tab}{Space}^{Tab}+{Tab}
+	}
+	;; 1r 3c
+	Loop, 3
+	{
+		fancyZones_setSize(640, 1040)
+		Send, ^{Tab}{Space}^{Tab}+{Tab}
+	}
+	;; 2r 3c
+	Loop, 6
+	{
+		fancyZones_setSize(640, 520)
+		Send, ^{Tab}{Space}^{Tab}+{Tab}
+	}
+
+	;;select next pre-existing floating-window-zone.
+	;~ Send, {Tab}
+
+	return
+
+;;Re-declare any window as an acceptable 
+;;case-scenario before exit.
+#IfWinActive
+
+;;used for debugging
+;~ Pause::ExitApp
+
+
+;;FUNCTIONS
+;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;;reduces window to minimin size possible 64x 72y
+fancyZones_resetSize()</Match>
+        <Match Id="2">fancyZones_resetSize</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">{
+	SendMode, Input
+	repeatShiftKey("Left", 150, 2)
+	;~ repeatShiftKey("Right", 10, 2)
+	repeatShiftKey("Down", 150, 2)
+	;~ repeatShiftKey("Up", 10, 2)
+	;;size is now at 164x 172y
+}
+
+;;increase to evenly divisible number by 10's based
+;;off of target window size. 
+fancyZones_prepSize(param_w, param_h)</Match>
+        <Match Id="2">fancyZones_prepSize</Match>
+        <Match Id="3">(param_w, param_h)</Match>
+      </MatchCollection>
+      <MatchCollection Id="3">
+        <Match Id="1">{
+	SendMode, Input
+	;;assign increment amounts of width and height
+		;;get single digit, remainder value 
+		;;e.g. Mod(436, 10) = 6
+		;;divide that by 2
+		;;e.g. 6 / 2 = 3
+		;;incrAmnt = 3
+	incrAmnt_w := Floor(Abs(Mod((param_w - 64), 10) / 2))
+	incrAmnt_h := Floor(Abs(Mod((param_h - 72), 10) / 2))
+	
+	;;increments width by 2, one to four times, going from width=64 to width=72
+	;;;;if w = 400, incrAmnt_w should be 3
+	repeatCtrlShiftKey("Right", incrAmnt_w, 2)
+
+	;;increments height by 2, one to four times, going from height=72 to height=80
+	;;;;if h = 400, incrAmnt_h should be 4
+	repeatCtrlShiftKey("Up", incrAmnt_h, 1)
+	
+	return [incrAmnt_w, incrAmnt_h]
+}
+
+fancyZones_setSize(w := 400, h := 400)</Match>
+        <Match Id="2">fancyZones_setSize</Match>
+        <Match Id="3">(w := 400, h := 400)</Match>
+      </MatchCollection>
+      <MatchCollection Id="4">
+        <Match Id="1">{
+	SendMode, Input
+	fancyZones_resetSize()
+	
+	incrAmnt := fancyZones_prepSize(w, h)
+	incAmount1 := incrAmnt[1]
+	incAmount2 := incrAmnt[2]
+	Sleep, 1
+	;~ MsgBox, %incrAmnt[%]%`, %incrAmnt[1]%
+	;~ MsgBox, % "incrAmnt[1] = " . incrAmnt[1] . "`nincrAmnt[2] = " . incrAmnt[2] "`nend"
+	;;w = 10(x)+ 70
+	;;w - 70 = 10x
+	x := Floor(Abs((w - 64) / 10))
+	y := Floor(Abs((h - 72) / 10))
+	repeatShiftKey("Right", x, 2)
+	repeatShiftKey("Up", y, 2)
+	Sleep, 400
+	SendMode, Event
+}
+
+fancyZones_resetPos()</Match>
+        <Match Id="2">fancyZones_resetPos</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="5">
+        <Match Id="1">{
+	repeatKey("Left", 300)
+	repeatKey("Up", 300)
+}
+fancyZones_setPos(p_loopWidth, p_loopHeight)</Match>
+        <Match Id="2">fancyZones_setPos</Match>
+        <Match Id="3">(p_loopWidth, p_loopHeight)</Match>
+      </MatchCollection>
+      <MatchCollection Id="6">
+        <Match Id="1">{
+	fancyZones_resetPos()
+	;; p_loopIteration starts at a value of 1
+	screenHeight := 1040
+	screenWidth := 1920
+	maxRows := screenHeight / p_loopHeight
+	maxColumns := screenWidth / p_loopWidth
+	;;set x pos where each col is, then do it again for each row
+	Loop, maxRows
+	{
+		iterationXPos := (p_loopIteration - 1) * (screenWidth / p_loopWidth)
+	}
+	iterationYPos := (p_loopIteration - 1) * (screenHeight / p_loopWidth)
+	repeatCtrlKey("Right", iterationXPos)
+	
+}</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>WIN_Excel.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;WIN_Excel.ahk
+
+/* Function List
+ * 		excel_ActivateDrawBorderTool()
+ * 		excel_AddTopBorder()
+ * 		excel_EncapIfErrorIf()
+ * 		excel_Hotkey_LWinInsert()
+ *		excel_NavigateToBottomLeftCell()
+ * 		excel_StampTimeCurrent()
+ * 		excel_StampTimeCurrent_OnNextLine()
+ * 		excel_setBorderColorToAccent1()
+ */
+
+#IfWinActive
+
+#x::gosub, label_OpenExcel
+
+#Insert::
+	KeyWait, Insert
+	KeyWait, LWin
+	gosub, label_OpenExcel
+	Sleep, 8000
+	excel_StampTimeCurrent_OnNextLine()
+	return
+
+label_OpenExcel:
+#Include Excel-filepaths-WIN.ahk
+	;~ Run, % "open" filePathFor_Excel
+	;~ MsgBox,,, % "Msg from `n#IfWinActive NONE `n#x::", % 3
+	Run, %filePathFor_Excel% %filePathFor_Excel_doc%
+	return
+
+#IfWinExist Time_Stamps_Main_v5.xlsm - Excel ahk_class XLMAIN ahk_exe EXCEL.EXE
+#x::
+	;~ MsgBox,,, % "Msg from `n#IfWinExist EXCEL`n#x::", % 3
+	WinActivate ; Activates the window found by the above #IfWin directive.
+	return
+#Insert::
+	;~ MsgBox,,, % "Msg from `n#IfWinExist EXCEL `n#Insert::", % 3
+	KeyWait, Insert
+	KeyWait, LWin
+	WinActivate
+	Sleep, 500
+	WinActivate
+	excel_Hotkey_LWinInsert()
+	return
+#IfWinActive Time_Stamps_Main_v5.xlsm - Excel ahk_class XLMAIN ahk_exe EXCEL.EXE
+{
+	;;Scroll Left
+	+WheelUp::
+	{
+		SetScrollLockState, On
+		Send, {Left}
+		SetScrollLockState, Off
+		return	
+	}
+	
+	;;Scroll Right
+	+WheelDown::
+	{
+		SetScrollLockState, On
+		Send, {Right}
+		SetScrollLockState, Off
+		return
+	}
+	
+	;Edit Current Cell Content
+	^Enter::Send, {F2}
+	
+	;Activate Draw Border Tool
+	^w::excel_ActivateDrawBorderTool()
+	
+	;Adds a top border to the first 9 columns in a single row
+	^e::excel_AddTopBorder()
+	
+	;TIME-STAMP FUNCTION
+	Insert::excel_StampTimeCurrent()
+	
+/* 	Description
+ * 		This code encapsulates or surrounds a cell's formula 
+ * 		with an IFERROR(__,IF(__)) block that will effectively
+ * 		hide resulting cell values that result in zero or less
+ * 		without having to mess with excel's "conditional formatting".
+ * Known Issues
+ * 		- Will delete the first character, always. So make sure there's 
+ *		an "=" for the first character of the cell's contents.
+ * 	
+ */
+	^+i::excel_EncapIfErrorIf()
+	
+	#Insert::
+	^+Insert::
+		;~ MsgBox,,, % "Msg from `n#IfWinActive EXCEL `n#Insert::", % 3
+		excel_Hotkey_LWinInsert()
+		return
+	
+}
+#IfWinActive
+
+;LABELS
+excel_ActivateDrawBorderTool()</Match>
+        <Match Id="2">excel_ActivateDrawBorderTool</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">{ 
+	;~ Send, {Alt}
+	;~ Send, hbw
+	Send, {Alt}hbw
+	KeyWait, Alt
+	Sleep, 10
+	;~ Send, {Escape}
+	return
+}
+excel_AddTopBorder()</Match>
+        <Match Id="2">excel_AddTopBorder</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="3">
+        <Match Id="1">{
+	excel_setBorderColorToAccent1()
+	SetKeyDelay, 50
+	Send, {Home}
+	Send, {Shift down}
+	Send, {Right 8}
+	Send, {Shift up}
+	Send, {Alt}hbp
+	Sleep, 30
+	Send, {Home}
+	KeyWait, Home
+	;~ Send, {Escape}
+	SetKeyDelay, Default
+	return
+}
+excel_EncapIfErrorIf()</Match>
+        <Match Id="2">excel_EncapIfErrorIf</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="4">
+        <Match Id="1">{
+	;archive/save the clipboard's contents and clear
+	clipArchive := ClipboardAll
+	Clipboard :=
+	;edit cell contents
+		Send, {F2} 
+	;select all except the beginning "=" sign
+		Send, ^{Home}{Right}{ShiftDown}^{End}{ShiftUp} 
+	;cut
+		Send, ^x 
+	;wait for clipboard to have content before proceeding
+		ClipWait, 1 ;wait for 1 second
+		if ErrorLevel 
+		{
+			MsgBox, The attempt to copy text onto the clipboard failed.
+			return
+		}
+	;text
+		Send, IFERROR(IF((
+	;past cell's contents as inner formula
+		Send, ^v
+		Send, )&gt;0,(
+	;past cell's contents as inner formula, again
+		Send, ^v
+	;closing statement parentheses and empty string values
+	;for output in case false or error 
+		Send, ),`"`"),`"`")
+	;confirm new cell contents by hitting enter
+		Send, {Enter}
+	;restore clipboard's previous contents
+		Clipboard := clipArchive
+	return
+}
+excel_Hotkey_LWinInsert()</Match>
+        <Match Id="2">excel_Hotkey_LWinInsert</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="5">
+        <Match Id="1">{
+	KeyWait, Insert
+	KeyWait, LWin
+	excel_StampTimeCurrent_OnNextLine()
+	return
+}
+excel_NavigateToBottomLeftCell()</Match>
+        <Match Id="2">excel_NavigateToBottomLeftCell</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="6">
+        <Match Id="1">{
+	SetKeyDelay, 200
+	Send, ^{Home 2}
+	Send, ^{Down}
+	Send, {Down}
+	return
+}
+excel_StampTimeCurrent()</Match>
+        <Match Id="2">excel_StampTimeCurrent</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="7">
+        <Match Id="1">{
+	;; new method
+	;~ FormatTime, Clipboard
+	;~ FormatTime, Clipboard, , yyyy/MM/dd hh:mm:ss tt
+	FormatTime, outputVar, , yyyy/MM/dd hh:mm:ss tt
+	;~ MsgBox, % outputVar
+	SetKeyDelay, -1
+	Send, %outputVar%{Tab}{Left}
+
+	;~ SetKeyDelay, 0
+	;~ FormatTime, timeStamp
+	;~ SendRaw, % timeStamp
+	;~ Send, {Enter}
+	;~ SetKeyDelay, Default
+	
+	;; old method
+/*	SetKeyDelay, 100
+ * 	
+ * 	clipHolder := ClipboardAll
+ * 	Clipboard := "=now()"
+ * 	
+ * 	Send, ^v
+ * 	KeyWait, Ctrl
+ * 	
+ * 	Send, ^c
+ * 	KeyWait, Ctrl		
+ * 	
+ * 	Send, {Alt}
+ * 	KeyWait, Alt
+ * 	Send, h
+ * 	KeyWait, h
+ * 	Send, v
+ * 	KeyWait, v
+ * 	Send, v
+ * 	KeyWait, v
+ * 	Send, {Escape}
+ * 	KeyWait, Escape
+ * 	Send, {Escape}
+ * 	
+ * 	;~ Clipboard := clipHolder
+ * 	
+ * 	SetKeyDelay, Default
+ */
+	SetKeyDelay, 0
+	return
+}
+excel_StampTimeCurrent_OnNextLine()</Match>
+        <Match Id="2">excel_StampTimeCurrent_OnNextLine</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="8">
+        <Match Id="1">{
+	excel_NavigateToBottomLeftCell()
+	excel_StampTimeCurrent()
+	Sleep, 200
+	SetKeyDelay, 20
+	Send, {Right 2}
+	SetKeyDelay, 0
+	return
+}
+excel_setBorderColorToAccent1()
+	{
+		SetKeyDelay, 50
+		Send, {Alt}hbi{Right 5}{Enter}
+		return
+	}</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>WIN_Outlook.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#IfWinActive ahk_exe PowerLauncher.exe
+::calmonth::
+::month view::
+::monthview::
+::outlook calendar::
+::outlookcalendar::
+::view calendar::
+::view month::
+::viewcalendar::
+::viewcalendarmonth::
+::viewcalendarmonth::
+::viewmonth::
+{
+	if (WinExist("ahk_exe outlook.exe")){
+		Send, {Escape}
+		WinActivate
+	}
+	else {
+		SetKeyDelay, 2
+		;~ Send, !{Space}
+		SendRaw, looks like outlook isn't currently open...
+		Sleep, 1500 ;;1.5 seconds
+		Send, +{Home}{Delete}
+		SendRaw, let's try opening it
+		Sleep, 1500 ;;1.5 seconds
+		Send, +{Home}{Delete}
+		SendRaw, .outlook
+		Sleep, 800 ;;0.8 seconds
+		Send, {Enter}
+		SetKeyDelay, 10 ;Default value
+		
+		;;TODO - setup a run command to open up outlook if it isn't open
+		Sleep, 1000 * 10 ;;10 seconds
+		if (WinExist("ahk_exe outlook.exe") &amp;&amp; !WinActive("ahk_exe outlook.exe")){
+			;~ MsgBox, 0x1040, % "Info: Window Found", % "Info: Found Window for Outlook.\n\nSwitching over...", 3
+			Send, !{Space} ;open PowerRun
+			SendRaw, Info: Found Window for Outlook... Switching and Opening Month View.
+			Sleep, 2
+			Send, {Escape}
+			WinActivate
+			outlook_showMonth()
+			return
+		}
+		else if (WinActive("ahk_exe outlook.exe")){
+			;~ MsgBox, 0x1040, % "Info: WinActive", % "Info: Found Window for Outlook. Opening Month View.", 3
+			Send, !{Space} ;open PowerRun
+			SendRaw, Info: Found Window for Outlook. Opening Month View.
+			Sleep, 2
+			Send, {Escape}
+			outlook_showMonth()
+			return
+		}
+		else if (!WinExist("ahk_exe outlook.exe")){
+			;~ MsgBox, 0x1010, % "Error: Window Not Found", % "Error: Window for Outlook does not exist.", 3
+			Send, !{Space} ;open PowerRun
+			SendRaw, Error: Window for Outlook does not exist.
+			Sleep, 2
+			Send, {Escape}
+			return
+		}
+		else {
+			;~ MsgBox, 0x1010, % "Error: Unknown", % "Something went wrong... ¯\_(ツ)_/¯", 3
+			SendRaw, Something went wrong... ¯\_(ツ)_/¯
+			Sleep, 2
+			Send, {Escape}
+			return
+		}
+	}
+}
+
+#IfWinActive
+;;If window doesn't exist
+;~ #^!+Enter::
+;~ {
+	;~ Run, 
+	;~ return
+;~ }
+
+#IfWinExist ahk_exe outlook.exe
+;;If window does exist
+
+;~ #^!+Enter::
+;~ {
+	;~ WinActivate
+	;~ return
+;~ }
+
+#IfWinActive ahk_exe outlook.exe
+;;If window is active
+
+;;Open Calendar and show Month View
+!1::
+Space &amp; m::
+	outlook_showMonth()
+	return
+;;Show Week View
+!2::
+Space &amp; w::
+	outlook_showWeek()
+	return
+;;Show Today View
+!3::
+Space &amp; d::
+	outlook_showToday()
+	return
+;;Show Schedule View
+!4::
+Space &amp; s::
+	outlook_showSchedule()
+	return
+	
+	
+;;Re-declare any window as an acceptable 
+;;case-scenario before exit.
+#IfWinActive
+
+
+;;Functions
+;;Open Calendar and show Month View
+outlook_showMonth()</Match>
+        <Match Id="2">outlook_showMonth</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">{
+	;;open calendar
+	Send, ^2
+	;;show month view
+	Send, ^!4
+}
+;;Show Week View
+outlook_showWeek()</Match>
+        <Match Id="2">outlook_showWeek</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="3">
+        <Match Id="1">{
+	;;open calendar
+	Send, ^2
+	;;show week view
+	Send, ^!2
+}
+;;Show Today View
+outlook_showToday()</Match>
+        <Match Id="2">outlook_showToday</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="4">
+        <Match Id="1">{
+	;;open calendar
+	Send, ^2
+	;;show Today View
+	Send, ^t
+}
+;;Show Schedule View
+outlook_showSchedule()</Match>
+        <Match Id="2">outlook_showSchedule</Match>
+        <Match Id="3">()</Match>
+      </MatchCollection>
+      <MatchCollection Id="5">
+        <Match Id="1">{
+	;;open calendar
+	Send, ^2
+	;;show Today View
+	Send, ^!5
+}</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>WIN_Paste_RGB(r,g,b)_To_Windows_ColorPicker.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">
+
+#IfWinActive Color ahk_class #32770 ; the default Windows Color Picker panel
+
+; alt+v
+	!v::
+		testClip := "rgb(93, 05, 123)"
+		;~ example → Array := [Item1, Item2, ..., ItemN]
+		clipArray := StrSplit(testClip, " ", "rgb()")
+		
+		MsgBox, "clipArray = " %clipArray% "`n-------"
+		;~ StrSplit(Clipboard, [A_Space,]
+
+	return
+
+
+#IfWinActive
+;~ ; alt+v
+	;~ ; hotkey is null
+	;~ !v::return
+
+
+;StrSplit TESTING
+; alt+v
+	!v::
+		testClip := "rgb(93, 05, 123)"
+		clipArray := StrSplit(testClip, ",", " rgb()")
+		Clipboard := 
+		for index, val in clipArray{
+			Clipboard := Clipboard . "`n" . "val[" . index . "] =&gt;&gt;" . val . "&lt;&lt;"
+		}
+
+		; Dot "." is the concatenation operator to explicitly 
+		;	combine two items
+		;	-there must be at least one space on each side of the string
+		
+		
+		; for is equivalent to a "for each" expression in other languages
+		; 	- iterates through each key-value pair in an object 
+		;		- regardless of the object's data type of its key
+		
+		
+		; assign . append the value of %eachKey% to %s%
+		s := ""
+		for eachKey, val in clipArray
+			s .= val . "`n"
+		
+		MsgBox, testClip=%testClip%`nclipArray=%s%`n-------
+		;~ StrSplit(Clipboard, [A_Space,]
+
+	return
+
+
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>WIN_Outlook_filepaths.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">
+
+;Define your file path locations here inside of quotation marks "like\this.file"
+filePathFor_Outlook := "C:\Program Files\Microsoft Office\root\Office16\outlook.exe"
+;~ filePathFor_Outlook_doc := ""
+
+/* 
+FILEPATHS
+
+filePathFor_Excel
+	This should be the address location of the .exe for Excel.
+		Example:= "C:\...\Excel.exe"  
+		
+filePathFor_Excel_doc
+	This should point to the document that you want to open.
+		Example:= "C:\Users\Mr Foo Bar\Documents\Spreadsheet_01.xlsx"
+	This can even be a file path to a network or online location.
+		Example:= "https://d.docs.live.net/123abc/Documents/myfile.xlsm"
+*/</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>WIN_Polybridge.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#SingleInstance Force
+#InstallKeybdHook
+#InstallMouseHook
+#Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-Main-Method-Library.ahk
+
+global g_PolyBridge_UndoRedoInterval := 10
+
+#IfWinActive Poly Bridge ahk_class UnityWndClass ahk_exe polybridge.exe
+Menu, Tray, Icon, E:\Assets\Icons\2021-12-07_18-58-57-669_explorer_GsROHzIJNG.jpg
+
+;✔ TODO - make hotkeys for the tracing tool commands
+;✔ TODO - figure out how to get percentage of mousePos relative to client window
+;✔ TODO - make a method for handling mouse events
+;✔		➥ method should save current mouse position,
+;✔		➥ then, send a variadic series of click events at x,y position,
+;✔		➥ then, restore saved mouse position.
+
+;========================================================================
+;TRACING TOOL
+;------------------------------------------------------------------------
+;mouse button 5 (forward button)
+XButton2::7 ;tracing tool
+
+;~ bucket fill
++f::mouseEvent(,{x: 0.741835, y: 0.921228})
+; line type 1
+Numpad1::mouseEvent(, {x: 0.909020, y: 0.921228}, {x: 0.911353, y: 0.837116})
+;line type 2
+Numpad2::mouseEvent(, {x: 0.909020, y: 0.921228},{x: 0.911353, y: 0.757009})
+;line type 3
+Numpad3::mouseEvent(, {x: 0.909020, y: 0.921228},{x: 0.911353, y: 0.666222})
+;line type 4
+Numpad4::mouseEvent(, {x: 0.909020, y: 0.921228},{x: 0.911353, y: 0.591455})
+
+
+;------------------------------------------------------------------------
+
+q::p ;pause
+w::, ;increase playback speed
+e::. ;decrease playback speed
+Tab::t
+t::7 
+
+;toggle simulation
+r::Space
+
+;pause
+$Space::p
+
+;mouse button 4 (back button)
+XButton1::a ;tool wheel
+
+
+MButton::
+	Send, {Click, down}
+	KeyWait, MButton
+	Send, {Click, up}
+	return
+
+;remap primary mouse button to include 
+	;the left shift key, allowing for automatic
+	;dragging of joints.
+LButton::
+	if (doubleTap(150)){
+		Send, {Click, 2}
+	}
+	else {
+		;~ timeA := A_TickCount
+		Send, {Click, down}
+		KeyWait, LButton, T0.1
+		if (ErrorLevel == 0)
+			Send, {Click, up}
+		else if (ErrorLevel == 1){
+			Send, {Click, up}
+			Send, {ShiftDown}{Click, down}
+			KeyWait LButton
+			Send, {ShiftUp}{Click, Up}
+		}
+	}
+	return
+
+z::
+	Send, z
+	Sleep, 250
+	rapidFire(,"z", g_PolyBridge_UndoRedoInterval)
+	return
++z::
+y::
+	Send, y
+	Sleep, 250
+	rapidFire(,"y", g_PolyBridge_UndoRedoInterval)
+	return
+	
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>WIN_SciTE4AutoHotkey.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;~ #Include %A-ScriptDir%\..\LIB\LIB-Main-Method-Library.ahk
+
+
+
+#IfWinActive ahk_class SciTEWindow ahk_exe SciTE.exe
+;; "|" - puts the caret inside of quotes when double-tapped
+~+'::
+	if (doubleTap(350))
+		Send, {Left}
+	return
+;; %|% - puts the caret inside of percents when double-tapped
+~+5::
+	if (doubleTap(350))
+		Send, {Left}
+	return
+#IfWinActive
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>WIN_PowerRun.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#IfWinActive PowerLauncher ahk_exe PowerLauncher.exe
+
+::!word::
+::??word::
+::!wordhippo::
+::??wordhippo::
+	pwrRun_fireFoxSearch("word")
+	return
+::??regex::
+	pwrRun_fireFoxSearch("regex", "{Enter}")
+	return
+::??regexr::
+	Run, Firefox.exe "https://regexr.com/"
+	return
+::??test::
+	pwrRun_fireFoxSearch("test","{Space}1{Space}2{Space}3")
+	return
+::colormix::
+::color mix::
+::colormixer::
+::color mixer::
+	Run, Firefox.exe "https://www.w3schools.com/colors/colors_mixer.asp"
+	return
+::colorpick::
+::color pick::
+::color picker::
+	Run, Firefox.exe "https://www.w3schools.com/colors/colors_picker.asp"
+	return
+::colorname::
+::color name::
+::colornames::
+::color names::
+	Run, Firefox.exe "https://www.w3schools.com/colors/colors_names.asp"
+	return
+::??anime::
+#Include %A-ScriptDir%\..\-lib\LIB-time().ahk
+	v_domain := "https://www.livechart.me/timetable?date="
+	v_date := time_getDate("yyyy-MM-dd")
+	v_target := v_domain . v_date
+	MsgBox, %v_target%
+	Run, Chrome.exe %v_target%
+	return
+pwrRun_fireFoxSearch(str := "", extraSend := "")</Match>
+        <Match Id="2">pwrRun_fireFoxSearch</Match>
+        <Match Id="3">(str := "", extraSend := "")</Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">{
+	if (WinExist("Firefox")){
+		;;delete text
+		Send, +{Home}{Delete}
+		WinActivate
+		;;new tab
+		Run, "Firefox.exe" "about:newtab"
+		;;select address bar
+		Send, ^l
+		;;type !word and then space
+		Send, %str%{Space}
+	}
+	else {
+		;;delete text
+		Send, +{Home}{Delete}
+		;;new tab
+		Run, "Firefox.exe" "about:newtab"
+		Sleep, 200
+		;;select address bar
+		Send, ^l
+		;;type !word and then space
+		Send, %str%{Space}%extraSend%
+	}
+	return
+}
+
+
+
+
+;;Re-declare any window as an acceptable 
+;;case-scenario before exit.
+#IfWinActive</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>WIN_Windows_Color_Picker.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;AHK_Windows_Color_Picker.ahk
+#IfWinActive Color ahk_class #32770
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;;HOTKEYS
+v::
+/* 	testClip := "rgb(93, 05, 123)"
+ * 	clipArray := StrSplit(testClip, ",", "rgb() ")
+ * 	Clipboard := 
+ * 	for index, val in clipArray{
+ * 		Clipboard := Clipboard . "`n" . "val[" . index . "] =&gt;&gt;" . val . "&lt;&lt;"
+ * 	}
+ *
+ * ;;OUTPUT
+ * val[1] =&gt;&gt;93&lt;&lt;
+ * val[2] =&gt;&gt;05&lt;&lt;
+ * val[3] =&gt;&gt;123&lt;&lt;
+ */
+	clipArray := StrSplit(Clipboard, ",", "rgb() ")
+	for index, val in clipArray{
+		
+		;; select the input cell's contents to replace
+		Send, ^a
+		
+		str := clipArray[index]
+		Send, %str%{Tab}
+	}
+	
+	return
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;remove context sensitive window detection for compatibility
+#IfWinActive 
+
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>WIN_WindowSpy_Copy.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">;
+; Window Spy
+;
+
+#NoEnv
+#NoTrayIcon
+#SingleInstance Ignore
+SetWorkingDir, %A_ScriptDir%
+SetBatchLines, -1
+CoordMode, Pixel, Screen
+
+txtNotFrozen := "(Hold Ctrl or Shift to suspend updates)"
+txtFrozen := "(Updates suspended)"
+txtMouseCtrl := "Control Under Mouse Position"
+txtFocusCtrl := "Focused Control"
+
+Gui, New, hwndhGui AlwaysOnTop Resize MinSize
+Gui, Add, Text,, Window Title, Class and Process:
+Gui, Add, Checkbox, yp xp+200 w120 Right vCtrl_FollowMouse, Follow Mouse
+Gui, Add, Edit, xm w320 r4 ReadOnly -Wrap vCtrl_Title
+Gui, Add, Text,, Mouse Position:
+Gui, Add, Edit, w320 r4 ReadOnly vCtrl_MousePos
+Gui, Add, Text, w320 vCtrl_CtrlLabel, % txtFocusCtrl ":"
+Gui, Add, Edit, w320 r4 ReadOnly vCtrl_Ctrl
+Gui, Add, Text,, Active Window Position:
+Gui, Add, Edit, w320 r2 ReadOnly vCtrl_Pos
+Gui, Add, Text,, Status Bar Text:
+Gui, Add, Edit, w320 r2 ReadOnly vCtrl_SBText
+Gui, Add, Checkbox, vCtrl_IsSlow, Slow TitleMatchMode
+Gui, Add, Text,, Visible Text:
+Gui, Add, Edit, w320 r2 ReadOnly vCtrl_VisText
+Gui, Add, Text,, All Text:
+Gui, Add, Edit, w320 r2 ReadOnly vCtrl_AllText
+Gui, Add, Text, w320 r1 vCtrl_Freeze, % txtNotFrozen
+Gui, Show, NoActivate, Window Spy
+GetClientSize(hGui, temp)
+horzMargin := temp*96//A_ScreenDPI - 320
+SetTimer, Update, 250
+return
+
+GuiSize:
+Gui %hGui%:Default
+if !horzMargin
+	return
+SetTimer, Update, % A_EventInfo=1 ? "Off" : "On" ; Suspend on minimize
+ctrlW := A_GuiWidth - horzMargin
+list = Title,MousePos,Ctrl,Pos,SBText,VisText,AllText,Freeze
+Loop, Parse, list, `,
+	GuiControl, Move, Ctrl_%A_LoopField%, w%ctrlW%
+return
+
+Update:
+Gui %hGui%:Default
+GuiControlGet, Ctrl_FollowMouse
+CoordMode, Mouse, Screen
+MouseGetPos, msX, msY, msWin, msCtrl
+actWin := WinExist("A")
+if Ctrl_FollowMouse
+{
+	curWin := msWin
+	curCtrl := msCtrl
+	WinExist("ahk_id " curWin)
+}
+else
+{
+	curWin := actWin
+	ControlGetFocus, curCtrl
+}
+WinGetTitle, t1
+WinGetClass, t2
+if (curWin = hGui || t2 = "MultitaskingViewFrame") ; Our Gui || Alt-tab
+{
+	UpdateText("Ctrl_Freeze", txtFrozen)
+	return
+}
+UpdateText("Ctrl_Freeze", txtNotFrozen)
+WinGet, t3, ProcessName
+WinGet, t4, PID
+UpdateText("Ctrl_Title", t1 "`nahk_class " t2 "`nahk_exe " t3 "`nahk_pid " t4)
+CoordMode, Mouse, Relative
+MouseGetPos, mrX, mrY
+CoordMode, Mouse, Client
+MouseGetPos, mcX, mcY
+PixelGetColor, mClr, %msX%, %msY%, RGB
+mClr := SubStr(mClr, 3)
+UpdateText("Ctrl_MousePos", "Screen:`t" msX ", " msY " (less often used)`nWindow:`t" mrX ", " mrY " (default)`nClient:`t" mcX ", " mcY " (recommended)"
+	. "`nColor:`t" mClr " (Red=" SubStr(mClr, 1, 2) " Green=" SubStr(mClr, 3, 2) " Blue=" SubStr(mClr, 5) ")")
+UpdateText("Ctrl_CtrlLabel", (Ctrl_FollowMouse ? txtMouseCtrl : txtFocusCtrl) ":")
+if (curCtrl)</Match>
+        <Match Id="2">GetClientSize</Match>
+        <Match Id="3">(hGui, temp)
+horzMargin := temp*96//A_ScreenDPI - 320
+SetTimer, Update, 250
+return
+
+GuiSize:
+Gui %hGui%:Default
+if !horzMargin
+	return
+SetTimer, Update, % A_EventInfo=1 ? "Off" : "On" ; Suspend on minimize
+ctrlW := A_GuiWidth - horzMargin
+list = Title,MousePos,Ctrl,Pos,SBText,VisText,AllText,Freeze
+Loop, Parse, list, `,
+	GuiControl, Move, Ctrl_%A_LoopField%, w%ctrlW%
+return
+
+Update:
+Gui %hGui%:Default
+GuiControlGet, Ctrl_FollowMouse
+CoordMode, Mouse, Screen
+MouseGetPos, msX, msY, msWin, msCtrl
+actWin := WinExist("A")
+if Ctrl_FollowMouse
+{
+	curWin := msWin
+	curCtrl := msCtrl
+	WinExist("ahk_id " curWin)
+}
+else
+{
+	curWin := actWin
+	ControlGetFocus, curCtrl
+}
+WinGetTitle, t1
+WinGetClass, t2
+if (curWin = hGui || t2 = "MultitaskingViewFrame") ; Our Gui || Alt-tab
+{
+	UpdateText("Ctrl_Freeze", txtFrozen)
+	return
+}
+UpdateText("Ctrl_Freeze", txtNotFrozen)
+WinGet, t3, ProcessName
+WinGet, t4, PID
+UpdateText("Ctrl_Title", t1 "`nahk_class " t2 "`nahk_exe " t3 "`nahk_pid " t4)
+CoordMode, Mouse, Relative
+MouseGetPos, mrX, mrY
+CoordMode, Mouse, Client
+MouseGetPos, mcX, mcY
+PixelGetColor, mClr, %msX%, %msY%, RGB
+mClr := SubStr(mClr, 3)
+UpdateText("Ctrl_MousePos", "Screen:`t" msX ", " msY " (less often used)`nWindow:`t" mrX ", " mrY " (default)`nClient:`t" mcX ", " mcY " (recommended)"
+	. "`nColor:`t" mClr " (Red=" SubStr(mClr, 1, 2) " Green=" SubStr(mClr, 3, 2) " Blue=" SubStr(mClr, 5) ")")
+UpdateText("Ctrl_CtrlLabel", (Ctrl_FollowMouse ? txtMouseCtrl : txtFocusCtrl) ":")
+if (curCtrl)</Match>
+      </MatchCollection>
+      <MatchCollection Id="2">
+        <Match Id="1">
+{
+	ControlGetText, ctrlTxt, %curCtrl%
+	cText := "ClassNN:`t" curCtrl "`nText:`t" textMangle(ctrlTxt)
+    ControlGetPos cX, cY, cW, cH, %curCtrl%
+    cText .= "`n`tx: " cX "`ty: " cY "`tw: " cW "`th: " cH
+    WinToClient(curWin, cX, cY)
+	ControlGet, curCtrlHwnd, Hwnd,, % curCtrl
+    GetClientSize(curCtrlHwnd, cW, cH)
+    cText .= "`nClient:`tx: " cX "`ty: " cY "`tw: " cW "`th: " cH
+}
+else
+	cText := ""
+UpdateText("Ctrl_Ctrl", cText)
+WinGetPos, wX, wY, wW, wH
+GetClientSize(curWin, wcW, wcH)
+UpdateText("Ctrl_Pos", "`tx: " wX "`ty: " wY "`tw: " wW "`th: " wH "`nClient:`tx: 0`ty: 0`tw: " wcW "`th: " wcH)
+sbTxt := ""
+Loop
+{
+	StatusBarGetText, ovi, %A_Index%
+	if ovi =
+		break
+	sbTxt .= "(" A_Index "):`t" textMangle(ovi) "`n"
+}
+StringTrimRight, sbTxt, sbTxt, 1
+UpdateText("Ctrl_SBText", sbTxt)
+GuiControlGet, bSlow,, Ctrl_IsSlow
+if bSlow
+{
+	DetectHiddenText, Off
+	WinGetText, ovVisText
+	DetectHiddenText, On
+	WinGetText, ovAllText
+}
+else
+{
+	ovVisText := WinGetTextFast(false)
+	ovAllText := WinGetTextFast(true)
+}
+UpdateText("Ctrl_VisText", ovVisText)
+UpdateText("Ctrl_AllText", ovAllText)
+return
+
+GuiClose:
+ExitApp
+
+WinGetTextFast(detect_hidden)</Match>
+        <Match Id="2">UpdateText</Match>
+        <Match Id="3">("Ctrl_Ctrl", cText)
+WinGetPos, wX, wY, wW, wH
+GetClientSize(curWin, wcW, wcH)
+UpdateText("Ctrl_Pos", "`tx: " wX "`ty: " wY "`tw: " wW "`th: " wH "`nClient:`tx: 0`ty: 0`tw: " wcW "`th: " wcH)
+sbTxt := ""
+Loop
+{
+	StatusBarGetText, ovi, %A_Index%
+	if ovi =
+		break
+	sbTxt .= "(" A_Index "):`t" textMangle(ovi) "`n"
+}
+StringTrimRight, sbTxt, sbTxt, 1
+UpdateText("Ctrl_SBText", sbTxt)
+GuiControlGet, bSlow,, Ctrl_IsSlow
+if bSlow
+{
+	DetectHiddenText, Off
+	WinGetText, ovVisText
+	DetectHiddenText, On
+	WinGetText, ovAllText
+}
+else
+{
+	ovVisText := WinGetTextFast(false)
+	ovAllText := WinGetTextFast(true)
+}
+UpdateText("Ctrl_VisText", ovVisText)
+UpdateText("Ctrl_AllText", ovAllText)
+return
+
+GuiClose:
+ExitApp
+
+WinGetTextFast(detect_hidden)</Match>
+      </MatchCollection>
+      <MatchCollection Id="3">
+        <Match Id="1">
+{
+	; WinGetText ALWAYS uses the "Slow" mode - TitleMatchMode only affects the
+	; WinText/ExcludeText parameters.  In "Fast" mode, GetWindowText() is used
+	; to retrieve the text of each control.
+	WinGet controls, ControlListHwnd
+	static WINDOW_TEXT_SIZE := 32767 ; Defined in AutoHotkey source.
+	VarSetCapacity(buf, WINDOW_TEXT_SIZE * (A_IsUnicode ? 2 : 1))
+	text := ""
+	Loop Parse, controls, `n
+	{
+		if !detect_hidden &amp;&amp; !DllCall("IsWindowVisible", "ptr", A_LoopField)
+			continue
+		if !DllCall("GetWindowText", "ptr", A_LoopField, "str", buf, "int", WINDOW_TEXT_SIZE)
+			continue
+		text .= buf "`r`n"
+	}
+	return text
+}
+
+UpdateText(ControlID, NewText)</Match>
+        <Match Id="2">UpdateText</Match>
+        <Match Id="3">(ControlID, NewText)</Match>
+      </MatchCollection>
+      <MatchCollection Id="4">
+        <Match Id="1">
+{
+	; Unlike using a pure GuiControl, this function causes the text of the
+	; controls to be updated only when the text has changed, preventing periodic
+	; flickering (especially on older systems).
+	static OldText := {}
+	global hGui
+	if (OldText[ControlID] != NewText)
+	{
+		GuiControl, %hGui%:, % ControlID, % NewText
+		OldText[ControlID] := NewText
+	}
+}
+
+GetClientSize(hWnd, ByRef w := "", ByRef h := "")</Match>
+        <Match Id="2">GetClientSize</Match>
+        <Match Id="3">(hWnd, ByRef w := "", ByRef h := "")</Match>
+      </MatchCollection>
+      <MatchCollection Id="5">
+        <Match Id="1">
+{
+	VarSetCapacity(rect, 16)
+	DllCall("GetClientRect", "ptr", hWnd, "ptr", &amp;rect)
+	w := NumGet(rect, 8, "int")
+	h := NumGet(rect, 12, "int")
+}
+
+WinToClient(hWnd, ByRef x, ByRef y)</Match>
+        <Match Id="2">WinToClient</Match>
+        <Match Id="3">(hWnd, ByRef x, ByRef y)</Match>
+      </MatchCollection>
+      <MatchCollection Id="6">
+        <Match Id="1">
+{
+    WinGetPos wX, wY,,, ahk_id %hWnd%
+    x += wX, y += wY
+    VarSetCapacity(pt, 8), NumPut(y, NumPut(x, pt, "int"), "int")
+    if !DllCall("ScreenToClient", "ptr", hWnd, "ptr", &amp;pt)
+        return false
+    x := NumGet(pt, 0, "int"), y := NumGet(pt, 4, "int")
+    return true
+}
+
+textMangle(x)</Match>
+        <Match Id="2">textMangle</Match>
+        <Match Id="3">(x)</Match>
+      </MatchCollection>
+      <MatchCollection Id="7">
+        <Match Id="1">
+{
+	if pos := InStr(x, "`n")
+		x := SubStr(x, 1, pos-1), elli := true
+	if StrLen(x) &gt; 40
+	{
+		StringLeft, x, x, 40
+		elli := true
+	}
+	if elli
+		x .= " (...)"
+	return x
+}
+
+~*Ctrl::
+~*Shift::
+SetTimer, Update, Off
+UpdateText("Ctrl_Freeze", txtFrozen)
+return
+
+~*Ctrl up::
+~*Shift up::
+SetTimer, Update, On
+return
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+      <MatchCollection Id="8">
+        <Match Id="1">
+</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>WIN_Word.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">#IfWinActive ahk_class OpusApp ahk_exe WINWORD.EXE
+;;If window is active
+
+^r::
+{
+	Send, ^h
+	return
+}
+
+
+
+
+;;Re-declare any window as an acceptable 
+;;case-scenario before exit.
+#IfWinActive</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+  <Finding Expression="(?:(?:[\s\S\.]*?)(?:[\r\n]{1})([A-Za-z_\-]+)(\([\s\S]*?\))(?=[\s]*{[\s\S]*}))|(?:(?:[\s\S]+?$)(?![\r\n]{1}[A-Za-z_\-]+\([\s\S]*?\)[\s\S]*{.+}.+$))" ExpressionFriendlyName="Expression 1">
+    <FileName>WIN_Windows_Explorer.ahk</FileName>
+    <FileFolder>E:\Library\OneDrive\Documents\AutoHotkey\Custom Scripts-win</FileFolder>
+    <MatchCollections>
+      <MatchCollection Id="1">
+        <Match Id="1">; target any File Browswer / Windows Explorer window
+lbl_w_Windows_Explorer:
+#IfWinActive ahk_class CabinetWClass ahk_exe Explorer.EXE 
+
+;; Scroll left.
++WheelUp::
+	Send, {Left}
+	return
+	
+;; Scroll right.
++WheelDown::  
+	Send, {Right}
+	return
+
+; [Middle Mouse Button Click]
+MButton::
+{
+	; If hotkey was triggered within DOUBLE_TAP_LIMIT,
+		; then activate the doubleTap process and reset the 
+		; listener key to false for the next occurence.
+		; DOUBLE_TAP_LIMIT approximately 350 milliseconds atm
+	if (A_ThisHotkey = A_PriorHotkey &amp;&amp; A_TimeSincePriorHotkey &lt; DOUBLE_TAP_LIMIT) {
+		; Toggle Left Folder Navigation Panel
+		Send, !vn{Enter}
+	}
+	; Toggle Right Preview Panel
+	Send, !p
+	return
+}
+;copy file address, file path + file name
+;Ctrl
+^+c::
+{
+/* 	KeyWait, Ctrl
+ * 	KeyWait, Shift
+ * 	Clipboard := 
+ * 	Send, +{AppsKey}a
+ * 	ClipWait
+ * 	Clipboard := SubStr(Clipboard, 2, -1)
+ */
+
+	KeyWait, Ctrl
+	KeyWait, Shift
+	Clipboard := 
+	Send, {Alt}hcp
+	ClipWait
+	Clipboard := SubStr(Clipboard, 2, -1)
+	
+	return
+}
+
+
+!l::
+{
+	;;view, List Mode
+	Send, ^+5
+	return
+}
+#IfWinActive</Match>
+        <Match Id="2"></Match>
+        <Match Id="3"></Match>
+      </MatchCollection>
+    </MatchCollections>
+  </Finding>
+</Findings>

@@ -1,0 +1,4 @@
+﻿::??_hotstring_case_1_:: ;~ if this is true, then execute lines until return
+::??_hotstring_case_2_::
+	Run, firefox.exe "https://www.foo.bar"
+	return

@@ -1,0 +1,1 @@
+﻿MsgBox, 0, % A_ScriptName, % "File: "A_LineFile . "`nLine: " . A_LineNumber . "`n" . "messageVar: " . messageVar

@@ -1,47 +1,1223 @@
-oneKey_setState_Paste(Boolean)
-oneKey_getState_Paste(Boolean)
-oneKey_setState_Copy(Boolean)
-oneKey_getState_Copy(Boolean)
-oneKey_setState_Cut(Boolean)
-oneKey_getState_Cut(Boolean)
-pwrRun_fireFoxSearch(str := "", extraSend := "")
+main_showTooltip(p_tooltipText, p_timeOut := 5000)
+main_getActiveWin()\n\t\tDescr:\tProcess for retreiving the data of the currently active window.\n\t\tReturn:\tAn Object with the following fields (accessible as such);\n\t\t\taWin.title\n\t\t\taWin.hwnd (unique window handle ID)\n\t\t\taWin.minMax (the Min/Maximized state of window)\n\t\t\taWin.width\n\t\t\taWin.height\n\t\t\taWin.x\n\t\t\taWin.y\n\t\tParams:\t(none)\n\t\tRemarks: ____How_to_or_when_is_this_used____
+copySelection(p_clipWaitTime := 1, p_showMsg := false)\n\t\tSends "Ctrl+c"\n\tReturns:\n\t\tThe copied selection as a string. \n\t\t(Returns as empty string, "" ≡ false, if nothing is selected or failed to copy).\n\tParams:\n\t\tp_clipWaitTime:=\tINTEGER (seconds)\n\t\tp_showMsg := false (set to 'true' to show MsgBox error info)\n\tNotes:\n\t\tMake sure to have something "selected" before calling this \n\t\tmethod for it to work.
+main_tooltipShowVar(p_var*)
+main_tooltipUpdate(p_outText)
+pwrRun_newChromeWindow(p_posObj := "", p_htmlAddress :=  "")
+pwrRun_newChromeWindow(p_posObj := "", p_htmlAddress :=  "")\n\tDescr:\tOpens new chro;@Ahk2Exe-SetMainIcon E:\Assets\Icons\copy-cut-bg-red.ico
+me window, sets position, and naviagtes to target html address.\n\tReturn:\tVOID\n\tParams:\tp_posObj :=\t【OBJECT: Associative-Array】 OR 【OBJECT: ARRAY of INTEGERS】\n\t\t\t\texample1》 【associativeArrayObj := {x: -7, y: 0, w: 958, h: 1040}】\n\t\t\t\texample2》 【simpleArrayObj := [-7, 0, 958, 1040]】\n\t\t\tp_htmlAddress := STRING\n\tRemarks:\Define the p_posObj before, and then pass it in as the argument.
+pwrRun_newFirefoxWindow(p_posObj := "", p_htmlAddress :=  "")
+pwrRun_newFirefoxWindow(p_posObj := "", p_htmlAddress :=  "")\n\tDescr:\tOpens new firefox window, sets position, and naviagtes to target html address.\n\tReturn:\tVOID\n\tParams:\tp_posObj :=\t【OBJECT: Associative-Array】 OR 【OBJECT: ARRAY of INTEGERS】\n\t\t\t\texample1》 【associativeArrayObj := {x: -7, y: 0, w: 958, h: 1040}】\n\t\t\t\texample2》 【simpleArrayObj := [-7, 0, 958, 1040]】\n\t\t\tp_htmlAddress := STRING\n\tRemarks:\Define the p_posObj before, and then pass it in as the argument.
+
+#CommentFlag NewString \nNot recommended
+#ErrorStdOut
+#EscapeChar NewChar \nNot recommended
+#HotkeyInterval Value
+#HotkeyModifierTimeout Milliseconds
+#Hotstring NewOptions
+#If [expression] \nMakes subsequent hotkeys and hotstrings only function when the specified expression is true.
+#IfTimeout timeout \nSets the maximum time that may be spent evaluating a single #If expression.
+#IfWinActive [, WinTitle, WinText] \nMakes subsequent hotkeys and hotstrings only function when the specified window is active.
+#IfWinExist [, WinTitle, WinText] \nMakes subsequent hotkeys and hotstrings only function when the specified window exists.
+#IfWinNotActive [, WinTitle, WinText] \nMakes subsequent hotkeys and hotstrings only function when the specified window is not active.
+#IfWinNotExist [, WinTitle, WinText] \nMakes subsequent hotkeys and hotstrings only function when the specified window doesn't exist.
+#Include FileName \nCauses the script to behave as though the specified file's contents are present at this exact position.
+#IncludeAgain FileName \nCauses the script to behave as though the specified file's contents are present at this exact position.
+#InputLevel [, Level] \nControls which artificial keyboard and mouse events are ignored by hotkeys and hotstrings.
+#InstallKeybdHook
+#InstallMouseHook
+#KeyHistory MaxEvents
+#LTrim [On|Off]
+#MaxHotkeysPerInterval Value
+#MaxMem ValueInMegabytes
+#MaxThreads Value
+#MaxThreadsBuffer On|Off
+#MaxThreadsPerHotkey Value
+#MenuMaskKey keyname \nChanges which key is used to mask Win or Alt keyup events.
+#NoEnv
+#NoTrayIcon
+#Persistent
+#SingleInstance [Force|Ignore|Off]
+#UseHook [On|Off]
+#Warn [WarningType, WarningMode] \nEnables or disables warnings for selected load-time or run-time conditions that may be indicative of developer errors.
+#WinActivateForce
+.__Call([params...]) \n'Call' meta-function of a class or object.
+.__Get([params...]) \n'Get' meta-function of a class or object.
+.__Handle
+.__Set([params...,] value) \n'Set' meta-function of a class or object.
+._NewEnum() \nReturns a new enumerator to enumerate this object's key-value pairs.
+.AtEOF
+.Bind() \nBinds parameters to the function and returns a BoundFunc object.\nBoundFunc := Func.Bind(Param1, Param2, ...)
+.Clone() \nReturns a shallow copy of the object.
+.Close() \n[File object] Closes the file, flushes any data in the cache to disk and releases the share locks.
+.Count()\n\tCount := Object.Count()
+.Count()\n\tCount := Object.Count()\n\tReturns the number of key-value pairs present in the object.
+.Encoding
+.GetAddress(Key) \nReturns the current address of the field's string buffer, if it has one.
+.GetCapacity([Key]) \nReturns the current capacity of an object or one of its fields.
+.HasKey(Key) \nReturns true if Key is associated with a value (even "") within Object, otherwise false.
+.Insert(index, values...) \nInsert one or more values at the given position.
+.Insert(key, value) \nInsert a key-value pair.
+.Insert(value) \nInsert one or more values at the end of the array.
+.IsBuiltIn
+.IsByRef(index) \n[Func object] Determines whether a parameter is ByRef.
+.IsOptional(index) \n[Func object] Determines whether a parameter is optional.
+.IsVariadic
+.Len(N)\n\t_rgxMatchVar.Len(N): Returns the length of the overall match or a captured subpattern.
+.Length()\n\tLength := Object.Length()
+.Length()\n\tLength := Object.Length()\n\tReturns the length of a linear array beginning at position 1; that is, the highest positive integer key contained by the object, or 0 if there aren't any.
+.MaxIndex() \nIf any integer keys are present, returns the highest. Otherwise an empty string is returned.
+.MaxParams
+.MinIndex() \nIf any integer keys are present, returns the lowest. Otherwise an empty string is returned.
+.MinParams
+.Name
+.Pos
+.Position
+.RawRead(VarOrAddress, Bytes) \n[File object] Read raw binary data from the file into memory.
+.RawWrite(VarOrAddress, Bytes) \n[File object] Write raw binary data to the file.
+.Read([CharCount]) \n[File object] Reads a string of characters from the file and advances the file pointer.
+.ReadChar() \n[File object] Reads a little-endian signed 8-bit number from the file and advances the file pointer.
+.ReadDouble() \n[File object] Reads a little-endian 64-bit floating point number from the file and advances the file pointer.
+.ReadFloat() \n[File object] Reads a little-endian 32-bit floating point number from the file and advances the file pointer.
+.ReadInt() \n[File object] Reads a little-endian signed 32-bit number from the file and advances the file pointer.
+.ReadInt64() \n[File object] Reads a little-endian 64-bit number from the file and advances the file pointer.
+.ReadLine() \n[File object] Reads a line of text from the file and advances the file pointer.
+.ReadShort() \n[File object] Reads a little-endian signed 16-bit number from the file and advances the file pointer.
+.ReadUChar() \n[File object] Reads a little-endian unsigned 8-bit number from the file and advances the file pointer.
+.ReadUInt() \n[File object] Reads a little-endian unsigned 32-bit number from the file and advances the file pointer.
+.ReadUShort() \n[File object] Reads a little-endian unsigned 16-bit number from the file and advances the file pointer.
+.Remove(first, last) \nRemove a range of keys and return the number of actual key-value pairs removed.
+.Remove(intkey, "") \nRemove and return the element at intkey without shifting integer keys.
+.Remove(key) \nRemove and return the array element at Index.
+.Seek(Distance [, Origin := 0]) \n[File object] Moves the file pointer.
+.SetCapacity(Key, ByteSize) \nAdjusts the capacity of an object field.
+.SetCapacity(MaxItems) \nAdjusts the capacity of an object.
+.Write(String) \n[File object] Writes a string of characters to the file and advances the file pointer.
+.WriteChar(num) \n[File object] Writes a little-endian signed 8-bit number to the file and advances the file pointer.
+.WriteDouble(num) \n[File object] Writes a little-endian 64-bit floating point number to the file and advances the file pointer.
+.WriteFloat(num) \n[File object] Writes a little-endian 32-bit floating point number to the file and advances the file pointer.
+.WriteInt(num) \n[File object] Writes a little-endian signed 32-bit number to the file and advances the file pointer.
+.WriteInt64(num) \n[File object] Writes a little-endian 64-bit number to the file and advances the file pointer.
+.WriteLine([String]) \n[File object] Writes a string of characters followed by the newline sequence and advances the file pointer.
+.WriteShort(num) \n[File object] Writes a little-endian signed 16-bit number to the file and advances the file pointer.
+.WriteUChar(num) \n[File object] Writes a little-endian unsigned 8-bit number to the file and advances the file pointer.
+.WriteUInt(num) \n[File object] Writes a little-endian unsigned 32-bit number to the file and advances the file pointer.
+.WriteUShort(num) \n[File object] Writes a little-endian unsigned 16-bit number to the file and advances the file pointer.
+/*@Ahk2Exe-Keep
+@Ahk2Exe-AddResource FileName , ResourceName
+@Ahk2Exe-Base [Path\]Name , [Exe_path\][Name], Codepage ; [v1.1.33.10+]
+@Ahk2Exe-ConsoleApp
+@Ahk2Exe-Cont Text
+@Ahk2Exe-Debug Text
+@Ahk2Exe-ExeName [Path\][Name]
+@Ahk2Exe-IgnoreBegin
+@Ahk2Exe-IgnoreBegin \nCompiler directive, begins 'ignore' sub.\n\t- 'ignore' sub-section will NOT appear in the compiled script, but will appear in the non-compiled script.
+@Ahk2Exe-IgnoreEnd
+@Ahk2Exe-IgnoreEnd \nCompiler directive, ends 'ignore' sub.\n\t- 'ignore' sub-section will NOT appear in the compiled script, but will appear in the non-compiled script.
+@Ahk2Exe-Keep
+@Ahk2Exe-Keep \nCompiler directive, begins 'keep' sub.\n\t- 'keep' sub-section WILL appear in the compiled script.\n\tEXAMPLE:\n\t/*@Ahk2Exe-Keep\n\t\t[commands]\n\t*/
+@Ahk2Exe-Let Name = Value [, Name = Value, ...]
+@Ahk2Exe-Obey Name, CmdOrExp [, Extra]
+@Ahk2Exe-PostExec Program [parameters] [, When, WorkingDir, Hidden, IgnoreErrors]
+@Ahk2Exe-ResourceID Name
+@Ahk2Exe-SetCompanyName
+@Ahk2Exe-SetCompanyName \nChanges the company name.
+@Ahk2Exe-SetCopyright
+@Ahk2Exe-SetCopyright \nChanges the legal copyright information.
+@Ahk2Exe-SetDescription
+@Ahk2Exe-SetDescription \nChanges the file description.
+@Ahk2Exe-SetFileVersion
+@Ahk2Exe-SetFileVersion \nChanges the file version, in both text and raw binary format. (See Version below, for more details.)
+@Ahk2Exe-SetInternalName
+@Ahk2Exe-SetInternalName \nChanges the internal name.
+@Ahk2Exe-SetLanguage
+@Ahk2Exe-SetLanguage \nChanges the language code. Please note that hexadecimal numbers must have an 0x prefix.
+@Ahk2Exe-SetLegalTrademarks
+@Ahk2Exe-SetLegalTrademarks \nChanges the legal trademarks information.
+@Ahk2Exe-SetMainIcon [IcoFile]
+@Ahk2Exe-SetName
+@Ahk2Exe-SetName \nChanges the product name and the internal name.
+@Ahk2Exe-SetOrigFilename
+@Ahk2Exe-SetOrigFilename \nChanges the original filename information.
+@Ahk2Exe-SetProductName
+@Ahk2Exe-SetProductName \nChanges the product name.
+@Ahk2Exe-SetProductVersion
+@Ahk2Exe-SetProductVersion \nChanges the product version, in both text and raw binary format. (See Version below, for more details.)
+@Ahk2Exe-SetVersion
+@Ahk2Exe-SetVersion \nChanges the file version and the product version, in both text and raw binary format.
+__Call([params...])
+__Delete()
+__Get([params...])
+__New([params...])
+__Set([params...,] value)
+_NewEnum() \nObject method which returns an enumerator object, required by the for command.
+A_AhkPath
+A_AhkVersion
+A_AppData
+A_AppDataCommon
+A_AutoTrim
+A_BatchLines
+A_CaretX
+A_CaretY
+A_ComputerName
+A_ControlDelay
+A_Cursor
+A_DD
+A_DDD
+A_DDDD
+A_DefaultMouseSpeed
+A_Desktop
+A_DesktopCommon
+A_DetectHiddenText
+A_DetectHiddenWindows
+A_EndChar
+A_EventInfo
+A_ExitReason
+A_FileEncoding
+A_FormatFloat
+A_FormatInteger
+A_Gui
+A_GuiControl
+A_GuiControlEvent
+A_GuiEvent
+A_GuiHeight
+A_GuiWidth
+A_GuiX
+A_GuiY
+A_Hour
+A_IconFile
+A_IconHidden
+A_IconNumber
+A_IconTip
+A_Index
+A_IPAddress1
+A_IPAddress2
+A_IPAddress3
+A_IPAddress4
+A_Is64bitOS
+A_IsAdmin
+A_IsCompiled
+A_IsCritical
+A_IsPaused
+A_IsSuspended
+A_IsUnicode
+A_KeyDelay
+A_Language
+A_LastError
+A_LineFile
+A_LineNumber
+A_LoopField
+A_LoopFileAttrib
+A_LoopFileDir
+A_LoopFileExt
+A_LoopFileFullPath
+A_LoopFileLongPath
+A_LoopFileName
+A_LoopFileShortName
+A_LoopFileShortPath
+A_LoopFileSize
+A_LoopFileSizeKB
+A_LoopFileSizeMB
+A_LoopFileTimeAccessed
+A_LoopFileTimeCreated
+A_LoopFileTimeModified
+A_LoopReadLine
+A_LoopRegKey
+A_LoopRegName
+A_LoopRegSubkey
+A_LoopRegTimeModified
+A_LoopRegType
+A_MDay
+A_Min
+A_MM
+A_MMM
+A_MMMM
+A_Mon
+A_MouseDelay
+A_MSec
+A_MyDocuments
+A_Now
+A_NowUTC
+A_NumBatchLines
+A_OSType
+A_OSVersion
+A_PriorHotkey
+A_PriorKey
+A_ProgramFiles
+A_Programs
+A_ProgramsCommon
+A_PtrSize
+A_RegView
+A_ScreenDPI
+A_ScreenHeight
+A_ScreenWidth
+A_ScriptDir
+A_ScriptFullPath
+A_ScriptHwnd
+A_ScriptName
+A_Sec
+A_SendMode
+A_Space
+A_StartMenu
+A_StartMenuCommon
+A_Startup
+A_StartupCommon
+A_StoreCapsLockMode
+A_StringCaseSense
+A_Tab
+A_Temp
+A_ThisFunc
+A_ThisHotkey
+A_ThisLabel
+A_ThisMenu
+A_ThisMenuItem
+A_ThisMenuItemPos
+A_TickCount
+A_TimeIdle
+A_TimeIdlePhysical
+A_TimeSincePriorHotkey
+A_TimeSinceThisHotkey
+A_TitleMatchMode
+A_TitleMatchModeSpeed
+A_UserName
+A_WDay
+A_WinDelay
+A_WinDir
+A_WorkingDir
+A_YDay
+A_Year
+A_YWeek
+A_YYYY
+Abort
+AboveNormal
+Abs(Number)
+ACos(Number)
+ActiveX
+Add
+ahk_class
+ahk_exe
+ahk_group
+ahk_id
+ahk_pid
+All
+alnum
+alpha
+Alt
+AltDown
+AltSubmit
+AltTab
+AltTabAndMenu
+AltTabMenu
+AltTabMenuDismiss
+AltUp
+AlwaysOnTop
+and
+AppsKey
 archClip()
 archiveClipboard()
 archiveThenCopy(p_clipWaitTime := 0)
+Array([values...]) \nCreates an array.
+Asc(String)
+Asc(String)\n\nReturns the numeric value of the first byte or UTF-16 \ncode unit in the specified string.\n\tNumber := Asc(String)
+ASin(Number)
+ATan(Number)
+AutoSize
+AutoTrim , On|Off
+Background
+BackgroundTrans
+BackSpace
+BelowNormal
+between
+BitAnd
+BitNot
+BitOr
+BitShiftLeft
+BitShiftRight
+BitXOr
+Blind
+BlockInput , On|Off|Send|Mouse|SendAndMouse|Default|MouseMove|MouseMoveOff
+bold
+Border
+Bottom
+break [, LoopLabel]
+Browser_Back
+Browser_Favorites
+Browser_Forward
+Browser_Home
+Browser_Refresh
+Browser_Search
+Browser_Stop
+Button
+Buttons
+ByRef
+Cancel
+Capacity
+CapsLock
+Caption
+catch [, OutputVar]
+Ceil(Number)
+Center
+Check
+Check3
+Checkbox
+Checked
+CheckedGray
+Choose
+ChooseString
+Chr(Number)
+Chr(Number)\n\nReturns the string (usually a single character) \ncorresponding to the character code indicated by the specified number.\n\tString := Chr(Number)\n
+class ClassName [extends ClassName]
+Click
+Click [, Options]
+Click [, Options]\n\tCoords: X and Y, example: ;;Click, 100 200
+Click [, Options]\n\tOptions - Zero or more of the folowing components, \n\t\t[Coords, WhichButton, ClickCount, DownOrUp, and/or Relative].\n\t\tSeparate each component from the next with at least one space,\n\t\ttab, and/or comma. The components can appear in any order except \n\t\tClickCount, which must occur somewhere to the right of Coords, if present.\n\t\t\n\t#1: Clicks the left mouse button at the mouse cursor's current position.\n\t\tClick\n\t#2: Clicks the left mouse button at a specific position.\n\t\tClick, 100 200\n\t#3: Moves the mouse cursor to a specific position without clicking.\n\t\tClick, 100 200 0\n\t#4: Clicks the right mouse button at a specific position.\n\t\tClick, 100 200 Right\n\t#5: Performs a double-click at the mouse cursor's current position.\n\t\tClick, 2\n\t#6: Presses down the left mouse button and holds it.\n\t\tClick, Down\n\t#7: Releases the right mouse button.\n\t\tClick, Up Right\n
+Clipboard
+ClipboardAll
+ClipWait [, SecondsToWait, 1]
+Close
+Color
+ComboBox
+ComObjActive(ProgIdOrCLSID) \nRetrieves a running object that has been registered with OLE.
+ComObjArray(VarType, Count1 [, Count2, ... Count8]) \nCreates a SAFEARRAY for use with COM.
+ComObjConnect(obj [, funcPrefixOrObj])  \nListens to events from a ComObject (omit the 2nd parameter to stop listening).
+ComObjCreate(ProgIdOrCLSID [, IID]) \nCreates a COM object.
+ComObject(vt, val [, flags]) \nCreates an object representing a typed value to be passed as a parameter or return value.
+ComObjEnwrap(pdisp) \n[DEPRECATED - Use ComObject(9,ptr,1) and ObjAddRef(ptr) instead]
+ComObjError([Enable])\nEnables or disables notification of COM errors. If Enable is omitted, the current setting is returned.
+ComObjFlags(ComObject [, NewFlags, Mask]) \nRetrieves or changes flags which control a COM wrapper object's behaviour.
+ComObjGet(name) \nReturns a reference to an object provided by a COM component.
+ComObjMissing() \n[DEPRECATED - Write consecutive commas instead]
+ComObjQuery(ComObject [, SID], IID) \nQueries a COM object for an interface or service.
+ComObjType(obj [, "Name|IID"]) \nRetrieves type information for a COM object.
+ComObjUnwrap(obj) \n[DEPRECATED - Use ComObjValue(ptr) and ObjAddRef(ptr) instead]
+ComObjValue(obj) \nRetrieves the raw 64-bit signed integer stored in a ComObject wrapper.
+ComSpec
+contains
+continue [, LoopLabel]
+Control
+Control, Cmd [, Value, Control, WinTitle, WinText, ExcludeTitle, ExcludeText]
+ControlClick [, Control-or-Pos, WinTitle, WinText, WhichButton, ClickCount, Options, ExcludeTitle, ExcludeText]
+ControlFocus [, Control, WinTitle, WinText, ExcludeTitle, ExcludeText]
+ControlGet, OutputVar, Cmd [, Value, Control, WinTitle, WinText, ExcludeTitle, ExcludeText]
+ControlGetFocus, OutputVar [WinTitle, WinText, ExcludeTitle, ExcludeText]
+ControlGetPos [, X, Y, Width, Height, Control, WinTitle, WinText, ExcludeTitle, ExcludeText]
+ControlGetText, OutputVar [, Control, WinTitle, WinText, ExcludeTitle, ExcludeText]
+ControlList
+ControlMove, Control, X, Y, Width, Height [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+ControlSend [, Control, Keys, WinTitle, WinText, ExcludeTitle, ExcludeText]
+ControlSendRaw [, Control, Keys, WinTitle, WinText, ExcludeTitle, ExcludeText]
+ControlSetText, Control, NewText [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+CoordMode, ToolTip|Pixel|Mouse|Caret|Menu [, Screen|Relative|Window|Client]
+Cos(Number)
+Count
+Critical [, Off]
+Ctrl
+CtrlBreak
 ctrlC(p_clipWaitTime := 1)
+CtrlDown
+CtrlUp
+Custom
+date
+DateTime
+Days
+DDL
+Default
+Del
+Delete
+DeleteAll
+Delimiter
+Deref
+Destroy
+DetectHiddenText, On|Off
+DetectHiddenWindows, On|Off
+digit
+Disable
+Disabled
+DllCall("[DllFile\\]Function" [, Type1, Arg1, Type2, Arg2, ..., "Cdecl ReturnType"])
+doubleTap()
+doubleTap()\nDescr:\tChecks if user hit the triggered hotkey recently (within a given time\n\t\t\tlimit).\nReturn:\tBOOLEAN\nParams:\tp_timeLimit :=\tINTEGER|FLOAT (default := DOUBLE_TAP_LIMIT | 350)\nRemarks: Does not prevent a 'triple-tap' evaulating as two 'double-taps'.\n\t\t\te.g., if p_timeLimit is 500, and 3 taps are sent 200ms apart,\n\t\t\t\tthen doubleTap() would return TRUE twice. \nEXAMPLE: if (doubleTap(350)) { commands }\n
 doubleTap(p_timeLimit := -1)
-GetClientSize(v_hWnd, ByRef w := "", ByRef h := "")
-getClipboard(ByRef p_var)
-mouseEvent(p_clickDelay := 200, p_coordAsPercent*)
-moveCurrentLineDown(p_moveAmount := 1)
-moveCurrentLineUp(p_moveAmount := 1)
-pasteClipboard(p_str := "")
-rapidFire(p_thisHotkey := "", p_sendKey := "", p_time := 0)
-repeatAltKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
-repeatAltShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
-repeatCtrlAltShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
-repeatCtrlKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
-repeatCtrlShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
-repeatKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
-repeatShiftKey(p_key := "K", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1)
-restoreClipboard()
-rstrClip()
-setClipboard(p_clipWaitTime := 1, p_str := "")
-
+Down
+DPIScale
+Drive, Sub-command [, Drive , Value]
+DriveGet, OutputVar, Cmd [, Value]
+DriveSpaceFree, OutputVar, Path
+DropDownList
+Edit
+Eject
+else
+Enable
+Enabled
+End
+Enter
+EnvAdd, Var, Value [, TimeUnits]\nVar += Value , TimeUnits\nVar++\n Descr: Sets a variable to the sum of itself plus the given value (can also add or subtract time from a date-time value).\n\tTimeUnits :=\t["Seconds" | "Minutes" | "Hours" | "Days" ]\n\t\t\t\tor\t["s" | "m" | "h" | "d"]
+EnvDiv, Var, Value
+EnvGet, OutputVar, EnvVarName
+EnvMult, Var, Value
+EnvSet, EnvVar, Value
+EnvSub, Var, Value [, TimeUnits]
+EnvUpdate
+Error
+ErrorLevel
+Esc
+Escape
 excel_ActivateDrawBorderTool()
 excel_AddTopBorder()
 excel_EncapIfErrorIf()
 excel_NavigateToBottomLeftCell()
+excel_setBorderColorToAccent1()
 excel_StampTimeCurrent()
 excel_StampTimeCurrent_OnNextLine()
-excel_setBorderColorToAccent1()
-
-mathKbd_setMathInputStyle(p_1 := false, p_2 := true, p_3 := 3, p_4 := 0)
+Exception(message [, what, extra])
+Exist
+Exit [, ExitCode]
+ExitApp [, ExitCode]
+Exp(Number)
+Expand
+ExStyle
+extends
+F1
+F10
+F11
+F12
+F13
+F14
+F15
+F16
+F17
+F18
+F19
+F2
+F20
+F21
+F22
+F23
+F24
+F3
+F4
+F5
+F6
+F7
+F8
+F9
+false
+FileAppend [, Text, Filename, Encoding]
+FileCopy, Source, Dest [, Flag (1 = overwrite)]
+FileCopyDir, Source, Dest [, Flag (1 = overwrite)]
+FileCreateDir, Path
+FileCreateShortcut, Target, ShortcutFile [, WorkingDir, Args, Description, IconFile, ShortcutKey, IconNumber, RunState]
+FileDelete, FilePattern
+FileEncoding [, CPnnn|UTF-8/16[-RAW] ] \nSets the default encoding for FileRead, FileReadLine, Loop Read, FileAppend, and FileOpen.
+FileExist("FilePattern")
+FileGetAttrib, OutputVar(RASHNDOCT) [, Filename]
+FileGetShortcut, ShortcutFile [, OutTarget, OutDir, OutArgs, OutDescription, OutIcon, OutIconNum, OutRunState]
+FileGetSize, OutputVar [, Filename, Units]
+FileGetTime, OutputVar [, Filename, WhichTime (M (default), C, or A)]
+FileGetVersion, OutputVar [, Filename]
+FileInstall, Source, Dest [, Flag (1 = overwrite)]
+FileMove, Source, Dest [, Flag (1 = overwrite)]
+FileMoveDir, Source, Dest [, Flag (2 = overwrite, R = rename)]
+FileOpen(file, mode[, encoding]) \nOpens a file and returns a new file object.
+FileRead, OutputVar, Filename
+FileReadLine, OutputVar, Filename, LineNum
+FileRecycle, FilePattern
+FileRecycleEmpty [, Path]
+FileRemoveDir, Path [, Recurse? (1 = yes)]
+FileSelectFile, OutputVar [, Options, RootDir[\\DefaultFilename], Prompt, Filter]
+FileSelectFolder, OutputVar [, *StartingFolder, Options, Prompt]
+FileSetAttrib, Attributes(+-^RASHNOT) [, FilePattern, OperateOnFolders?, Recurse?]
+FileSetTime [, YYYYMMDDHH24MISS, FilePattern, WhichTime (M|C|A), OperateOnFolders?, Recurse?]
+FileSystem
+finally
+First
+Flash
+Float
+FloatFast
+Floor(Number)
+Focus
+Font
+for key [,val] in obj
+Format(FormatStr [, Values...])
+Format(FormatStr [, Values...]) [v1.1.17+]\nFormats a variable number of input values according to a format string.\nString := Format(FormatStr [, Values...])\n  FormatStr === {Index:Format}\n  Format Options [d|i, u, x|X, o, f, e, E, g, G, a, A, p, s, c]\n  Examples\n    - "{2:i} {:i}" formats the second and third input values as decimal integers, separated by a space.\n\t- Format("{:c}", 116) returns t\n    - Format("{:d}", -1.23) returns -1\n    - Format("{:i}", -1.23) returns -1\n    - Format("{:u}", -1.23) returns 18446744073709551615\n\t- Format("{:x}", 255) returns ff\n\t- Format("{:X}", 255) returns FF\n\t- Format("{:p}", 255) returns 000000FF.\n\t- Format("{:o}", 255) returns 377\n\t- Format("{:.2f}", 1) returns 1.00.\n\t- Format("{:e}", 255) returns 2.550000e+002.\n\t- Format("{:a}", 255) returns 0x1.fe0000p+7.
+FormatTime, OutputVar [, YYYYMMDDHH24MISS, Format]
+FromCodePage
+Func(funcname)
+generate_loremIpsum()\n\tDescr:\tUsing the Clipboard (without affecting most recent clip), Pastes 1 to 10 paragraphs of generated Lorem Ipsum text. Default is 3 paragraphs.\n\tReturn:\tVOID\n\tParams:\tp_paragraphAmount :=\tINTEGER\n\tRemarks: Generated text acquired from "https://lipsum.com".\n
+generate_loremIpsum()\ngenerate_loremIpsum(p_paragraphAmount := 3)
+GetClientSize(v_hWnd, \nByRef w := "", \nByRef h := "")
+getClipboard(ByRef p_var)
+getClipboard(outputVar)
+getClipboard(outputVar)\nDescr:\tAssigns Clipboard's content's value to the given argument.\nReturn:\tBOOLEAN - true, if success\n\t\tBOOLEAN - false, if failure\n\t\tINTEGER - -1, if unknown error\nParams:\tByRef p_outputVar := OBJECT\nRemarks: Must declare a variable object as argument.\n
+GetKeyName(key)
+GetKeySC(key)
+GetKeySC(key)\nRetrieves the name/text, virtual key code or scan code of a key.
+GetKeyState(KeyName [, "P" or "T"])
+GetKeyState, OutputVar, WhichKey [, Mode (P|T)]
+GetKeyVK(key)
+global
+gosub, Label \nJumps to the specified label and continues execution until Return is encountered.
+goto, Label \nJumps to the specified label and continues execution.
+Grid
+Group
+GroupActivate, GroupName [, R]
+GroupAdd, GroupName, WinTitle [, WinText, Label, ExcludeTitle, ExcludeText]
+GroupBox
+GroupClose, GroupName [, A|R]
+GroupDeactivate, GroupName [, R]
+Gui, sub-command [, Param2, Param3, Param4]
+GuiClose
+GuiContextMenu
+GuiControl, Sub-command, ControlID [, Param3]
+GuiControlGet, OutputVar [, Sub-command, ControlID, Param4]
+GuiDropFiles
+GuiEscape
+GuiSize
+Hdr
+Hidden
+Hide
+High
+HKCC
+HKCR
+HKCU
+HKEY_CLASSES_ROOT
+HKEY_CURRENT_CONFIG
+HKEY_CURRENT_USER
+HKEY_LOCAL_MACHINE
+HKEY_USERS
+HKLM
+HKU
+Home
+horizontalScrollingUtility_setTrayIcon_Active()
+horizontalScrollingUtility_setTrayIcon_Active()\nUsed to set the suspend icon of this script "Horizontal-Scrolling-UTILITY.ahk"\n * \n * This is needed because if the icon is not set before it is suspended, then it will show the default "suspended-icon". (I think... ¯\_(ツ)_/¯)
+horizontalScrollingUtility_setTrayIcon_Suspend()
+horizontalScrollingUtility_setTrayIcon_Suspend()\nUsed to set the Default icon of this script "Horizontal-Scrolling-UTILITY.ahk"\nThis is needed because if the icon is not set before it is suspended, then it will show the default "suspended-icon". (I think... ¯\_(ツ)_/¯)
+Hotkey, KeyName [, Label, Options]
+Hours
+HScroll
+Icon
+IconSmall
+ID
+IDLast
+if (Expression){\n	commands\n}else{\n	commands\n} \nSpecifies the command(s) to perform if an expression evaluates to TRUE.
+if Var = Value\n{\n	commands\n}else{\n	commands\n} \nSpecifies the command(s) to perform if Var = Value (can be for other operators).
+if Var [not] between Low and High
+if Var [not] contains value1,value2,...
+if Var [not] in value1,value2,...
+if Var is [not] integer|float|number|digit|xdigit|alpha|upper|lower|alnum|space|time
+IfEqual, var, value
+IfExist, File|Dir|Pattern
+IfGreater, var, value
+IfGreaterOrEqual, var, value
+IfInString, Var, SearchString
+IfLess, var, value
+IfLessOrEqual, var, value
+IfMsgBox, Yes|No|OK|Cancel|Abort|Ignore|Retry|Timeout
+IfNotEqual, var, value
+IfNotExist, File|Dir|Pattern
+IfNotInString, Var, SearchString
+IfWinActive [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+IfWinExist [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+IfWinNotActive [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+IfWinNotExist [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+Ignore
+IL_Add(ImageListID, Filename [, IconNumber, ResizeNonIcon?])
+IL_Create([InitialCount, GrowCount, LargeIcons?])
+IL_Destroy(ImageListID)
+ImageList
+ImageSearch, OutputVarX, OutputVarY, X1, Y1, X2, Y2, ImageFile
+in
+IniDelete, Filename, Section [, Key]
+IniRead, OutputVar, Filename [, Section, Key, Default]
+IniWrite, Value, Filename, Section [, Key]
+Input [, OutputVar, Options, EndKeys, MatchList]
+InputHook() [v1.1.31+]\n\nCreates an object which can be used to collect or intercept keyboard input.\n\nInputHook := InputHook(Options, EndKeys, MatchList)
+InputBox, OutputVar [, Title, Prompt, HIDE, Width, Height, X, Y, Font, Timeout, Default]
+Ins
+Insert
+InStr(Haystack, Needle [, CaseSensitive?, StartingPos, Occurrence])
+Integer
+IntegerFast
+Interrupt
+IsByRef(var)
+IsFunc(FunctionName)
+IsLabel(LabelName)
+IsObject(param) \nTests if the parameter is an object.
+italic
+Join
+Joy1
+Joy10
+Joy11
+Joy12
+Joy13
+Joy14
+Joy15
+Joy16
+Joy17
+Joy18
+Joy19
+Joy2
+Joy20
+Joy21
+Joy22
+Joy23
+Joy24
+Joy25
+Joy26
+Joy27
+Joy28
+Joy29
+Joy3
+Joy30
+Joy31
+Joy32
+Joy4
+Joy5
+Joy6
+Joy7
+Joy8
+Joy9
+JoyAxes
+JoyButtons
+JoyInfo
+JoyName
+JoyPOV
+JoyR
+JoyU
+JoyV
+JoyX
+JoyY
+JoyZ
+KeyHistory
+KeyWait, KeyName [, D|L|T#] \n\t;;where # is a floating-point decimal
+KeyWait, KeyName [, Options]
+KeyWait, KeyName [, {Options | {D, L, T#}}]\nOPTIONS: A string of one or more of the following letters \n(in any order, with optional spaces in between).\n\tD: Wait for the key to be pushed down.\n\tL: Check the logical state of the key, which is the state that the OS \n\t\tand the active window believe the key to be in (not necessarily the \n\t\tsame as the physical state). This option is ignored for joystick buttons.\n\tT: Timeout (e.g. T3). The number of seconds to wait before timing out \n\t\tand setting ErrorLevel to 1. If the key or button achieves the specified \n\t\tstate, the command will not wait for the timeout to expire. Instead, it \n\t\twill immediately set ErrorLevel to 0 and the script will continue \n\t\texecuting. The timeout value can be a floating point number such \n\t\tas 2.5, but it should not be a hexadecimal value such as 0x03.
+LAlt
+LastFound
+LastFoundExist
+Launch_App1
+Launch_App2
+Launch_Mail
+Launch_Media
+LButton
+LControl
+LCtrl
+Left
+Limit
+Lines
+Link
+List
+ListBox
+ListHotkeys
+ListLines
+ListVars
+ListView
+Ln(Number)
+local
+LocalSameAsGlobal
+Lock
+Log(Number)
+Logoff
+Loop [, Count]\nLoop, FilePattern [, IncludeFolders?, Recurse?]\nLoop, Parse, InputVar [, Delimiters|CSV, OmitChars]\nLoop, Read, InputFile [, OutputFile]\nLoop, HKLM|HKU|HKCU|HKCR|HKCC [, Key, IncludeSubkeys?, Recurse?]\n{\n	commands\n} \nPerforms a repetition/file/file reading/parsing/registry loop.
+loopSend(p_btn, p_count, p_interval)
+loopSend(p_btn, p_count, p_interval)\n\tDescr:\tSends the indicated string as a keystroke if applicable. \n\tReturn:\tVOID\n\tParams:\tp_btn := "Space" ; the button or key to press\n\t\t\tp_count := 2 ; number of times to send the button press\n\t\t\tp_interval := 50 ; <milliseconds> interval between each button press\n\tRemarks: \n
+Low
+lower
+Lowercase
+LShift
+LTrim
+LTrim(string [, omitchars := " `t"]) \nTrims characters from the beginning of a string.
+LV_Add([Options, Col1, Col2, ...])
+LV_Delete([RowNumber])
+LV_DeleteCol(ColumnNumber)
+LV_GetCount(["S|C"])
+LV_GetNext([StartingRowNumber, "C|F"])
+LV_GetText(OutputVar, RowNumber [, ColumnNumber])
+LV_Insert(RowNumber [, Options, Col1, Col2, ...])
+LV_InsertCol(ColumnNumber [, Options, ColumnTitle])
+LV_Modify(RowNumber, Options [, NewCol1, NewCol2, ...])
+LV_ModifyCol([ColumnNumber, Options, ColumnTitle])
+LV_SetImageList(ImageListID [, 0|1|2])
+LWin
+LWinDown
+LWinUp
+main_getRandomNum(_min := 0, _max := 1)
+main_getRandomNum(_min := 0, _max := 1)\n\t\tDescr:\tReturns a number between _min and _max (inclusive bounds).\n\t\tReturn:\tINTEGER or FLOAT\n\t\tParams:\t_min := 0 INTEGER or FLOAT\n\t\t\t\t_max := 1 INTEGER or FLOAT\n\t\tRemarks: Can be either an Integer or Floating-Point Number.\n\t\t\t\tIf either param is a FLOAT, then output will be a FLOAT.
+main_incrementVariables(p_timeLimit := "", p_vars*)
+main_incrementVariables(p_timeLimit := "", p_vars*)\n\tDescr:\tVariadic method that cycles through the given 'string' variable arguments.\n\tReturn:\tVOID\n\tParams:\tp_timeLimit :=\tINTEGER\t(default := g_INCREMENT_LIMIT)\n\t\t\tp_vars* :=\tSTRING (default := none, must provide at least one argument)\n\t\t\t\t---> Can accept any amount of 'string' variables.\n\tRemarks: Method will loop back to the hotkey's natural output and then continue \n\t\t\t\tworking it's way through the given list of 'string' variables. \n\t\t\tCopied from "mathKbd_incrementVariables()"\n
+main_sendIfPressed(p_hotkey := "")
+main_sendIfReleased(p_hotkey := "")
+MainWindow
+Margin
 mathKbd_activeWindowSentinel()
 mathKbd_debugFunction()incrementPowerNoCarrotWithExtraBackspacing()
+mathKbd_incrementPower( p_timeLimit := -1, \np_incrementAmount := 1, \np_initialBackspaceAmount := 2, \np_subsequentBackspaceAmount :=3, \np_rightAmount := 1, \np_sendCarrot := true, \np_extraBackspacing := false)
 mathKbd_incrementPowerNoCarrot()
-mathKbd_incrementPower( p_timeLimit := -1, p_incrementAmount := 1, p_initialBackspaceAmount := 2, p_subsequentBackspaceAmount :=3, p_rightAmount := 1, p_sendCarrot := true, p_extraBackspacing := false)
-mathKbd_incrementVariables(p_timeLimit := "", p_vars*)
-mathKbd_typeSquareRoot()
-mathKbd_pasteSquareRoot()
+mathKbd_incrementVariables(p_timeLimit := "", \np_vars*)
 mathKbd_paste(str := "")
+mathKbd_pasteSquareRoot()
+mathKbd_setMathInputStyle(p_1 := false, \np_2 := true, \np_3 := 3, \np_4 := 0)
+mathKbd_typeSquareRoot()
+Maximize
+MaximizeBox
+MaxSize
+MButton
+Media_Next
+Media_Play_Pause
+Media_Prev
+Media_Stop
+Menu, MenuName|Tray, Add [, MenuItemName, LabelOrSubmenu, Options]\nMenu, MenuName|Tray, Check, MenuItemName\nMenu, MenuName|Tray, Color, ColorValue [, Single]\nMenu, MenuName|Tray, Default [, MenuItemName]\nMenu, MenuName|Tray, Delete [, MenuItemName]\nMenu, MenuName|Tray, DeleteAll\nMenu, MenuName|Tray, Disable, MenuItemName\nMenu, MenuName|Tray, Enable, MenuItemName\nMenu, MenuName|Tray, Insert [, MenuItemName, ItemToInsert, LabelOrSubmenu, Options]\nMenu, MenuName|Tray, NoDefault\nMenu, MenuName|Tray, NoStandard\nMenu, MenuName|Tray, Rename, MenuItemName [, NewName]\nMenu, MenuName|Tray, Show [, X, Y]\nMenu, MenuName|Tray, Standard\nMenu, MenuName|Tray, ToggleCheck, MenuItemName\nMenu, MenuName|Tray, ToggleEnable, MenuItemName\nMenu, MenuName|Tray, Uncheck, MenuItemName\nMenu, MenuName|Tray, UseErrorLevel [, Off]
+Menu, Tray, Click, ClickCount\nMenu, Tray, Icon [, FileName, IconNumber, 1]\nMenu, Tray, MainWindow\nMenu, Tray, NoIcon\nMenu, Tray, NoMainWindow\nMenu, Tray, Tip [, Text]\n
+Minimize
+MinimizeBox
+MinMax
+MinSize
+Minutes
+Mod(Dividend, Divisor)
+MonthCal
+Mouse
+mouseClick(xPos, yPos, clicks, mSpeed)
+mouseClick(xPos, yPos, clicks, mSpeed)\n\tDescr:\tMethod substitution for the MouseClick command~>\n\t\t~>MouseClick [, WhichButton, X, Y, ClickCount, Speed, DownOrUp, Relative]\n\tReturn:\tVOID\n\tParams:\txPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tyPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tclicks := 1 {any integer >= 0; if 0, will move mouse without clicking}\n\t\t\tmSpeed := 0 {any integer >= 0; zero is instant}\n\tRemarks: - To specify mouse button, use mouseClickExplicit() instead.\n\t\t\t- mouseClick(400, 600, 0) will move mouse and not click.\n\t\t\t- Shorthand call for mouseClickExplicit() method.\n
+MouseClick, WhichButton [, X, Y, ClickCount, Speed, D|U, R]
+MouseClickDrag, WhichButton, X1, Y1, X2, Y2 [, Speed, R]
+mouseClickExplicit(mBtn, xPos, yPos, clicks, mSpeed, downOrUp, p_coordMode)
+mouseClickExplicit(mBtn, xPos, yPos, clicks, mSpeed, downOrUp, p_coordMode)\n\tDescr:\tMethod substitution for the MouseClick command~>\n\t\t~>MouseClick [, WhichButton, X, Y, ClickCount, Speed, DownOrUp, Relative]\n\tReturn:\tVOID\n\tParams:\tmBtn := "Left" {"L", "R", "M", "X1", "X2", "WU", "WD", "WL", "WR"}\n\t\t\txPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tyPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tclicks := 1 {any integer >= 0; if 0, will move mouse without clicking}\n\t\t\tmSpeed := 0 {any integer >= 0; zero is instant}\n\t\t\tdownOrUp := "" {"" = Down then Up, "Down" = Down only, "Up" = Up only}\n\t\t\tp_coordMode := "" {"" = Absolute (default), "R" = Relative}\n\tRemarks: mBtn options are... {\n\t\t\t\t"Left", "Right", "Middle", \n\t\t\t\t"X1" = M4 or Back_Mouse_Btn, \n\t\t\t\t"X2" = M5 or Forward_Mouse_Btn, \n\t\t\t\t"WheelUp", "WheelDown", "WheelLeft", "WheelRight"}\nSleep, Delay <in milliseconds>
+mouseClickRelative(xPos, yPos, clicks, mSpeed)
+mouseClickRelative(xPos, yPos, clicks, mSpeed)\n\tDescr:\tSame as mouseClick(), but calls mouseClickExplicit() \n\t\t\tand passes xPos and yPos as Relative coords instead of Absolute coords.\n\tReturn:\tVOID\n\tParams:\txPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tyPos := "" {any integer; "" = current Mouse position; default coordMode == Absolute}\n\t\t\tclicks := 1 {any integer >= 0; if 0, will move mouse without clicking}\n\t\t\tmSpeed := 0 {any integer >= 0; zero is instant}\n\tRemarks: - To specify mouse button, use mouseClickExplicit() instead.\n\t\t\t- mouseClick(400, 600, 0) will move mouse to RELATIVE position and not click.\n\t\t\t- Shorthand call for mouseClickExplicit() method.\n
+mouseEvent(p_clickDelay := 200, \np_coordAsPercent*)
+MouseGetPos [, OutputVarX, OutputVarY, OutputVarWin, OutputVarControl, 1|2|3]
+MouseMove, X, Y [, Speed, R]
+Move
+moveCurrentLineDown(p_moveAmount := 1)
+moveCurrentLineUp(p_moveAmount := 1)
+MsgBox [, Options, Title, Text, Timeout] \nDisplays the specified text in a small window containing one or more buttons  (such as Yes and No).
+Multi
+NA
+new
+No
+NoActivate
+NoDefault
+NoHide
+NoIcon
+NoMainWindow
+norm
+Normal
+NoSort
+NoSortHdr
+NoStandard
+not
+NoTab
+NoTimers
+number
+Number
+NumGet(VarOrAddress [, Offset := 0] [, Type := "UPtr"])
+NumLock
+Numpad0
+Numpad1
+Numpad2
+Numpad3
+Numpad4
+Numpad5
+Numpad6
+Numpad7
+Numpad8
+Numpad9
+NumpadAdd
+NumpadClear
+NumpadDel
+NumpadDiv
+NumpadDot
+NumpadDown
+NumpadEnd
+NumpadEnter
+NumpadHome
+NumpadIns
+NumpadLeft
+NumpadMult
+NumpadPgdn
+NumpadPgup
+NumpadRight
+NumpadSub
+NumpadUp
+NumPut(Number, VarOrAddress [, Offset := 0] [, Type := "UPtr"])
+ObjAddRef(address)
+ObjBindMethod(Obj, Method, Params)
+ObjBindMethod(Obj, Method, Params)\n\tCreates a BoundFunc object which calls a method of a given object.
+ObjClone(obj)
+Object([key, value, [key2, value2...]]) \nCreates a scriptable object which is also an associative array.
+Object(obj) \nRetrieves an interface pointer from an object reference or vice versa.
+ObjGetAddress(obj, key)
+ObjGetCapacity(obj[, key])
+ObjHasKey(obj, key)
+ObjInsert(obj, index, values...)
+ObjInsert(obj, key, value)
+ObjInsert(obj, value)
+ObjMaxIndex(obj)
+ObjMinIndex(obj)
+ObjNewEnum(obj)
+ObjRelease(address)
+ObjRemove(obj, first, last)
+ObjRemove(obj, intkey, "")
+ObjRemove(obj, key)
+ObjSetCapacity(obj, key, bytesize)
+ObjSetCapacity(obj, maxitems)
+Off
+Ok
+On
+OnClipboardChange
+OnExit [, Label]
+OnMessage(MsgNumber [, "FunctionName"])
+or
+Ord(String)
+Ord(String)\n\nReturns the ordinal value (numeric character code) \nof the first character in the specified string.\n\tNumber := Ord(String)\nRemarks\n\tApart from the Unicode supplementary character detection, this function is identical to Asc().
+OutputDebug, Text
+OwnDialogs
+Owner
+Parse
+Password
+pasteClipboard()\nDescr:\tHandles the pasting of Clipboard contents, without affecting\n\t\t\tthe current clip.\nReturn:\tBOOLEAN - true, if successful.\n\t\tBOOLEAN - false, if error occurred.\nParams:\tp_str := ""\nRemarks: If argument is left blank, then paste current Clipboard contents.\n\t\tIf argument is defined, then paste the argument without \n\t\t\taffecting the current Clipboard.\n
+pasteClipboard()\npasteClipboard(p_str := "")
+pasteClipboard(p_str := "")
+Pause
+Pause [, On|Off|Toggle, OperateOnUnderlyingThread?]
+PgDn
+PgUp
+Pic
+Picture
+Pixel
+PixelGetColor, OutputVar, X, Y [, Alt|Slow|RGB]
+PixelSearch, OutputVarX, OutputVarY, X1, Y1, X2, Y2, ColorID [, Variation, Fast|RGB]
+Pos
+PostMessage, Msg [, wParam, lParam, Control, WinTitle, WinText, ExcludeTitle, ExcludeText]
+Pow
+pressedCount()
+pressedCount()\n\tDescr:\tAny amount of hotkey presses, within the g_DOUBLE_TAP_LIMIT (around 350-400 ms). This allows a hotkey to perform a different operation depending on how many times you press it within the g_DOUBLE_TAP_LIMIT.\n\tReturn:\tINTEGER (the number of presses after g_DOUBLE_TAP_LIMIT has expired)\n\tParams:\tnone\n\tRemarks: Retrofitted code from - https://www.autohotkey.com/docs/commands/SetTimer.htm
+PrintScreen
+Priority
+Process, Cmd, PID-or-Name [, Param3]
+ProcessName
+ProcessPath
+ProgramFiles
+Progress, Param1 [, SubText, MainText, WinTitle, FontName]
+pwrRun_clearText()\n\tDescr:\tSelects all, Delete, Escape, then wait 200 (default) milliseconds.\n\tReturn:\tVOID\n\tParams:\tp_waitTime :=\tINTEGER\n\tRemarks: This is particularly used to clear the text typed into the \n\t\t\t\tPowerRun search bar before Escaping the search bar.\n
+pwrRun_clearText()\npwrRun_clearText(p_waitTime := 200)
+pwrRun_fireFoxSearch(str := "", extraSend := "")
+Radio
+RAlt
+Random, OutputVar [, Min, Max]
+Range
+rapidFire(p_thisHotkey := "", p_sendKey := "", p_time := 0)
+Raw
+RButton
+RControl
+RCtrl
+Read
+ReadOnly
+Realtime
+Redraw
+REG_BINARY
+REG_DWORD
+REG_EXPAND_SZ
+REG_MULTI_SZ
+REG_SZ
+RegDelete, HKLM|HKU|HKCU|HKCR|HKCC, SubKey [, ValueName]
+regex_clipboard_removeCommentDelimiters(p_delimiter_begin := "(/\\*\\*?\\s*)",	p_delimiter_mid := "(?<=(?:\\r|\\n|(?:\\r\\n)))((;;\\s)|(;:\\s)|(;~\\s))",	p_delimiter_end := "(?:\\*/)")
+regex_clipboard_removeCommentDelimiters(p_delimiter_begin := "(/\\*\\*?\\s*)"\n\t\t,\tp_delimiter_mid := "(?<=(?:\\r|\\n|(?:\\r\n)))((;;\\s)|(;:\\s)|(;~\\s))"\n\t\t,\tp_delimiter_end := "(?:\\)")
+regex_clipboard_sort()
+regex_clipboard_sortAndPaste()
+regex_clipboard_swapLineBreaksAndTabs(p_lineBreakSubstitution := "\\n", p_tabSubstitution := "\\t")
+regex_convertText_SciTE_API()
+regex_convertText_SciTE_API()\n\tDescr:\tConverts whitespace for .api files used by SciTE and removes\n\t\t\t\ta limited amount of comment delimiters. \n\tReturn:\tSTRING - returns selected text as a literal-string object. \n\tParams:\p_replaceSelection := BOOLEAN  (default := false)\n\t\t\tp_useClipboard := false\n\tRemarks: \n
+regex_convertText_SciTE_API(p_replaceSelection := false, p_useClipboard := false)
+regex_parseDocumentForFunctions()\n\tDescr:\tSelects All, Copies Selection, then replaces Clipboard with a list of functions if any.\n\tReturn:\tSTRING - Returns a string list (not an array) of functions. \n\tParams:\tp_CRLF := "\\r\\n"\n\tRemarks: Replace text is considered raw. If actuall control characters are desired, use "`" to escape. 
+regex_parseDocumentForFunctions()\nregex_parseDocumentForFunctions(p_CRLF := "\\r\\n")
+regex_parseDocumentForFunctions(p_CRLF := "\\r\\n")
+regex_parseDocumentForFunctions(p_CRLF := "\\r\\n", p_TAB := "\\t")
+regex_selection_removeCommentDelimiters()\nregex_selection_removeCommentDelimiters(p_delimiter_begin := "(/\\*\\*?\\s*)"\n\t\t,\tp_delimiter_mid := "((;;\\s)|(;:\\s)|(;~\\s))"\n\t\t,\tp_delimiter_end := "(?:\\)")
+regex_selection_removeCommentDelimiters(p_delimiter_begin := "(/\\*\\*?\\s*)",	p_delimiter_mid := "((;;\\s)|(;:\\s)|(;~\\s))",	p_delimiter_end := "(?:\\*/)")
+regex_selection_sort()
+regex_selection_sortAndPaste()
+regex_selection_swapLineBreaksAndTabs()\n\tDescr:\tAdds current selection to Clipboard, then modifies the clipboard's contents,\n\t\t\t\treplacing line-breaks with "\n" by default,\n\t\t\t\tand tabs with "\t" by default.\n\tReturn:\tSTRING\n\tParams: p_lineBreakSubstitution := \t"\n"\n\t\t\tp_tabSubstitution \t\t:=\t"\t"\n\tRemarks: Must have something selected for this method to work. \n
+regex_selection_swapLineBreaksAndTabs()\nregex_selection_swapLineBreaksAndTabs(p_lineBreakSubstitution := "\\n", p_tabSubstitution := "\\t")
+regex_selection_swapLineBreaksAndTabs(p_lineBreakSubstitution := "\\n", p_tabSubstitution := "\\t")
+regex_SwapLineBreaks()\nregex_SwapLineBreaks(rgx_replaceWith := "\\n")
+regex_SwapLineBreaks(rgx_replaceWith := "\\n")
+regex_SwapLineBreaks(rgx_replaceWith := "\\n")\n\tDescr:\tReplaces the Clipboard contents. Swaps out line-break characters with the given RegEx string.\n\tReturn:\tSTRING\n\tRemarks: Search Expression := "((?:\r\n)|(?:\r)|(?:\n))"\n\t\t- Matches a single token of (CR+LF or CR or LF)
+regex_SwapTabs()\nregex_SwapTabs(rgx_replaceWith := "\\t")
+regex_SwapTabs(rgx_replaceWith := "\\t")
+RegExMatch(Haystack, NeedleRegEx [, UnquotedOutputVar := "", StartingPos := 1])
+RegExReplace(Haystack, NeedleRegEx [, Replacement := "", OutputVarCount := "", Limit := -1, StartingPos := 1])
+Region
+RegisterCallback("FunctionName" [, Options := "", ParamCount := FormalCount, EventInfo := Address])
+RegRead, OutputVar, HKLM|HKU|HKCU|HKCR|HKCC, SubKey [, ValueName]
+RegWrite, REG_SZ|REG_EXPAND_SZ|REG_MULTI_SZ|REG_DWORD|REG_BINARY, HKLM|HKU|HKCU|HKCR|HKCC, SubKey [, ValueName, Value]
+Relative
+Reload
+Rename
+repeatAltKey(p_key := "K", \np_keyPressAmount := 1, \np_delayAmount := -1, \np_pressDuration := -1)
+repeatAltShiftKey(p_key := "K", \np_keyPressAmount := 1, \np_delayAmount := -1, \np_pressDuration := -1)
+repeatCtrlAltShiftKey(p_key := "K", \np_keyPressAmount := 1, \np_delayAmount := -1, \np_pressDuration := -1)
+repeatCtrlKey(p_key := "K", \np_keyPressAmount := 1, \np_delayAmount := -1, \np_pressDuration := -1)
+repeatCtrlShiftKey(p_key := "K", \np_keyPressAmount := 1, \np_delayAmount := -1, \np_pressDuration := -1)
+repeatKey(p_key := "K", \np_keyPressAmount := 1, \np_delayAmount := -1, \np_pressDuration := -1)
+repeatShiftKey(p_key := "K", \np_keyPressAmount := 1, \np_delayAmount := -1, \np_pressDuration := -1)
+Report
+Resize
+Restore
+restoreClipboard()
+Retry
+return [Expression]
+RGB
+Right
+Round(Number [, Places])
+RShift
+rstrClip()
+RTrim
+RTrim(string [, omitchars := " `t"]) \nTrims characters from the end of a string.
+Run, Target [, WorkingDir, Max|Min|Hide|UseErrorLevel, OutputVarPID]
+run_AsAdmin()
+run_AsAdmin(p_targetFilePath := "", p_show_MsgBox := false, p_DllCall_arg1 := "GetCommandLine", p_DllCall_arg2 := "str")
+run_AsAdmin(p_targetFilePath := "", p_show_MsgBox := false, p_DllCall_arg1 := "GetCommandLine", p_DllCall_arg2 := "str")\n\tDescr:\tAttempts to restart the current script as admin.\n\tReturn:\tBOOLEAN\n\tParameters:\n\t\t- STRING\tp_targetFilePath := "" (default: A_ScriptFullPath)\n\t\t- BOOLEAN\tp_show_MsgBox := false\n\t\t- STRING\tp_DllCall_arg1 := "GetCommandLine"\n\t\t- STRING\tp_DllCall_arg2 := "str"\n\tRemarks: For an executable file, the *RunAs verb is equivalent to selecting\n\t\t\tRun as administrator from the right-click menu of the file. For \n\t\t\texample, the following code attempts to restart the current \n\t\t\tscript as admin.\n
+run_AsAdmin_targetFile(p_targetFile)
+run_AsAdmin_targetFile(p_targetFile)\n\tDescr:\tHandles 'Run As Administrator' for the target file.\n\tReturn:\tBOOLEAN\n\tParameters:\t\n\t\t- STRING\tp_targetFile\n\tRemarks: Sub-script for run_AsAdmin().\n\t\t- (must target a '.exe' in order to retrieve the PID)
+run_AsAdmin_thisScript(p_targetFilePath, p_DllCall_arg1, p_DllCall_arg2)
+run_AsAdmin_thisScript(p_targetFilePath, p_DllCall_arg1, p_DllCall_arg2)\n\tDescr:\tHandles 'Run As Administrator' for the calling script.\n\tReturn:\tBOOLEAN\n\tParameters:\t\n\tRemarks: Sub-script for run_AsAdmin().
+RunAs [, User, Password, Domain] 
+RunWait, Target [, WorkingDir, Max|Min|Hide|UseErrorLevel, OutputVarPID]
+RWin
+RWinDown
+RWinUp
+SB_SetIcon(Filename [, IconNumber, PartNumber])
+SB_SetParts([Width1, Width2, ... Width255])
+SB_SetText(NewText [, PartNumber, Style])
+Screen
+ScrollLock
+Seconds
+Section
+Send, Keys
+SendEvent, Keys
+SendInput, Keys
+SendLevel [, Level] \nControls which artificial keyboard and mouse events are ignored by hotkeys and hotstrings.
+SendMessage, Msg [, wParam, lParam, Control, WinTitle, WinText, ExcludeTitle, ExcludeText]
+SendMode, Event|Play|Input|InputThenPlay
+SendPlay, Keys
+SendRaw, Keys
+Serial
+SetBatchLines, -1 | 20ms | LineCount
+SetCapsLockState, On|Off|AlwaysOn|AlwaysOff
+setClipboard()\nDescr:\tAttempts to set the passed arguement's value to the Clipboard.\nReturn:\tBOOLEAN - true, if successful.\n\t\tBOOLEAN - false, if error occurred.\nParams:\tp_clipWaitTime := 1\n\t\tp_str := ""\n\t\tp_str := a string (object) stored to and pasted from the built-in\n\t\t\tClipboard.\nRemarks: At end of method process, restores Clipboard back to what \n\t\t\tit was prior to calling this method.\n 
+setClipboard(p_clipWaitTime := 1, \np_str := "")
+setClipboard(p_clipWaitTime := 1, p_str := "")
+SetControlDelay, Delay
+SetDefaultMouseSpeed, Speed
+SetEnv, Var, Value
+SetFormat, FloatFast|IntegerFast, TotalWidth.DecimalPlaces|H|D
+SetKeyDelay [, Delay, PressDuration]
+SetLabel
+SetMouseDelay, Delay
+SetNumLockState, On|Off|AlwaysOn|AlwaysOff
+SetRegView, RegView \nSets the default encoding for FileRead, FileReadLine, Loop Read, FileAppend, and FileOpen.
+SetScrollLockState, On|Off|AlwaysOn|AlwaysOff
+SetStoreCapslockMode, On|Off
+SetTimer [, Label|FunctionName|Func_Object, [Period <milliseconds>|On|Off|Delete], Priority]
+SetTimer [, Label|FunctionName|Func_Object, [Period <milliseconds>|On|Off|Delete], Priority]\n\tDescription: \n\t\tCauses a subroutine to be launched automatically and repeatedly at a specified time interval until a Return or Exit is encountered.\n\tParameters: \n\t\tLabel\t:= Jumps to this label and repeats it.\n\t\tPeriod\t:= INTEGER (absolute value of integer in milliseconds).\n\t\t\t\t-- If positive, will run and repeat at the given interval.\n\t\t\t\t-- If negative, will wait for given interval and then run only once. \n\tRemarks:\n\t\tPeriod - Default: If this parameter is blank and...\n\t\t\t1) The timer does not exist: it will be created with a period of 250.\n\t\t\t2) The timer already exists: it will be enabled and reset at its former period unless a Priority is specified.
+SetTimer [, Label|FunctionName|Func_Object, [Period <milliseconds>|On|Off|Delete], Priority]\nCauses a subroutine to be launched automatically and repeatedly at a specified time interval until a Return or Exit is encountered.
+SetTitleMatchMode, Fast|Slow|RegEx|1|2|3
+SetTitleMatchMode, Fast|Slow|RegEx|1|2|3\n\t•1 = A window's title must start with the specified WinTitle to be a match.\n\t•2 = A window's title can contain WinTitle anywhere inside it to be a match.\n\t•3 = A window's title must exactly match WinTitle to be a match.\n\t•RegEx [v1.0.45+] = Changes WinTitle, WinText, ExcludeTitle, and ExcludeText to accept regular expressions. Do not enclose such expressions in quotes when using them with commands. For example: WinActivate Untitled.*Notepad. 
+SetWinDelay, Delay
+SetWorkingDir, DirName
+Shift
+ShiftAltTab
+ShiftDown
+ShiftUp
+Show
+Shutdown, Code
+Sin(Number)
+Single
+Sleep, Delay
+Slider
+Sort, VarName [, Options]
+SortDesc
+SoundBeep [, Frequency, Duration]
+SoundGet, OutputVar [, ComponentType, ControlType, DeviceNumber]
+SoundGetWaveVolume, OutputVar [, DeviceNumber]
+SoundPlay, Filename [, wait]
+SoundSet, NewSetting [, ComponentType, ControlType, DeviceNumber]
+SoundSetWaveVolume, Percent [, DeviceNumber]
+Space
+SplashImage [, ImageFile, Options, SubText, MainText, WinTitle, FontName]
+SplashTextOff
+SplashTextOn [, Width, Height, Title, Text]
+SplitPath, InputVar [, OutFileName, OutDir, OutExtension, OutNameNoExt, OutDrive]
+Sqrt(Number)
+Standard
+static
+Status
+StatusBar
+StatusBarGetText, OutputVar [, Part#, WinTitle, WinText, ExcludeTitle, ExcludeText]
+StatusBarWait [, BarText, Seconds, Part#, WinTitle, WinText, Interval, ExcludeTitle, ExcludeText]
+StatusCD
+StrGet(address [, max][, encoding]) \nRetrieves the null-terminated string at the specified address.
+strike
+StringCaseSense, On|Off|Locale
+StringGetPos, OutputVar, InputVar, SearchText [, L#|R#, Offset]
+StringLeft, OutputVar, InputVar, Count
+StringLen, OutputVar, InputVar
+StringLower, OutputVar, InputVar [, T]
+StringMid, OutputVar, InputVar, StartChar [, Count, L]
+StringReplace, OutputVar, InputVar, SearchText [, ReplaceText, All]
+StringRight, OutputVar, InputVar, Count
+StringSplit, OutputArray, InputVar [, Delimiters, OmitChars]
+StringTrimLeft, OutputVar, InputVar, Count
+StringTrimRight, OutputVar, InputVar, Count
+StringUpper, OutputVar, InputVar [, T]
+StrLen(String)
+StrPut(string [, encoding]) \nRetrieves the amount of characters (not bytes) that a string copy requires.
+StrPut(string, address [, max] [, encoding]) \nCopies a string to the specified location.
+StrReplace(Haystack, Needle [, ReplaceText, OutputVarCount, Limit])
+StrSplit(String [, Delimiters, OmitChars])
+Style
+Submit
+SubStr(String, StartingPos [, Length])
+Suspend [, On|Off|Toggle|Permit]
+SwitchHandlerForKeys \nBase Class for toggling output when a hotkey is triggered.\n\tType: <Class>\n\tProperties: - isActive := false\n\tExample: class AppWindow_Ctrl_A extends SwitchHandlerForKeys\n
+SysGet, OutputVar, Sub-command [, Param3]
+SysMenu
+Tab
+Tab2
+TabStop
+Tan(Number)
+Text
+Theme
+Thread, Setting, P2 [, P3]
+throw Expression
+Tile
+time
+time_getDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_timeStamp := "", p_showMsg := false)
+time_sendDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_timeStamp := "")
+time_translateDate(p_timeShift, p_timeUnit := "Days", p_format := "yyyyMMddHHmmss", p_appendMilliSeconds := false)
+time_difference(p_date, p_initialDate := "", p_timeUnit := "Days", p_format := "yyyyMMddHHmmss")
+time_differenceInDays(p_date, p_initialDate := "")
+time_differenceInHours(p_date, p_initialDate := "")
+time_differenceInMinutes(p_date, p_initialDate := "")
+time_differenceInSeconds(p_date, p_initialDate := "")
+time_parseDateFormat(p_dateFormat := "yyyyMMddHHmmss_SS", p_timeStamp := "")
+time_parseLoop(p_formatString, p_formatTags := "", p_timeStamp := "")
+timeCalc_getDateWithClipboard(v_daysFromNow := "", v_format := "M/d/yyyy")
+timeCalc_getToday(v_format := "M/d/yyyy")
+timeCalc_getDate(v_daysFromNow := 0, v_format := "M/d/yyyy")
+timeCalc_difference()
+timeCalc_showDateMessage(v_daysFromNow, v_format, v_clipOutput, v_timeOut := 15)
+time_difference(p_date, p_initialDate := "", p_timeUnit := "Days", p_format := "yyyyMMdd_t_hhmmss_SS")
+time_difference(p_date, p_initialDate := "", p_timeUnit := "Days", p_format := "yyyyMMdd_t_hhmmss_SS")\n\tDescr:\tReturns the time difference from the 'p_date' to the 'p_initialDate'.\n\tReturn:\tFORMATTED-DATE\n\tParams:\tINTEGER-DATE\tp_date := YYYYMMDDHH24MISS\n\t\t\tINTEGER-DATE\tp_initialDate := (default := A_Now) || YYYYMMDDHH24MISS\n\t\t\tSTRING\tp_timeUnit\t:=\t(default := "Days")\n\t\t\t\tthis\t["Seconds" | "Minutes" | "Hours" | "Days" ]\n\t\t\t\tor...\t["s" | "m" | "h" | "d"]\n\t\t\tSTRING\tp_format :=\tFORMATTED-DATE\n\t\t\t[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]\n\tRemarks: ____How_to_or_when_is_this_used____\n\n#ClipboardTimeout Milliseconds \nChanges how long the script keeps trying to access the clipboard when the first attempt fails.
+time_differenceInDays(p_date, p_initialDate := "")
+time_differenceInHours(p_date, p_initialDate := "")
+time_differenceInMinutes(p_date, p_initialDate := "")
+time_differenceInSeconds(p_date, p_initialDate := "") 
+time_getDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_date := "", p_showMsg := false)
+time_getDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_date := "", p_showMsg := false)\n\tDescr:\tGets the date in the specified format as a STRING.\n\tReturn:\tSTRING\n\tParams:\tp_dateFormat := STRING \n\t\t\t\tmust use only these characters\n\t\t\t\t(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")\n\t\t\t\t[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]\n\t\t\tp_date := INTEGER-DATE <YYYYMMDDHH24MISS> (default := A_Now)\n\t\t\tp_showMsg := false\n
+time_sendDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_date := "")
+time_sendDate(p_dateFormat := "yyyyMMdd_t_hhmmss_SS", p_date := "")\n\tDescr:\tSends resulting date (STRING) as keyboard strokes, using the specified format.\n\tReturn:\tVOID\n\tParams:\n\t\tp_format := STRING (default := "yyyyMMdd_t_hhmmss_SS")\n\t\t\tmust use only these characters\n\t\t\t(ex: "gg yyyy-MMMM-dddd (HH)|(hh):mm:ss tt")\n\t\t\t[ (no-arg) | "Time" | "ShortDate" | "LongDate" | "YearMonth" | "YDay" | "YDay0" | "WDay" | "YWeek"]\n\t\tp_date := INTEGER-DATE <YYYYMMDDHH24MISS> (default := A_Now)
+time_translateDate(p_timeShift, p_timeUnit := "Days", p_format := "yyyyMMdd_t_hhmmss", p_appendMilliSeconds := false)\n\t; example := 20220604_P_030837\n
+time_translateDate(p_timeShift, p_timeUnit := "Days", p_format := "yyyyMMdd_t_hhmmss", p_appendMilliSeconds := false)\n\tDescr:\tUses [EnvAdd,] command to shift the current date by a given number and unit.\n\tReturn:\tSTRING\t- returns the resulting date-time as a string with the given format.\n\t\t\tExample := 20220604_P_030837\n\tParams:\tINTEGER\tp_timeShift\t:=\t(any positive or negative integer)\n\t\t\tSTRING\tp_timeUnit\t:=\t(default := "Days")\n\t\t\t\tthis\t["Seconds" | "Minutes" | "Hours" | "Days" ]\n\t\t\t\tor...\t["s" | "m" | "h" | "d"]\n\t\t\tSTRING\tp_format \t:=\t(default := "yyyyMMdd_t_hhmmss")
+timeCalc_difference()
+timeCalc_getDate(v_daysFromNow := 0, v_format := "M/d/yyyy")
+timeCalc_getDateWithClipboard(v_daysFromNow := "", v_format := "M/d/yyyy")
+timeCalc_getToday(v_format := "M/d/yyyy")
+timeCalc_showDateMessage(v_daysFromNow, v_format, v_clipOutput, v_timeOut := 15)
+Tip
+ToCodePage
+ToggleCheck
+ToggleEnable
+ToolTip [, Text, X, Y, WhichToolTip]
+ToolWindow
+Top
+Topmost
+TransColor
+Transform, OutputVar, Cmd, Value1 [, Value2]
+Transparent
+Tray
+TrayTip [, Title, Text, Seconds, Options]
+TreeView
+Trim(string [, omitchars := " `t"]) \nTrims characters from the beginning and end of a string.
+true
+try
+TryAgain
+TV_Add(Name, [ParentItemID, Options])
+TV_Delete([ItemID])
+TV_Get(ItemID, "Expand | Check | Bold")
+TV_GetChild(ParentItemID)
+TV_GetCount()
+TV_GetNext([ItemID, "Checked | Full"])
+TV_GetParent(ItemID)
+TV_GetPrev(ItemID)
+TV_GetSelection()
+TV_GetText(OutputVar, ItemID)
+TV_Modify(ItemID [, Options, NewName])
+TV_SetImageList(ImageList [, 0|2])
+Type
+UnCheck
+underline
+Unicode
+Unlock
+until Expression
+Up
+UpDown
+upper
+Uppercase
+URLDownloadToFile , URL, Filename
+UseEnv
+UseErrorLevel
+UseUnsetGlobal
+UseUnsetLocal
+VarSetCapacity(Var [, RequestedCapacity, FillByte])
+Vis
+VisFirst
+Visible
+Volume_Down
+Volume_Mute
+Volume_Up
+VScroll
+Wait
+WaitClose
+WantCtrlA
+WantF2
+WantReturn
+WheelDown
+WheelLeft
+WheelRight
+WheelUp
+while Expression
+WinActivate [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+WinActivateBottom [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+WinActive(["WinTitle", "WinText", "ExcludeTitle", "ExcludeText"])
+WinClose [, WinTitle, WinText, SecondsToWait, ExcludeTitle, ExcludeText]
+WinExist(["WinTitle" , "WinText", "ExcludeTitle", "ExcludeText"])
+WinExist(["WinTitle", "WinText", "ExcludeTitle", "ExcludeText"])\nDesc:\t\tChecks if the specified window exists\nReturns:\tthe unique ID (HWND) of the first matching window.\nExample:\n\tif WinExist("ahk_class Notepad") or WinExist("ahk_class" ClassName)\n\t\tWinActivate ; Use the window found by WinExist.\n\n\tMsgBox % "The active window's ID is " WinExist("A")
+WinGet, OutputVar [, Cmd, WinTitle, WinText, ExcludeTitle, ExcludeText]
+WinGetActiveStats, Title, Width, Height, X, Y
+WinGetActiveTitle, OutputVar
+WinGetClass, OutputVar [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+WinGetPos [, X, Y, Width, Height, WinTitle, WinText, ExcludeTitle, ExcludeText]
+WinGetText, OutputVar [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+WinGetTitle, OutputVar [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+WinHide [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+WinKill [, WinTitle, WinText, SecondsToWait, ExcludeTitle, ExcludeText]
+WinMaximize [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+WinMenuSelectItem , WinTitle, WinText, Menu [, SubMenu1, SubMenu2, SubMenu3, SubMenu4, SubMenu5, SubMenu6, ExcludeTitle, ExcludeText]
+WinMinimize [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+WinMinimizeAll
+WinMinimizeAllUndo
+WinMove, WinTitle, WinText, X, Y [, Width, Height, ExcludeTitle, ExcludeText]
+WinRestore [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+WinSet, AlwaysOnTop|Trans, On|Off|Toggle|Value(0-255) [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+WinSetTitle, WinTitle, WinText, NewTitle [, ExcludeTitle, ExcludeText]
+WinShow [, WinTitle, WinText, ExcludeTitle, ExcludeText]
+WinWait, WinTitle, WinText, Seconds [, ExcludeTitle, ExcludeText]
+WinWaitActive [, WinTitle, WinText, Seconds, ExcludeTitle, ExcludeText]
+WinWaitClose, WinTitle, WinText, Seconds [, ExcludeTitle, ExcludeText]
+WinWaitNotActive [, WinTitle, WinText, Seconds, ExcludeTitle, ExcludeText]
+Wrap
+XButton1
+XButton2
+xdigit
+Yes
