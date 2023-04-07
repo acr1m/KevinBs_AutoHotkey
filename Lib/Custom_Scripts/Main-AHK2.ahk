@@ -35,16 +35,16 @@ SetTitleMatchMode, 2 ;~- 2 = A window's title can contain WinTitle anywhere insi
 ;~ Tray Icons and Commands ;{
 ;##########################################################################
 ;~ set the icon references
-/* ;~ ;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\key-s04-green.ico
- * #Include %A_ScriptDir%\-lib\TrayIconManager-LIB.ahk
- * trayIM := new TrayIconManager()
- * trayIM.iconActive :=	"E:\Assets\Icons\_used-icons\key-s04-green.ico"
- * trayIM.iconSuspended :=	"E:\Assets\Icons\_used-icons\key-s04-blue.ico"
- * trayIM.iconPaused :=	"E:\Assets\Icons\_used-icons\key-s04-yellow.ico"
- * trayIM.iconInactive :=	"E:\Assets\Icons\_used-icons\key-s04-red.ico"
- * ;~ trayIM.start(true) ; shows standard tray-icon menu items
- * trayIM.start()
- */
+;~ ;@Ahk2Exe-SetMainIcon E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-icons\key-s04-green.ico
+#Include %A_ScriptDir%\-lib\TrayIconManager-LIB.ahk
+trayIM := new TrayIconManager()
+trayIM.iconActive :=	A_ScriptDir . "\-icons\key-s04-green.ico"
+trayIM.iconSuspended := A_ScriptDir . "\-icons\key-s04-blue.ico"
+trayIM.iconPaused :=	A_ScriptDir . "\-icons\key-s04-yellow.ico"
+trayIM.iconInactive :=	A_ScriptDir . "\-icons\key-s04-red.ico"
+;~ trayIM.start(true) ; shows standard tray-icon menu items
+trayIM.start()
+
 
 
 ;~ Menu, Tray, Delete , % "Exit"
@@ -169,7 +169,7 @@ main_runHorizScrollingUtility() {
 #Include %A_ScriptDir%\-win\Excel-WIN.ahk
 #Include %A_ScriptDir%\-win\Outlook-WIN.ahk
 ;~ #Include %A_ScriptDir%\-win\SciTE4AutoHotkey-WIN.ahk
-#Include %A_ScriptDir%\-win\FancyZones-WIN.ahk
+;~ #Include %A_ScriptDir%\-win\FancyZones-WIN.ahk
 #Include %A_ScriptDir%\-win\Windows-Explorer-WIN.ahk
 #Include %A_ScriptDir%\-win\PowerRun-WIN.ahk
 #Include %A_ScriptDir%\-win\pwrRun-date01-WIN.ahk
@@ -741,7 +741,7 @@ main_sendIfPressed(p_hotkey := "") {
 	}
 	keyIsDown := GetKeyState(p_hotkey, "P")
 	if (keyIsDown) {
-		Send, {%p_hotkey% down}
+		Send, {Blind}{%p_hotkey% down}
 	}
 	return
 }
@@ -903,31 +903,43 @@ NumpadDiv::
 	numpad0_isDown := GetKeyState("Numpad0", "P") ; checks and returns if physically held down
 
 	if (numpad0_isDown) {
-		Send, {BackSpace}{ASC 251}
+		Send, {BackSpace}{ASC 251} ; Alt+251 = √
 	}
 	else {
 		main_sendIfPressed()
 	}
 	return
+	
 NumpadDiv up::
+{
 	main_sendIfReleased()
 	return
+}
 
 ; outputs a circumflex "^" if Numpad0 is held down when NumpadMult [*] is pressed
 NumpadMult::
+{
+	
 	numpad0_isDown := GetKeyState("Numpad0", "P") ; checks and returns if physically held down
-
 	if (numpad0_isDown) {
+		Send, {BackSpace}{^}
+	}
+	;~ else if (doubleTap(3500)) {
+	else if (A_PriorHotkey = "NumpadMult up" && A_TimeSincePriorHotkey < 350) {
+		;~ main_showTooltip(A_ThisHotkey . " has been double-tapped")
 		Send, {BackSpace}{^}
 	}
 	else {
 		main_sendIfPressed()
 	}
 	return
+}
+
 NumpadMult up::
+{
 	main_sendIfReleased()
 	return
-
+}
 
 ;;██████████████████████████████████████████████████████████████████████████████
 ;~ Greek Letters

@@ -8,5 +8,13 @@
 
 run_AsAdmin(,false) ;; 2nd param <Boolean> controls output of msg box.
 
-^+!a::Run, "E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Main-AHK.exe"
+; alt + ctrl + shift + a → Run Main-AHK2.exe
+!^+a::
+{
+	;~ Run, "E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Main-AHK.exe"
+	Run, "E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\Main-AHK2.exe"
+	return
+}
+
+
 ;; ^+!a::run_AsAdmin("E:\Assets\Windows 10 Settings\Custom Toolbars\AHK-Scripts\Main-AHK.exe - Shortcut.lnk", true)
