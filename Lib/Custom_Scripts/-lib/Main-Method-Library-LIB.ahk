@@ -232,7 +232,7 @@
 
 	/*!
 		Function: doubleTap()
-			Checks if user hit the triggered hotkey recently (within a given time
+			Checks if A_ThisHotkey has been double-tapped. More explicitly, checks if the time interval between prior hotkey (A_PriorHotkey) and this hotkey (A_ThisHotkey) is within the tapped  user hit the triggered hotkey recently (within a given time
 				limit).
 		Returns: BOOLEAN
 		Params: p_timeLimit :=	INTEGER|FLOAT (default := g_DOUBLE_TAP_LIMIT | 350)
@@ -245,10 +245,12 @@
 		if(p_timeLimit != -1) {
 			;; If p_timeLimit is not -1, then the argument exists, so we let it stand.
 		}
-		;; We can't let the p_timeLimit be (0 | false | 1 | true), because
+		;; We can't let the p_timeLimit be 0 or 1 (false or true) because
 		;; it's impracticle and nearly impossible. So we'll re-assign to a global
 		;; default value if it exists.
 		else if (p_timeLimit == 0 || p_timeLimit == -1) {
+			; if this global variable is not defined, does not exist, or is not positive
+			; then assign the time interval requirement to 350 milliseconds. 
 			if (g_DOUBLE_TAP_LIMIT <= 0)
 				p_timeLimit := 350
 			else
