@@ -32,10 +32,11 @@ global G_NUMBER_OF_ROWS := 3 ; should be an integer from 1 to 12
 global G_NUMBER_OF_COLUMNS := 2 ; should be an integer from 1 to 12
 ; ------------------------------------------------------------------------------
 
-Pause::
+^CtrlBreak::
 {
-    MsgBox, % A_ThisHotkey . " key was pressed. Exiting Application."
+    MsgBox, % "[" . A_ThisHotkey . "] key was pressed. `n`nExiting Application: " . A_ScriptName . "."
     ExitApp
+    return
 }
 
 ; If this window is active...

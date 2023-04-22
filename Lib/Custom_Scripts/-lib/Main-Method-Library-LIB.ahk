@@ -505,11 +505,17 @@
 		;for each coordinate argument of parameter, perform a click
 			;event at the pos relative to dimensions of active client
 		for, i, i_elem in p_coordAsPercent {
-			MsgBox, %i_elem%`, %p_coordAsPercent% `, %i_elem%
-
+			;~ MsgBox, %i_elem%`, %p_coordAsPercent% `, %i_elem%
+			outStr :=  i_elem . ", " . p_coordAsPercent . ", " . i_elem
+			main_showTooltip(outStr)
+			
 			xPercentToPos := i_elem.x * v_clientWidth
 			yPercentToPos := i_elem.y * v_clientHeight
-			MsgBox, %xPercentToPos%`, %yPercentToPos%
+			
+			;~ MsgBox, %xPercentToPos%`, %yPercentToPos%
+			outStr .= "`n" . xPercentToPos . ", "  . yPercentToPos
+			main_showTooltip(outStr)
+			
 			Click, %xPercentToPos%, %yPercentToPos%
 			Sleep, %p_clickDelay%
 		}
