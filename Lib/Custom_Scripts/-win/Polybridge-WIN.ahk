@@ -1,93 +1,164 @@
 #SingleInstance Force
 #InstallKeybdHook
 #InstallMouseHook
-#Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-Main-Method-Library.ahk
+
+#Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\Main-Method-Library-LIB.ahk
+;~ #Include E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\Main-Method-Library-LIB.ahk
+
+;;~ set the icon references
+;@Ahk2Exe-SetMainIcon E:\Assets\Icons\_used-icons\up-down-scroll.ico
+
+#Include %A_MyDocuments%\AutoHotkey\Lib\Custom_Scripts\-lib\TrayIconManager-LIB.ahk
+;~ #Include %A_ScriptDir%\..\-lib\TrayIconManager-LIB.ahk
+trayIM := new TrayIconManager()
+trayIM.iconActive :=    A_ScriptDir . "\..\-icons\polyBridge-icon-default.ico"
+trayIM.iconSuspended := A_ScriptDir . "\..\-icons\polyBridge-icon-suspended.ico"
+trayIM.iconPaused :=    A_ScriptDir . "\..\-icons\polyBridge-icon-paused.ico"
+trayIM.iconInactive :=  A_ScriptDir . "\..\-icons\polyBridge-icon-stopped.ico"
+trayIM.start()
+
+;~ Clipboard :=  A_MyDocuments . "\AutoHotkey\Lib\Custom_Scripts\-lib\Main-Method-Library-LIB.ahk"
+;~ E:\Library\OneDrive\Documents\AutoHotkey\Lib\Custom_Scripts\-lib\Main-Method-Library-LIB.ahk
+
+;~ #Include E:\Assets\Scripts\AutoHotkey\Custom Scripts\AHK-Main-Method-Library.ahk
 
 global g_PolyBridge_UndoRedoInterval := 10
 
 #IfWinActive Poly Bridge ahk_class UnityWndClass ahk_exe polybridge.exe
-Menu, Tray, Icon, E:\Assets\Icons\2021-12-07_18-58-57-669_explorer_GsROHzIJNG.jpg
 
-;✔ TODO - make hotkeys for the tracing tool commands
-;✔ TODO - figure out how to get percentage of mousePos relative to client window
-;✔ TODO - make a method for handling mouse events
-;✔		➥ method should save current mouse position,
-;✔		➥ then, send a variadic series of click events at x,y position,
-;✔		➥ then, restore saved mouse position.
 
-;========================================================================
-;TRACING TOOL
-;------------------------------------------------------------------------
-;mouse button 5 (forward button)
-XButton2::7 ;tracing tool
+; mouse button 5 (forward button)
+; Tracing Tool
+t::
+XButton2::
+{
+	; sends the key [7]
+	Send, 7
+	return
+}
 
-;~ bucket fill
+; Bucket Fill
 +f::mouseEvent(,{x: 0.741835, y: 0.921228})
-; line type 1
+; Line Type 1
 Numpad1::mouseEvent(, {x: 0.909020, y: 0.921228}, {x: 0.911353, y: 0.837116})
-;line type 2
+; Line Type 2
 Numpad2::mouseEvent(, {x: 0.909020, y: 0.921228},{x: 0.911353, y: 0.757009})
-;line type 3
+; Line Type 3
 Numpad3::mouseEvent(, {x: 0.909020, y: 0.921228},{x: 0.911353, y: 0.666222})
-;line type 4
+; Line Type 4
 Numpad4::mouseEvent(, {x: 0.909020, y: 0.921228},{x: 0.911353, y: 0.591455})
 
 
 ;------------------------------------------------------------------------
+; Pause
+q::p
+; Increase Playback Speed
+w::,
+; Decrease Playback Speed
+e::.
 
-q::p ;pause
-w::, ;increase playback speed
-e::. ;decrease playback speed
-Tab::t
-t::7 
+; Open Settings Menu
+Tab::
+{
+	Send, Esc
+	mPos := {x: (30 / 1920), y: (215/1080)}
+	main_tooltipShowVar(mPos)
+	;~ mouseEvent(, {x: (30 / 1920), y: (215/1080)})
+	mouseEvent(, mPos)
+	return
+}
 
-;toggle simulation
+; Press [r] to run simulation
 r::Space
 
-;pause
+; Press [spacebar] to pause/unpause simulation
 $Space::p
 
-;mouse button 4 (back button)
-XButton1::a ;tool wheel
+; Mouse Button 4 (Back Button)
+; Tool Wheel
+XButton1::a
 
-
+; Middle Mouse Button
 MButton::
-	Send, {Click, down}
+{
+	Send, {Click down}
 	KeyWait, MButton
-	Send, {Click, up}
+	Send, {Click up}
 	return
+}
 
 ;remap primary mouse button to include 
 	;the left shift key, allowing for automatic
 	;dragging of joints.
-LButton::
-	if (doubleTap(150)){
+$LButton::
+{
+	if (doubleTap(150)) {
+		main_showTooltip(A_ThisHotkey . " doubleTapped")
 		Send, {Click, 2}
 	}
 	else {
+		
+	;
+		main_showTooltip(A_ThisHotkey . " regular")
+		
 		;~ timeA := A_TickCount
 		Send, {Click, down}
-		KeyWait, LButton, T0.1
+		
+		; wait for left mouse button to be released ---------
+		KeyWait, LButton, T 0.1
+		
+		; if successfully released, ErrorLevel will be value 0
 		if (ErrorLevel == 0)
+		{KeyWait, z, T 0.25 ; wait for z to be released
+			main_showTooltip(A_ThisHotkey . " ErrorLevel == 0, successfully released")
 			Send, {Click, up}
-		else if (ErrorLevel == 1){
+		}
+		; if not successfully released,
+		;  implying that left mouse button 
+		;  is held down by user
+		;  or
+		;  a failure of some other kind
+		else if (ErrorLevel == 1)
+		{
+			main_showTooltip(A_ThisHotkey . " ErrorLevel == 0, successfully released")
+			
+			; resend left-mouse with Shift modifier held down
 			Send, {Click, up}
 			Send, {ShiftDown}{Click, down}
+			
+			; wait for left-mouse to be released --------------
 			KeyWait LButton
-			Send, {ShiftUp}{Click, Up}
+			
+			Send, {ShiftUp}{Click, up}
 		}
+		
 	}
 	return
+}
 
+; Press [z] to Undo (Hold to Repeat)
 z::
+{
 	Send, z
-	Sleep, 250
-	rapidFire(,"z", g_PolyBridge_UndoRedoInterval)
+	KeyWait, z, T 0.25 ; wait for key to be released
+	if (!ErrorLevel)
+	{
+		rapidFire(,"z", g_PolyBridge_UndoRedoInterval)
+	}
+	else
+	{
+		
+	}
 	return
+}
+
+; Press [y] or [Shift]+[y] to Redo (Hold to Repeat)
 +z::
 y::
+{
 	Send, y
-	Sleep, 250
+	KeyWait, y, T 0.25 ; wait for key to be released
 	rapidFire(,"y", g_PolyBridge_UndoRedoInterval)
 	return
+}
 	

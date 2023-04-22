@@ -15,37 +15,39 @@
  * 		p_pressDuration := -1
  * 
  * Description
- * 	repeatKey() method sends a single hotkey over and over again
+ * 	The repeatKey() method (and other similar methods in this document)
+ *  are intended to modernize and simplify the Send command of multiple key-events
+ *  along with their modifiers.
  */
-repeatKey(p_key := "KeyName", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1){
+repeatKey(p_key := "KeyName", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1){ 
 	SetKeyDelay, %p_delayAmount%, %p_pressDuration%
 	;~ MsgBox, % p_key
 	;~ Send, {p_key p_keyPressAmount}
 	Send, {%p_key% %p_keyPressAmount%}
 	return
 }
-repeatShiftKey(p_key := "KeyName", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1){
+repeatShiftKey(p_key := "KeyName", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1) {
 	SetKeyDelay, %p_delayAmount%, %p_pressDuration%
 	;~ MsgBox, % p_key
 	;~ Send, +{p_key p_keyPressAmount}
 	Send, +{%p_key% %p_keyPressAmount%}
 	return
 }
-repeatCtrlKey(p_key := "KeyName", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1){
+repeatCtrlKey(p_key := "KeyName", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1) {
 	SetKeyDelay, %p_delayAmount%, %p_pressDuration%
 	;~ MsgBox, % p_key
 	;~ Send, +{p_key p_keyPressAmount}
 	Send, ^{%p_key% %p_keyPressAmount%}
 	return
 }
-repeatAltKey(p_key := "KeyName", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1){
+repeatAltKey(p_key := "KeyName", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1) {
 	SetKeyDelay, %p_delayAmount%, %p_pressDuration%
 	;~ MsgBox, % p_key
 	;~ Send, +{p_key p_keyPressAmount}
 	Send, !{%p_key% %p_keyPressAmount%}
 	return
 }
-repeatCtrlShiftKey(p_key := "KeyName", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1){
+repeatCtrlShiftKey(p_key := "KeyName", p_keyPressAmount := 1, p_delayAmount := -1, p_pressDuration := -1) {
 	SetKeyDelay, %p_delayAmount%, %p_pressDuration%
 	;~ MsgBox, % p_key
 	;~ Send, +{p_key p_keyPressAmount}

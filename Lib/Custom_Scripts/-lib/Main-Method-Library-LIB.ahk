@@ -328,8 +328,8 @@
 
 		if (p_time == 0)
 			p_time := g_TIME_INTERVAL_RAPIDFIRE
+		
 		while (GetKeyState(p_thisHotkey, "P")) {
-			;~ MsgBox % GetKeyName(p_sendKey)
 			Send % GetKeyName(p_sendKey)
 			Sleep, p_time
 		}
